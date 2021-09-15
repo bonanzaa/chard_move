@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5742789046877155659}
   - component: {fileID: 5742789046877155656}
-  - component: {fileID: 5742789046877155658}
+  - component: {fileID: 4035939645543150977}
   m_Layer: 0
   m_Name: Roadblock
   m_TagString: Untagged
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -5137505262064535012, guid: 8fa2f500389edb440a29eee8a935cb66, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5742789046877155658
+--- !u!114 &4035939645543150977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5742789046877155657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e90bc4f1a0384d4fa4a7e818ba7c5d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 26709cc9ec12edd438fa6673a4bb8f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TileType: 1

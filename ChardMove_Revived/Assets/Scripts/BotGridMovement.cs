@@ -10,12 +10,16 @@ namespace ChardMove.BotMovement
         public float moveSpeed = 5f;
 
         private bool _canMove = true;
+        private IEnumerator walkingCoroutine;
+
+
         public void Move(MovementDirection direction, int steps){
             var moveCheck = CanMove(direction);
             var canMove = moveCheck.Item1;
             var target = moveCheck.Item2;
             if(canMove){
-                StartCoroutine(MoveToNextTile(direction,steps, target));
+                walkingCoroutine = MoveToNextTile(direction,steps,target);
+                StartCoroutine(walkingCoroutine);
             }else{
                 print($"I cannot move {direction.ToString()}...");
             }
@@ -33,6 +37,19 @@ namespace ChardMove.BotMovement
                     }
                     yield return null;
                 }
+                var stepsLeft = steps - (i+1);
+
+                if(stepsLeft!=0){
+                    var canMove = CanMove(direction);
+                    var canMoveBool = canMove.Item1;
+                    var nextTarget = canMove.Item2;
+                    if(!canMoveBool){
+                        yield break;
+                    }else{
+                        target = nextTarget;
+                    }
+                }
+
                 yield return null;
             }
             _canMove = true;
@@ -88,7 +105,7 @@ namespace ChardMove.BotMovement
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
 
-                StopCoroutine("MoveToNextTile");
+                StopCoroutine(walkingCoroutine);
                 StartCoroutine(MoveToDeath(MovementDirection.Forward,nextTilePos));
                 return (false, nextTilePos);
             }
@@ -107,7 +124,7 @@ namespace ChardMove.BotMovement
             }else if(!walkable && !playerDead){
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
-                StopCoroutine("MoveToNextTile");
+                StopCoroutine(walkingCoroutine);
                 StartCoroutine(MoveToDeath(MovementDirection.Left,nextTilePos));
                 return (false, nextTilePos);
             }
@@ -125,7 +142,7 @@ namespace ChardMove.BotMovement
             }else if(!walkable && !playerDead){
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
-                StopCoroutine("MoveToNextTile");
+                StopCoroutine(walkingCoroutine);
                 StartCoroutine(MoveToDeath(MovementDirection.Right,nextTilePos));
                 return (false, nextTilePos);
             }
@@ -143,7 +160,7 @@ namespace ChardMove.BotMovement
             }else if(!walkable && !playerDead){
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
-                StopCoroutine("MoveToNextTile");
+                StopCoroutine(walkingCoroutine);
                 StartCoroutine(MoveToDeath(MovementDirection.Backward,nextTilePos));
                 return (false, nextTilePos);
             }
