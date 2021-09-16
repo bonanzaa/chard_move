@@ -34,6 +34,12 @@ namespace ChardMove
             }
         }
 
+        private void OnTriggerExit2D(Collider2D other) {
+            if(other.CompareTag("Bot")){
+                _currentBot = null;
+            }
+        }
+
         private IEnumerator StartMovement(){
             Vector2 targetCellPos = DirectionSwitch();
             while((Vector2)transform.position != targetCellPos){
