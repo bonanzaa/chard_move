@@ -16,6 +16,7 @@ namespace ChardMove
 
         private Vector2 _originalPos;
         private MovementDirection _oppositeDirection;
+        private MovementDirection _originalDirection;
         private GameObject _currentBot;
 
         private void Awake() {

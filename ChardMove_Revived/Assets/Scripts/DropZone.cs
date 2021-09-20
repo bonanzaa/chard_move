@@ -18,7 +18,6 @@ namespace ChardMove
         private void Awake() {
             _canvas.worldCamera = Camera.main;
         }
-
         public void OnPointerEnter(PointerEventData data){
             Highlight.SetActive(true);
         }
