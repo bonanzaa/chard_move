@@ -7,12 +7,12 @@ namespace ChardMove.Assets.Scripts.Menus
 {
     class MainMenuManager : MonoBehaviour
     {
-        private void StartButtonPressed()
+        public void StartButtonPressed()
         {
             // continue last played level
         }
 
-        private void QuitButtonPressed()
+        public void QuitButtonPressed()
         {
             Application.Quit();
         }
