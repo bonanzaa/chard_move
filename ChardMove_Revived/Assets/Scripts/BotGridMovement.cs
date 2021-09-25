@@ -7,7 +7,7 @@ namespace ChardMove.BotMovement
 {
     public class BotGridMovement : MonoBehaviour
     {
-        public float moveSpeed = 5f;
+        [SerializeField] private float moveSpeed = 5f;
 
         private bool _canMove = true;
         private IEnumerator walkingCoroutine;
@@ -17,8 +17,6 @@ namespace ChardMove.BotMovement
 
 
         public void Move(MovementDirection direction, int steps){
-            // the event, indicating start of the movement for a bot
-            botMoved();
             var moveCheck = CanMove(direction);
             var canMove = moveCheck.Item1;
             var target = moveCheck.Item2;
@@ -37,6 +35,9 @@ namespace ChardMove.BotMovement
                 while(true){
                     MoveTowards(target);
                     if((Vector2)transform.position == target){
+                        if(i+1 == steps){
+                            break;
+                        }
                         yield return new WaitForSeconds(0.5f);
                         break;
                     }
@@ -49,10 +50,16 @@ namespace ChardMove.BotMovement
                     var canMoveBool = canMove.Item1;
                     var nextTarget = canMove.Item2;
                     if(!canMoveBool){
+                        // the event, indicating end of the movement for a bot.
+                        // Time to update gamestate!
+                        botMoved();
                         yield break;
                     }else{
                         target = nextTarget;
                     }
+                }else{
+                    // gets called in case we only move 1 tile
+                    botMoved();
                 }
 
                 yield return null;

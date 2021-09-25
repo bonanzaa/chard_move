@@ -30,13 +30,36 @@ namespace ChardMove.gameManager
                 return (true,true);
             }
         }
-
         public TileType GetTileType(Vector2 pos){
             if(TileDB.TryGetValue(pos,out Tile value)){
                 return value.TileType;
             }else{
                 return TileType.Death;
             }
+        }
+        public Tile GetTile(Vector2 pos){
+            if(TileDB.TryGetValue(pos, out Tile tile)){
+                return tile;
+            }else{
+                return null;
+            }
+        }
+
+        public void AddToTileDB(Vector2 pos, Tile tile, Vector2 previousPos){
+            if(TileDB.TryGetValue(pos, out Tile _tile)){
+                RemoveFromDB(pos);
+                AddToDB(pos, tile);
+            }else{
+                AddToDB(pos, tile);
+            }
+        }
+
+        private void AddToDB(Vector2 pos, Tile tile){
+            TileDB.Add(pos,tile);
+        }
+
+        private void RemoveFromDB(Vector2 pos){
+            TileDB.Remove(pos);
         }
     }
 
