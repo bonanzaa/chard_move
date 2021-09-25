@@ -4,11 +4,16 @@ using UnityEngine;
 
 namespace ChardMove
 {
-    public class MomentarySwitch : MonoBehaviour
+    public class MomentarySwitch : MonoBehaviour, SwitchBase
     {
         public List<Roadblock> Gates;
+        public bool isTarget = false;
+
+        public void SetTarget(){
+            isTarget = true;
+        }
         private void OnTriggerEnter2D(Collider2D other) {
-            if(other.CompareTag("Bot")){
+            if(other.CompareTag("Bot") && isTarget){
                 foreach (var gate in Gates)
                 {
                     gate.Activate();

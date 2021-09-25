@@ -7,8 +7,10 @@ namespace ChardMove
 {
     public class Roadblock : Tile
     {
+        public bool IsActive = false;
         public void Activate(){
             TileType = TileType.Walkable;
+            IsActive = true;
             StartCoroutine(ActivationAnimation());
         }
 
@@ -34,6 +36,7 @@ namespace ChardMove
 
         public void Deactivate(){
             TileType = TileType.Unwalkable;
+            IsActive = false;
             StartCoroutine(DeactivationAnimation());
         }
 

@@ -28,13 +28,16 @@ namespace ChardMove
             }
         }
 
-
         private void Awake() {
             BotGridMovement.botMoved += OnBotMoved;
         }
 
         public void Activate(){
             Active = true;
+        }
+
+        public void Deactivate(){
+            Active = false;
         }
 
         private void OnBotMoved(){

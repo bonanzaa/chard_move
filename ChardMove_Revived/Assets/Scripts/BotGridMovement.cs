@@ -20,12 +20,46 @@ namespace ChardMove.BotMovement
             var moveCheck = CanMove(direction);
             var canMove = moveCheck.Item1;
             var target = moveCheck.Item2;
+            CalculateTargetPosAndFindASwitch(direction,steps);
             if(canMove){
                 walkingCoroutine = MoveToNextTile(direction,steps,target);
                 StartCoroutine(walkingCoroutine);
             }else{
                 print($"I cannot move {direction.ToString()}...");
             }
+        }
+
+        private void TryToFindSwitch(Vector2 pos){
+            Tile targetTile = GameManager.Instance.GetTile(pos);
+            if(targetTile.gameObject.TryGetComponent(out SwitchBase component)){
+                component.SetTarget();
+            }
+        }
+
+        private void CalculateTargetPosAndFindASwitch(MovementDirection direction, int distance){
+            Vector2 target = new Vector2();
+            switch(direction){
+                case(MovementDirection.Forward):
+                target =  new Vector2(transform.position.x + 0.5f*distance, transform.position.y + 0.25f*distance);
+                break;
+
+                case(MovementDirection.Backward):
+                target =  new Vector2(transform.position.x - 0.5f*distance, transform.position.y - 0.25f*distance);
+                break;
+                
+                case(MovementDirection.Left):
+                target =  new Vector2(transform.position.x - 0.5f*distance, transform.position.y + 0.25f*distance);
+                break;
+
+                case(MovementDirection.Right):
+                target =  new Vector2(transform.position.x + 0.5f*distance, transform.position.y - 0.25f*distance);
+                break;
+
+                default:
+                break;
+            }
+
+            TryToFindSwitch(target);
         }
 
         private IEnumerator MoveToNextTile(MovementDirection direction, int steps, Vector2 target){
