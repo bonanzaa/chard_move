@@ -12,8 +12,13 @@ namespace ChardMove.BotMovement
         private bool _canMove = true;
         private IEnumerator walkingCoroutine;
 
+        public delegate void BotMoved();
+        public static event BotMoved botMoved;
+
 
         public void Move(MovementDirection direction, int steps){
+            // the event, indicating start of the movement for a bot
+            botMoved();
             var moveCheck = CanMove(direction);
             var canMove = moveCheck.Item1;
             var target = moveCheck.Item2;

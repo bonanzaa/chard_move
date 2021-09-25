@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChardMove.gameManager;
+using ChardMove.BotMovement;
 
 namespace ChardMove
 {
@@ -21,6 +22,7 @@ namespace ChardMove
 
         private void Awake() {
             _originalPos = new Vector2(transform.position.x, transform.position.y);
+            BotGridMovement.botMoved += OnBotMoved;
         }
 
         public void Activate(){
@@ -65,6 +67,10 @@ namespace ChardMove
                 _currentBot.transform.position = Vector2.MoveTowards(transform.position, target, Speed * Time.deltaTime);
             }
             transform.position = new Vector3(newPos.x,newPos.y,transform.position.z);
+        }
+
+        public void OnBotMoved(){
+            print("Bot has moved");
         }
 
         private Vector2 DirectionSwitch(){
