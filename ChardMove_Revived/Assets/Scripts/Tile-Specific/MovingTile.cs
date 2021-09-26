@@ -104,6 +104,7 @@ namespace ChardMove
                 yield return null;
             }
             _currentBot = null;
+            GameManager.Instance.AddToTileDB(transform.position,this,_lastPosition);
             ChangeDirection();
         }
 
