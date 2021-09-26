@@ -15,6 +15,7 @@ namespace ChardMove
         public GameObject DirectionChoiceMenu;
         private MovementDirection _direction = MovementDirection.None;
         private int _distance;
+        private int _goSiblingIndex;
         private void Awake() {
             _canvas.worldCamera = Camera.main;
         }
@@ -29,8 +30,10 @@ namespace ChardMove
             //GameManager.Instance.PlayerCards.Remove(draggable);
             //Destroy(data.pointerDrag.gameObject);
             draggable.ChangeParent();
+            int goSiblingIndex = data.pointerDrag.gameObject.transform.GetSiblingIndex();
             data.pointerDrag.gameObject.SetActive(false);
-            draggable.transform.SetSiblingIndex(draggable.gameObject.transform.GetSiblingIndex());
+            print($"Resetting sibling index for the card. New sibling index is: {goSiblingIndex} ");
+            draggable.transform.SetSiblingIndex(goSiblingIndex);
             DirectionChoiceMenu.SetActive(true);
             StartCoroutine(WaitForDirection());
             

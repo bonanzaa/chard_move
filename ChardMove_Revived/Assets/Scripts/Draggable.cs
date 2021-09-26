@@ -52,6 +52,7 @@ namespace ChardMove
         }
         public void ChangeParent() {
             transform.SetParent(_originalParent);
+            transform.SetSiblingIndex(_originalSiblingIndex);
             BigIcon.SetActive(true);
             SmallIcon.SetActive(false);
             GetComponent<CanvasGroup>().blocksRaycasts = true;
