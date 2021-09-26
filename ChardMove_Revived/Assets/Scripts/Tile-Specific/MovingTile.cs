@@ -85,6 +85,7 @@ namespace ChardMove
         }
 
         private void OnBotMoved(){
+            if(!Active) return;
             StartCoroutine(Move());
         }
 
