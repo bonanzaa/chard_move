@@ -14,6 +14,7 @@ namespace ChardMove.gameManager
         public static GameManager Instance;
         public Draggable LastCardPlayed;
         public Dictionary<Vector2,Tile> TileDB =  new Dictionary<Vector2, Tile>();
+        public Dictionary<Vector2,(IPushable,GameObject)> PushableDB = new Dictionary<Vector2, (IPushable,GameObject)>();
         public List<Draggable> PlayerCards = new List<Draggable>();
         public delegate void ResetButtonPressed();
         public static event ResetButtonPressed resetButtonPressed;
@@ -78,12 +79,38 @@ namespace ChardMove.gameManager
             }
         }
 
+        public void ClearDictionaries(){
+            TileDB.Clear();
+            PushableDB.Clear();
+        }
+
         public void AddToTileDB(Vector2 pos, Tile tile, Vector2 previousPos){
-            if(TileDB.TryGetValue(pos, out Tile _tile)){
-                RemoveFromDB(pos);
+            if(TileDB.TryGetValue(previousPos, out Tile _tile)){
+                RemoveFromDB(previousPos);
                 AddToDB(pos, tile);
             }else{
                 AddToDB(pos, tile);
+            }
+        }
+
+        public void AddToPushableDB(Vector2 pos, IPushable value, GameObject gameObject, Vector2 previousPos){
+            if(PushableDB.TryGetValue(previousPos,out var _value)){
+                var pushableValue = _value.Item1;
+                var pushableGO = _value.Item2;
+                PushableDB.Remove(previousPos);
+                PushableDB.Add(pos,(value,gameObject));
+            }else{
+                PushableDB.Add(pos,(value,gameObject));
+            }
+        }
+
+        public GameObject GetPushableGO(Vector2 pos){
+            if(PushableDB.TryGetValue(pos, out var _value)){
+                var pushable = _value.Item1;
+                var pushableGO = _value.Item2;
+                return pushableGO;
+            }else{
+                return null;
             }
         }
 

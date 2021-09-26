@@ -24,7 +24,7 @@ namespace ChardMove
             StartCoroutine(ActivationAnimation());
         }
 
-        private void OnBotStartedMoving(){
+        private void OnBotStartedMoving(MovementDirection direction, int steps){
             _lastIsActive = IsActive;
         }
 
