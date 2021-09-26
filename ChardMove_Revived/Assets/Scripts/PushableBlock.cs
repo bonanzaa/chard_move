@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ChardMove.BotMovement;
 using ChardMove.gameManager;
+using System.Linq;
 
 namespace ChardMove
 {
@@ -23,6 +24,9 @@ namespace ChardMove
         public override void Start() {
             Vector2 myPos = new Vector2(transform.position.x,transform.position.y);
             GameManager.Instance.AddToPushableDB(myPos,this,this.gameObject,_lastPosition);
+            if(GameManager.Instance.PushableDB.TryGetValue(myPos,out var _value)){
+               var myKey = GameManager.Instance.PushableDB.FirstOrDefault(x => x.Value == (this,this.gameObject)).Key;
+            }
         }
 
         private void OnDisable() {
@@ -35,10 +39,7 @@ namespace ChardMove
             if(_transformIntoTile){
                 GameManager.Instance.RemoveFromDB(pos);
             }
-            foreach (var item in GameManager.Instance.TileDB)
-            {
-                //print("TileDB key: " + item.Key);
-            }
+
             GameManager.Instance.PushableDB.Clear();
             Destroy(this.gameObject);
         }
@@ -47,7 +48,6 @@ namespace ChardMove
             if(_transformIntoTile) return;
             _moveSpeed = moveSpeed;
             Vector2 targetTile = TargetTilePosition(direction);
-            CheckTargetTileType(direction);
             if(CheckTargetTileType(direction)){
                 StartCoroutine(MoveToNextTile(direction, targetTile));
             }else{
@@ -130,15 +130,15 @@ namespace ChardMove
                 break;
 
                 case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.125f);
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.375f);
                 break;
 
                 case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.125f);
+                target =  new Vector2(transform.position.x - 0.125f, transform.position.y + 0.5f);
                 break;
 
                 case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.125f);
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.375f);
                 break;
             }
             TileType tileType = GameManager.Instance.GetTileType(target);

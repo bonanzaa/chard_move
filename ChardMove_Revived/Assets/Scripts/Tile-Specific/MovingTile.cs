@@ -76,10 +76,12 @@ namespace ChardMove
         }
 
         private void OnUndoButtonPressed(){
+            GameManager.Instance.RemoveFromDB(transform.position);
             transform.position = _lastPosition;
             CurrentStep = _lastStep;
             Direction = _lastDirection;
             Active = _lastIsActive;
+            CheckPath();
         }
 
         public void Activate(){
@@ -149,28 +151,15 @@ namespace ChardMove
                 return target;
 
                 case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f*Distance, transform.position.y + 0.25f*Distance);
+                target =  new Vector2(transform.position.x - 0.25f*Distance, transform.position.y + 0.5f*Distance);
                 return target;
 
                 case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f*Distance, transform.position.y - 0.25f*Distance);
+                target =  new Vector2(transform.position.x + 0.25f*Distance, transform.position.y - 0.5f*Distance);
                 return target;
 
                 default:
                 return Vector2.zero;
-            }
-        }
-
-        private void Update() {
-            if(Input.GetKeyDown(KeyCode.A)){
-                Vector2 pos = new Vector2(0.0f,-3.1f);
-                TileType tileType = GameManager.Instance.GetTileType(pos);
-                print(tileType);
-            }
-            if(Input.GetKeyDown(KeyCode.S)){
-                print(phantomRoadblockPos);
-                GameManager.Instance.RemoveFromDB(phantomRoadblockPos);
-                ChangeDirection();
             }
         }
 
@@ -214,9 +203,35 @@ namespace ChardMove
                 break;
 
                 case(MovementDirection.Left):
+                for (int i = 1; i < Distance+1; i++)
+                {
+                    target =  new Vector2(transform.position.x - 0.5f*i, transform.position.y + 0.25f*i);
+                    tileType = GameManager.Instance.GetTileType(target);
+                    if(tileType == TileType.Death){
+                        _targetPosition = target;
+                        lastTarget = target;
+                    }else{
+                        _targetPosition = lastTarget;
+                        break;
+                    }
+                    _targetPosition = target;
+                }
                 break;
 
                 case(MovementDirection.Right):
+                for (int i = 1; i < Distance+1; i++)
+                {
+                    target =  new Vector2(transform.position.x + 0.5f*i, transform.position.y - 0.25f*i);
+                    tileType = GameManager.Instance.GetTileType(target);
+                    if(tileType == TileType.Death){
+                        _targetPosition = target;
+                        lastTarget = target;
+                    }else{
+                        _targetPosition = lastTarget;
+                        break;
+                    }
+                    _targetPosition = target;
+                }
                 break;
             }
         }

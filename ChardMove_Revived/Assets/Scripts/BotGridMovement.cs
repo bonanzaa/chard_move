@@ -72,13 +72,14 @@ namespace ChardMove.BotMovement
 
         private void FindPushableBlock(MovementDirection direction){
             Vector2 target = new Vector2();
+            
             switch(direction){
                 case(MovementDirection.Forward):
                 target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.375f);
                 break;
 
                 case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.375f);
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.125f);
                 break;
                 
                 case(MovementDirection.Left):
@@ -86,14 +87,16 @@ namespace ChardMove.BotMovement
                 break;
 
                 case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.375f);
+                target =  new Vector2(transform.position.x + 0.5f,transform.position.y - 0.125f);
                 break;
 
                 default:
                 break;
             }
             GameObject pushableGO = GameManager.Instance.GetPushableGO(target);
-            if(pushableGO == null) return;
+            if(pushableGO == null){
+                return;
+            } 
             if(pushableGO.TryGetComponent(out PushableBlock component)){
                 component.Push(direction,moveSpeed);
             }
