@@ -23,8 +23,8 @@ namespace ChardMove
             DistanceText.text = Distance.ToString();
             SmallIconText.text = Distance.ToString();
         }
-
         private void Start() {
+            // add ourselves to the TileTB;
             GameManager.Instance.AddMeToCardList(this);
             
         }
@@ -37,13 +37,11 @@ namespace ChardMove
             GetComponent<CanvasGroup>().blocksRaycasts = false;
             transform.localScale = new Vector3(0.8f,0.8f,0.8f);
         }
-
         public void OnDrag(PointerEventData data){
             Vector3 position = data.position;
             position.z = _canvas.planeDistance;
             transform.position = _canvas.worldCamera.ScreenToWorldPoint(position);
         }
-
         public void OnEndDrag(PointerEventData data){
             transform.SetParent(_originalParent);
             transform.SetSiblingIndex(_originalSiblingIndex);
@@ -52,7 +50,6 @@ namespace ChardMove
             GetComponent<CanvasGroup>().blocksRaycasts = true;
             transform.localScale = new Vector3(1,1,1);
         }
-
         public void ChangeParent() {
             transform.SetParent(_originalParent);
             BigIcon.SetActive(true);

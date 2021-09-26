@@ -23,34 +23,21 @@ namespace ChardMove.gameManager
 
         private void Awake() {
             Instance = this;
-            BotGridMovement.botMoved += OnBotMoved;
         }
 
         private void Start() {
             _originalPlayerCards = PlayerCards;
         }
-
-
-        private void OnBotMoved(){
-            SaveTheProgress();
-        }
-
-        private void SaveTheProgress(){
-            
-        }
-
         public void Reset(){
             resetButtonPressed();
             ResetPlayerCards();
         }
-
         private void ResetPlayerCards(){
             foreach (var item in PlayerCards)
             {
                 item.gameObject.SetActive(true);
             }
         }
-
         public void Undo(){
             undoButtonPressed();
         }
