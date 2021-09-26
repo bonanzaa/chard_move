@@ -9,16 +9,16 @@ namespace ChardMove.BotMovement
     {
         [SerializeField] private float moveSpeed = 5f;
 
-        private bool _canMove = true;
-        public GameObject Highlight;
-        private IEnumerator walkingCoroutine;
-        public Vector2 _originalPosition;
-        public Vector2 _lastPosition;
-
         public delegate void BotStartedMoving(MovementDirection direction1, int steps);
         public static event BotStartedMoving botStartedMoving;
         public delegate void BotMoved();
         public static event BotMoved botMoved;
+        private bool _canMove = true;
+        private IEnumerator walkingCoroutine;
+        private Vector2 _originalPosition;
+        private Vector2 _lastPosition;
+        [SerializeField] private GameObject Highlight;
+
 
         private void Awake() {
             _originalPosition = transform.position;

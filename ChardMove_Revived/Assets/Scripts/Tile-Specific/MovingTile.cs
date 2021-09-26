@@ -13,9 +13,10 @@ namespace ChardMove
         [SerializeField] private int Distance;
         [SerializeField] private int CurrentStep;
         public bool Active = true;
+
         private GameObject _currentBot;
         private Vector3 _originalPosition;
-        public Vector3 _targetPosition;
+        private Vector3 _targetPosition;
         private MovementDirection _originalDirection;
         private Vector3 _lastPosition;
         private int _lastStep;
@@ -25,9 +26,7 @@ namespace ChardMove
         private int _originalStep;
         private bool _moving;
 
-        private Vector2 phantomRoadblockPos;
-
-            private void OnTriggerEnter2D(Collider2D other) {
+        private void OnTriggerEnter2D(Collider2D other) {
             if(other.CompareTag("Bot")){
                 _currentBot = other.gameObject;
             }
@@ -178,7 +177,6 @@ namespace ChardMove
                         _targetPosition = target;
                         lastTarget = target;
                     }else{
-                        phantomRoadblockPos = target;
                         _targetPosition = lastTarget;
                         break;
                     }

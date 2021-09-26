@@ -7,20 +7,18 @@ namespace ChardMove.gameManager
 {
     public class GameManager : MonoBehaviour
     {
-        public List<Draggable> lastPlayerCards;
-        public List<Draggable> _originalPlayerCards = new List<Draggable>();
-        public Draggable LastCardPlayed;
-        private Dictionary<Vector2,Tile> lastTileDB;
-        public GameObject CardParent;
-        public static GameManager Instance;
-        public Dictionary<Vector2,Tile> TileDB =  new Dictionary<Vector2, Tile>();
-        public Dictionary<Vector2,(IPushable,GameObject)> PushableDB = new Dictionary<Vector2, (IPushable,GameObject)>();
-        public List<Draggable> PlayerCards = new List<Draggable>();
         public delegate void ResetButtonPressed();
         public static event ResetButtonPressed resetButtonPressed;
 
         public delegate void UndoButtonPressed();
         public static event UndoButtonPressed undoButtonPressed;
+        public Dictionary<Vector2,Tile> TileDB =  new Dictionary<Vector2, Tile>();
+        public Dictionary<Vector2,(IPushable,GameObject)> PushableDB = new Dictionary<Vector2, (IPushable,GameObject)>();
+        public Draggable LastCardPlayed;
+        public static GameManager Instance;
+        public List<Draggable> PlayerCards = new List<Draggable>();
+
+        private List<Draggable> _originalPlayerCards = new List<Draggable>();
 
         private void Awake() {
             Instance = this;
@@ -32,6 +30,14 @@ namespace ChardMove.gameManager
         public void Reset(){
             resetButtonPressed();
             ResetPlayerCards();
+        }
+
+        public void DeletePlayerCards(){
+            foreach (var item in PlayerCards)
+            {
+                Destroy(item.gameObject);
+            }
+            PlayerCards.Clear();
         }
         private void ResetPlayerCards(){
             foreach (var item in PlayerCards)

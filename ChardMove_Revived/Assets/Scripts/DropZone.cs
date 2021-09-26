@@ -10,15 +10,16 @@ namespace ChardMove
     public class DropZone : MonoBehaviour, IDropHandler, IPointerExitHandler, IPointerEnterHandler
     {
         public GameObject Bot;
-        public Canvas _canvas;
+        public Canvas canvas;
         public GameObject Highlight;
         public GameObject DirectionChoiceMenu;
+        
         private MovementDirection _direction = MovementDirection.None;
         private int _distance;
         private int _goSiblingIndex;
         private bool _choosing = false;
         private void Awake() {
-            _canvas.worldCamera = Camera.main;
+            canvas.worldCamera = Camera.main;
         }
         public void OnPointerEnter(PointerEventData data){
             Highlight.SetActive(true);

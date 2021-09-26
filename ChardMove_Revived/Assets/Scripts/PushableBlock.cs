@@ -10,10 +10,10 @@ namespace ChardMove
     public class PushableBlock : Tile, IPushable
     {
         
-        private Vector2 _lastPosition;
-        private float _moveSpeed;
         public delegate void CannotBePushed();
         public static event CannotBePushed cannotBePushed;
+        private Vector2 _lastPosition;
+        private float _moveSpeed;
         private bool _transformIntoTile = false;
         private void Awake() {
             _lastPosition = transform.position;
