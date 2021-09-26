@@ -97,6 +97,7 @@ namespace ChardMove.BotMovement
                     MoveTowards(target);
                     if((Vector2)transform.position == target){
                         if(i+1 == steps){
+                            yield return new WaitForSeconds(0.1f);
                             break;
                         }
                         yield return new WaitForSeconds(0.5f);
