@@ -15,7 +15,7 @@ namespace ChardMove
         public bool Active = true;
         private GameObject _currentBot;
         private Vector3 _originalPosition;
-        private Vector3 _targetPosition;
+        public Vector3 _targetPosition;
         private MovementDirection _originalDirection;
         private Vector3 _lastPosition;
         private int _lastStep;
@@ -93,8 +93,9 @@ namespace ChardMove
         private IEnumerator Move(){
             Vector2 target = TargetTilePosition();
             _targetPosition = target;
-            CheckPath();
             CacheLastInfo();
+            CheckPath();
+            //print($"Moving to: {_targetPosition}");
               for (int i = 0; i < Distance; i++)
             {
                 while(true){
@@ -159,19 +160,22 @@ namespace ChardMove
         private void CheckPath(){
             Vector2 target = new Vector2();
             TileType tileType = new TileType();
+            Vector2 lastTarget = new Vector2();
+            lastTarget = _targetPosition;
             switch(Direction){
                 case(MovementDirection.Forward):
                 for (int i = 1; i < Distance+1; i++)
                 {
                     target =  new Vector2(transform.position.x + 0.5f*i, transform.position.y + 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
-
                     if(tileType == TileType.Death){
+                        _targetPosition = target;
+                        lastTarget = target;
                     }else{
-                        print($"Somethings wrong at the step {i}");
-                    
+                        _targetPosition = lastTarget;
+                        break;
                     }
-                    //print($"Checking {target}");
+                    _targetPosition = target;
                 }
                 
                 break;
@@ -179,19 +183,16 @@ namespace ChardMove
                 case(MovementDirection.Backward):
                 for (int i = 1; i < Distance+1; i++)
                 {
-                    target =  new Vector2(transform.position.x - 0.5f*i, transform.position.y - (0.25f*i) + 0.120f);
+                    target =  new Vector2(transform.position.x - 0.5f*i, transform.position.y - 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
-                    if(i==2){
-                        //print($"Checking pos Y: {transform.position.y - (0.25f*i) + 0.120f}");
-                        //print($"TileType is: {tileType}");
-                    }
                     if(tileType == TileType.Death){
-
+                        _targetPosition = target;
+                        lastTarget = target;
                     }else{
-                        //print($"Somethings wrong at the step {i}");
-                    
+                        _targetPosition = lastTarget;
+                        break;
                     }
-                    //print($"Checking {target}");
+                    _targetPosition = target;
                 }
                 break;
 
@@ -204,6 +205,7 @@ namespace ChardMove
         }
 
         private void MoveTowards(Vector2 target){
+            //print("Moving towards: " + target);
             Vector2 newPos = new Vector2();
             newPos = Vector2.MoveTowards(transform.position, target, Speed * Time.deltaTime);
             if(_currentBot != null){

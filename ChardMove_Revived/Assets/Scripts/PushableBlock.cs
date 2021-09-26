@@ -35,8 +35,6 @@ namespace ChardMove
             }
         }
 
-        
-
         private IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
             _lastPosition = transform.position;
             yield return null;
@@ -53,11 +51,8 @@ namespace ChardMove
             }else{
                 TileType = TileType.Walkable;
                 GetComponent<SpriteRenderer>().sortingOrder = -2;
-                Vector2 newpos = new Vector2(transform.position.x,transform.position.y - 0.5f + 0.35f);
-                //print($"Added pushable tile to pos Y: " + (transform.position.y - 0.5f + 0.35f));
+                Vector2 newpos = new Vector2(transform.position.x,transform.position.y - 0.125f + 0.00f);
                 GameManager.Instance.AddToTileDB(newpos,this,_lastPosition);
-                TileType ttt = GameManager.Instance.GetTileType(newpos);
-                //print(ttt);
                 StartCoroutine(ActivationAnimation());
                 yield break;
             }
