@@ -104,6 +104,11 @@ namespace ChardMove.gameManager
             }
         }
 
+        public void RemovePushableFromDB (Vector2 pos)
+        {
+            PushableDB.Remove(pos);
+        }
+
         public GameObject GetPushableGO(Vector2 pos){
             if(PushableDB.TryGetValue(pos, out var _value)){
                 var pushable = _value.Item1;
@@ -118,7 +123,7 @@ namespace ChardMove.gameManager
             TileDB.Add(pos,tile);
         }
 
-        private void RemoveFromDB(Vector2 pos){
+        public void RemoveFromDB(Vector2 pos){
             TileDB.Remove(pos);
         }
     }

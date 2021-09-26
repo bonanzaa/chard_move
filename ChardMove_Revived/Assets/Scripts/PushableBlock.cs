@@ -16,11 +16,21 @@ namespace ChardMove
         private bool _transformIntoTile = false;
         private void Awake() {
             _lastPosition = transform.position;
+            GameManager.resetButtonPressed += OnResetButtonPressed;
+            _transformIntoTile = false;
         }
 
         public override void Start() {
             Vector2 myPos = new Vector2(transform.position.x,transform.position.y);
             GameManager.Instance.AddToPushableDB(myPos,this,this.gameObject,_lastPosition);
+        }
+
+        private void OnResetButtonPressed()
+        {
+            _transformIntoTile = false;
+            GameManager.Instance.RemoveFromDB(transform.position);
+            GameManager.Instance.RemovePushableFromDB(transform.position);
+            Destroy(this.gameObject);
         }
 
         public void Push(MovementDirection direction,float moveSpeed){
