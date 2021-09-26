@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ChardMove.gameManager;
 
 namespace ChardMove
 {
@@ -8,6 +9,17 @@ namespace ChardMove
     {
         public List<Roadblock> Gates;
         public bool isTarget = false;
+
+        private void Awake() {
+            GameManager.resetButtonPressed += OnResetButtonPressed;
+        }
+
+        private void OnResetButtonPressed(){
+            foreach (var gate in Gates)
+                {
+                    gate.Reset();
+                }
+        }
 
         public void SetTarget(){
             isTarget = true;

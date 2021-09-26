@@ -14,6 +14,14 @@ namespace ChardMove
         [SerializeField] private int CurrentStep;
         public bool Active = true;
         private GameObject _currentBot;
+        private Vector3 _originalPosition;
+        private MovementDirection _originalDirection;
+        private Vector3 _lastPosition;
+        private int _lastStep;
+        private MovementDirection _lastDirection;
+        private bool _lastIsActive;
+        private bool _originalIsActive;
+        private int _originalStep;
         private bool _moving;
 
             private void OnTriggerEnter2D(Collider2D other) {
@@ -28,8 +36,44 @@ namespace ChardMove
             }
         }
 
+        private void OnTriggerStay2D(Collider2D other) {
+            if(other.CompareTag("Bot")){
+                _currentBot = other.gameObject;
+            }
+        }
+
         private void Awake() {
             BotGridMovement.botMoved += OnBotMoved;
+            _originalPosition = transform.position;
+            _originalDirection = Direction;
+            _originalStep = CurrentStep;
+            _originalIsActive = Active;
+
+            GameManager.resetButtonPressed += OnResetButtonPressed;
+            GameManager.undoButtonPressed += OnUndoButtonPressed;
+
+            CacheLastInfo();
+        }
+
+        private void CacheLastInfo(){
+            _lastDirection = Direction;
+            _lastPosition = transform.position;
+            _lastStep = CurrentStep;
+            _lastIsActive = Active;
+        }
+
+        private void OnResetButtonPressed(){
+            transform.position = _originalPosition;
+            CurrentStep = _originalStep;
+            Direction = _originalDirection;
+            Active = _originalIsActive;
+        }
+
+        private void OnUndoButtonPressed(){
+            transform.position = _lastPosition;
+            CurrentStep = _lastStep;
+            Direction = _lastDirection;
+            Active = _lastIsActive;
         }
 
         public void Activate(){
@@ -46,12 +90,12 @@ namespace ChardMove
 
         private IEnumerator Move(){
             Vector2 target = TargetTilePosition();
+            CacheLastInfo();
               for (int i = 0; i < Distance; i++)
             {
                 while(true){
                     MoveTowards(target);
                     if((Vector2)transform.position == target){
-                        yield return new WaitForSeconds(0.2f);
                         break;
                     }
                     yield return null;

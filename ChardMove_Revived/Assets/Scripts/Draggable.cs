@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using ChardMove.gameManager;
 
 namespace ChardMove
 {
@@ -21,6 +22,11 @@ namespace ChardMove
             _canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
             DistanceText.text = Distance.ToString();
             SmallIconText.text = Distance.ToString();
+        }
+
+        private void Start() {
+            GameManager.Instance.AddMeToCardList(this);
+            
         }
         public void OnBeginDrag(PointerEventData data){
             _originalSiblingIndex = transform.GetSiblingIndex();
@@ -41,6 +47,14 @@ namespace ChardMove
         public void OnEndDrag(PointerEventData data){
             transform.SetParent(_originalParent);
             transform.SetSiblingIndex(_originalSiblingIndex);
+            BigIcon.SetActive(true);
+            SmallIcon.SetActive(false);
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
+            transform.localScale = new Vector3(1,1,1);
+        }
+
+        public void ChangeParent() {
+            transform.SetParent(_originalParent);
             BigIcon.SetActive(true);
             SmallIcon.SetActive(false);
             GetComponent<CanvasGroup>().blocksRaycasts = true;

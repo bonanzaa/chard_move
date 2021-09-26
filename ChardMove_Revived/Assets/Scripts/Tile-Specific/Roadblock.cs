@@ -2,16 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChardMove.gameManager;
+using ChardMove.BotMovement;
 
 namespace ChardMove
 {
     public class Roadblock : Tile
     {
         public bool IsActive = false;
+        private bool _originalIsActive;
+        public bool _lastIsActive;
+
+        private void Awake() {
+            _originalIsActive = IsActive;
+            GameManager.undoButtonPressed += OnUndoButtonPressed;
+            BotGridMovement.botStartedMoving += OnBotStartedMoving;
+        }
         public void Activate(){
+            _lastIsActive = IsActive;
             TileType = TileType.Walkable;
             IsActive = true;
             StartCoroutine(ActivationAnimation());
+        }
+
+        private void OnBotStartedMoving(){
+            _lastIsActive = IsActive;
+        }
+
+
+        private void OnUndoButtonPressed(){
+            if(_lastIsActive == IsActive) return;
+            IsActive = _lastIsActive;
+            if(IsActive){
+                StartCoroutine(ActivationAnimation());
+            }else{
+                StartCoroutine(DeactivationAnimation());
+            }
         }
 
         private IEnumerator ActivationAnimation(){
@@ -34,7 +59,21 @@ namespace ChardMove
             }
         }
 
+        public void Reset(){
+            TileType = TileType.Unwalkable;
+            if(IsActive == _originalIsActive){
+                return;
+            }
+            IsActive = _originalIsActive;
+            if(IsActive){
+                StartCoroutine(ActivationAnimation());
+            }else{
+                StartCoroutine(DeactivationAnimation());
+            }
+        }
+
         public void Deactivate(){
+            _lastIsActive = IsActive;
             TileType = TileType.Unwalkable;
             IsActive = false;
             StartCoroutine(DeactivationAnimation());

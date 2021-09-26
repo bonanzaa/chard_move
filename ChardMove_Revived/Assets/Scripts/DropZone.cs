@@ -23,8 +23,14 @@ namespace ChardMove
         }
 
         public void OnDrop(PointerEventData data){
-            _distance = data.pointerDrag.GetComponent<Draggable>().Distance;
-            Destroy(data.pointerDrag.gameObject);
+            var draggable = data.pointerDrag.GetComponent<Draggable>();
+            _distance = draggable.Distance;
+            GameManager.Instance.LastCardPlayed = draggable;
+            //GameManager.Instance.PlayerCards.Remove(draggable);
+            //Destroy(data.pointerDrag.gameObject);
+            draggable.ChangeParent();
+            data.pointerDrag.gameObject.SetActive(false);
+            draggable.transform.SetSiblingIndex(draggable.gameObject.transform.GetSiblingIndex());
             DirectionChoiceMenu.SetActive(true);
             StartCoroutine(WaitForDirection());
             

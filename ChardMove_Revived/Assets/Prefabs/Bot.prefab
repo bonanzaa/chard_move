@@ -364,6 +364,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  Highlight: {fileID: 4461372744965365738}
+  _originalPosition: {x: 0, y: 0}
+  _lastPosition: {x: 0, y: 0}
 --- !u!68 &1669698909834610217
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -521,7 +524,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4461372744965365739}
   - component: {fileID: 4461372744965365737}
-  - component: {fileID: 4461372744965365736}
   m_Layer: 0
   m_Name: Highlight
   m_TagString: Untagged
@@ -537,7 +539,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4461372744965365738}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.002, y: -0.0602, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.365525, y: 1.24668, z: 1.2}
   m_Children: []
   m_Father: {fileID: 4461372744452508115}
@@ -594,19 +596,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4461372744965365736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4461372744965365738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e28d9ed4d2853a847990fd0be1e4322f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
 --- !u!1 &4461372744983550569
 GameObject:
   m_ObjectHideFlags: 0

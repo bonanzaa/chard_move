@@ -1,16 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ChardMove.BotMovement;
 
 namespace ChardMove.gameManager
 {
     public class GameManager : MonoBehaviour
     {
+        public List<Draggable> lastPlayerCards;
+        public List<Draggable> _originalPlayerCards = new List<Draggable>();
+        private Dictionary<Vector2,Tile> lastTileDB;
+        public GameObject CardParent;
         public static GameManager Instance;
+        public Draggable LastCardPlayed;
         public Dictionary<Vector2,Tile> TileDB =  new Dictionary<Vector2, Tile>();
+        public List<Draggable> PlayerCards = new List<Draggable>();
+        public delegate void ResetButtonPressed();
+        public static event ResetButtonPressed resetButtonPressed;
+
+        public delegate void UndoButtonPressed();
+        public static event UndoButtonPressed undoButtonPressed;
 
         private void Awake() {
             Instance = this;
+            BotGridMovement.botMoved += OnBotMoved;
+        }
+
+        private void Start() {
+            _originalPlayerCards = PlayerCards;
+        }
+
+
+        private void OnBotMoved(){
+            SaveTheProgress();
+        }
+
+        private void SaveTheProgress(){
+            
+        }
+
+        public void Reset(){
+            resetButtonPressed();
+            ResetPlayerCards();
+        }
+
+        private void ResetPlayerCards(){
+            foreach (var item in PlayerCards)
+            {
+                item.gameObject.SetActive(true);
+            }
+        }
+
+        public void Undo(){
+            undoButtonPressed();
         }
 
         // first bool is: is the tile walkable?
@@ -29,6 +71,10 @@ namespace ChardMove.gameManager
             }else{
                 return (true,true);
             }
+        }
+
+        public void AddMeToCardList(Draggable card){
+            PlayerCards.Add(card);
         }
         public TileType GetTileType(Vector2 pos){
             if(TileDB.TryGetValue(pos,out Tile value)){

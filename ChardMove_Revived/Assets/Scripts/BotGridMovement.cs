@@ -10,13 +10,38 @@ namespace ChardMove.BotMovement
         [SerializeField] private float moveSpeed = 5f;
 
         private bool _canMove = true;
+        public GameObject Highlight;
         private IEnumerator walkingCoroutine;
+        public Vector2 _originalPosition;
+        public Vector2 _lastPosition;
 
+        public delegate void BotStartedMoving();
+        public static event BotStartedMoving botStartedMoving;
         public delegate void BotMoved();
         public static event BotMoved botMoved;
 
+        private void Awake() {
+            _originalPosition = transform.position;
+            _lastPosition = transform.position;
+            GameManager.resetButtonPressed += OnResetButtonPressed;
+            GameManager.undoButtonPressed += OnUndoButtonPressed;
+        }
+
+        private void OnResetButtonPressed(){
+            this.transform.position = _originalPosition;
+        }
+
+        private void OnUndoButtonPressed(){
+            this.transform.position = _lastPosition;
+            Highlight.transform.localPosition = Vector3.zero;
+
+        }
+
 
         public void Move(MovementDirection direction, int steps){
+            botStartedMoving();
+            _lastPosition = transform.position;
+            Highlight.transform.localPosition = Vector3.zero;
             var moveCheck = CanMove(direction);
             var canMove = moveCheck.Item1;
             var target = moveCheck.Item2;
@@ -25,12 +50,14 @@ namespace ChardMove.BotMovement
                 walkingCoroutine = MoveToNextTile(direction,steps,target);
                 StartCoroutine(walkingCoroutine);
             }else{
+                botMoved();
                 print($"I cannot move {direction.ToString()}...");
             }
         }
 
         private void TryToFindSwitch(Vector2 pos){
             Tile targetTile = GameManager.Instance.GetTile(pos);
+            if(targetTile == null) return;
             if(targetTile.gameObject.TryGetComponent(out SwitchBase component)){
                 component.SetTarget();
             }
