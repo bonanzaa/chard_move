@@ -9,10 +9,10 @@ namespace ChardMove.gameManager
     {
         public List<Draggable> lastPlayerCards;
         public List<Draggable> _originalPlayerCards = new List<Draggable>();
+        public Draggable LastCardPlayed;
         private Dictionary<Vector2,Tile> lastTileDB;
         public GameObject CardParent;
         public static GameManager Instance;
-        public Draggable LastCardPlayed;
         public Dictionary<Vector2,Tile> TileDB =  new Dictionary<Vector2, Tile>();
         public Dictionary<Vector2,(IPushable,GameObject)> PushableDB = new Dictionary<Vector2, (IPushable,GameObject)>();
         public List<Draggable> PlayerCards = new List<Draggable>();
@@ -39,8 +39,13 @@ namespace ChardMove.gameManager
                 item.gameObject.SetActive(true);
             }
         }
+
+        private void UndoPlayerCards(){
+            LastCardPlayed.gameObject.SetActive(true);
+        }
         public void Undo(){
             undoButtonPressed();
+            UndoPlayerCards();
         }
 
         // first bool is: is the tile walkable?
