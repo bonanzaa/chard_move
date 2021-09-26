@@ -6,13 +6,28 @@ namespace ChardMove
 {
     public class LevelLoader : MonoBehaviour
     {
-        [SerializeField] private GameObject _currentLevelGrid;
         [SerializeField] private List<GameObject> _levels;
-
-        private bool _levelFinished;
+        
+        private GameObject _currentLevelGrid;
+        private int _levelIndex = 0;
+        
+        public delegate void LevelFinished();
+        public static event LevelFinished onLevelfinished;
+        
         private void Awake()
         {
-            _levelFinished = false;
+            //Have to pass the index of the current level fomr the lvl selection screen
+            WinTile.playerWin += OnPlayerWin;
+            if(_currentLevelGrid == null)
+            {
+                _currentLevelGrid = _levels[_levelIndex];
+            }
+        }
+
+        private void OnPlayerWin()
+        {
+            _levelIndex++;
+            LoadLevel(_levels[_levelIndex]);
         }
         private void Start()
         {
@@ -24,7 +39,24 @@ namespace ChardMove
         }
         private void LoadLevel(GameObject grid)
         {
+            Destroy(_currentLevelGrid);
+            //_currentLevelGrid.SetActive(false);
+            //_levels.Remove(_currentLevelGrid);
+            StartCoroutine(LoadBuffer(2));
+            _currentLevelGrid = _levels[_levelIndex];
 
+            Instantiate(_currentLevelGrid,transform.position,Quaternion.identity);
+            print("Player won");
+
+        }
+        private IEnumerator LoadBuffer(float timer)
+        {
+            while(timer > 0)
+            {
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+            yield break;
         }
     }
 }
