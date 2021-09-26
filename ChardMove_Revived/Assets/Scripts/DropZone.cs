@@ -16,6 +16,7 @@ namespace ChardMove
         private MovementDirection _direction = MovementDirection.None;
         private int _distance;
         private int _goSiblingIndex;
+        private bool _choosing = false;
         private void Awake() {
             _canvas.worldCamera = Camera.main;
         }
@@ -24,6 +25,8 @@ namespace ChardMove
         }
 
         public void OnDrop(PointerEventData data){
+            if(_choosing) return;
+            _choosing = true;
             var draggable = data.pointerDrag.GetComponent<Draggable>();
             _distance = draggable.Distance;
             GameManager.Instance.LastCardPlayed = draggable;
@@ -44,6 +47,7 @@ namespace ChardMove
             while(_direction == MovementDirection.None){
                 yield return null;
             }
+            _choosing = false;
             DirectionChoiceMenu.SetActive(false);
             Bot.GetComponent<BotGridMovement>().Move(_direction,_distance);
             _distance = 0;

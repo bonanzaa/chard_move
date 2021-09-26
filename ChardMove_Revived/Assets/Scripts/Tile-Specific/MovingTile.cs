@@ -25,6 +25,8 @@ namespace ChardMove
         private int _originalStep;
         private bool _moving;
 
+        private Vector2 phantomRoadblockPos;
+
             private void OnTriggerEnter2D(Collider2D other) {
             if(other.CompareTag("Bot")){
                 _currentBot = other.gameObject;
@@ -64,17 +66,22 @@ namespace ChardMove
         }
 
         private void OnResetButtonPressed(){
+            GameManager.Instance.PushableDB.Clear();
+            GameManager.Instance.RemoveFromDB(transform.position);
             transform.position = _originalPosition;
             CurrentStep = _originalStep;
             Direction = _originalDirection;
             Active = _originalIsActive;
+            _targetPosition = TargetTilePosition();
         }
 
         private void OnUndoButtonPressed(){
+            GameManager.Instance.RemoveFromDB(transform.position);
             transform.position = _lastPosition;
             CurrentStep = _lastStep;
             Direction = _lastDirection;
             Active = _lastIsActive;
+            CheckPath();
         }
 
         public void Activate(){
@@ -95,7 +102,6 @@ namespace ChardMove
             _targetPosition = target;
             CacheLastInfo();
             CheckPath();
-            //print($"Moving to: {_targetPosition}");
               for (int i = 0; i < Distance; i++)
             {
                 while(true){
@@ -145,11 +151,11 @@ namespace ChardMove
                 return target;
 
                 case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f*Distance, transform.position.y + 0.25f*Distance);
+                target =  new Vector2(transform.position.x - 0.25f*Distance, transform.position.y + 0.5f*Distance);
                 return target;
 
                 case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f*Distance, transform.position.y - 0.25f*Distance);
+                target =  new Vector2(transform.position.x + 0.25f*Distance, transform.position.y - 0.5f*Distance);
                 return target;
 
                 default:
@@ -172,12 +178,12 @@ namespace ChardMove
                         _targetPosition = target;
                         lastTarget = target;
                     }else{
+                        phantomRoadblockPos = target;
                         _targetPosition = lastTarget;
                         break;
                     }
                     _targetPosition = target;
                 }
-                
                 break;
 
                 case(MovementDirection.Backward):
@@ -197,9 +203,35 @@ namespace ChardMove
                 break;
 
                 case(MovementDirection.Left):
+                for (int i = 1; i < Distance+1; i++)
+                {
+                    target =  new Vector2(transform.position.x - 0.5f*i, transform.position.y + 0.25f*i);
+                    tileType = GameManager.Instance.GetTileType(target);
+                    if(tileType == TileType.Death){
+                        _targetPosition = target;
+                        lastTarget = target;
+                    }else{
+                        _targetPosition = lastTarget;
+                        break;
+                    }
+                    _targetPosition = target;
+                }
                 break;
 
                 case(MovementDirection.Right):
+                for (int i = 1; i < Distance+1; i++)
+                {
+                    target =  new Vector2(transform.position.x + 0.5f*i, transform.position.y - 0.25f*i);
+                    tileType = GameManager.Instance.GetTileType(target);
+                    if(tileType == TileType.Death){
+                        _targetPosition = target;
+                        lastTarget = target;
+                    }else{
+                        _targetPosition = lastTarget;
+                        break;
+                    }
+                    _targetPosition = target;
+                }
                 break;
             }
         }
