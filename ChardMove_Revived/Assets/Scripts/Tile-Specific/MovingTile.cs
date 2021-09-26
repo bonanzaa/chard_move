@@ -15,6 +15,7 @@ namespace ChardMove
         public bool Active = true;
         private GameObject _currentBot;
         private Vector3 _originalPosition;
+        private Vector3 _targetPosition;
         private MovementDirection _originalDirection;
         private Vector3 _lastPosition;
         private int _lastStep;
@@ -91,12 +92,14 @@ namespace ChardMove
 
         private IEnumerator Move(){
             Vector2 target = TargetTilePosition();
+            _targetPosition = target;
+            CheckPath();
             CacheLastInfo();
               for (int i = 0; i < Distance; i++)
             {
                 while(true){
-                    MoveTowards(target);
-                    if((Vector2)transform.position == target){
+                    MoveTowards(_targetPosition);
+                    if((Vector2)transform.position == (Vector2)_targetPosition){
                         break;
                     }
                     yield return null;
@@ -112,6 +115,7 @@ namespace ChardMove
             switch(Direction){
                 case(MovementDirection.Forward):
                 Direction = MovementDirection.Backward;
+                
                 break;
 
                 case(MovementDirection.Backward):
@@ -149,6 +153,53 @@ namespace ChardMove
 
                 default:
                 return Vector2.zero;
+            }
+        }
+
+        private void CheckPath(){
+            Vector2 target = new Vector2();
+            TileType tileType = new TileType();
+            switch(Direction){
+                case(MovementDirection.Forward):
+                for (int i = 1; i < Distance+1; i++)
+                {
+                    target =  new Vector2(transform.position.x + 0.5f*i, transform.position.y + 0.25f*i);
+                    tileType = GameManager.Instance.GetTileType(target);
+
+                    if(tileType == TileType.Death){
+                    }else{
+                        print($"Somethings wrong at the step {i}");
+                    
+                    }
+                    //print($"Checking {target}");
+                }
+                
+                break;
+
+                case(MovementDirection.Backward):
+                for (int i = 1; i < Distance+1; i++)
+                {
+                    target =  new Vector2(transform.position.x - 0.5f*i, transform.position.y - (0.25f*i) + 0.120f);
+                    tileType = GameManager.Instance.GetTileType(target);
+                    if(i==2){
+                        //print($"Checking pos Y: {transform.position.y - (0.25f*i) + 0.120f}");
+                        //print($"TileType is: {tileType}");
+                    }
+                    if(tileType == TileType.Death){
+
+                    }else{
+                        //print($"Somethings wrong at the step {i}");
+                    
+                    }
+                    //print($"Checking {target}");
+                }
+                break;
+
+                case(MovementDirection.Left):
+                break;
+
+                case(MovementDirection.Right):
+                break;
             }
         }
 

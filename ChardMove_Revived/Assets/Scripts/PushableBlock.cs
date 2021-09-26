@@ -53,6 +53,11 @@ namespace ChardMove
             }else{
                 TileType = TileType.Walkable;
                 GetComponent<SpriteRenderer>().sortingOrder = -2;
+                Vector2 newpos = new Vector2(transform.position.x,transform.position.y - 0.5f + 0.35f);
+                //print($"Added pushable tile to pos Y: " + (transform.position.y - 0.5f + 0.35f));
+                GameManager.Instance.AddToTileDB(newpos,this,_lastPosition);
+                TileType ttt = GameManager.Instance.GetTileType(newpos);
+                //print(ttt);
                 StartCoroutine(ActivationAnimation());
                 yield break;
             }
@@ -76,7 +81,6 @@ namespace ChardMove
                 transform.position = new Vector3(transform.position.x,newY,newZ);
                 yield return null;
             }
-            GameManager.Instance.AddToTileDB(transform.position,this,_lastPosition);
         }
 
         private Vector2 TargetTilePosition(MovementDirection direction){
