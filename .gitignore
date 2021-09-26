@@ -24,6 +24,7 @@ sysinfo.txt
 *.svd
 *.unityproj
 *.user
+*.log
 *.userprefs
 *.pidb
 .DS_Store
