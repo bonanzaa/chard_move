@@ -15,7 +15,7 @@ namespace ChardMove.BotMovement
         public Vector2 _originalPosition;
         public Vector2 _lastPosition;
 
-        public delegate void BotStartedMoving();
+        public delegate void BotStartedMoving(MovementDirection direction1, int steps);
         public static event BotStartedMoving botStartedMoving;
         public delegate void BotMoved();
         public static event BotMoved botMoved;
@@ -25,28 +25,35 @@ namespace ChardMove.BotMovement
             _lastPosition = transform.position;
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
+            PushableBlock.cannotBePushed += OnCannotBePushed;
         }
 
         private void OnResetButtonPressed(){
             this.transform.position = _originalPosition;
         }
 
+        private void OnCannotBePushed(){
+            StopAllCoroutines();
+            _canMove = true;
+            botMoved();
+        }
+
         private void OnUndoButtonPressed(){
             this.transform.position = _lastPosition;
             Highlight.transform.localPosition = Vector3.zero;
-
         }
 
 
         public void Move(MovementDirection direction, int steps){
-            botStartedMoving();
+            botStartedMoving(direction,steps);
             _lastPosition = transform.position;
             Highlight.transform.localPosition = Vector3.zero;
             var moveCheck = CanMove(direction);
             var canMove = moveCheck.Item1;
             var target = moveCheck.Item2;
-            CalculateTargetPosAndFindASwitch(direction,steps);
             if(canMove){
+                FindPushableBlock(direction);
+                CalculateTargetPosAndFindASwitch(direction,steps);
                 walkingCoroutine = MoveToNextTile(direction,steps,target);
                 StartCoroutine(walkingCoroutine);
             }else{
@@ -61,6 +68,37 @@ namespace ChardMove.BotMovement
             if(targetTile.gameObject.TryGetComponent(out SwitchBase component)){
                 component.SetTarget();
             }
+        }
+
+        private void FindPushableBlock(MovementDirection direction){
+            Vector2 target = new Vector2();
+            switch(direction){
+                case(MovementDirection.Forward):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.375f);
+                break;
+
+                case(MovementDirection.Backward):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.375f);
+                break;
+                
+                case(MovementDirection.Left):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.375f);
+                break;
+
+                case(MovementDirection.Right):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.375f);
+                break;
+
+                default:
+                break;
+            }
+            GameObject pushableGO = GameManager.Instance.GetPushableGO(target);
+            if(pushableGO == null) return;
+            if(pushableGO.TryGetComponent(out PushableBlock component)){
+                component.Push(direction,moveSpeed);
+            }
+            
+            
         }
 
         private void CalculateTargetPosAndFindASwitch(MovementDirection direction, int distance){
@@ -108,6 +146,7 @@ namespace ChardMove.BotMovement
                 var stepsLeft = steps - (i+1);
 
                 if(stepsLeft!=0){
+                    FindPushableBlock(direction);
                     var canMove = CanMove(direction);
                     var canMoveBool = canMove.Item1;
                     var nextTarget = canMove.Item2;
