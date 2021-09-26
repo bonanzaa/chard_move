@@ -12,18 +12,27 @@ namespace ChardMove
         public List<Roadblock> Gates;
         public List<MovingTile> MovingPlatforms;
         public bool isTarget = false;
+        private bool _lastIsTarget;
 
         private void Awake() {
             GameManager.resetButtonPressed += OnResetButtonPressed;
+            GameManager.undoButtonPressed += OnUndoButtonPressed;
+            _lastIsTarget = isTarget;
         }
 
         public void SetTarget(){
+            _lastIsTarget = isTarget;
             isTarget = true;
+            
         }
 
-        public void OnResetButtonPressed(){
+        private void OnResetButtonPressed(){
             isTarget = false;
             Reset();
+        }
+
+        private void OnUndoButtonPressed(){
+            isTarget = _lastIsTarget;
         }
 
         private void Reset(){

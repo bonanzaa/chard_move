@@ -27,12 +27,9 @@ namespace ChardMove
             var draggable = data.pointerDrag.GetComponent<Draggable>();
             _distance = draggable.Distance;
             GameManager.Instance.LastCardPlayed = draggable;
-            //GameManager.Instance.PlayerCards.Remove(draggable);
-            //Destroy(data.pointerDrag.gameObject);
             draggable.ChangeParent();
             int goSiblingIndex = data.pointerDrag.gameObject.transform.GetSiblingIndex();
             data.pointerDrag.gameObject.SetActive(false);
-            print($"Resetting sibling index for the card. New sibling index is: {goSiblingIndex} ");
             draggable.transform.SetSiblingIndex(goSiblingIndex);
             DirectionChoiceMenu.SetActive(true);
             StartCoroutine(WaitForDirection());

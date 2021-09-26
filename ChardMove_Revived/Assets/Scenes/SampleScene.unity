@@ -380,6 +380,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2096416067}
     m_Modifications:
+    - target: {fileID: -2240284724424589042, guid: a94497b3a4f1f8a48ad9a18cdfc3eb77, type: 3}
+      propertyPath: Distance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8598554467030697216, guid: a94497b3a4f1f8a48ad9a18cdfc3eb77, type: 3}
       propertyPath: m_Name
       value: MovementCard (5)

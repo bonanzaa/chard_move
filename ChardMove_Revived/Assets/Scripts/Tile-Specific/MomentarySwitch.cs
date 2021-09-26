@@ -9,9 +9,18 @@ namespace ChardMove
     {
         public List<Roadblock> Gates;
         public bool isTarget = false;
+        private bool _lastIsTarget;
+        public GameObject _currentBot;
 
         private void Awake() {
             GameManager.resetButtonPressed += OnResetButtonPressed;
+            GameManager.undoButtonPressed += OnUndoButtonPressed;
+            _lastIsTarget = isTarget;
+        }
+
+        private void OnUndoButtonPressed(){
+            isTarget = _lastIsTarget;
+            _currentBot = null;
         }
 
         private void OnResetButtonPressed(){
@@ -22,6 +31,7 @@ namespace ChardMove
         }
 
         public void SetTarget(){
+            _lastIsTarget = isTarget;
             isTarget = true;
         }
         private void OnTriggerEnter2D(Collider2D other) {
@@ -30,6 +40,13 @@ namespace ChardMove
                 {
                     gate.Activate();
                 }
+                isTarget = false;
+            }
+        }
+
+        private void OnTriggerStay2D(Collider2D other) {
+            if(other.CompareTag("Bot")){
+                _currentBot = other.gameObject;
             }
         }
 
