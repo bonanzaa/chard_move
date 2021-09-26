@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ChardMove.gameManager;
 
 namespace ChardMove
 {
     public class LevelLoader : MonoBehaviour
     {
         [SerializeField] private List<GameObject> _levels;
-        
-        private GameObject _currentLevelGrid;
+        private GameObject _currentLevel;
+
+        private GameObject _previousLevel;
         private int _levelIndex = 0;
         
         public delegate void LevelFinished();
@@ -16,36 +18,30 @@ namespace ChardMove
         
         private void Awake()
         {
-            //Have to pass the index of the current level fomr the lvl selection screen
+            GameObject previousLevel = _levels[_levelIndex];
             WinTile.playerWin += OnPlayerWin;
-            if(_currentLevelGrid == null)
-            {
-                _currentLevelGrid = _levels[_levelIndex];
-            }
+
+            _currentLevel = Instantiate(previousLevel, transform.position, Quaternion.identity);
+            
         }
 
         private void OnPlayerWin()
         {
+            Destroy(_currentLevel);
             _levelIndex++;
-            LoadLevel(_levels[_levelIndex]);
-        }
-        private void Start()
-        {
-            
-        }
-        private void Update()
-        {
-
+            GameObject nextLevel = _levels[_levelIndex];
+            LoadLevel(nextLevel);
+            Debug.Log(_levelIndex);
+            Debug.Log(_levels.Count);
         }
         private void LoadLevel(GameObject grid)
         {
-            Destroy(_currentLevelGrid);
-            //_currentLevelGrid.SetActive(false);
-            //_levels.Remove(_currentLevelGrid);
-            StartCoroutine(LoadBuffer(2));
-            _currentLevelGrid = _levels[_levelIndex];
+            GameManager.Instance.ClearDictionaries();
 
-            Instantiate(_currentLevelGrid,transform.position,Quaternion.identity);
+            //StartCoroutine(LoadBuffer(2));
+            _currentLevel = grid;
+            //_currentLevelGrid = instance;
+            Instantiate(_currentLevel,transform.position,Quaternion.identity);
             print("Player won");
 
         }
