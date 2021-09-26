@@ -25,6 +25,8 @@ namespace ChardMove
         private int _originalStep;
         private bool _moving;
 
+        private Vector2 phantomRoadblockPos;
+
             private void OnTriggerEnter2D(Collider2D other) {
             if(other.CompareTag("Bot")){
                 _currentBot = other.gameObject;
@@ -64,10 +66,13 @@ namespace ChardMove
         }
 
         private void OnResetButtonPressed(){
+            GameManager.Instance.PushableDB.Clear();
+            GameManager.Instance.RemoveFromDB(transform.position);
             transform.position = _originalPosition;
             CurrentStep = _originalStep;
             Direction = _originalDirection;
             Active = _originalIsActive;
+            _targetPosition = TargetTilePosition();
         }
 
         private void OnUndoButtonPressed(){
@@ -95,7 +100,6 @@ namespace ChardMove
             _targetPosition = target;
             CacheLastInfo();
             CheckPath();
-            //print($"Moving to: {_targetPosition}");
               for (int i = 0; i < Distance; i++)
             {
                 while(true){
@@ -157,6 +161,19 @@ namespace ChardMove
             }
         }
 
+        private void Update() {
+            if(Input.GetKeyDown(KeyCode.A)){
+                Vector2 pos = new Vector2(0.0f,-3.1f);
+                TileType tileType = GameManager.Instance.GetTileType(pos);
+                print(tileType);
+            }
+            if(Input.GetKeyDown(KeyCode.S)){
+                print(phantomRoadblockPos);
+                GameManager.Instance.RemoveFromDB(phantomRoadblockPos);
+                ChangeDirection();
+            }
+        }
+
         private void CheckPath(){
             Vector2 target = new Vector2();
             TileType tileType = new TileType();
@@ -172,12 +189,12 @@ namespace ChardMove
                         _targetPosition = target;
                         lastTarget = target;
                     }else{
+                        phantomRoadblockPos = target;
                         _targetPosition = lastTarget;
                         break;
                     }
                     _targetPosition = target;
                 }
-                
                 break;
 
                 case(MovementDirection.Backward):

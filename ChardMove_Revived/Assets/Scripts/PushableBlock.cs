@@ -25,11 +25,21 @@ namespace ChardMove
             GameManager.Instance.AddToPushableDB(myPos,this,this.gameObject,_lastPosition);
         }
 
+        private void OnDisable() {
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
+        }
+
         private void OnResetButtonPressed()
         {
-            _transformIntoTile = false;
-            GameManager.Instance.RemoveFromDB(transform.position);
-            GameManager.Instance.RemovePushableFromDB(transform.position);
+            Vector2 pos = new Vector2(transform.position.x,transform.position.y + 0.375f);
+            if(_transformIntoTile){
+                GameManager.Instance.RemoveFromDB(pos);
+            }
+            foreach (var item in GameManager.Instance.TileDB)
+            {
+                //print("TileDB key: " + item.Key);
+            }
+            GameManager.Instance.PushableDB.Clear();
             Destroy(this.gameObject);
         }
 
