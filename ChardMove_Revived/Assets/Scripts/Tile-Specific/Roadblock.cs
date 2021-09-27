@@ -10,14 +10,17 @@ namespace ChardMove
     {
         public bool IsActive = false;
         private bool _originalIsActive;
+        private TileType _lastTileType;
         public bool _lastIsActive;
 
         private void Awake() {
             _originalIsActive = IsActive;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             BotGridMovement.botStartedMoving += OnBotStartedMoving;
+            _lastTileType = TileType;
         }
         public void Activate(){
+            _lastTileType = TileType;
             _lastIsActive = IsActive;
             TileType = TileType.Walkable;
             IsActive = true;
@@ -31,11 +34,10 @@ namespace ChardMove
 
         private void OnUndoButtonPressed(){
             if(_lastIsActive == IsActive) return;
+            TileType = _lastTileType;
             IsActive = _lastIsActive;
             if(IsActive){
                 StartCoroutine(ActivationAnimation());
-            }else{
-                StartCoroutine(DeactivationAnimation());
             }
         }
 
@@ -73,6 +75,7 @@ namespace ChardMove
         }
 
         public void Deactivate(){
+            _lastTileType = TileType;
             _lastIsActive = IsActive;
             TileType = TileType.Unwalkable;
             IsActive = false;

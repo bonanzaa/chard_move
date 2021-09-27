@@ -366,8 +366,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   Highlight: {fileID: 4461372744965365738}
-  _originalPosition: {x: 0, y: 0}
-  _lastPosition: {x: 0, y: 0}
 --- !u!68 &1669698909834610217
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -384,11 +382,11 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 0.46467352, y: -0.117836}
-  - {x: 0.0007557273, y: -0.3773222}
-  - {x: -0.4767754, y: -0.11303711}
-  - {x: -0.011958957, y: 0.12723637}
-  - {x: 0.4633867, y: -0.11783552}
+  - {x: 0.2537217, y: -0.11325008}
+  - {x: -0.0038300157, y: -0.27413929}
+  - {x: -0.25894475, y: -0.1084512}
+  - {x: -0.005080104, y: 0.030932337}
+  - {x: 0.25472778, y: -0.113249615}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -1001,6 +999,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bot: {fileID: 4461372744452508117}
-  _canvas: {fileID: 4461372744485484970}
   Highlight: {fileID: 4461372744965365738}
   DirectionChoiceMenu: {fileID: 4461372744983550569}

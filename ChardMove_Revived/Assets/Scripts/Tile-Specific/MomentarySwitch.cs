@@ -47,6 +47,10 @@ namespace ChardMove
         private void OnTriggerStay2D(Collider2D other) {
             if(other.CompareTag("Bot")){
                 _currentBot = other.gameObject;
+                foreach (var item in Gates)
+                {
+                    item.IsActive = true;
+                }
             }
         }
 

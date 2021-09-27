@@ -26,6 +26,14 @@ namespace ChardMove.BotMovement
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             PushableBlock.cannotBePushed += OnCannotBePushed;
+
+            
+        }
+
+        private void OnDisable() {
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
+            PushableBlock.cannotBePushed -= OnCannotBePushed;
         }
 
         private void OnResetButtonPressed(){
@@ -35,7 +43,8 @@ namespace ChardMove.BotMovement
         private void OnCannotBePushed(){
             StopAllCoroutines();
             _canMove = true;
-            botMoved();
+            if(botMoved != null)
+                botMoved();
         }
 
         private void OnUndoButtonPressed(){
@@ -57,7 +66,8 @@ namespace ChardMove.BotMovement
                 walkingCoroutine = MoveToNextTile(direction,steps,target);
                 StartCoroutine(walkingCoroutine);
             }else{
-                botMoved();
+                if(botMoved != null)
+                    botMoved();
                 print($"I cannot move {direction.ToString()}...");
             }
         }
@@ -156,14 +166,16 @@ namespace ChardMove.BotMovement
                     if(!canMoveBool){
                         // the event, indicating end of the movement for a bot.
                         // Time to update gamestate!
-                        botMoved();
+                        if(botMoved != null)
+                            botMoved();
                         yield break;
                     }else{
                         target = nextTarget;
                     }
                 }else{
-                    // gets called in case we only move 1 tile
-                    botMoved();
+                    // gets called in case we only move 1 
+                    if(botMoved != null)
+                            botMoved();
                 }
 
                 yield return null;
