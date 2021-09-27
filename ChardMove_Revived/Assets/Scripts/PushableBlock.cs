@@ -37,7 +37,7 @@ namespace ChardMove
         {
             Vector2 pos = new Vector2(transform.position.x,transform.position.y + 0.375f);
             if(_transformIntoTile){
-                GameManager.Instance.RemoveFromDB(pos);
+                GameManager.Instance.RemoveFromTileDB(pos);
             }
 
             GameManager.Instance.PushableDB.Clear();
@@ -72,7 +72,7 @@ namespace ChardMove
                 TileType = TileType.Walkable;
                 GetComponent<SpriteRenderer>().sortingOrder = -2;
                 Vector2 newpos = new Vector2(transform.position.x,transform.position.y - 0.125f + 0.00f);
-                GameManager.Instance.AddToTileDB(newpos,this,_lastPosition);
+                GameManager.Instance.UpdateTileDB(newpos,this,_lastPosition);
                 StartCoroutine(ActivationAnimation());
                 yield break;
             }

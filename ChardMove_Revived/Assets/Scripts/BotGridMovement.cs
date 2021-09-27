@@ -39,6 +39,7 @@ namespace ChardMove.BotMovement
             }else{
                 BotGridMovement.botCannotBePushed += OnCannotBePushed;
             }
+            GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
         }
 
         public void Push(MovementDirection direction, float Speed){
@@ -132,6 +133,7 @@ namespace ChardMove.BotMovement
             if(!IsPushable){
                 BotGridMovement.botCannotBePushed -= OnCannotBePushed;
             }
+            GameManager.Instance.RemoveBotFromDB(this.transform.position);
         }
 
         private void OnResetButtonPressed(){
@@ -158,7 +160,8 @@ namespace ChardMove.BotMovement
             var moveCheck = CanMove(direction);
             var canMove = moveCheck.Item1;
             var target = moveCheck.Item2;
-            if(canMove){
+            bool botInTheWay = GameManager.Instance.BotInTheWay(target);
+            if(canMove && !botInTheWay){
                 FindPushableBlock(direction);
                 CalculateTargetPosAndFindASwitch(direction,steps);
                 walkingCoroutine = MoveToNextTile(direction,steps,target);
@@ -239,6 +242,7 @@ namespace ChardMove.BotMovement
         }
 
         private IEnumerator MoveToNextTile(MovementDirection direction, int steps, Vector2 target){
+            // used by pushable bots
             _canMove = false;
             for (int i = 0; i < steps; i++)
             {

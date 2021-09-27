@@ -14,6 +14,7 @@ namespace ChardMove.gameManager
         public static event UndoButtonPressed undoButtonPressed;
         public Dictionary<Vector2,Tile> TileDB =  new Dictionary<Vector2, Tile>();
         public Dictionary<Vector2,(IPushable,GameObject)> PushableDB = new Dictionary<Vector2, (IPushable,GameObject)>();
+        public Dictionary<Vector2,BotGridMovement> BotDB = new Dictionary<Vector2, BotGridMovement>();
         public Draggable LastCardPlayed;
         public static GameManager Instance;
         public List<Draggable> PlayerCards = new List<Draggable>();
@@ -90,17 +91,47 @@ namespace ChardMove.gameManager
             }
         }
 
+        public void AddBotToDB(Vector2 pos, BotGridMovement botScript, Vector2 previousPos){
+            if(BotDB.TryGetValue(previousPos,out BotGridMovement _bot)){
+                RemoveFromBotDB(previousPos);
+                BotDB.Add(pos,botScript);
+            }else{
+                BotDB.Add(pos,botScript);
+            }
+        }
+
+        public void RemoveBotFromDB(Vector2 pos){
+            BotDB.Remove(pos);
+        }
+
+        public bool BotInTheWay(Vector2 pos){
+            if(BotDB.TryGetValue(pos,out BotGridMovement value)){
+                if(value.IsPushable){
+                    return false;
+                }else{
+                    return true;
+                }
+            }else{
+                return false;
+            }
+        }
+
+        private void RemoveFromBotDB(Vector2 pos){
+            BotDB.Remove(pos);
+        }
+
         public void ClearDictionaries(){
             TileDB.Clear();
             PushableDB.Clear();
+            BotDB.Clear();
         }
 
-        public void AddToTileDB(Vector2 pos, Tile tile, Vector2 previousPos){
+        public void UpdateTileDB(Vector2 pos, Tile tile, Vector2 previousPos){
             if(TileDB.TryGetValue(previousPos, out Tile _tile)){
-                RemoveFromDB(previousPos);
-                AddToDB(pos, tile);
+                RemoveFromTileDB(previousPos);
+                AddtoTileDB(pos, tile);
             }else{
-                AddToDB(pos, tile);
+                AddtoTileDB(pos, tile);
             }
         }
 
@@ -130,11 +161,11 @@ namespace ChardMove.gameManager
             }
         }
 
-        private void AddToDB(Vector2 pos, Tile tile){
+        private void AddtoTileDB(Vector2 pos, Tile tile){
             TileDB.Add(pos,tile);
         }
 
-        public void RemoveFromDB(Vector2 pos){
+        public void RemoveFromTileDB(Vector2 pos){
             TileDB.Remove(pos);
         }
     }
