@@ -12,36 +12,34 @@ namespace ChardMove
 
         private GameObject _previousLevel;
         private int _levelIndex = 0;
-        
-        public delegate void LevelFinished();
-        public static event LevelFinished onLevelfinished;
+
+        // debug
+        private int _count = 0;
         
         private void Awake()
         {
             GameObject previousLevel = _levels[_levelIndex];
             WinTile.playerWin += OnPlayerWin;
 
-            _currentLevel = Instantiate(previousLevel, transform.position, Quaternion.identity);
-            
+            GameObject newLevel = Instantiate(previousLevel, transform.position, Quaternion.identity);
+            _currentLevel = newLevel;
         }
 
         private void OnPlayerWin()
         {
-            Destroy(_currentLevel);
             _levelIndex++;
-            GameObject nextLevel = _levels[_levelIndex];
-            LoadLevel(nextLevel);
-            Debug.Log(_levelIndex);
-            Debug.Log(_levels.Count);
+            LoadLevel(_levelIndex);
         }
-        private void LoadLevel(GameObject grid)
+        private void LoadLevel(int index)
         {
+            Destroy(_currentLevel);
             GameManager.Instance.ClearDictionaries();
             GameManager.Instance.DeletePlayerCards();
             //StartCoroutine(LoadBuffer(2));
-            _currentLevel = grid;
+            GameObject newLevel = _levels[index];
+            _currentLevel = newLevel;
             //_currentLevelGrid = instance;
-            Instantiate(_currentLevel,transform.position,Quaternion.identity);
+            Instantiate(newLevel,transform.position,Quaternion.identity);
             print("Player won");
 
         }

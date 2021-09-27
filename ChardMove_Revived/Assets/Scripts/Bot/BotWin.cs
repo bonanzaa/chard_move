@@ -7,9 +7,6 @@ namespace ChardMove
 {
     public class BotWin : MonoBehaviour
     {
-        public delegate void LevelFinished();
-        public static event LevelFinished onLevelfinished;
-
         private void Awake()
         {
             WinTile.playerWin += OnPlayerWin;
@@ -18,6 +15,11 @@ namespace ChardMove
         private void OnPlayerWin()
         {
             Destroy(this.gameObject);
+        }
+
+        private void OnDisable()
+        {
+            WinTile.playerWin -= OnPlayerWin;
         }
     }
 }

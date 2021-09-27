@@ -91,6 +91,11 @@ namespace ChardMove
             Active = true;
         }
 
+        private void OnDisable()
+        {
+            BotGridMovement.botMoved -= OnBotMoved;
+        }
+
         public void Deactivate(){
             Active = false;
         }
