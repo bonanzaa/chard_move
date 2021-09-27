@@ -37,7 +37,7 @@ namespace ChardMove
         private void LoadLevel(GameObject grid)
         {
             GameManager.Instance.ClearDictionaries();
-
+            GameManager.Instance.DeletePlayerCards();
             //StartCoroutine(LoadBuffer(2));
             _currentLevel = grid;
             //_currentLevelGrid = instance;

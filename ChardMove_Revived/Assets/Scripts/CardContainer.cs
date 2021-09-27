@@ -11,8 +11,9 @@ namespace ChardMove
 
         public delegate void LevelFinished();
         public static event LevelFinished onLevelfinished;
-        private void Awake()
+        private void Start()
         {
+            print("Start on CardContainer");
             GameObject _cardSpace = CardSpaceMarker.Instance.gameObject;
             for (int i = 0; i < _cards.Count; i++)
             {
