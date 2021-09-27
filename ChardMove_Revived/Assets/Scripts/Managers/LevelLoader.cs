@@ -12,17 +12,11 @@ namespace ChardMove
 
         private GameObject _previousLevel;
         private int _levelIndex = 0;
-
-        // debug
-        private int _count = 0;
         
         private void Awake()
         {
-            GameObject previousLevel = _levels[_levelIndex];
             WinTile.playerWin += OnPlayerWin;
-
-            GameObject newLevel = Instantiate(previousLevel, transform.position, Quaternion.identity);
-            _currentLevel = newLevel;
+            _currentLevel = Instantiate(_levels[_levelIndex], transform.position, Quaternion.identity);
         }
 
         private void OnPlayerWin()
@@ -39,7 +33,7 @@ namespace ChardMove
             GameObject newLevel = _levels[index];
             _currentLevel = newLevel;
             //_currentLevelGrid = instance;
-            Instantiate(newLevel,transform.position,Quaternion.identity);
+            _currentLevel = Instantiate(newLevel,transform.position,Quaternion.identity);
             print("Player won");
 
         }
