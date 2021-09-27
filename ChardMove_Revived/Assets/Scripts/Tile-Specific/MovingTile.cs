@@ -46,6 +46,7 @@ namespace ChardMove
 
         private void Awake() {
             BotGridMovement.botMoved += OnBotMoved;
+            // cache in our original stats for the Reset
             _originalPosition = transform.position;
             _originalDirection = Direction;
             _originalStep = CurrentStep;
@@ -66,11 +67,14 @@ namespace ChardMove
 
         private void OnResetButtonPressed(){
             GameManager.Instance.PushableDB.Clear();
+            // remove reference for our old position from TileTB;
             GameManager.Instance.RemoveFromDB(transform.position);
+            
             transform.position = _originalPosition;
             CurrentStep = _originalStep;
             Direction = _originalDirection;
             Active = _originalIsActive;
+            // choose a new target
             _targetPosition = TargetTilePosition();
         }
 
@@ -100,6 +104,8 @@ namespace ChardMove
             Vector2 target = TargetTilePosition();
             _targetPosition = target;
             CacheLastInfo();
+            // in case CheckPath() detects there is an obstacle in our way,
+            // it overwrites _targetPosition, adjusting for the obstacle.
             CheckPath();
               for (int i = 0; i < Distance; i++)
             {
@@ -113,15 +119,16 @@ namespace ChardMove
                 yield return null;
             }
             _currentBot = null;
+            // update TileDB with our new position
             GameManager.Instance.AddToTileDB(transform.position,this,_lastPosition);
             ChangeDirection();
         }
 
         private void ChangeDirection(){
+            // chooses the opposite direction
             switch(Direction){
                 case(MovementDirection.Forward):
-                Direction = MovementDirection.Backward;
-                
+                Direction = MovementDirection.Backward; 
                 break;
 
                 case(MovementDirection.Backward):

@@ -15,15 +15,17 @@ namespace ChardMove
         private bool _lastIsTarget;
 
         private void Awake() {
+            // subscribe to reset/undo events
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
+            // caching isTarget bool for Undo
             _lastIsTarget = isTarget;
         }
 
         public void SetTarget(){
+            // is called from BotGridMovement, indicating that player has landed on this tile
             _lastIsTarget = isTarget;
             isTarget = true;
-            
         }
 
         private void OnResetButtonPressed(){
