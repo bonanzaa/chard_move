@@ -8,6 +8,7 @@ namespace ChardMove.BotMovement
     public class BotGridMovement : MonoBehaviour, IPushable
     {
         [SerializeField] private float moveSpeed = 5f;
+        [SerializeField] private GameObject Highlight;
         public bool IsPushable = false;
 
         public delegate void BotStartedMoving(MovementDirection direction1, int steps);
@@ -21,12 +22,14 @@ namespace ChardMove.BotMovement
         private Vector2 _originalPosition;
         private Vector2 _lastPosition;
         private bool _amGoingToDie = false;
-        [SerializeField] private GameObject Highlight;
 
 
         private void Awake() {
+            // used by reset
             _originalPosition = transform.position;
+            // used by undo
             _lastPosition = transform.position;
+
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             PushableBlock.cannotBePushed += OnCannotBePushed;
@@ -34,15 +37,19 @@ namespace ChardMove.BotMovement
 
         private void Start() {
             if(IsPushable){
+                // we offset our position, because initially bot is a bit higher
+                // than the tile it is on
                 Vector2 realPos = new Vector2(transform.position.x,transform.position.y + 0.125f);
                 GameManager.Instance.AddToPushableDB(realPos,this,this.gameObject,_lastPosition);
             }else{
+                // only subscribe to an event if we are not pushable
                 BotGridMovement.botCannotBePushed += OnCannotBePushed;
             }
             GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
         }
 
         public void Push(MovementDirection direction, float Speed){
+            // gets called, when another bot detects a pushable bot in their way
             if(!IsPushable) return;
             Vector2 targetTile = TargetTilePosition(direction);
             if(CheckTargetTileType(direction)){
@@ -59,6 +66,7 @@ namespace ChardMove.BotMovement
         }
 
          private IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
+             // only used in pushable bots
             _lastPosition = transform.position;
             yield return null;
             while(true){
@@ -72,6 +80,7 @@ namespace ChardMove.BotMovement
 
         private Vector2 TargetTilePosition(MovementDirection direction){
             Vector2 target = new Vector2();
+            // calculating next tile's position in the given direction
             switch(direction){
                 case(MovementDirection.Forward):
                 target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.25f);
@@ -95,6 +104,8 @@ namespace ChardMove.BotMovement
         }
 
         private bool CheckTargetTileType(MovementDirection direction){
+            // get the type of the next tile in the given direction
+            // used for bot navigation
             Vector2 target = new Vector2();
             switch(direction){
                 case(MovementDirection.Forward):
@@ -156,18 +167,21 @@ namespace ChardMove.BotMovement
         public void Move(MovementDirection direction, int steps){
             botStartedMoving(direction,steps);
             _lastPosition = transform.position;
+            // readjust highlight GO
             Highlight.transform.localPosition = Vector3.zero;
             var moveCheck = CanMove(direction);
-            var canMove = moveCheck.Item1;
-            var target = moveCheck.Item2;
-            bool botInTheWay = GameManager.Instance.BotInTheWay(target);
+            var canMove = moveCheck.Item1; // bool checking if the next tile is walkable/death
+            var target = moveCheck.Item2; // Target Vector2 of the next tile
+            bool botInTheWay = GameManager.Instance.BotInTheWay(target); // bool checking if another bot is in the next tile
             if(canMove && !botInTheWay){
                 FindPushableBlock(direction);
                 CalculateTargetPosAndFindASwitch(direction,steps);
                 walkingCoroutine = MoveToNextTile(direction,steps,target);
                 StartCoroutine(walkingCoroutine);
             }else{
+                // next tile is unwalkable (roadblock) so nothing happens
                 if(botMoved != null)
+                // this is considered a move, so update world state
                     botMoved();
                 print($"I cannot move {direction.ToString()}...");
             }

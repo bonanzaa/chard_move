@@ -74,6 +74,7 @@ namespace ChardMove.gameManager
         }
 
         public void AddMeToCardList(Draggable card){
+            // used when instantiating new cards during Level Loading
             PlayerCards.Add(card);
         }
         public TileType GetTileType(Vector2 pos){
@@ -92,6 +93,7 @@ namespace ChardMove.gameManager
         }
 
         public void AddBotToDB(Vector2 pos, BotGridMovement botScript, Vector2 previousPos){
+            // used for bot collision detection
             if(BotDB.TryGetValue(previousPos,out BotGridMovement _bot)){
                 RemoveFromBotDB(previousPos);
                 BotDB.Add(pos,botScript);
@@ -105,7 +107,10 @@ namespace ChardMove.gameManager
         }
 
         public bool BotInTheWay(Vector2 pos){
+            // collision detection for bots
             if(BotDB.TryGetValue(pos,out BotGridMovement value)){
+                // if we find a bot at given position,
+                // see if it is pushable
                 if(value.IsPushable){
                     return false;
                 }else{
@@ -121,12 +126,14 @@ namespace ChardMove.gameManager
         }
 
         public void ClearDictionaries(){
+            // used when loading new level
             TileDB.Clear();
             PushableDB.Clear();
             BotDB.Clear();
         }
 
         public void UpdateTileDB(Vector2 pos, Tile tile, Vector2 previousPos){
+            // used for tiles that are stored in the dictionary, but change their position
             if(TileDB.TryGetValue(previousPos, out Tile _tile)){
                 RemoveFromTileDB(previousPos);
                 AddtoTileDB(pos, tile);
@@ -136,6 +143,7 @@ namespace ChardMove.gameManager
         }
 
         public void AddToPushableDB(Vector2 pos, IPushable value, GameObject gameObject, Vector2 previousPos){
+            // everything that can be pushed gets registered here
             if(PushableDB.TryGetValue(previousPos,out var _value)){
                 var pushableValue = _value.Item1;
                 var pushableGO = _value.Item2;
