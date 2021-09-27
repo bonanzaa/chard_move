@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 8890807407390634912}
   - component: {fileID: 5516548005226590479}
   m_Layer: 0
-  m_Name: Bot
+  m_Name: PushableBot
   m_TagString: Bot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  IsPushable: 0
+  IsPushable: 1
   Highlight: {fileID: 4461372744965365738}
 --- !u!68 &1669698909834610217
 EdgeCollider2D:

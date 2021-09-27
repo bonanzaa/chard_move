@@ -5,18 +5,22 @@ using ChardMove.gameManager;
 
 namespace ChardMove.BotMovement
 {
-    public class BotGridMovement : MonoBehaviour
+    public class BotGridMovement : MonoBehaviour, IPushable
     {
         [SerializeField] private float moveSpeed = 5f;
+        public bool IsPushable = false;
 
         public delegate void BotStartedMoving(MovementDirection direction1, int steps);
         public static event BotStartedMoving botStartedMoving;
+        public delegate void BotCannotBePushed();
+        public static event BotCannotBePushed botCannotBePushed;
         public delegate void BotMoved();
         public static event BotMoved botMoved;
         private bool _canMove = true;
         private IEnumerator walkingCoroutine;
         private Vector2 _originalPosition;
         private Vector2 _lastPosition;
+        private bool _amGoingToDie = false;
         [SerializeField] private GameObject Highlight;
 
 
@@ -26,18 +30,112 @@ namespace ChardMove.BotMovement
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             PushableBlock.cannotBePushed += OnCannotBePushed;
+        }
 
-            
+        private void Start() {
+            if(IsPushable){
+                Vector2 realPos = new Vector2(transform.position.x,transform.position.y + 0.125f);
+                GameManager.Instance.AddToPushableDB(realPos,this,this.gameObject,_lastPosition);
+            }else{
+                BotGridMovement.botCannotBePushed += OnCannotBePushed;
+            }
+        }
+
+        public void Push(MovementDirection direction, float Speed){
+            if(!IsPushable) return;
+            Vector2 targetTile = TargetTilePosition(direction);
+            if(CheckTargetTileType(direction)){
+                StartCoroutine(MoveToNextTile(direction, targetTile));
+            }else{
+                if(_amGoingToDie){
+                    print("Moving to my death");
+                    StartCoroutine(MoveToDeath(direction,targetTile));
+                }else{
+                    print("Bot cannot be pushed");
+                    botCannotBePushed();
+                }
+            }
+        }
+
+         private IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
+            _lastPosition = transform.position;
+            yield return null;
+            while(true){
+                    MoveTowards(target);
+                    if((Vector2)transform.position == target){
+                        break;
+                    }
+                    yield return null;
+                }
+            }
+
+        private Vector2 TargetTilePosition(MovementDirection direction){
+            Vector2 target = new Vector2();
+            switch(direction){
+                case(MovementDirection.Forward):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.25f);
+                return target;
+
+                case(MovementDirection.Backward):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.25f);
+                return target;
+
+                case(MovementDirection.Left):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.25f);
+                return target;
+
+                case(MovementDirection.Right):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.25f);
+                return target;
+
+                default:
+                return Vector2.zero;
+            }
+        }
+
+        private bool CheckTargetTileType(MovementDirection direction){
+            Vector2 target = new Vector2();
+            switch(direction){
+                case(MovementDirection.Forward):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.125f);
+                break;
+
+                case(MovementDirection.Backward):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.375f);
+                break;
+
+                case(MovementDirection.Left):
+                target =  new Vector2(transform.position.x - 0.125f, transform.position.y + 0.5f);
+                break;
+
+                case(MovementDirection.Right):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.375f);
+                break;
+            }
+            TileType tileType = GameManager.Instance.GetTileType(target);
+            if(tileType == TileType.Walkable){
+                return true;
+            }else if(tileType == TileType.Unwalkable){
+                _amGoingToDie = false;
+                return false;
+            }else{
+                _amGoingToDie = true;
+                return false;
+            }
+
         }
 
         private void OnDisable() {
             GameManager.resetButtonPressed -= OnResetButtonPressed;
             GameManager.undoButtonPressed -= OnUndoButtonPressed;
             PushableBlock.cannotBePushed -= OnCannotBePushed;
+            if(!IsPushable){
+                BotGridMovement.botCannotBePushed -= OnCannotBePushed;
+            }
         }
 
         private void OnResetButtonPressed(){
-            this.transform.position = _originalPosition;
+            Destroy(this.gameObject);
         }
 
         private void OnCannotBePushed(){
@@ -107,7 +205,7 @@ namespace ChardMove.BotMovement
             if(pushableGO == null){
                 return;
             } 
-            if(pushableGO.TryGetComponent(out PushableBlock component)){
+            if(pushableGO.TryGetComponent(out IPushable component)){
                 component.Push(direction,moveSpeed);
             }
             
@@ -190,7 +288,8 @@ namespace ChardMove.BotMovement
                     // play death animation here
                     _canMove = false;
                     yield return new WaitForSeconds(0.5f);
-                    print("Player has died!");
+                    print("Bot has died!");
+                    Destroy(this.gameObject);
                     break;
                 }
                 yield return null;
