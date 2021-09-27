@@ -2265,7 +2265,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 212735715761307932, guid: b642fe158ff6dcb4e8ebd29b4116433a, type: 3}
       propertyPath: m_RootOrder
-      value: 43
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 212735715761307932, guid: b642fe158ff6dcb4e8ebd29b4116433a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2875,10 +2875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6216de431d5d84ca64440001fe8e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastPlayerCards: []
-  _originalPlayerCards: []
   LastCardPlayed: {fileID: 0}
-  CardParent: {fileID: 2096416066}
   PlayerCards: []
 --- !u!4 &911994180
 Transform:

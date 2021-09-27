@@ -13,7 +13,7 @@ namespace ChardMove
         [SerializeField] private int Distance;
         [SerializeField] private int CurrentStep;
         public bool Active = true;
-
+        
         private GameObject _currentBot;
         private Vector3 _originalPosition;
         private Vector3 _targetPosition;
@@ -56,6 +56,9 @@ namespace ChardMove
             GameManager.undoButtonPressed += OnUndoButtonPressed;
 
             CacheLastInfo();
+
+            
+            
         }
 
         private void CacheLastInfo(){
@@ -123,6 +126,7 @@ namespace ChardMove
                 }
                 yield return null;
             }
+ 
             _currentBot = null;
             // update TileDB with our new position
             GameManager.Instance.AddToTileDB(transform.position,this,_lastPosition);
