@@ -72,12 +72,16 @@ namespace ChardMove
 
         private IEnumerator WaitForDirection(){
             DropZone.directionChoiceActive -= OnDirectionChoiceActive;
-            directionChoiceActive();
+            if(directionChoiceActive != null){
+                directionChoiceActive();
+            }
             while(_direction == MovementDirection.None){
                 yield return null;
             }
             DropZone.directionChoiceInactive -= OnDirectionChoiceInactive;
-            directionChoiceInactive();
+            if(directionChoiceInactive != null){
+                directionChoiceInactive();
+            }
             _choosing = false;
             DirectionChoiceMenu.SetActive(false);
             Bot.GetComponent<BotGridMovement>().Move(_direction,_distance);

@@ -173,6 +173,7 @@ namespace ChardMove.BotMovement
             var canMove = moveCheck.Item1; // bool checking if the next tile is walkable/death
             var target = moveCheck.Item2; // Target Vector2 of the next tile
             bool botInTheWay = GameManager.Instance.BotInTheWay(target); // bool checking if another bot is in the next tile
+            print($"Is bot in the way: {botInTheWay}");
             if(canMove && !botInTheWay){
                 FindPushableBlock(direction);
                 CalculateTargetPosAndFindASwitch(direction,steps);
@@ -296,6 +297,7 @@ namespace ChardMove.BotMovement
 
                 yield return null;
             }
+            GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
             _canMove = true;
         }
 
