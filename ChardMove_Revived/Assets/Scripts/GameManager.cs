@@ -133,7 +133,7 @@ namespace ChardMove.gameManager
         }
 
         public void UpdateTileDB(Vector2 pos, Tile tile, Vector2 previousPos){
-            // used for tiles that are stored in the dictionary, but change their position
+            // used for tiles that need to be stored in the dictionary, but change their position
             if(TileDB.TryGetValue(previousPos, out Tile _tile)){
                 RemoveFromTileDB(previousPos);
                 AddtoTileDB(pos, tile);

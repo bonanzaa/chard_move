@@ -55,7 +55,7 @@ namespace ChardMove
             }
         }
 
-        private IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
+        public IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
             _lastPosition = transform.position;
             yield return null;
             while(true){
@@ -98,7 +98,7 @@ namespace ChardMove
             }
         }
 
-        private Vector2 TargetTilePosition(MovementDirection direction){
+        public Vector2 TargetTilePosition(MovementDirection direction){
             Vector2 target = new Vector2();
             switch(direction){
                 case(MovementDirection.Forward):
@@ -122,7 +122,7 @@ namespace ChardMove
             }
         }
 
-        private bool CheckTargetTileType(MovementDirection direction){
+        public bool CheckTargetTileType(MovementDirection direction){
             Vector2 target = new Vector2();
             switch(direction){
                 case(MovementDirection.Forward):
@@ -153,7 +153,7 @@ namespace ChardMove
 
         }
 
-        private void MoveTowards(Vector2 target){
+        public void MoveTowards(Vector2 target){
             this.transform.position = Vector2.MoveTowards(transform.position, target, _moveSpeed * Time.deltaTime);
         }
     

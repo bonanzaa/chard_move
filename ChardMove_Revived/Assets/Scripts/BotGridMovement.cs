@@ -48,122 +48,6 @@ namespace ChardMove.BotMovement
             GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
         }
 
-        public void Push(MovementDirection direction, float Speed){
-            // gets called, when another bot detects a pushable bot in their way
-            if(!IsPushable) return;
-            Vector2 targetTile = TargetTilePosition(direction);
-            if(CheckTargetTileType(direction)){
-                StartCoroutine(MoveToNextTile(direction, targetTile));
-            }else{
-                if(_amGoingToDie){
-                    print("Moving to my death");
-                    StartCoroutine(MoveToDeath(direction,targetTile));
-                }else{
-                    print("Bot cannot be pushed");
-                    botCannotBePushed();
-                }
-            }
-        }
-
-         private IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
-             // only used in pushable bots
-            _lastPosition = transform.position;
-            yield return null;
-            while(true){
-                    MoveTowards(target);
-                    if((Vector2)transform.position == target){
-                        break;
-                    }
-                    yield return null;
-                }
-            }
-
-        private Vector2 TargetTilePosition(MovementDirection direction){
-            Vector2 target = new Vector2();
-            // calculating next tile's position in the given direction
-            switch(direction){
-                case(MovementDirection.Forward):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.25f);
-                return target;
-
-                case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.25f);
-                return target;
-
-                case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.25f);
-                return target;
-
-                case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.25f);
-                return target;
-
-                default:
-                return Vector2.zero;
-            }
-        }
-
-        private bool CheckTargetTileType(MovementDirection direction){
-            // get the type of the next tile in the given direction
-            // used for bot navigation
-            Vector2 target = new Vector2();
-            switch(direction){
-                case(MovementDirection.Forward):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.125f);
-                break;
-
-                case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.375f);
-                break;
-
-                case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.125f, transform.position.y + 0.5f);
-                break;
-
-                case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.375f);
-                break;
-            }
-            TileType tileType = GameManager.Instance.GetTileType(target);
-            if(tileType == TileType.Walkable){
-                return true;
-            }else if(tileType == TileType.Unwalkable){
-                _amGoingToDie = false;
-                return false;
-            }else{
-                _amGoingToDie = true;
-                return false;
-            }
-
-        }
-
-        private void OnDisable() {
-            GameManager.resetButtonPressed -= OnResetButtonPressed;
-            GameManager.undoButtonPressed -= OnUndoButtonPressed;
-            PushableBlock.cannotBePushed -= OnCannotBePushed;
-            if(!IsPushable){
-                BotGridMovement.botCannotBePushed -= OnCannotBePushed;
-            }
-            GameManager.Instance.RemoveBotFromDB(this.transform.position);
-        }
-
-        private void OnResetButtonPressed(){
-            Destroy(this.gameObject);
-        }
-
-        private void OnCannotBePushed(){
-            StopAllCoroutines();
-            _canMove = true;
-            if(botMoved != null)
-                botMoved();
-        }
-
-        private void OnUndoButtonPressed(){
-            this.transform.position = _lastPosition;
-            Highlight.transform.localPosition = Vector3.zero;
-        }
-
-
         public void Move(MovementDirection direction, int steps){
             botStartedMoving(direction,steps);
             _lastPosition = transform.position;
@@ -173,9 +57,8 @@ namespace ChardMove.BotMovement
             var canMove = moveCheck.Item1; // bool checking if the next tile is walkable/death
             var target = moveCheck.Item2; // Target Vector2 of the next tile
             bool botInTheWay = GameManager.Instance.BotInTheWay(target); // bool checking if another bot is in the next tile
-            print($"Is bot in the way: {botInTheWay}");
             if(canMove && !botInTheWay){
-                FindPushableBlock(direction);
+                FindPushable(direction);
                 CalculateTargetPosAndFindASwitch(direction,steps);
                 walkingCoroutine = MoveToNextTile(direction,steps,target);
                 StartCoroutine(walkingCoroutine);
@@ -183,51 +66,10 @@ namespace ChardMove.BotMovement
                 // next tile is unwalkable (roadblock) so nothing happens
                 if(botMoved != null)
                 // this is considered a move, so update world state
-                    botMoved();
+                botMoved();
                 print($"I cannot move {direction.ToString()}...");
             }
-        }
-
-        private void TryToFindSwitch(Vector2 pos){
-            Tile targetTile = GameManager.Instance.GetTile(pos);
-            if(targetTile == null) return;
-            if(targetTile.gameObject.TryGetComponent(out SwitchBase component)){
-                component.SetTarget();
-            }
-        }
-
-        private void FindPushableBlock(MovementDirection direction){
-            Vector2 target = new Vector2();
-            
-            switch(direction){
-                case(MovementDirection.Forward):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.375f);
-                break;
-
-                case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.125f);
-                break;
-                
-                case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.375f);
-                break;
-
-                case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f,transform.position.y - 0.125f);
-                break;
-
-                default:
-                break;
-            }
-            GameObject pushableGO = GameManager.Instance.GetPushableGO(target);
-            if(pushableGO == null){
-                return;
-            } 
-            if(pushableGO.TryGetComponent(out IPushable component)){
-                component.Push(direction,moveSpeed);
-            }
-            
-            
+        
         }
 
         private void CalculateTargetPosAndFindASwitch(MovementDirection direction, int distance){
@@ -276,7 +118,7 @@ namespace ChardMove.BotMovement
                 var stepsLeft = steps - (i+1);
 
                 if(stepsLeft!=0){
-                    FindPushableBlock(direction);
+                    FindPushable(direction);
                     var canMove = CanMove(direction);
                     var canMoveBool = canMove.Item1;
                     var nextTarget = canMove.Item2;
@@ -316,8 +158,166 @@ namespace ChardMove.BotMovement
             }
         }
 
-        private void MoveTowards(Vector2 target){
+
+        // pushable bot functionality
+        public void Push(MovementDirection direction, float Speed){
+            // gets called, when another bot detects a pushable bot in their way
+            if(!IsPushable) return;
+            Vector2 targetTile = TargetTilePosition(direction);
+            if(CheckTargetTileType(direction)){
+                StartCoroutine(MoveToNextTile(direction, targetTile));
+            }else{
+                if(_amGoingToDie){
+                    StartCoroutine(MoveToDeath(direction,targetTile));
+                }else{
+                    botCannotBePushed();
+                }
+            }
+        }
+
+        public IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
+             // only used in pushable bots
+            _lastPosition = transform.position;
+            yield return null;
+            while(true){
+                    MoveTowards(target);
+                    if((Vector2)transform.position == target){
+                        break;
+                    }
+                    yield return null;
+                }
+            }
+
+        public Vector2 TargetTilePosition(MovementDirection direction){
+            Vector2 target = new Vector2();
+            // calculating next tile's position in the given direction
+            switch(direction){
+                case(MovementDirection.Forward):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.25f);
+                return target;
+
+                case(MovementDirection.Backward):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.25f);
+                return target;
+
+                case(MovementDirection.Left):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.25f);
+                return target;
+
+                case(MovementDirection.Right):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.25f);
+                return target;
+
+                default:
+                return Vector2.zero;
+            }
+        }
+
+        public bool CheckTargetTileType(MovementDirection direction){
+            // get the type of the next tile in the given direction
+            // used for bot navigation
+            Vector2 target = new Vector2();
+            switch(direction){
+                case(MovementDirection.Forward):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.125f);
+                break;
+
+                case(MovementDirection.Backward):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.375f);
+                break;
+
+                case(MovementDirection.Left):
+                target =  new Vector2(transform.position.x - 0.125f, transform.position.y + 0.5f);
+                break;
+
+                case(MovementDirection.Right):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.375f);
+                break;
+            }
+            TileType tileType = GameManager.Instance.GetTileType(target);
+            if(tileType == TileType.Walkable){
+                return true;
+            }else if(tileType == TileType.Unwalkable){
+                _amGoingToDie = false;
+                return false;
+            }else{
+                _amGoingToDie = true;
+                return false;
+            }
+        }
+        public void MoveTowards(Vector2 target){
+            // used by both types of bots to move
             this.transform.position = Vector2.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+        }
+
+        // event callbacks
+        private void OnDisable() {
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
+            PushableBlock.cannotBePushed -= OnCannotBePushed;
+            if(!IsPushable){
+                BotGridMovement.botCannotBePushed -= OnCannotBePushed;
+            }
+            GameManager.Instance.RemoveBotFromDB(this.transform.position);
+        }
+
+        private void OnResetButtonPressed(){
+            Destroy(this.gameObject);
+        }
+
+        private void OnCannotBePushed(){
+            StopAllCoroutines();
+            _canMove = true;
+            if(botMoved != null)
+                botMoved();
+        }
+
+        private void OnUndoButtonPressed(){
+            this.transform.position = _lastPosition;
+            // only exists, because of some weird glitches
+            Highlight.transform.localPosition = Vector3.zero;
+        }
+
+
+        // movement checks
+        private void TryToFindSwitch(Vector2 pos){
+            Tile targetTile = GameManager.Instance.GetTile(pos);
+            if(targetTile == null) return;
+            if(targetTile.gameObject.TryGetComponent(out SwitchBase component)){
+                component.SetTarget();
+            }
+        }
+
+        private void FindPushable(MovementDirection direction){
+            Vector2 target = new Vector2();
+            
+            switch(direction){
+                case(MovementDirection.Forward):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.375f);
+                break;
+
+                case(MovementDirection.Backward):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.125f);
+                break;
+                
+                case(MovementDirection.Left):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.375f);
+                break;
+
+                case(MovementDirection.Right):
+                target =  new Vector2(transform.position.x + 0.5f,transform.position.y - 0.125f);
+                break;
+
+                default:
+                break;
+            }
+            GameObject pushableGO = GameManager.Instance.GetPushableGO(target);
+            if(pushableGO == null){
+                return;
+            } 
+            if(pushableGO.TryGetComponent(out IPushable component)){
+                component.Push(direction,moveSpeed);
+            }
         }
 
         private (bool,Vector2) CanMove(MovementDirection direction){

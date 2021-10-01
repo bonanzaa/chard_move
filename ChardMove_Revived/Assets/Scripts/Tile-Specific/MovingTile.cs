@@ -56,12 +56,10 @@ namespace ChardMove
             GameManager.undoButtonPressed += OnUndoButtonPressed;
 
             CacheLastInfo();
-
-            
-            
         }
 
         private void CacheLastInfo(){
+            // used for Undo
             _lastDirection = Direction;
             _lastPosition = transform.position;
             _lastStep = CurrentStep;
