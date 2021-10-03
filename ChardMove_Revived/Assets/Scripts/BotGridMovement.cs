@@ -67,6 +67,7 @@ namespace ChardMove.BotMovement
                 if(botMoved != null)
                 // this is considered a move, so update world state
                 botMoved();
+                print($"BotInTheWay: {botInTheWay}");
                 print($"I cannot move {direction.ToString()}...");
             }
         
@@ -103,6 +104,7 @@ namespace ChardMove.BotMovement
             _canMove = false;
             for (int i = 0; i < steps; i++)
             {
+                _lastPosition = transform.position;
                 while(true){
                     MoveTowards(target);
                     if((Vector2)transform.position == target){
@@ -138,8 +140,8 @@ namespace ChardMove.BotMovement
                 }
 
                 yield return null;
+                GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
             }
-            GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
             _canMove = true;
         }
 
