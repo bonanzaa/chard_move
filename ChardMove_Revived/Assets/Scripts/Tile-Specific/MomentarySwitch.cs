@@ -47,10 +47,6 @@ namespace ChardMove
         private void OnTriggerStay2D(Collider2D other) {
             if(other.CompareTag("Bot")){
                 _currentBot = other.gameObject;
-                foreach (var item in Gates)
-                {
-                    item.IsActive = true;
-                }
             }
         }
 
@@ -58,7 +54,9 @@ namespace ChardMove
             if(other.CompareTag("Bot")){
                 foreach (var gate in Gates)
                 {
-                    gate.Deactivate();
+                    if(gate.IsActive){
+                        gate.Deactivate();
+                    }
                 }
             }
         }

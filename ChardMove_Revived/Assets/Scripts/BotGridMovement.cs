@@ -129,6 +129,7 @@ namespace ChardMove.BotMovement
                         // Time to update gamestate!
                         if(botMoved != null)
                             botMoved();
+                        GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
                         yield break;
                     }else{
                         target = nextTarget;

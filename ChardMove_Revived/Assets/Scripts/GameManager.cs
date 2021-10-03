@@ -95,13 +95,8 @@ namespace ChardMove.gameManager
         public void AddBotToDB(Vector2 pos, BotGridMovement botScript, Vector2 previousPos){
             // used for bot collision detection
             if(BotDB.TryGetValue(previousPos,out BotGridMovement _bot)){
-                if(BotDB.TryGetValue(pos,out BotGridMovement __bot)){
-                    RemoveFromBotDB(pos);
-                    BotDB.Add(pos,botScript);
-                }else{
-                    RemoveFromBotDB(previousPos);
-                    BotDB.Add(pos,botScript);
-                }
+                BotDB.Remove(previousPos);
+                BotDB.Add(pos,botScript);
             }else{
                 BotDB.Add(pos,botScript);
             }
