@@ -138,7 +138,7 @@ namespace ChardMove.BotMovement
                     // gets called in case we only move 1 
                     if(botMoved != null)
                             botMoved();
-                }
+                } 
 
                 yield return null;
                 GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);

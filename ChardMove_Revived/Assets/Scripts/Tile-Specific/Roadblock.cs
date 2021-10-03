@@ -75,11 +75,22 @@ namespace ChardMove
         }
 
         public void Deactivate(){
+            CheckForBot();
             _lastTileType = TileType;
             _lastIsActive = IsActive;
             TileType = TileType.Unwalkable;
             IsActive = false;
             StartCoroutine(DeactivationAnimation());
+        }
+
+        private void CheckForBot(){
+            Vector2 potentialBotPos = new Vector2(transform.position.x,transform.position.y + 0.375f);
+            var result = GameManager.Instance.BotInTheWayOutBot(potentialBotPos);
+            var exists = result.Item1;
+            var bot = result.Item2;
+            if(exists){
+                Destroy(bot.gameObject);
+            }
         }
 
         private IEnumerator DeactivationAnimation(){

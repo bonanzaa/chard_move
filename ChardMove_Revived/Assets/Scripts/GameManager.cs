@@ -121,6 +121,21 @@ namespace ChardMove.gameManager
             }
         }
 
+        public (bool,BotGridMovement) BotInTheWayOutBot(Vector2 pos){
+            // collision detection for bots
+            if(BotDB.TryGetValue(pos,out BotGridMovement value)){
+                // if we find a bot at given position,
+                // see if it is pushable
+                if(value.IsPushable){
+                    return (false,value);
+                }else{
+                    return (true,value);
+                }
+            }else{
+                return (false,value);
+            }
+        } 
+
         private void RemoveFromBotDB(Vector2 pos){
             BotDB.Remove(pos);
         }
