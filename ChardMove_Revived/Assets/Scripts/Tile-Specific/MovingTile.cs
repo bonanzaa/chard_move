@@ -106,25 +106,56 @@ namespace ChardMove
             StartCoroutine(Move());
         }
 
+        private float EaseOutQuart(float x){
+            return 1-Mathf.Pow(1-x,4);
+        }
+
         private IEnumerator Move(){
             Vector2 target = TargetTilePosition();
             _targetPosition = target;
+            CheckPath();
             CacheLastInfo();
             // in case CheckPath() detects there is an obstacle in our way,
             // it overwrites _targetPosition, adjusting for the obstacle.
-            CheckPath();
-              for (int i = 0; i < Distance; i++)
-            {
-                while(true){
-                    MoveTowards(_targetPosition);
-                    if((Vector2)transform.position == (Vector2)_targetPosition){
-                        break;
+            Vector2 startPosition = transform.position;
+            
+            float totalDistance = Vector2.Distance(_targetPosition,transform.position);
+            float t = 0;
+            float duration = totalDistance / Speed;
+
+            while(true){
+                Vector2 newPos = new Vector2();
+
+                t += Time.deltaTime;
+                if(t >= duration){
+                    if(_currentBot != null){
+                        _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
                     }
-                    yield return null;
+                    transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
+                    break;
+                }
+
+                newPos = Vector2.Lerp(startPosition,_targetPosition,EaseOutQuart(t/duration));
+
+                if(_currentBot != null){
+                    // disable player controls here
+                    //_currentBot.transform.position = Vector2.MoveTowards(transform.position, target, Speed * Time.deltaTime);
+                    _currentBot.transform.position = transform.position;
+                }
+                transform.position = new Vector3(newPos.x,newPos.y,transform.position.z);
+
+                if((Vector2)transform.position == (Vector2)_targetPosition){
+
+                    transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
+
+                    if(_currentBot != null){
+                        _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
+                    }
+
+                    break;
                 }
                 yield return null;
             }
- 
             _currentBot = null;
             // update TileDB with our new position
             GameManager.Instance.UpdateTileDB(transform.position,this,_lastPosition);
@@ -246,17 +277,6 @@ namespace ChardMove
                 }
                 break;
             }
-        }
-
-        private void MoveTowards(Vector2 target){
-            //print("Moving towards: " + target);
-            Vector2 newPos = new Vector2();
-            newPos = Vector2.MoveTowards(transform.position, target, Speed * Time.deltaTime);
-            if(_currentBot != null){
-                // disable player controls here
-                _currentBot.transform.position = Vector2.MoveTowards(transform.position, target, Speed * Time.deltaTime);
-            }
-            transform.position = new Vector3(newPos.x,newPos.y,transform.position.z);
         }
 
     }

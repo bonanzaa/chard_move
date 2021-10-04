@@ -22,8 +22,9 @@ namespace ChardMove
         }
 
         public override void Start() {
-            Vector2 myPos = new Vector2(transform.position.x,transform.position.y);
+            Vector2 myPos = new Vector2(transform.position.x,transform.position.y-0.125f);
             GameManager.Instance.AddToPushableDB(myPos,this,this.gameObject,_lastPosition);
+            print($"Spawning pushable at ({transform.position.x},{transform.position.y})");
             if(GameManager.Instance.PushableDB.TryGetValue(myPos,out var _value)){
                var myKey = GameManager.Instance.PushableDB.FirstOrDefault(x => x.Value == (this,this.gameObject)).Key;
             }
@@ -66,12 +67,14 @@ namespace ChardMove
                     yield return null;
                 }
             if(!_transformIntoTile){
-                 GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
+                Vector2 newPos = new Vector2(transform.position.x,transform.position.y-0.125f);
+                 GameManager.Instance.AddToPushableDB(newPos,this,this.gameObject,_lastPosition);
                  yield break;
             }else{
                 TileType = TileType.Walkable;
                 GetComponent<SpriteRenderer>().sortingOrder = -2;
-                Vector2 newpos = new Vector2(transform.position.x,transform.position.y - 0.125f + 0.00f);
+                transform.localScale = new Vector3(1,1,1);
+                Vector2 newpos = new Vector2(transform.position.x,transform.position.y - 0.125f);
                 GameManager.Instance.UpdateTileDB(newpos,this,_lastPosition);
                 StartCoroutine(ActivationAnimation());
                 yield break;

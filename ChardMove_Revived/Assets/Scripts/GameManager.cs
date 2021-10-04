@@ -126,11 +126,7 @@ namespace ChardMove.gameManager
             if(BotDB.TryGetValue(pos,out BotGridMovement value)){
                 // if we find a bot at given position,
                 // see if it is pushable
-                if(value.IsPushable){
-                    return (false,value);
-                }else{
-                    return (true,value);
-                }
+                return (true,value);
             }else{
                 return (false,value);
             }

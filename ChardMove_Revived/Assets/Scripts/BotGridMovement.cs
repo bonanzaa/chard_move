@@ -39,7 +39,7 @@ namespace ChardMove.BotMovement
             if(IsPushable){
                 // we offset our position, because initially bot is a bit higher
                 // than the tile it is on
-                Vector2 realPos = new Vector2(transform.position.x,transform.position.y + 0.125f);
+                Vector2 realPos = new Vector2(transform.position.x,transform.position.y); // y+0.125f
                 GameManager.Instance.AddToPushableDB(realPos,this,this.gameObject,_lastPosition);
             }else{
                 // only subscribe to an event if we are not pushable
@@ -67,7 +67,6 @@ namespace ChardMove.BotMovement
                 if(botMoved != null)
                 // this is considered a move, so update world state
                 botMoved();
-                print($"BotInTheWay: {botInTheWay}");
                 print($"I cannot move {direction.ToString()}...");
             }
         
@@ -128,20 +127,28 @@ namespace ChardMove.BotMovement
                         // the event, indicating end of the movement for a bot.
                         // Time to update gamestate!
                         if(botMoved != null)
+                            yield return new WaitForSeconds(0.125f);
                             botMoved();
                         GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
+                        if(IsPushable){
+                            GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
+                        }
                         yield break;
                     }else{
                         target = nextTarget;
                     }
                 }else{
+                    yield return new WaitForSeconds(0.125f);
                     // gets called in case we only move 1 
                     if(botMoved != null)
-                            botMoved();
-                } 
+                        botMoved();
+                    } 
 
                 yield return null;
                 GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
+                if(IsPushable){
+                    GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
+                }
             }
             _canMove = true;
         }
@@ -188,6 +195,8 @@ namespace ChardMove.BotMovement
                     }
                     yield return null;
                 }
+                GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
+                GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
             }
 
         public Vector2 TargetTilePosition(MovementDirection direction){
@@ -221,19 +230,18 @@ namespace ChardMove.BotMovement
             Vector2 target = new Vector2();
             switch(direction){
                 case(MovementDirection.Forward):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.125f);
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.250f);
                 break;
 
                 case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.375f);
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.250f); // y-0.375f
                 break;
 
                 case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.125f, transform.position.y + 0.5f);
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.250f);
                 break;
 
                 case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.375f);
                 break;
             }
             TileType tileType = GameManager.Instance.GetTileType(target);
@@ -295,19 +303,23 @@ namespace ChardMove.BotMovement
             
             switch(direction){
                 case(MovementDirection.Forward):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.375f);
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.250f); // y+0.375f
+                print($"Trying to find pushable at ({target.x},{target.y})");
                 break;
 
                 case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.125f);
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.250f); // y-0.125f
+                print($"Trying to find pushable at ({target.x},{target.y})");
                 break;
                 
                 case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.375f);
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.250f); //y+0.375f
+                print($"Trying to find pushable at ({target.x},{target.y})");
                 break;
 
                 case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f,transform.position.y - 0.125f);
+                target =  new Vector2(transform.position.x + 0.5f,transform.position.y - 0.250f); // y-0.125f
+                print($"Trying to find pushable at ({target.x},{target.y})");
                 break;
 
                 default:
