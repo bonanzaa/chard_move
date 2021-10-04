@@ -15,6 +15,8 @@ namespace ChardMove.BotMovement
         public static event BotStartedMoving botStartedMoving;
         public delegate void BotCannotBePushed();
         public static event BotCannotBePushed botCannotBePushed;
+        public delegate void BotAboutToDie(GameObject theBot);
+        public static event BotAboutToDie botAboutToDie;
         public delegate void BotMoved();
         public static event BotMoved botMoved;
         private bool _canMove = true;
@@ -29,6 +31,7 @@ namespace ChardMove.BotMovement
             _originalPosition = transform.position;
             // used by undo
             _lastPosition = transform.position;
+            
 
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
@@ -56,11 +59,12 @@ namespace ChardMove.BotMovement
             var moveCheck = CanMove(direction);
             var canMove = moveCheck.Item1; // bool checking if the next tile is walkable/death
             var target = moveCheck.Item2; // Target Vector2 of the next tile
+            walkingCoroutine = MoveToNextTile(direction,steps,target);
             bool botInTheWay = GameManager.Instance.BotInTheWay(target); // bool checking if another bot is in the next tile
             if(canMove && !botInTheWay){
                 FindPushable(direction);
                 CalculateTargetPosAndFindASwitch(direction,steps);
-                walkingCoroutine = MoveToNextTile(direction,steps,target);
+                //walkingCoroutine = MoveToNextTile(direction,steps,target);
                 StartCoroutine(walkingCoroutine);
             }else{
                 // next tile is unwalkable (roadblock) so nothing happens
@@ -154,6 +158,7 @@ namespace ChardMove.BotMovement
         }
 
         private IEnumerator MoveToDeath(MovementDirection direction, Vector2 target){
+            botAboutToDie(this.gameObject);
             GameManager.Instance.RemoveBotFromDB(transform.position);
             while(true){
                 MoveTowards(target);
@@ -366,7 +371,7 @@ namespace ChardMove.BotMovement
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
 
-                StopCoroutine(walkingCoroutine);
+                if(walkingCoroutine != null) StopCoroutine(walkingCoroutine);
                 StartCoroutine(MoveToDeath(MovementDirection.Forward,nextTilePos));
                 return (false, nextTilePos);
             }
@@ -385,7 +390,7 @@ namespace ChardMove.BotMovement
             }else if(!walkable && !playerDead){
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
-                StopCoroutine(walkingCoroutine);
+                if(walkingCoroutine != null) StopCoroutine(walkingCoroutine);
                 StartCoroutine(MoveToDeath(MovementDirection.Left,nextTilePos));
                 return (false, nextTilePos);
             }
@@ -403,7 +408,7 @@ namespace ChardMove.BotMovement
             }else if(!walkable && !playerDead){
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
-                StopCoroutine(walkingCoroutine);
+                if(walkingCoroutine != null) StopCoroutine(walkingCoroutine);
                 StartCoroutine(MoveToDeath(MovementDirection.Right,nextTilePos));
                 return (false, nextTilePos);
             }
@@ -421,7 +426,7 @@ namespace ChardMove.BotMovement
             }else if(!walkable && !playerDead){
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
-                StopCoroutine(walkingCoroutine);
+                if(walkingCoroutine != null) StopCoroutine(walkingCoroutine);
                 StartCoroutine(MoveToDeath(MovementDirection.Backward,nextTilePos));
                 return (false, nextTilePos);
             }
