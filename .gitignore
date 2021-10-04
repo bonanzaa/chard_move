@@ -1,14 +1,14 @@
 ###
 # Unity folders and files
 ###
-[Aa]ssets/AssetStoreTools*
-[Bb]uild/
-[Ll]ibrary/
-[Ll]ocal[Cc]ache/
-[Oo]bj/
-[Tt]emp/
-[Ll]ogs/
-[Uu]nityGenerated/
+*[Aa]ssets/AssetStoreTools*
+*[Bb]uild/
+*[Ll]ibrary/
+*[Ll]ocal[Cc]ache/
+*[Oo]bj/
+*[Tt]emp/*
+*[Ll]ogs/*
+*[Uu]nityGenerated/
 # file on crash reports
 sysinfo.txt
 # Unity3D generated meta files
@@ -40,3 +40,6 @@ sysinfo.txt
 Icon?
 ehthumbs.db
 Thumbs.db
+ChardMove_Revived/Logs/shadercompiler-AssetImportWorker0.log
+ChardMove_Revived/Logs/AssetImportWorker0-prev.log
+ChardMove_Revived/Logs/AssetImportWorker0.log
