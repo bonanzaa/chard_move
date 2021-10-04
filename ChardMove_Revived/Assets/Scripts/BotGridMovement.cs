@@ -161,8 +161,6 @@ namespace ChardMove.BotMovement
                 yield return null;
             }
         }
-
-
         // pushable bot functionality
         public void Push(MovementDirection direction, float Speed){
             // gets called, when another bot detects a pushable bot in their way
