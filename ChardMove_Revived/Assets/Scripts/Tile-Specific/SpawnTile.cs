@@ -11,9 +11,12 @@ namespace ChardMove
         public GameObject BotPrefab;
         private GameObject _bot;
         private Vector2 _lastBotPosition;
+        private bool _botJustDied = false;
 
         private void Awake() {
             _bot = Instantiate(BotPrefab,transform.position,Quaternion.identity);
+            _botJustDied = false;
+            _lastBotPosition = transform.position;
         }
 
         public override void Start() {
@@ -21,6 +24,11 @@ namespace ChardMove
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             BotGridMovement.botAboutToDie += OnBotIsAboutToDie;
+            BotGridMovement.botStartedMoving += OnBotStartedMoving;
+        }
+
+        private void OnBotStartedMoving(MovementDirection direction, int steps){
+            _botJustDied = false;
         }
 
         private void OnResetButtonPressed(){
@@ -28,11 +36,14 @@ namespace ChardMove
         }
 
         private void OnBotIsAboutToDie(GameObject theBot){
-            if(theBot == _bot)
+            if(theBot == _bot){
+                _botJustDied = true;
                 _lastBotPosition = _bot.transform.position;
+            }
         }
 
         private void OnUndoButtonPressed(){
+            if(!_botJustDied) return;
             if(_bot == null){
                 _bot = Instantiate(BotPrefab,_lastBotPosition,Quaternion.identity);
             }

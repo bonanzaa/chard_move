@@ -50,6 +50,7 @@ namespace ChardMove
             _moveSpeed = moveSpeed;
             Vector2 targetTile = TargetTilePosition(direction);
             if(CheckTargetTileType(direction)){
+                FindPushable(direction,moveSpeed);
                 StartCoroutine(MoveToNextTile(direction, targetTile));
             }else{
                 cannotBePushed();
@@ -154,6 +155,38 @@ namespace ChardMove
                 return true;
             }
 
+        }
+
+        private void FindPushable(MovementDirection direction,float moveSpeed){
+            Vector2 target = new Vector2();
+            
+            switch(direction){
+                case(MovementDirection.Forward):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.250f); // y+0.375f
+                break;
+
+                case(MovementDirection.Backward):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.250f); // y-0.125f
+                break;
+                
+                case(MovementDirection.Left):
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.250f); //y+0.375f
+                break;
+
+                case(MovementDirection.Right):
+                target =  new Vector2(transform.position.x + 0.5f,transform.position.y - 0.250f); // y-0.125f
+                break;
+
+                default:
+                break;
+            }
+            GameObject pushableGO = GameManager.Instance.GetPushableGO(target);
+            if(pushableGO == null){
+                return;
+            } 
+            if(pushableGO.TryGetComponent(out IPushable component)){
+                component.Push(direction,moveSpeed);
+            }
         }
 
         public void MoveTowards(Vector2 target){

@@ -160,6 +160,9 @@ namespace ChardMove.BotMovement
         private IEnumerator MoveToDeath(MovementDirection direction, Vector2 target){
             botAboutToDie(this.gameObject);
             GameManager.Instance.RemoveBotFromDB(transform.position);
+            if(IsPushable){
+                GameManager.Instance.RemovePushableFromDB(transform.position);
+            }
             while(true){
                 MoveTowards(target);
                 if((Vector2)transform.position == target){
@@ -179,6 +182,8 @@ namespace ChardMove.BotMovement
             if(!IsPushable) return;
             Vector2 targetTile = TargetTilePosition(direction);
             if(CheckTargetTileType(direction)){
+                CalculateTargetPosAndFindASwitch(direction,1);
+                FindPushable(direction);
                 StartCoroutine(MoveToNextTile(direction, targetTile));
             }else{
                 if(_amGoingToDie){
@@ -288,7 +293,13 @@ namespace ChardMove.BotMovement
         }
 
         private void OnUndoButtonPressed(){
-            this.transform.position = _lastPosition;
+            GameManager.Instance.RemovePushableFromDB(transform.position);
+            GameManager.Instance.RemoveBotFromDB(transform.position);
+            transform.position = _lastPosition;
+            GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
+            if(IsPushable){
+                GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
+            }
             // only exists, because of some weird glitches
             Highlight.transform.localPosition = Vector3.zero;
         }
@@ -309,22 +320,18 @@ namespace ChardMove.BotMovement
             switch(direction){
                 case(MovementDirection.Forward):
                 target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.250f); // y+0.375f
-                print($"Trying to find pushable at ({target.x},{target.y})");
                 break;
 
                 case(MovementDirection.Backward):
                 target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.250f); // y-0.125f
-                print($"Trying to find pushable at ({target.x},{target.y})");
                 break;
                 
                 case(MovementDirection.Left):
                 target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.250f); //y+0.375f
-                print($"Trying to find pushable at ({target.x},{target.y})");
                 break;
 
                 case(MovementDirection.Right):
                 target =  new Vector2(transform.position.x + 0.5f,transform.position.y - 0.250f); // y-0.125f
-                print($"Trying to find pushable at ({target.x},{target.y})");
                 break;
 
                 default:
