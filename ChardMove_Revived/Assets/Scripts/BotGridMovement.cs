@@ -147,6 +147,7 @@ namespace ChardMove.BotMovement
         }
 
         private IEnumerator MoveToDeath(MovementDirection direction, Vector2 target){
+            GameManager.Instance.RemoveBotFromDB(transform.position);
             while(true){
                 MoveTowards(target);
                 if((Vector2)transform.position == target){
