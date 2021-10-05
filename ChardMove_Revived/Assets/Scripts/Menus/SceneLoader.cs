@@ -7,7 +7,16 @@ namespace ChardMove
 {
     public class SceneLoader : MonoBehaviour
     {
-        public void LoadLevel (int levelIndex)
+        public static SceneLoader Instance;
+        private void Awake()
+        {
+            Instance = this;
+        }
+        public int GetCurrentSceneIndex()
+        {
+            return SceneManager.GetActiveScene().buildIndex;
+        }
+        public void LoadScene (int levelIndex)
         {
             SceneManager.LoadScene(levelIndex);
         }
@@ -15,6 +24,10 @@ namespace ChardMove
         {
             SceneManager.LoadScene(0);
         }
-        
+        public void QuitButtonPressed()
+        {
+            Application.Quit();
+        }
+
     }
 }

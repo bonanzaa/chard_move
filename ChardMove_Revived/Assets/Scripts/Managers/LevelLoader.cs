@@ -8,25 +8,71 @@ namespace ChardMove
     public class LevelLoader : MonoBehaviour
     {
         [SerializeField] private List<GameObject> _levels;
-        private GameObject _currentLevel;
+        [SerializeField] private GameObject _winScreenUI;
+        //[SerializeField] private List<GameObject> _deactivatedUI;
 
+        private SceneLoader _sceneLoader;
+        private CardSpaceMarker _cardContainer;
+
+        private GameObject _currentLevel;
         private GameObject _previousLevel;
-        private int _levelIndex = 0;
+        public static int LevelIndex;
+
+        public bool CanLoadLevel = false;
+        public static LevelLoader Instance;
         
         private void Awake()
         {
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+            _sceneLoader = SceneLoader.Instance;
+            _cardContainer = CardSpaceMarker.Instance;
+            if(_winScreenUI != null)
+            {
+                _winScreenUI.SetActive(false);
+            }
             WinTile.playerWin += OnPlayerWin;
-            _currentLevel = Instantiate(_levels[_levelIndex], transform.position, Quaternion.identity);
-        }
 
+            if(_sceneLoader.GetCurrentSceneIndex() != 0)
+            {
+
+                _currentLevel = Instantiate(_levels[LevelIndex], transform.position, Quaternion.identity);
+            }
+            //if(_sceneLoader.GetCurrentSceneIndex() == 0)
+            //{
+            //    CanLoadLevel = false;
+            //}
+        }
+        private void OnSceneLoaded()
+        {
+
+        }
+        public void OnSelectedLevelLoad(int index)
+        {
+            LevelIndex = index;
+            LoadLevel(index);
+        }
         private void OnPlayerWin()
         {
-            _levelIndex++;
-            LoadLevel(_levelIndex);
+            _winScreenUI.SetActive(true);
+            print("Player won");
+            
+            ////check for next level button input, pass value, add a continue button on main menu
+            //LevelIndex++;
+            ////if(I add bool check for scene && button input))
+            //LoadLevel(LevelIndex);
         }
         private void LoadLevel(int index)
         {
-            Destroy(_currentLevel);
+            if(_currentLevel != null)
+            {
+                Destroy(_currentLevel);
+            }
+            else if (_sceneLoader.GetCurrentSceneIndex() == 0)
+            {
+                _sceneLoader.LoadScene(1);
+                return;
+            }
             GameManager.Instance.ClearDictionaries();
             GameManager.Instance.DeletePlayerCards();
             //StartCoroutine(LoadBuffer(2));
@@ -34,7 +80,6 @@ namespace ChardMove
             _currentLevel = newLevel;
             //_currentLevelGrid = instance;
             _currentLevel = Instantiate(newLevel,transform.position,Quaternion.identity);
-            print("Player won");
 
         }
         private IEnumerator LoadBuffer(float timer)

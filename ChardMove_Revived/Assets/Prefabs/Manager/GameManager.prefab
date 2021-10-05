@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6051547513766507820}
   - component: {fileID: 6051547513766507819}
   - component: {fileID: 6051547513766507821}
+  - component: {fileID: 2105985768}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,9 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6216de431d5d84ca64440001fe8e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastPlayerCards: []
-  _originalPlayerCards: []
-  CardParent: {fileID: 0}
   LastCardPlayed: {fileID: 0}
   PlayerCards: []
 --- !u!114 &6051547513766507821
@@ -64,3 +62,25 @@ MonoBehaviour:
   _levels:
   - {fileID: 8265213034265774298, guid: f73cf68eb89842d4096b8e086dbe5047, type: 3}
   - {fileID: 8265213034265774298, guid: 1fdb65135980e8f46830df82430ecb64, type: 3}
+  - {fileID: 8265213034265774298, guid: 918f446b64047fc41aa22e086fe14519, type: 3}
+  - {fileID: 8265213034265774298, guid: d38c9453f3f453c4da13d81d0992b2f4, type: 3}
+  - {fileID: 8265213034265774298, guid: 00262e7b1ce9d76499977ce054906ba3, type: 3}
+  - {fileID: 8265213034265774298, guid: f76bfcb23e15f594b8d06b5330cdfb3e, type: 3}
+  _winScreenUI: {fileID: 0}
+  _deactivatedUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CanLoadLevel: 0
+--- !u!114 &2105985768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6051547513766507818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368e023cdd91e714d9cb4557cb6e1f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
