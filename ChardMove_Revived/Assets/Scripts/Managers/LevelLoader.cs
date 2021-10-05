@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChardMove.gameManager;
+using System;
 
 namespace ChardMove
 {
@@ -13,11 +14,10 @@ namespace ChardMove
 
         private SceneLoader _sceneLoader;
         private CardSpaceMarker _cardContainer;
-
         private GameObject _currentLevel;
         private GameObject _previousLevel;
-        public static int LevelIndex;
 
+        public static int LevelIndex;
         public bool CanLoadLevel = false;
         public static LevelLoader Instance;
         
@@ -31,6 +31,8 @@ namespace ChardMove
             {
                 _winScreenUI.SetActive(false);
             }
+            print("SceneLoaded");
+            SceneLoader.sceneLoaded += OnSceneLoaded;
             WinTile.playerWin += OnPlayerWin;
 
             if(_sceneLoader.GetCurrentSceneIndex() != 0)
@@ -43,9 +45,15 @@ namespace ChardMove
             //    CanLoadLevel = false;
             //}
         }
+
         private void OnSceneLoaded()
         {
-
+            print("Scene Loaded");
+            Awake();
+        }
+        private void OnDisable()
+        {
+            SceneLoader.sceneLoaded -= OnSceneLoaded;
         }
         public void OnSelectedLevelLoad(int index)
         {
