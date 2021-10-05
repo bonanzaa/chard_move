@@ -103,6 +103,7 @@ namespace ChardMove
 
         private void OnBotMoved(){
             if(!Active) return;
+            if(_moving) return;
             StartCoroutine(Move());
         }
 
@@ -111,6 +112,7 @@ namespace ChardMove
         }
 
         private IEnumerator Move(){
+            _moving = true;
             Vector2 target = TargetTilePosition();
             _targetPosition = target;
             CheckPath();
@@ -132,6 +134,7 @@ namespace ChardMove
                         _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
                     }
                     transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
+                    _moving = false;
                     break;
                 }
 
@@ -151,7 +154,7 @@ namespace ChardMove
                     if(_currentBot != null){
                         _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
                     }
-
+                    _moving = false;
                     break;
                 }
                 yield return null;
@@ -160,6 +163,7 @@ namespace ChardMove
             // update TileDB with our new position
             GameManager.Instance.UpdateTileDB(transform.position,this,_lastPosition);
             ChangeDirection();
+            _moving = false;
         }
 
         private void ChangeDirection(){

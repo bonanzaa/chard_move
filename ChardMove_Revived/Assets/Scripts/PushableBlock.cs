@@ -24,7 +24,6 @@ namespace ChardMove
         public override void Start() {
             Vector2 myPos = new Vector2(transform.position.x,transform.position.y-0.125f);
             GameManager.Instance.AddToPushableDB(myPos,this,this.gameObject,_lastPosition);
-            print($"Spawning pushable at ({transform.position.x},{transform.position.y})");
             if(GameManager.Instance.PushableDB.TryGetValue(myPos,out var _value)){
                var myKey = GameManager.Instance.PushableDB.FirstOrDefault(x => x.Value == (this,this.gameObject)).Key;
             }

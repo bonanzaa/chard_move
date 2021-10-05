@@ -96,8 +96,15 @@ namespace ChardMove.gameManager
             // used for bot collision detection
             if(BotDB.TryGetValue(previousPos,out BotGridMovement _bot)){
                 BotDB.Remove(previousPos);
-                BotDB.Add(pos,botScript);
-            }else{
+
+                if(BotDB.TryGetValue(pos,out BotGridMovement newValue)){
+                    BotDB.Remove(pos);
+                    BotDB.Add(pos,botScript);
+                }else{
+                    BotDB.Add(pos,botScript);
+                }
+
+            }else if(!BotDB.TryGetValue(pos,out BotGridMovement _value)){
                 BotDB.Add(pos,botScript);
             }
         }
@@ -148,7 +155,7 @@ namespace ChardMove.gameManager
             if(TileDB.TryGetValue(previousPos, out Tile _tile)){
                 RemoveFromTileDB(previousPos);
                 AddtoTileDB(pos, tile);
-            }else{
+            }else if(!TileDB.TryGetValue(pos,out Tile _tile1)){
                 AddtoTileDB(pos, tile);
             }
         }
@@ -159,8 +166,14 @@ namespace ChardMove.gameManager
                 var pushableValue = _value.Item1;
                 var pushableGO = _value.Item2;
                 PushableDB.Remove(previousPos);
-                PushableDB.Add(pos,(value,gameObject));
-            }else{
+
+                if(PushableDB.TryGetValue(pos,out var newValue)){
+                    PushableDB.Remove(pos);
+                    PushableDB.Add(pos,(value,gameObject));
+                }else{
+                    PushableDB.Add(pos,(value,gameObject));
+                }
+            }else if(!PushableDB.TryGetValue(pos,out var __value)){
                 PushableDB.Add(pos,(value,gameObject));
             }
         }

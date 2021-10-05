@@ -36,6 +36,7 @@ namespace ChardMove.BotMovement
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             PushableBlock.cannotBePushed += OnCannotBePushed;
+            BotGridMovement.botCannotBePushed += OnCannotBePushed;
         }
 
         private void Start() {
@@ -105,6 +106,8 @@ namespace ChardMove.BotMovement
         private IEnumerator MoveToNextTile(MovementDirection direction, int steps, Vector2 target){
             // used by pushable bots
             _canMove = false;
+            FindPushable(direction);
+            yield return new WaitForEndOfFrame();
             for (int i = 0; i < steps; i++)
             {
                 _lastPosition = transform.position;
@@ -183,7 +186,6 @@ namespace ChardMove.BotMovement
             Vector2 targetTile = TargetTilePosition(direction);
             if(CheckTargetTileType(direction)){
                 CalculateTargetPosAndFindASwitch(direction,1);
-                FindPushable(direction);
                 StartCoroutine(MoveToNextTile(direction, targetTile));
             }else{
                 if(_amGoingToDie){
@@ -195,10 +197,12 @@ namespace ChardMove.BotMovement
         }
 
         public IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
-             // only used in pushable bots
-            _lastPosition = transform.position;
-            yield return null;
-            while(true){
+                // only used in pushable bots
+                FindPushable(direction);
+                _lastPosition = transform.position;
+                yield return new WaitForEndOfFrame();
+                yield return null;
+                while(true){
                     MoveTowards(target);
                     if((Vector2)transform.position == target){
                         break;
@@ -288,8 +292,9 @@ namespace ChardMove.BotMovement
         private void OnCannotBePushed(){
             StopAllCoroutines();
             _canMove = true;
-            if(botMoved != null)
+            if(botMoved != null){
                 botMoved();
+            }
         }
 
         private void OnUndoButtonPressed(){
