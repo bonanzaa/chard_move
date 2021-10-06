@@ -25,25 +25,26 @@ namespace ChardMove
         {
             DontDestroyOnLoad(gameObject);
             Instance = this;
-            _sceneLoader = SceneLoader.Instance;
-            _cardContainer = CardSpaceMarker.Instance;
-            if(_winScreenUI != null)
-            {
-                _winScreenUI.SetActive(false);
-            }
-            print("SceneLoaded");
+            CatchReferences();
             SceneLoader.sceneLoaded += OnSceneLoaded;
             WinTile.playerWin += OnPlayerWin;
 
-            if(_sceneLoader.GetCurrentSceneIndex() != 0)
+            if (CanLoadLevel)
             {
-
+                print(_currentLevel);
                 _currentLevel = Instantiate(_levels[LevelIndex], transform.position, Quaternion.identity);
             }
-            //if(_sceneLoader.GetCurrentSceneIndex() == 0)
-            //{
-            //    CanLoadLevel = false;
-            //}
+            CanLoadLevel = true;
+        }
+
+        private void CatchReferences()
+        {
+            _sceneLoader = SceneLoader.Instance;
+            _cardContainer = CardSpaceMarker.Instance;
+            if (_winScreenUI != null)
+            {
+                _winScreenUI.SetActive(false);
+            }
         }
 
         private void OnSceneLoaded()
@@ -72,20 +73,22 @@ namespace ChardMove
         }
         private void LoadLevel(int index)
         {
-            if(_currentLevel != null)
-            {
-                Destroy(_currentLevel);
-            }
-            else if (_sceneLoader.GetCurrentSceneIndex() == 0)
-            {
+            //if(_currentLevel != null)
+            //{
+            //    Destroy(_currentLevel);
+            //}
+             if (_sceneLoader.GetCurrentSceneIndex() == 0)
+             {
                 _sceneLoader.LoadScene(1);
-                return;
-            }
+                //return;
+             }
             GameManager.Instance.ClearDictionaries();
             GameManager.Instance.DeletePlayerCards();
             //StartCoroutine(LoadBuffer(2));
             GameObject newLevel = _levels[index];
             _currentLevel = newLevel;
+            print("loading level");
+            print(index);
             //_currentLevelGrid = instance;
             _currentLevel = Instantiate(newLevel,transform.position,Quaternion.identity);
 

@@ -6,21 +6,28 @@ using UnityEngine.SceneManagement;
 namespace ChardMove
 {
     public class SceneLoader : MonoBehaviour
-    {  
+    {
+        private int ogScene;
+
         public static SceneLoader Instance;
         public delegate void SceneLoaded();
         public static event SceneLoaded sceneLoaded;
+        
         private void Awake()
         {
             Instance = this;
+            ogScene = GetCurrentSceneIndex();
         }
         private void Update()
         {
-            int oldScene = GetCurrentSceneIndex();
-            if(oldScene != GetCurrentSceneIndex())
-            {
-                sceneLoaded();
-            }
+            //if(ogScene != GetCurrentSceneIndex())
+            //{
+            //    sceneLoaded();
+            //}
+        }
+        public void SceneChange()
+        {
+            sceneLoaded();
         }
         public int GetCurrentSceneIndex()
         {
