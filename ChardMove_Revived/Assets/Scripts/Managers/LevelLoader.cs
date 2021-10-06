@@ -10,31 +10,38 @@ namespace ChardMove
     {
         [SerializeField] private List<GameObject> _levels;
         [SerializeField] private GameObject _winScreenUI;
+        public static GameObject CurrentLevel;
         //[SerializeField] private List<GameObject> _deactivatedUI;
 
         private SceneLoader _sceneLoader;
         private CardSpaceMarker _cardContainer;
-        private GameObject _currentLevel;
         private GameObject _previousLevel;
 
         public static int LevelIndex;
-        public bool CanLoadLevel = false;
+        public bool CanLoadLevel = true;
         public static LevelLoader Instance;
         
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             Instance = this;
-            CatchReferences();
             SceneLoader.sceneLoaded += OnSceneLoaded;
             WinTile.playerWin += OnPlayerWin;
+            SceneMarker.sceneMarked += OnSceneLoaded;
 
             if (CanLoadLevel)
             {
-                print(_currentLevel);
-                _currentLevel = Instantiate(_levels[LevelIndex], transform.position, Quaternion.identity);
+                //CurrentLevel = _levels[LevelIndex];
+                //print(CurrentLevel);
+                //print(LevelIndex);
+                //_currentLevel = Instantiate(_levels[LevelIndex], transform.position, Quaternion.identity);
+                //LoadLevel(LevelIndex);
             }
             CanLoadLevel = true;
+        }
+        private void Start()
+        {
+            CatchReferences();
         }
 
         private void CatchReferences()
@@ -43,33 +50,31 @@ namespace ChardMove
             _cardContainer = CardSpaceMarker.Instance;
             if (_winScreenUI != null)
             {
+                _winScreenUI = WinScreen.Instance.gameObject;
                 _winScreenUI.SetActive(false);
             }
         }
 
         private void OnSceneLoaded()
         {
-            print("Scene Loaded");
-            Awake();
+            LoadLevel(LevelIndex);
+            ////Click button event getting called before changing Scene to soooooooooooooooooooooooooooooooooooon
+            //CatchReferences();
+            //Awake();
         }
         private void OnDisable()
         {
             SceneLoader.sceneLoaded -= OnSceneLoaded;
+            SceneMarker.sceneMarked -= OnSceneLoaded;
         }
         public void OnSelectedLevelLoad(int index)
         {
             LevelIndex = index;
-            LoadLevel(index);
         }
         private void OnPlayerWin()
         {
             _winScreenUI.SetActive(true);
             print("Player won");
-            
-            ////check for next level button input, pass value, add a continue button on main menu
-            //LevelIndex++;
-            ////if(I add bool check for scene && button input))
-            //LoadLevel(LevelIndex);
         }
         private void LoadLevel(int index)
         {
@@ -77,25 +82,20 @@ namespace ChardMove
             //{
             //    Destroy(_currentLevel);
             //}
-             if (_sceneLoader.GetCurrentSceneIndex() == 0)
-             {
-                _sceneLoader.LoadScene(1);
-                //return;
-             }
             GameManager.Instance.ClearDictionaries();
             GameManager.Instance.DeletePlayerCards();
             //StartCoroutine(LoadBuffer(2));
             GameObject newLevel = _levels[index];
-            _currentLevel = newLevel;
+            CurrentLevel = newLevel;
             print("loading level");
-            print(index);
+            //print(index);
             //_currentLevelGrid = instance;
-            _currentLevel = Instantiate(newLevel,transform.position,Quaternion.identity);
+            CurrentLevel = Instantiate(newLevel,transform.position,Quaternion.identity);
 
         }
         private IEnumerator LoadBuffer(float timer)
         {
-            while(timer > 0)
+            while (timer > 0)
             {
                 timer -= Time.deltaTime;
                 yield return null;

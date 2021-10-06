@@ -9,7 +9,7 @@ namespace ChardMove
     {
         public static CardSpaceMarker Instance;
 
-        private void Awake()
+        private void Start()
         {
             Instance = this;
         }

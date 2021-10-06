@@ -12,11 +12,12 @@ namespace ChardMove
         public static SceneLoader Instance;
         public delegate void SceneLoaded();
         public static event SceneLoaded sceneLoaded;
-        
+
         private void Awake()
         {
             Instance = this;
             ogScene = GetCurrentSceneIndex();
+            sceneLoaded += OnSceneChanged;
         }
         private void Update()
         {
@@ -28,6 +29,10 @@ namespace ChardMove
         public void SceneChange()
         {
             sceneLoaded();
+        }
+        public void OnSceneChanged()
+        {
+            LoadScene(1);
         }
         public int GetCurrentSceneIndex()
         {
@@ -45,6 +50,14 @@ namespace ChardMove
         {
             Application.Quit();
         }
-
+        private IEnumerator LoadBuffer(float timer)
+        {
+            while (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+            yield break;
+        }
     }
 }
