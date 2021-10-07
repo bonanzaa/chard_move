@@ -16,6 +16,9 @@ namespace ChardMove
         private SceneLoader _sceneLoader;
         private CardSpaceMarker _cardContainer;
         private GameObject _previousLevel;
+        private SaveSystem _saveSystem = new SaveSystem();
+
+        public int GetLevelCount { get => _levels.Count;}
 
         public static int LevelIndex;
         public bool CanLoadLevel = true;
@@ -25,6 +28,14 @@ namespace ChardMove
         {
             //DontDestroyOnLoad(gameObject);
             Instance = this;
+            _saveSystem.Deserialize();
+            _saveSystem.Serialize(0);
+            _saveSystem.Deserialize();
+            for (int i = 0; i < _saveSystem.CompletedLevels.Length; i++)
+            {
+                print(_saveSystem.CompletedLevels[i]);
+
+            }
             SceneLoader.sceneLoaded += OnSceneLoaded;
             WinTile.playerWin += OnPlayerWin;
             SceneMarker.sceneMarked += OnSceneLoaded;
@@ -74,7 +85,12 @@ namespace ChardMove
         private void OnPlayerWin()
         {
             _winScreenUI.SetActive(true);
+            _saveSystem.Serialize(LevelIndex);
             print("Player won");
+        }
+        public void LoadLastSavedLevel()
+        {
+            LoadLevel(LevelIndex);
         }
         private void LoadLevel(int index)
         {

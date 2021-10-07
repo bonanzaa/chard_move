@@ -23,6 +23,7 @@ namespace ChardMove
                 //winscreen active, wait for button input, when pressed calls the load level blah
                 //_levelLoader.CanLoadLevel = true;
                 playerWin();
+
             }
         }
     }
