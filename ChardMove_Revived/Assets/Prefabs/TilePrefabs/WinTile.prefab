@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: -8434918555552693597, guid: 8fa2f500389edb440a29eee8a935cb66, type: 3}
   m_Color: {r: 0, g: 0.06773472, b: 1, a: 1}
   m_FlipX: 0
@@ -123,3 +123,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TileType: 0
+  _winScreenUI: {fileID: 0}

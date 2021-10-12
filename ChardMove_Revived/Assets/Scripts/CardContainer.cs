@@ -7,14 +7,14 @@ namespace ChardMove
 {
     public class CardContainer : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> _cards;
+        public List<GameObject> Cards;
 
         private void Start()
         {
             GameObject _cardSpace = CardSpaceMarker.Instance.gameObject;
-            for (int i = 0; i < _cards.Count; i++)
+            for (int i = 0; i < Cards.Count; i++)
             {
-                Instantiate(_cards[i], _cardSpace.transform.position, Quaternion.identity, _cardSpace.transform);    
+                Instantiate(Cards[i], _cardSpace.transform.position, Quaternion.identity, _cardSpace.transform);    
             }
         }
     }

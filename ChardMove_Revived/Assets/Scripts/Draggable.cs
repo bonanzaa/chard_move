@@ -14,6 +14,10 @@ namespace ChardMove
         public GameObject SmallIcon;
         public TMP_Text SmallIconText;
         public int Distance;
+        public delegate void BeginDrag(int distance);
+        public static event BeginDrag onBeginDrag;
+        public delegate void EndDrag(int distance);
+        public static event EndDrag onEndDrag;
         private Transform _originalParent;
         private int _originalSiblingIndex;
         private Canvas _canvas;
@@ -39,12 +43,13 @@ namespace ChardMove
 
             // reparent ourselves to canvas, so that 
             // CardSpace's horizontal layout group could be updated
-            this.transform.SetParent(this.transform.parent.parent);
+            this.transform.SetParent(this.transform.parent.parent.parent);
             // we don't block raycasts from camera - used by OnPointerEnter and OnDrop for 
             // the bot. Blocking raycasts makes all other UI events not fire (they are not detected).
             GetComponent<CanvasGroup>().blocksRaycasts = false;
             // make ourselves a tad bit smaller
             transform.localScale = new Vector3(0.8f,0.8f,0.8f);
+            onBeginDrag(Distance);
         }
         public void OnDrag(PointerEventData data){
             // move with the cursor
@@ -63,6 +68,7 @@ namespace ChardMove
             SmallIcon.SetActive(false);
             GetComponent<CanvasGroup>().blocksRaycasts = true;
             transform.localScale = new Vector3(1,1,1);
+            onEndDrag(Distance);
         }
         public void ChangeParent() {
             // reparenting utility

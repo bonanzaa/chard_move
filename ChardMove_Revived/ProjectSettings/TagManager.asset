@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Canvas
   - Bot
+  - CardSpace
   layers:
   - Default
   - TransparentFX

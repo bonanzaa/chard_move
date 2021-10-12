@@ -18,6 +18,7 @@ namespace ChardMove.gameManager
         public Draggable LastCardPlayed;
         public static GameManager Instance;
         public List<Draggable> PlayerCards = new List<Draggable>();
+        public List<Draggable> _tempPlayerCards = new List<Draggable>();
 
         private List<Draggable> _originalPlayerCards = new List<Draggable>();
 
@@ -28,6 +29,7 @@ namespace ChardMove.gameManager
         private void Start() {
             _originalPlayerCards = PlayerCards;
         }
+
         public void Reset(){
             resetButtonPressed();
             ResetPlayerCards();
@@ -48,7 +50,8 @@ namespace ChardMove.gameManager
         }
 
         private void UndoPlayerCards(){
-            LastCardPlayed.gameObject.SetActive(true);
+            if(LastCardPlayed != null)
+                LastCardPlayed.gameObject.SetActive(true);
         }
         public void Undo(){
             undoButtonPressed();

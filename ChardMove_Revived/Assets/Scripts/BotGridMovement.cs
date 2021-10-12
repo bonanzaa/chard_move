@@ -64,7 +64,7 @@ namespace ChardMove.BotMovement
             bool botInTheWay = GameManager.Instance.BotInTheWay(target); // bool checking if another bot is in the next tile
             if(canMove && !botInTheWay){
                 FindPushable(direction);
-                CalculateTargetPosAndFindASwitch(direction,steps);
+                FindTargetTiles(direction,steps);
                 //walkingCoroutine = MoveToNextTile(direction,steps,target);
                 StartCoroutine(walkingCoroutine);
             }else{
@@ -77,7 +77,7 @@ namespace ChardMove.BotMovement
         
         }
 
-        private void CalculateTargetPosAndFindASwitch(MovementDirection direction, int distance){
+        private void FindTargetTiles(MovementDirection direction, int distance){
             Vector2 target = new Vector2();
             switch(direction){
                 case(MovementDirection.Forward):
@@ -101,6 +101,15 @@ namespace ChardMove.BotMovement
             }
 
             TryToFindSwitch(target);
+            TryToFindWinTile(target);
+        }
+
+        private void TryToFindWinTile(Vector2 target){
+            Tile targetTile = GameManager.Instance.GetTile(target);
+            if(targetTile == null) return;
+            if(targetTile.gameObject.TryGetComponent(out WinTile component)){
+                component.SetTarget();
+            }
         }
 
         private IEnumerator MoveToNextTile(MovementDirection direction, int steps, Vector2 target){
@@ -135,7 +144,8 @@ namespace ChardMove.BotMovement
                         // Time to update gamestate!
                         if(botMoved != null)
                             yield return new WaitForSeconds(0.125f);
-                            botMoved();
+                            if(botMoved != null)
+                                botMoved();
                         GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
                         if(IsPushable){
                             GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
@@ -185,7 +195,7 @@ namespace ChardMove.BotMovement
             if(!IsPushable) return;
             Vector2 targetTile = TargetTilePosition(direction);
             if(CheckTargetTileType(direction)){
-                CalculateTargetPosAndFindASwitch(direction,1);
+                FindTargetTiles(direction,1);
                 StartCoroutine(MoveToNextTile(direction, targetTile));
             }else{
                 if(_amGoingToDie){
