@@ -110,6 +110,7 @@ namespace ChardMove
             //PassCardList();
         }
 
+<<<<<<< HEAD
         // private void PassCardList(){
         //     List<GameObject> _cardList =  CurrentLevel.GetComponent<CardContainer>()._cardList;
         //     if(_cardList.Count == 0){
@@ -121,6 +122,19 @@ namespace ChardMove
         //         GameManager.Instance._tempPlayerCards.Add(item.GetComponent<Draggable>());
         //     }
         // }
+=======
+        private void PassCardList(){
+            List<GameObject> _cardList =  CurrentLevel.GetComponent<CardContainer>().Cards;
+            if(_cardList.Count == 0){
+                print("No cards detected on this level");
+                return;
+            }
+            foreach (var item in _cardList)
+            {
+                GameManager.Instance._tempPlayerCards.Add(item.GetComponent<Draggable>());
+            }
+        }
+>>>>>>> parent of 728bb82 (Working on UI / Card loading)
         private IEnumerator LoadBuffer(float timer)
         {
             while (timer > 0)

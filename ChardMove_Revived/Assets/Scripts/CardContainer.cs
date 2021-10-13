@@ -8,6 +8,30 @@ namespace ChardMove
 {
     public class CardContainer : MonoBehaviour
     {
+<<<<<<< HEAD
+<<<<<<< HEAD
+        [SerializeField] private List<int> _amountOfCards = new List<int>(4);
+=======
+        public List<GameObject> Cards;
+>>>>>>> parent of 728bb82 (Working on UI / Card loading)
+
+        private void Start()
+        {
+            GameObject _cardSpace = CardSpaceMarker.Instance.gameObject;
+            for (int i = 0; i < Cards.Count; i++)
+            {
+<<<<<<< HEAD
+                int cardCount = _amountOfCards[i];
+                if(_amountOfCards[i] == 0)
+                {
+                    continue;
+                }
+                while(cardCount > 0)
+                {
+                    Instantiate(BaseCards[i], _cardSpace.transform.position, Quaternion.identity, _cardSpace.transform);
+                    cardCount--;
+                }
+=======
         public int OneTileCardCount;
         public int TwoTileCardCount;
         public int ThreeTileCardCount;
@@ -53,6 +77,10 @@ namespace ChardMove
 
             if(!GameManager.Instance.LevelLoaded){
                 GameManager.Instance.LoadLevel(this.gameObject);
+>>>>>>> 7680ab59b76b3e6107f14b68097733e390572c41
+=======
+                Instantiate(Cards[i], _cardSpace.transform.position, Quaternion.identity, _cardSpace.transform);    
+>>>>>>> parent of 728bb82 (Working on UI / Card loading)
             }
         }
     }
