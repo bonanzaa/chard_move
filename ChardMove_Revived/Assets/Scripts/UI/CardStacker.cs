@@ -27,7 +27,6 @@ namespace ChardMove
         }
 
         private void SetupSlots(){
-            print("Setting up slots");
             foreach (var item in GameManager.Instance._tempPlayerCards)
             {
                 switch(item.Distance){
@@ -51,7 +50,6 @@ namespace ChardMove
         }
 
         private void PopulateSlots(){
-            print($"Populating slots with {GameManager.Instance._tempPlayerCards.Count} cards");
             foreach (var item in GameManager.Instance._tempPlayerCards)
             {
                 switch(item.Distance){

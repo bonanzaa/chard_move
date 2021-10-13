@@ -37,7 +37,6 @@ namespace ChardMove.gameManager
         private void Start() {
             _originalPlayerCards = PlayerCards;
             if(Level != null){
-                print("Level is not null, loading it");
                 LoadLevel(Level.gameObject);
             }
         }
@@ -47,14 +46,12 @@ namespace ChardMove.gameManager
                 Destroy(_currentLevel);
                 ClearDictionaries();
                 ResetPlayerCards();
-                print("Instantiating level");
                 _currentLevel = Instantiate(Level,new Vector3(0,0,0),Quaternion.identity);
             }else{
                 ClearDictionaries();
                 ResetPlayerCards();
                 LevelLoaded = true;
             }
-            print($"Loading cards. Is CardStacker.Instance null: {CardStacker.Instance == null}. TempCards: {_tempPlayerCards.Count}");
             CardStacker.Instance.LoadCards();
         }
 

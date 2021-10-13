@@ -8,7 +8,7 @@ namespace ChardMove
     public class Tile : MonoBehaviour
     {
         public TileType TileType = TileType.Walkable;
-        private GameObject _highlight;
+        [HideInInspector] public GameObject _highlight;
         private void Awake() {
             GameManager.resetButtonPressed += OnResetButtonPressed;
         }

@@ -15,6 +15,7 @@ namespace ChardMove
         public bool Active = true;
         
         private GameObject _currentBot;
+        private PushableBlock _pushableBlock;
         private Vector3 _originalPosition;
         private Vector3 _targetPosition;
         private MovementDirection _originalDirection;
@@ -42,6 +43,15 @@ namespace ChardMove
             if(other.CompareTag("Bot")){
                 _currentBot = other.gameObject;
             }
+        }
+
+        public void CachePushableBlock(GameObject pushableGO){
+            _currentBot = pushableGO;
+            _pushableBlock = pushableGO.GetComponent<PushableBlock>();
+        }
+
+        public void RemovePushableBlock(){
+            _currentBot = null;
         }
 
         private void Awake() {
@@ -112,6 +122,10 @@ namespace ChardMove
         }
 
         private IEnumerator Move(){
+            // need to check for pushable on top of us
+            if(_pushableBlock != null){
+                _pushableBlock.CacheLastPos();
+            }
             _moving = true;
             Vector2 target = TargetTilePosition();
             _targetPosition = target;
@@ -131,7 +145,11 @@ namespace ChardMove
                 t += Time.deltaTime;
                 if(t >= duration){
                     if(_currentBot != null){
-                        _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
+                        if(_pushableBlock != null){
+                            _currentBot.transform.position =  new Vector3(_targetPosition.x,_targetPosition.y+0.125f,_targetPosition.z);
+                        }else{
+                            _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
+                        }
                     }
                     transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
                     _moving = false;
@@ -143,7 +161,11 @@ namespace ChardMove
                 if(_currentBot != null){
                     // disable player controls here
                     //_currentBot.transform.position = Vector2.MoveTowards(transform.position, target, Speed * Time.deltaTime);
-                    _currentBot.transform.position = transform.position;
+                    if(_pushableBlock != null){
+                        _currentBot.transform.position = new Vector3(transform.position.x,transform.position.y+0.125f,transform.position.z);
+                    }else{
+                        _currentBot.transform.position = transform.position;
+                    }
                 }
                 transform.position = new Vector3(newPos.x,newPos.y,transform.position.z);
 
@@ -152,16 +174,25 @@ namespace ChardMove
                     transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
 
                     if(_currentBot != null){
-                        _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
+                        if(_pushableBlock != null){
+                            _currentBot.transform.position =  new Vector3(_targetPosition.x,_targetPosition.y+0.125f,_targetPosition.z);
+                        }else{
+                            _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
+                        }
                     }
                     _moving = false;
                     break;
                 }
                 yield return null;
             }
-            _currentBot = null;
+            if(_pushableBlock == null)
+                _currentBot = null;
             // update TileDB with our new position
+            if(_pushableBlock != null){
+                _pushableBlock.UpdateDB();
+            }
             GameManager.Instance.UpdateTileDB(transform.position,this,_lastPosition);
+            
             ChangeDirection();
             _moving = false;
         }
@@ -226,7 +257,11 @@ namespace ChardMove
                         _targetPosition = target;
                         lastTarget = target;
                     }else{
-                        _targetPosition = lastTarget;
+                        if(i == 1){
+                            _targetPosition = transform.position;
+                        }else{
+                            _targetPosition = lastTarget;
+                        }
                         break;
                     }
                     _targetPosition = target;
@@ -242,7 +277,11 @@ namespace ChardMove
                         _targetPosition = target;
                         lastTarget = target;
                     }else{
-                        _targetPosition = lastTarget;
+                        if(i == 1){
+                            _targetPosition = transform.position;
+                        }else{
+                            _targetPosition = lastTarget;
+                        }
                         break;
                     }
                     _targetPosition = target;
@@ -258,7 +297,11 @@ namespace ChardMove
                         _targetPosition = target;
                         lastTarget = target;
                     }else{
-                        _targetPosition = lastTarget;
+                        if(i == 1){
+                            _targetPosition = transform.position;
+                        }else{
+                            _targetPosition = lastTarget;
+                        }
                         break;
                     }
                     _targetPosition = target;
@@ -274,7 +317,11 @@ namespace ChardMove
                         _targetPosition = target;
                         lastTarget = target;
                     }else{
-                        _targetPosition = lastTarget;
+                        if(i == 1){
+                            _targetPosition = transform.position;
+                        }else{
+                            _targetPosition = lastTarget;
+                        }
                         break;
                     }
                     _targetPosition = target;

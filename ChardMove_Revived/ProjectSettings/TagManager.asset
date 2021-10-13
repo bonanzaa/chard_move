@@ -8,6 +8,7 @@ TagManager:
   - Bot
   - CardSpace
   - Level
+  - PushableBlock
   layers:
   - Default
   - TransparentFX

@@ -8,16 +8,20 @@ namespace ChardMove
 {
     public class Roadblock : Tile
     {
-        public bool IsActive = false;
+        [HideInInspector] public bool IsActive = false;
         private bool _originalIsActive;
         private TileType _lastTileType;
-        public bool _lastIsActive;
+        [HideInInspector] public bool _lastIsActive;
 
         private void Awake() {
             _originalIsActive = IsActive;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             BotGridMovement.botStartedMoving += OnBotStartedMoving;
             _lastTileType = TileType;
+            if(transform.childCount != 0){
+                _highlight = transform.GetChild(0).gameObject;
+                _highlight.SetActive(false);
+            }
         }
         public void Activate(){
             _lastTileType = TileType;

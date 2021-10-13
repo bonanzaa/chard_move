@@ -15,10 +15,15 @@ namespace ChardMove
         private Vector2 _lastPosition;
         private float _moveSpeed;
         private bool _transformIntoTile = false;
+        private MovingTile _movingTileReference = null;
         private void Awake() {
-            _lastPosition = transform.position;
+            _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
             GameManager.resetButtonPressed += OnResetButtonPressed;
             _transformIntoTile = false;
+            if(transform.childCount != 0){
+                _highlight = transform.GetChild(0).gameObject;
+                _highlight.SetActive(false);
+            }
         }
 
         public override void Start() {
@@ -27,6 +32,15 @@ namespace ChardMove
             if(GameManager.Instance.PushableDB.TryGetValue(myPos,out var _value)){
                var myKey = GameManager.Instance.PushableDB.FirstOrDefault(x => x.Value == (this,this.gameObject)).Key;
             }
+        }
+
+        public void UpdateDB(){
+            Vector2 myPos = new Vector2(transform.position.x,transform.position.y-0.125f);
+            GameManager.Instance.AddToPushableDB(myPos,this,this.gameObject,_lastPosition);
+        }
+
+        public void CacheLastPos(){
+            _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
         }
 
         private void OnDisable() {
@@ -57,7 +71,7 @@ namespace ChardMove
         }
 
         public IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
-            _lastPosition = transform.position;
+            _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
             yield return null;
             while(true){
                     MoveTowards(target);
@@ -71,11 +85,17 @@ namespace ChardMove
                  GameManager.Instance.AddToPushableDB(newPos,this,this.gameObject,_lastPosition);
                  yield break;
             }else{
+                Vector2 pushablePos =  new Vector2(-transform.position.x,transform.position.y-0.125f);
+                GameManager.Instance.RemovePushableFromDB(pushablePos);
+                Vector2 newpos = new Vector2(transform.position.x,transform.position.y-0.125f);
+                GameManager.Instance.UpdateTileDB(newpos,this,_lastPosition);
+                print($"Added new tile to: ({newpos.x},{newpos.y})");
+                _movingTileReference.RemovePushableBlock();
+                _movingTileReference = null;
                 TileType = TileType.Walkable;
                 GetComponent<SpriteRenderer>().sortingOrder = -2;
                 transform.localScale = new Vector3(1,1,1);
-                Vector2 newpos = new Vector2(transform.position.x,transform.position.y - 0.125f);
-                GameManager.Instance.UpdateTileDB(newpos,this,_lastPosition);
+                print($"Transformed tile pos is ({newpos.x},{newpos.y})");
                 StartCoroutine(ActivationAnimation());
                 yield break;
             }
@@ -137,7 +157,7 @@ namespace ChardMove
                 break;
 
                 case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.125f, transform.position.y + 0.5f);
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.125f);
                 break;
 
                 case(MovementDirection.Right):
@@ -146,6 +166,10 @@ namespace ChardMove
             }
             TileType tileType = GameManager.Instance.GetTileType(target);
             if(tileType == TileType.Walkable){
+                if(GameManager.Instance.GetTile(target).TryGetComponent(out MovingTile _tile)){
+                    _movingTileReference = _tile;
+                    _tile.CachePushableBlock(this.gameObject);
+                }
                 return true;
             }else if(tileType == TileType.Unwalkable){
                 return false;

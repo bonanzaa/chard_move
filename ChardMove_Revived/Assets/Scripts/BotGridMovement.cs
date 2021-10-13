@@ -82,6 +82,7 @@ namespace ChardMove.BotMovement
             switch(direction){
                 case(MovementDirection.Forward):
                 target =  new Vector2(transform.position.x + 0.5f*distance, transform.position.y + 0.25f*distance);
+                //print($"({target.x},{target.y})");
                 break;
 
                 case(MovementDirection.Backward):
@@ -383,9 +384,12 @@ namespace ChardMove.BotMovement
 
         private (bool,Vector2) CheckForward(){
             Vector2 nextTilePos = new Vector2(transform.position.x + 0.5f, transform.position.y + 0.25f);
+            print($"Player checking ({nextTilePos.x},{nextTilePos.y})");
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
+            print($"Is tile walkable? {walkable}");
             var playerDead = tileWalkable.Item2;
+            print($"Is player dead? {playerDead}");
 
             if(walkable && !playerDead){
                 return (true, nextTilePos);
