@@ -7,6 +7,8 @@ namespace ChardMove.gameManager
 {
     public class GameManager : MonoBehaviour
     {
+        public Grid Level;
+
         public delegate void ResetButtonPressed();
         public static event ResetButtonPressed resetButtonPressed;
 
@@ -21,13 +23,39 @@ namespace ChardMove.gameManager
         public List<Draggable> _tempPlayerCards = new List<Draggable>();
 
         private List<Draggable> _originalPlayerCards = new List<Draggable>();
+        private Grid _currentLevel;
+        public bool LevelLoaded = false;
 
         private void Awake() {
             Instance = this;
+            if(Level != null){
+                LevelLoaded = true;
+                ClearDictionaries();
+            }
         }
 
         private void Start() {
             _originalPlayerCards = PlayerCards;
+            if(Level != null){
+                print("Level is not null, loading it");
+                LoadLevel(Level.gameObject);
+            }
+        }
+
+        public void LoadLevel(GameObject level) {
+            if(Level != null){
+                Destroy(_currentLevel);
+                ClearDictionaries();
+                ResetPlayerCards();
+                print("Instantiating level");
+                _currentLevel = Instantiate(Level,new Vector3(0,0,0),Quaternion.identity);
+            }else{
+                ClearDictionaries();
+                ResetPlayerCards();
+                LevelLoaded = true;
+            }
+            print($"Loading cards. Is CardStacker.Instance null: {CardStacker.Instance == null}. TempCards: {_tempPlayerCards.Count}");
+            CardStacker.Instance.LoadCards();
         }
 
         public void Reset(){

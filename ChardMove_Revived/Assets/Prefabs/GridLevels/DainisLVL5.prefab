@@ -183,7 +183,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572215832760688595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.38, y: 3.34, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1572215832610845078}
@@ -214,15 +214,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a01dd74fb933418e06f60a9eea68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cards:
-  - {fileID: 8598554467030697216, guid: a94497b3a4f1f8a48ad9a18cdfc3eb77, type: 3}
-  - {fileID: 8598554467030697216, guid: a94497b3a4f1f8a48ad9a18cdfc3eb77, type: 3}
-  - {fileID: 8598554467030697216, guid: a94497b3a4f1f8a48ad9a18cdfc3eb77, type: 3}
-  - {fileID: 8598554467030697216, guid: ea755c50164ceca48ad4e574f950cc12, type: 3}
-  - {fileID: 8598554467030697216, guid: ea755c50164ceca48ad4e574f950cc12, type: 3}
-  - {fileID: 8598554467030697216, guid: ea755c50164ceca48ad4e574f950cc12, type: 3}
-  - {fileID: 8598554467030697216, guid: ea755c50164ceca48ad4e574f950cc12, type: 3}
-  - {fileID: 8598554467030697216, guid: bf78c42fcf361fa47b94f85d55510787, type: 3}
+  OneTileCardCount: 0
+  TwoTileCardCount: 0
+  ThreeTileCardCount: 0
+  FourTileCardCount: 0
 --- !u!1001 &5272028588300001389
 PrefabInstance:
   m_ObjectHideFlags: 0
