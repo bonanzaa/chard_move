@@ -7,9 +7,11 @@ namespace ChardMove
 {
     public class CardStacker : MonoBehaviour
     {
+        public static CardStacker Instance;
         public List<GameObject> Slots;
 
         private void Awake() {
+            Instance = this;
             Draggable.onBeginDrag += Reorganize;
             Draggable.onEndDrag += Reorganize;
             foreach (var item in Slots)
@@ -18,13 +20,14 @@ namespace ChardMove
             }
         }
 
-        private void Start() {
+        public void LoadCards() {
             SetupSlots();
             PopulateSlots();
             OrganizeSlots();
         }
 
         private void SetupSlots(){
+            print("Setting up slots");
             foreach (var item in GameManager.Instance._tempPlayerCards)
             {
                 switch(item.Distance){
@@ -48,6 +51,7 @@ namespace ChardMove
         }
 
         private void PopulateSlots(){
+            print($"Populating slots with {GameManager.Instance._tempPlayerCards.Count} cards");
             foreach (var item in GameManager.Instance._tempPlayerCards)
             {
                 switch(item.Distance){

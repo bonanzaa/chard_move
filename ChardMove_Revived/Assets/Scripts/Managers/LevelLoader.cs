@@ -10,15 +10,16 @@ namespace ChardMove
     {
         [SerializeField] private List<GameObject> _levels;
         [SerializeField] private GameObject _winScreenUI;
-        [SerializeField] private Grid _testLevel;
+        public static GameObject CurrentLevel;
         //[SerializeField] private List<GameObject> _deactivatedUI;
+
         private SceneLoader _sceneLoader;
         private CardSpaceMarker _cardContainer;
         private GameObject _previousLevel;
         private SaveSystem _saveSystem = new SaveSystem();
 
         public int GetLevelCount { get => _levels.Count;}
-        public static GameObject CurrentLevel;
+
         public static int LevelIndex;
         public bool CanLoadLevel = true;
         public static LevelLoader Instance;
@@ -106,20 +107,20 @@ namespace ChardMove
             //print(index);
             //_currentLevelGrid = instance;
             CurrentLevel = Instantiate(newLevel,transform.position,Quaternion.identity);
-            PassCardList();
+            //PassCardList();
         }
 
-        private void PassCardList(){
-            List<GameObject> _cardList =  CurrentLevel.GetComponent<CardContainer>().BaseCards;
-            if(_cardList.Count == 0){
-                print("No cards detected on this level");
-                return;
-            }
-            foreach (var item in _cardList)
-            {
-                GameManager.Instance._tempPlayerCards.Add(item.GetComponent<Draggable>());
-            }
-        }
+        // private void PassCardList(){
+        //     List<GameObject> _cardList =  CurrentLevel.GetComponent<CardContainer>()._cardList;
+        //     if(_cardList.Count == 0){
+        //         print("No cards detected on this level");
+        //         return;
+        //     }
+        //     foreach (var item in _cardList)
+        //     {
+        //         GameManager.Instance._tempPlayerCards.Add(item.GetComponent<Draggable>());
+        //     }
+        // }
         private IEnumerator LoadBuffer(float timer)
         {
             while (timer > 0)

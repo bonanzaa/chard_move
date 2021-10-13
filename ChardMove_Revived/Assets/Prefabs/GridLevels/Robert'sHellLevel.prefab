@@ -217,20 +217,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a01dd74fb933418e06f60a9eea68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cards:
-  - {fileID: 8598554467030697216, guid: a94497b3a4f1f8a48ad9a18cdfc3eb77, type: 3}
-  - {fileID: 8598554467030697216, guid: a94497b3a4f1f8a48ad9a18cdfc3eb77, type: 3}
-  - {fileID: 8598554467030697216, guid: a94497b3a4f1f8a48ad9a18cdfc3eb77, type: 3}
-  - {fileID: 8598554467030697216, guid: a94497b3a4f1f8a48ad9a18cdfc3eb77, type: 3}
-  - {fileID: 8598554467030697216, guid: ea755c50164ceca48ad4e574f950cc12, type: 3}
-  - {fileID: 8598554467030697216, guid: ea755c50164ceca48ad4e574f950cc12, type: 3}
-  - {fileID: 8598554467030697216, guid: ea755c50164ceca48ad4e574f950cc12, type: 3}
-  - {fileID: 8598554467030697216, guid: bf78c42fcf361fa47b94f85d55510787, type: 3}
-  - {fileID: 8598554467030697216, guid: bf78c42fcf361fa47b94f85d55510787, type: 3}
-  - {fileID: 8598554467030697216, guid: bf78c42fcf361fa47b94f85d55510787, type: 3}
-  - {fileID: 8598554467030697216, guid: ea755c50164ceca48ad4e574f950cc12, type: 3}
-  - {fileID: 8598554467030697216, guid: ea755c50164ceca48ad4e574f950cc12, type: 3}
-  - {fileID: 8598554467030697216, guid: ea755c50164ceca48ad4e574f950cc12, type: 3}
+  OneTileCardCount: 2
+  TwoTileCardCount: 2
+  ThreeTileCardCount: 2
+  FourTileCardCount: 0
 --- !u!1001 &1504794220930366983
 PrefabInstance:
   m_ObjectHideFlags: 0

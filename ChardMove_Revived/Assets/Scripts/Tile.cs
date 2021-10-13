@@ -26,6 +26,10 @@ namespace ChardMove
             }
         }
 
+        private void OnDestroy() {
+            GameManager.Instance.RemoveFromTileDB(transform.position);
+        }
+
         private void OnResetButtonPressed(){
             GameManager.Instance.TileDB.Remove(new Vector2(transform.position.x,transform.position.y));
             GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);

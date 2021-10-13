@@ -24,7 +24,6 @@ namespace ChardMove
                 _ActiveChildren[0].gameObject.GetComponent<RectTransform>().localPosition = new Vector3(0,0,0);
                 return;
             }
-
             Vector3 offset = new Vector3();
             int childInd = 0;
             int count = 0;
@@ -32,9 +31,8 @@ namespace ChardMove
             if(transform.childCount > 3){
                 count = 3;
             }else{
-                count = transform.childCount-1;
+                count = transform.childCount;
             }
-
             for (int i = 1; i < count; i++)
             {
                 childInd = i;
