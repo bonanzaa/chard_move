@@ -8,7 +8,7 @@ namespace ChardMove
     public class LatchSwitch : MonoBehaviour, SwitchBase
     {
         public bool GateSwitch;
-        public bool MovingPlatformSwitch;
+        public bool MovingPlatformSwitch; 
         public List<Roadblock> Gates;
         public List<MovingTile> MovingPlatforms;
         public bool isTarget = false;

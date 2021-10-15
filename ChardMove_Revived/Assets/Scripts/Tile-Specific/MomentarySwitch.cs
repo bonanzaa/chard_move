@@ -7,7 +7,8 @@ namespace ChardMove
 {
     public class MomentarySwitch : MonoBehaviour, SwitchBase
     {
-        public List<Roadblock> Gates;
+        public List<Roadblock> Gates; 
+        public List<MovingTile> MovingPlatforms;
         public bool isTarget = false;
         private bool _lastIsTarget;
         public GameObject _currentBot;
@@ -40,6 +41,10 @@ namespace ChardMove
                 {
                     gate.Activate();
                 }
+                foreach (var item in MovingPlatforms)
+                {
+                    item.Activate();
+                }
                 isTarget = false;
             }
         }
@@ -57,6 +62,10 @@ namespace ChardMove
                     if(gate.IsActive){
                         gate.Deactivate();
                     }
+                }
+                foreach (var item in MovingPlatforms)
+                {
+                    item.Deactivate();
                 }
             }
         }

@@ -24,10 +24,18 @@ namespace ChardMove
         private int _goSiblingIndex;
         private bool _choosing = false;
         private List<Tile> _availableTiles = new List<Tile>();
+        private CanvasGroup _canvasGroup;
+        private bool _buttonPressed = false;
         private void Awake() 
         {
             _canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
             _canvas.worldCamera = Camera.main;
+            DropZone.directionChoiceActive += OnDirectionChoiceActive;
+            DropZone.directionChoiceInactive += OnDirectionChoiceInactive;
+
+            DirectionalButtonClick.onButtonPressed += OnButtonPressed;
+            
+            GameManager.undoButtonPressed += OnUndo;
         }
 
         private void Start() {
@@ -42,6 +50,17 @@ namespace ChardMove
             }
         }
 
+        private void OnButtonPressed(bool pressed){
+            _buttonPressed = pressed;
+        }
+
+        private void Update() {
+            if(Input.GetKeyDown(KeyCode.Mouse0) && _choosing && !_buttonPressed){
+                OnUndo();
+                GameManager.Instance.UndoDirectionalChoiceEvent();
+            }
+        }
+
         private void HighlightAvailableTiles(int distance){
             foreach (MovementDirection direction in Enum.GetValues(typeof(MovementDirection)))
             {
@@ -51,6 +70,13 @@ namespace ChardMove
             {
                 item.Highlight();
             }
+        }
+
+        private void OnUndo(){
+            _direction = MovementDirection.None;
+            _choosing = false;
+            DirectionChoiceMenu.SetActive(false);
+            directionChoiceInactive();
         }
 
         private void CheckPath(MovementDirection direction,int distance){
@@ -121,6 +147,7 @@ namespace ChardMove
             var draggable = data.pointerDrag.GetComponent<Draggable>();
             _distance = draggable.Distance;
             GameManager.Instance.LastCardPlayed = draggable;
+            GameManager.Instance.RemoveCard(draggable);
             draggable.ChangeParent();
             int goSiblingIndex = data.pointerDrag.gameObject.transform.GetSiblingIndex();
             data.pointerDrag.gameObject.SetActive(false);
@@ -133,6 +160,13 @@ namespace ChardMove
         private void OnDisable() {
             DropZone.directionChoiceActive -= OnDirectionChoiceActive;
             DropZone.directionChoiceInactive -= OnDirectionChoiceInactive;
+            GameManager.undoButtonPressed -= OnUndo;
+        }
+
+        private void OnDestroy() {
+            DropZone.directionChoiceActive -= OnDirectionChoiceActive;
+            DropZone.directionChoiceInactive -= OnDirectionChoiceInactive;
+            GameManager.undoButtonPressed -= OnUndo;
         }
 
         private void OnDirectionChoiceActive(){
@@ -153,6 +187,7 @@ namespace ChardMove
         }
 
         private void ClearAvailableTiles(){
+            if(this == null) return;
             foreach (var item in _availableTiles)
                 {
                     item.DisableHighlight();

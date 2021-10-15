@@ -13,10 +13,12 @@ namespace ChardMove
             GameManager.resetButtonPressed += OnResetButtonPressed;
         }
         public void Highlight(){
-            _highlight.SetActive(true);
+            if(_highlight != null)
+                _highlight.SetActive(true);
         }
         public void DisableHighlight(){
-            _highlight.SetActive(false);
+            if(_highlight != null)
+                _highlight.SetActive(false);
         }
         public virtual void Start() {
             GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);

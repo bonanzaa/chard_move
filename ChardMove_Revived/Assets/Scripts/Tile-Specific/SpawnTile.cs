@@ -32,6 +32,14 @@ namespace ChardMove
         }
 
         private void OnResetButtonPressed(){
+            if(_bot != null){
+                Destroy(_bot);
+            }
+            StartCoroutine(AwakeTimer());
+        }
+
+        private IEnumerator AwakeTimer(){
+            yield return new WaitForEndOfFrame();
             Awake();
         }
 

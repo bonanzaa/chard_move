@@ -40,7 +40,7 @@ namespace ChardMove
         }
 
         public void CacheLastPos(){
-            _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
+            _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f); 
         }
 
         private void OnDisable() {
@@ -62,6 +62,7 @@ namespace ChardMove
             if(_transformIntoTile) return;
             _moveSpeed = moveSpeed;
             Vector2 targetTile = TargetTilePosition(direction);
+            bool botInTheWay =  GameManager.Instance.BotInTheWay(targetTile);
             if(CheckTargetTileType(direction)){
                 FindPushable(direction,moveSpeed);
                 StartCoroutine(MoveToNextTile(direction, targetTile));
@@ -71,6 +72,7 @@ namespace ChardMove
         }
 
         public IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
+            FindPushable(direction,_moveSpeed);
             _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
             yield return null;
             while(true){
@@ -87,15 +89,15 @@ namespace ChardMove
             }else{
                 Vector2 pushablePos =  new Vector2(-transform.position.x,transform.position.y-0.125f);
                 GameManager.Instance.RemovePushableFromDB(pushablePos);
-                Vector2 newpos = new Vector2(transform.position.x,transform.position.y-0.125f);
-                GameManager.Instance.UpdateTileDB(newpos,this,_lastPosition);
-                print($"Added new tile to: ({newpos.x},{newpos.y})");
-                _movingTileReference.RemovePushableBlock();
+                Vector2 newpos = new Vector2(transform.position.x,transform.position.y-0.125f); // -0.125f
+                GameManager.Instance.TileDB.Add(newpos,this);
+                if(_movingTileReference != null){
+                    _movingTileReference.RemovePushableBlock();
+                }
                 _movingTileReference = null;
                 TileType = TileType.Walkable;
                 GetComponent<SpriteRenderer>().sortingOrder = -2;
                 transform.localScale = new Vector3(1,1,1);
-                print($"Transformed tile pos is ({newpos.x},{newpos.y})");
                 StartCoroutine(ActivationAnimation());
                 yield break;
             }
@@ -125,19 +127,19 @@ namespace ChardMove
             Vector2 target = new Vector2();
             switch(direction){
                 case(MovementDirection.Forward):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.25f);
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.25f); // +0.25f
                 return target;
 
                 case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.25f);
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.25f); // -0.25f
                 return target;
 
                 case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.25f);
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.25f); // +0.25f
                 return target;
 
                 case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.25f);
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.25f); // -0.25f
                 return target;
 
                 default:
@@ -164,8 +166,14 @@ namespace ChardMove
                 target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.375f);
                 break;
             }
+            // check for any bots first
+            bool botInTheWay = GameManager.Instance.BotInTheWay(target);
+            if(botInTheWay) return false;
+
+            // then check for the tileType
             TileType tileType = GameManager.Instance.GetTileType(target);
             if(tileType == TileType.Walkable){
+    
                 if(GameManager.Instance.GetTile(target).TryGetComponent(out MovingTile _tile)){
                     _movingTileReference = _tile;
                     _tile.CachePushableBlock(this.gameObject);
@@ -185,19 +193,19 @@ namespace ChardMove
             
             switch(direction){
                 case(MovementDirection.Forward):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.250f); // y+0.375f
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.125f); // y+0.375f
                 break;
 
                 case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.250f); // y-0.125f
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.375f); // y-0.250f
                 break;
                 
                 case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.250f); //y+0.375f
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.125f); //y+0.375f
                 break;
 
                 case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f,transform.position.y - 0.250f); // y-0.125f
+                target =  new Vector2(transform.position.x + 0.5f,transform.position.y - 0.375f); // y-0.125f
                 break;
 
                 default:

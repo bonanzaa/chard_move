@@ -7,17 +7,22 @@ namespace ChardMove
 {
     public class SlotOrganizer : MonoBehaviour
     {
-        private List<Transform> _ActiveChildren = new List<Transform>();
+        public List<Transform> _ActiveChildren = new List<Transform>();
         public void OrganizeSlots(){
+            _ActiveChildren.Clear();
             int activeChildCount = 0;
             foreach (Transform item in transform)
             {
-                if(item.gameObject.activeSelf){
+                if(item.gameObject.activeSelf && item != null){
                     activeChildCount ++;
                     _ActiveChildren.Add(item);
-                }else{
+                }else if(item != null){
                     _ActiveChildren.Remove(item);
                 }
+            }
+
+            if(activeChildCount == 0){
+                this.gameObject.SetActive(false);
             }
 
             if(activeChildCount == 1){
@@ -50,6 +55,14 @@ namespace ChardMove
                 item.localPosition = new Vector3(0,0,0);
             }
             OrganizeSlots();
+        }
+
+        public void ClearSlot(){
+            foreach (Transform item in transform)
+            {
+                Destroy(item.gameObject);
+            }
+            _ActiveChildren.Clear();
         }
     }
 }

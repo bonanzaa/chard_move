@@ -14,16 +14,50 @@ namespace ChardMove
             Instance = this;
             Draggable.onBeginDrag += Reorganize;
             Draggable.onEndDrag += Reorganize;
+            GameManager.resetButtonPressed += OnReset;
+            GameManager.undoButtonPressed += OnUndo;
+            GameManager.undoDirectionalChoice  += OnUndo;
             foreach (var item in Slots)
             {
                 item.SetActive(false);
             }
         }
 
+        private void OnReset(){
+            ClearCards();
+            StartCoroutine(LoadTimer());
+        }
+
+        private void OnUndo(){
+            if(GameManager.Instance.LastCardPlayed == null) return;
+            SetupSlotsOnUndo();
+            PopulateSlotOnUndo();
+            Reorganize(GameManager.Instance.LastCardPlayed.Distance);
+            GameManager.Instance.LastCardPlayed = null;
+        }
+
+
+
+        private IEnumerator LoadTimer(){
+            yield return new WaitForEndOfFrame();
+            // gotta wait a little, otherwise unity freaks out and
+            // starts adding empty objects to the list
+            LoadCards();
+        }
+
+
         public void LoadCards() {
             SetupSlots();
             PopulateSlots();
             OrganizeSlots();
+        }
+
+        private void ClearCards(){
+            foreach (var item in Slots)
+            {
+                item.SetActive(false);
+                item.GetComponent<SlotOrganizer>().ClearSlot();
+            }
         }
 
         private void SetupSlots(){
@@ -49,6 +83,30 @@ namespace ChardMove
             }
         }
 
+        private void SetupSlotsOnUndo(){
+            foreach (var item in GameManager.Instance.PlayerCards)
+            {
+                switch(item.Distance){
+                    case 1:
+                    Slots[0].SetActive(true);
+                    break;
+
+                    case 2:
+                    Slots[1].SetActive(true);
+                    break;
+
+                    case 3:
+                    Slots[2].SetActive(true);
+                    break;
+
+                    case 4:
+                    Slots[3].SetActive(true);
+                    break;
+                }
+            }
+        }
+
+
         private void PopulateSlots(){
             foreach (var item in GameManager.Instance._tempPlayerCards)
             {
@@ -70,6 +128,10 @@ namespace ChardMove
                     break;
                 }
             }
+        }
+
+        private void PopulateSlotOnUndo(){
+            GameManager.Instance.LastCardPlayed.gameObject.SetActive(true);
         }
 
         private void OrganizeSlots(){

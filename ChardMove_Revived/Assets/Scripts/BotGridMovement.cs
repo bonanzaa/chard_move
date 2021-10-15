@@ -23,6 +23,7 @@ namespace ChardMove.BotMovement
         private IEnumerator walkingCoroutine;
         private Vector2 _originalPosition;
         private Vector2 _lastPosition;
+        private Vector2 _lastPositionBeforeMovement;
         private bool _amGoingToDie = false;
 
 
@@ -31,6 +32,7 @@ namespace ChardMove.BotMovement
             _originalPosition = transform.position;
             // used by undo
             _lastPosition = transform.position;
+            _lastPositionBeforeMovement = transform.position;
             
 
             GameManager.resetButtonPressed += OnResetButtonPressed;
@@ -54,6 +56,7 @@ namespace ChardMove.BotMovement
 
         public void Move(MovementDirection direction, int steps){
             botStartedMoving(direction,steps);
+            _lastPositionBeforeMovement = transform.position;
             _lastPosition = transform.position;
             // readjust highlight GO
             Highlight.transform.localPosition = Vector3.zero;
@@ -82,7 +85,6 @@ namespace ChardMove.BotMovement
             switch(direction){
                 case(MovementDirection.Forward):
                 target =  new Vector2(transform.position.x + 0.5f*distance, transform.position.y + 0.25f*distance);
-                //print($"({target.x},{target.y})");
                 break;
 
                 case(MovementDirection.Backward):
@@ -179,7 +181,7 @@ namespace ChardMove.BotMovement
             }
             while(true){
                 MoveTowards(target);
-                if((Vector2)transform.position == target){
+                if((Vector2)transform.position == target){ 
                     // play death animation here
                     _canMove = false;
                     yield return new WaitForSeconds(0.5f);
@@ -287,13 +289,27 @@ namespace ChardMove.BotMovement
 
         // event callbacks
         private void OnDisable() {
+            GameManager.Instance.RemoveBotFromDB(this.transform.position);
             GameManager.resetButtonPressed -= OnResetButtonPressed;
             GameManager.undoButtonPressed -= OnUndoButtonPressed;
             PushableBlock.cannotBePushed -= OnCannotBePushed;
             if(!IsPushable){
                 BotGridMovement.botCannotBePushed -= OnCannotBePushed;
+            }else{
+                GameManager.Instance.RemovePushableFromDB(transform.position);
             }
+        }
+
+        private void OnDestroy() {
             GameManager.Instance.RemoveBotFromDB(this.transform.position);
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
+            PushableBlock.cannotBePushed -= OnCannotBePushed;
+            if(!IsPushable){
+                BotGridMovement.botCannotBePushed -= OnCannotBePushed;
+            }else{
+                GameManager.Instance.RemovePushableFromDB(transform.position);
+            }
         }
 
         private void OnResetButtonPressed(){
@@ -311,10 +327,11 @@ namespace ChardMove.BotMovement
         private void OnUndoButtonPressed(){
             GameManager.Instance.RemovePushableFromDB(transform.position);
             GameManager.Instance.RemoveBotFromDB(transform.position);
-            transform.position = _lastPosition;
-            GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
+            GameManager.Instance.RemoveBotFromDB(_lastPosition);
+            transform.position = _lastPositionBeforeMovement;
+            GameManager.Instance.BotDB.Add(transform.position,this);
             if(IsPushable){
-                GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
+                GameManager.Instance.PushableDB.Add(transform.position,(this,this.gameObject));
             }
             // only exists, because of some weird glitches
             Highlight.transform.localPosition = Vector3.zero;
@@ -384,12 +401,9 @@ namespace ChardMove.BotMovement
 
         private (bool,Vector2) CheckForward(){
             Vector2 nextTilePos = new Vector2(transform.position.x + 0.5f, transform.position.y + 0.25f);
-            print($"Player checking ({nextTilePos.x},{nextTilePos.y})");
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
-            print($"Is tile walkable? {walkable}");
             var playerDead = tileWalkable.Item2;
-            print($"Is player dead? {playerDead}");
 
             if(walkable && !playerDead){
                 return (true, nextTilePos);
@@ -410,7 +424,6 @@ namespace ChardMove.BotMovement
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;
-
             if(walkable && !playerDead){
                 return (true, nextTilePos);
             }else if(!walkable && !playerDead){
@@ -446,7 +459,6 @@ namespace ChardMove.BotMovement
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;
-
             if(walkable && !playerDead){
                 return (true, nextTilePos);
             }else if(!walkable && !playerDead){

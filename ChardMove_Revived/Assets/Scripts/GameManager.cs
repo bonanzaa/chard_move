@@ -14,6 +14,8 @@ namespace ChardMove.gameManager
 
         public delegate void UndoButtonPressed();
         public static event UndoButtonPressed undoButtonPressed;
+        public delegate void UndoDirectionalChoice();
+        public static event UndoDirectionalChoice undoDirectionalChoice;
         public Dictionary<Vector2,Tile> TileDB =  new Dictionary<Vector2, Tile>();
         public Dictionary<Vector2,(IPushable,GameObject)> PushableDB = new Dictionary<Vector2, (IPushable,GameObject)>();
         public Dictionary<Vector2,BotGridMovement> BotDB = new Dictionary<Vector2, BotGridMovement>();
@@ -57,14 +59,11 @@ namespace ChardMove.gameManager
 
         public void Reset(){
             resetButtonPressed();
-            ResetPlayerCards();
+            BotDB.Clear();
+            DeletePlayerCards(); 
         }
 
         public void DeletePlayerCards(){
-            foreach (var item in PlayerCards)
-            {
-                Destroy(item.gameObject);
-            }
             PlayerCards.Clear();
         }
         private void ResetPlayerCards(){
@@ -74,13 +73,14 @@ namespace ChardMove.gameManager
             }
         }
 
-        private void UndoPlayerCards(){
-            if(LastCardPlayed != null)
-                LastCardPlayed.gameObject.SetActive(true);
-        }
         public void Undo(){
+            if(LastCardPlayed!= null)
+                PlayerCards.Add(LastCardPlayed);
             undoButtonPressed();
-            UndoPlayerCards();
+        }
+
+        public void UndoDirectionalChoiceEvent(){
+            undoDirectionalChoice();
         }
 
         // first bool is: is the tile walkable?
@@ -169,6 +169,10 @@ namespace ChardMove.gameManager
 
         private void RemoveFromBotDB(Vector2 pos){
             BotDB.Remove(pos);
+        }
+
+        public void RemoveCard(Draggable card){
+            PlayerCards.Remove(card);
         }
 
         public void ClearDictionaries(){
