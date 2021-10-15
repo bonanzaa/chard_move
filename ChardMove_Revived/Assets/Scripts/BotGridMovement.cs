@@ -54,8 +54,9 @@ namespace ChardMove.BotMovement
             GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
         }
 
-        public void Move(MovementDirection direction, int steps){
+        public void Move(MovementDirection direction, int steps){ 
             botStartedMoving(direction,steps);
+            GameManager.Instance.OnBotStartedMoving();
             _lastPositionBeforeMovement = transform.position;
             _lastPosition = transform.position;
             // readjust highlight GO
@@ -75,6 +76,7 @@ namespace ChardMove.BotMovement
                 if(botMoved != null)
                 // this is considered a move, so update world state
                 botMoved();
+                GameManager.Instance.OnBotFinishedMoving();
                 print($"I cannot move {direction.ToString()}...");
             }
         
@@ -147,6 +149,7 @@ namespace ChardMove.BotMovement
                         // Time to update gamestate!
                         if(botMoved != null)
                             yield return new WaitForSeconds(0.125f);
+                            GameManager.Instance.OnBotFinishedMoving();
                             if(botMoved != null)
                                 botMoved();
                         GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
@@ -170,6 +173,7 @@ namespace ChardMove.BotMovement
                     GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
                 }
             }
+            GameManager.Instance.OnBotFinishedMoving();
             _canMove = true;
         }
 

@@ -77,11 +77,11 @@ namespace ChardMove
         }
 
         private void OnResetButtonPressed(){
-            GameManager.Instance.PushableDB.Clear();
             // remove reference for our old position from TileTB;
             GameManager.Instance.RemoveFromTileDB(transform.position);
             
             transform.position = _originalPosition;
+            GameManager.Instance.TileDB.Add(transform.position,this);
             CurrentStep = _originalStep;
             Direction = _originalDirection;
             Active = _originalIsActive;
@@ -92,6 +92,7 @@ namespace ChardMove
         private void OnUndoButtonPressed(){
             GameManager.Instance.RemoveFromTileDB(transform.position);
             transform.position = _lastPosition;
+            GameManager.Instance.TileDB.Add(transform.position,this);
             CurrentStep = _lastStep;
             Direction = _lastDirection;
             Active = _lastIsActive;

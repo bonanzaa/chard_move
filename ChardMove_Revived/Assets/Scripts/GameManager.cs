@@ -27,6 +27,7 @@ namespace ChardMove.gameManager
         private List<Draggable> _originalPlayerCards = new List<Draggable>();
         private Grid _currentLevel;
         public bool LevelLoaded = false;
+        private bool _botMoving = false;
 
         private void Awake() {
             Instance = this;
@@ -58,9 +59,18 @@ namespace ChardMove.gameManager
         }
 
         public void Reset(){
+            if(_botMoving) return;
             resetButtonPressed();
             BotDB.Clear();
             DeletePlayerCards(); 
+        }
+
+        public void OnBotStartedMoving(){
+            _botMoving = true;
+        }
+
+        public void OnBotFinishedMoving(){
+            _botMoving = false;
         }
 
         public void DeletePlayerCards(){
@@ -74,6 +84,7 @@ namespace ChardMove.gameManager
         }
 
         public void Undo(){
+            if(_botMoving) return;
             if(LastCardPlayed!= null)
                 PlayerCards.Add(LastCardPlayed);
             undoButtonPressed();

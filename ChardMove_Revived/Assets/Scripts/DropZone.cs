@@ -74,9 +74,11 @@ namespace ChardMove
 
         private void OnUndo(){
             _direction = MovementDirection.None;
+            if(!_choosing) return;
             _choosing = false;
             DirectionChoiceMenu.SetActive(false);
-            directionChoiceInactive();
+            if(directionChoiceInactive != null)
+                directionChoiceInactive();
         }
 
         private void CheckPath(MovementDirection direction,int distance){

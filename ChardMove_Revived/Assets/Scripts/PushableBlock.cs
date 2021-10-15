@@ -13,13 +13,22 @@ namespace ChardMove
         public delegate void CannotBePushed();
         public static event CannotBePushed cannotBePushed;
         private Vector2 _lastPosition;
+        private Vector2 _lastPositionWorldSpace;
         private float _moveSpeed;
         private bool _transformIntoTile = false;
+        private bool _lastTransformIntoTile = false;
         private MovingTile _movingTileReference = null;
+        private MovingTile _lastMovingTileReference = null;
         private void Awake() {
             _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
-            GameManager.resetButtonPressed += OnResetButtonPressed;
+            _lastPositionWorldSpace = transform.position;
             _transformIntoTile = false;
+            _lastTransformIntoTile = _transformIntoTile;
+            _lastMovingTileReference = null;
+            _movingTileReference = null;
+            GameManager.resetButtonPressed += OnResetButtonPressed;
+            GameManager.undoButtonPressed += OnUndoButtonPressed;
+            BotGridMovement.botStartedMoving += OnBotStartedMoving;
             if(transform.childCount != 0){
                 _highlight = transform.GetChild(0).gameObject;
                 _highlight.SetActive(false);
@@ -45,6 +54,8 @@ namespace ChardMove
 
         private void OnDisable() {
             GameManager.resetButtonPressed -= OnResetButtonPressed;
+            BotGridMovement.botStartedMoving -= OnBotStartedMoving;
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
         }
 
         private void OnResetButtonPressed()
@@ -56,6 +67,42 @@ namespace ChardMove
 
             GameManager.Instance.PushableDB.Clear();
             Destroy(this.gameObject);
+        }
+
+        private void OnUndoButtonPressed(){
+            if(!_lastTransformIntoTile){
+                //check for moving tile
+                if(_lastMovingTileReference != null){
+                    if(GameManager.Instance.GetTile(_lastPosition).TryGetComponent(out MovingTile _tile)){
+                        _movingTileReference = _tile;
+                        _tile.CachePushableBlock(this.gameObject);
+                    }
+                }else if(_movingTileReference != null){
+                    _movingTileReference.RemovePushableBlock();
+                    _movingTileReference = null;
+                }
+
+                // check if we are now tile
+                if(_transformIntoTile){
+                    _transformIntoTile = false;
+                    Vector2 newpos = new Vector2(transform.position.x,transform.position.y+0.375f);
+                    GameManager.Instance.RemoveFromTileDB(newpos);
+                }
+
+                Vector2 myPos = new Vector2(transform.position.x,transform.position.y-0.125f);
+                GameManager.Instance.RemovePushableFromDB(myPos);
+                transform.position = _lastPositionWorldSpace;
+                transform.localScale = new Vector3(0.7f,0.7f,0.7f);
+                _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
+                GameManager.Instance.PushableDB.Add(_lastPosition,(this,this.gameObject));
+            }
+        }
+
+        private void OnBotStartedMoving(MovementDirection direction, int steps){
+            // caching all the shit for the UNDO
+            _lastPositionWorldSpace = transform.position;
+            _lastTransformIntoTile = _transformIntoTile;
+            _lastMovingTileReference = _movingTileReference;
         }
 
         public void Push(MovementDirection direction,float moveSpeed){
@@ -87,7 +134,7 @@ namespace ChardMove
                  GameManager.Instance.AddToPushableDB(newPos,this,this.gameObject,_lastPosition);
                  yield break;
             }else{
-                Vector2 pushablePos =  new Vector2(-transform.position.x,transform.position.y-0.125f);
+                Vector2 pushablePos =  new Vector2(transform.position.x,transform.position.y-0.125f);
                 GameManager.Instance.RemovePushableFromDB(pushablePos);
                 Vector2 newpos = new Vector2(transform.position.x,transform.position.y-0.125f); // -0.125f
                 GameManager.Instance.TileDB.Add(newpos,this);
