@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 446790260918936901}
   - component: {fileID: 446790260918936906}
   - component: {fileID: 446790260918936907}
+  - component: {fileID: 475631400}
   m_Layer: 5
   m_Name: GameplayCanvasStacking
   m_TagString: Canvas
@@ -104,6 +105,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &475631400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446790260918936904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7de84b934d38c42890b81321589719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _winScreenUI: {fileID: 7127056908548352397}
 --- !u!1 &446790261311683553
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9d822e30badf434a9a74ef875e328c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ActiveChildren: []
 --- !u!1 &446790261352410916
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,6 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9d822e30badf434a9a74ef875e328c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ActiveChildren: []
 --- !u!1 &446790261634153450
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9d822e30badf434a9a74ef875e328c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ActiveChildren: []
 --- !u!1 &446790261677875546
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,6 +999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9d822e30badf434a9a74ef875e328c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ActiveChildren: []
 --- !u!1 &446790262487010525
 GameObject:
   m_ObjectHideFlags: 0

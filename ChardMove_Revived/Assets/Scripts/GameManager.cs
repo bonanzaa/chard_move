@@ -7,7 +7,7 @@ namespace ChardMove.gameManager
 {
     public class GameManager : MonoBehaviour
     {
-        public Grid Level;
+        public GameObject Level;
 
         public delegate void ResetButtonPressed();
         public static event ResetButtonPressed resetButtonPressed;
@@ -24,17 +24,30 @@ namespace ChardMove.gameManager
         public List<Draggable> PlayerCards = new List<Draggable>();
         public List<Draggable> _tempPlayerCards = new List<Draggable>();
 
+        private LevelLoader _levelLoader;
         private List<Draggable> _originalPlayerCards = new List<Draggable>();
-        private Grid _currentLevel;
+        private GameObject _currentLevel;
         public bool LevelLoaded = false;
         private bool _botMoving = false;
 
         private void Awake() {
+            _levelLoader = LevelLoader.Instance;
+            Debug.Log($"GameManager has LvlIndex:{LevelLoader.LevelIndex}");
+            LevelCompleteReference.nextLevel += OnNextLevelLoad;
             Instance = this;
+            if(Level == null)
+            {
+                Level = _levelLoader.Levels[LevelLoader.LevelIndex];
+            }
             if(Level != null){
                 LevelLoaded = true;
                 ClearDictionaries();
             }
+        }
+
+        private void OnNextLevelLoad()
+        {
+            LoadLevel(_levelLoader.Levels[LevelLoader.LevelIndex]);
         }
 
         private void Start() {
@@ -49,7 +62,7 @@ namespace ChardMove.gameManager
                 Destroy(_currentLevel);
                 ClearDictionaries();
                 ResetPlayerCards();
-                _currentLevel = Instantiate(Level,new Vector3(0,0,0),Quaternion.identity);
+                _currentLevel = Instantiate(level,new Vector3(1.32f,3.62f,0),Quaternion.identity);
             }else{
                 ClearDictionaries();
                 ResetPlayerCards();

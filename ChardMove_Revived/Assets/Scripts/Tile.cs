@@ -30,6 +30,7 @@ namespace ChardMove
 
         private void OnDestroy() {
             GameManager.Instance.RemoveFromTileDB(transform.position);
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
         }
 
         private void OnResetButtonPressed(){

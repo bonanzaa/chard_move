@@ -14,7 +14,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnTile
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: 7406942866699060643, guid: 8fa2f500389edb440a29eee8a935cb66, type: 3}
+  m_Sprite: {fileID: 4730228112345058426, guid: 1a5ff9e4856fb3243a29f5978eaf7176, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TileType: 0
+  _highlight: {fileID: 0}
   BotPrefab: {fileID: 4461372744452508117, guid: 6af33ab207d77804d83725b68126d35c, type: 3}
 --- !u!1 &9117353732180370364
 GameObject:
