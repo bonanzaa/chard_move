@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a01dd74fb933418e06f60a9eea68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelName: 
   OneTileCardCount: 0
   TwoTileCardCount: 3
   ThreeTileCardCount: 0
@@ -74,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPosition: {x: -1.64, y: -3.86, z: 0}
+  CameraPosition: {x: -1.64, y: -3.86, z: -10}
 --- !u!1 &9095414905238472526
 GameObject:
   m_ObjectHideFlags: 0
