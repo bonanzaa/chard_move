@@ -17,11 +17,28 @@ namespace ChardMove
             _originalIsActive = IsActive;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             BotGridMovement.botStartedMoving += OnBotStartedMoving;
+            GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;
             _lastTileType = TileType;
             if(transform.childCount != 0){
                 _highlight = transform.GetChild(0).gameObject;
                 _highlight.SetActive(false);
             }
+        }
+
+        private void OnUndoDirectionalChoice(){
+            _highlight.SetActive(false);
+        }
+
+        private void OnDisable() {
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
+            BotGridMovement.botStartedMoving -= OnBotStartedMoving;
+            GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
+        }
+
+        private void OnDestroy() {
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
+            BotGridMovement.botStartedMoving -= OnBotStartedMoving;
+            GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
         }
         public void Activate(){
             _lastTileType = TileType;

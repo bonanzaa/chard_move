@@ -24,6 +24,14 @@ namespace ChardMove
             }
         }
 
+        private void OnDestroy() {
+            Draggable.onBeginDrag -= Reorganize;
+            Draggable.onEndDrag -= Reorganize;
+            GameManager.resetButtonPressed -= OnReset;
+            GameManager.undoButtonPressed -= OnUndo;
+            GameManager.undoDirectionalChoice -= OnUndo;
+        }
+
         private void OnReset(){
             ClearCards();
             StartCoroutine(LoadTimer());
@@ -51,16 +59,16 @@ namespace ChardMove
             SetupSlots();
             PopulateSlots();
             OrganizeSlots();
+            ReorganizeAll();
         }
 
-        private void ClearCards(){
+        public void ClearCards(){
             foreach (var item in Slots)
             {
                 item.SetActive(false);
                 item.GetComponent<SlotOrganizer>().ClearSlot();
             }
         }
-
         private void SetupSlots(){
             foreach (var item in GameManager.Instance._tempPlayerCards)
             {
@@ -160,6 +168,13 @@ namespace ChardMove
                 Slots[3].GetComponent<SlotOrganizer>().ReorganizeSlots();
                 break;
             }
+        }
+
+        private void ReorganizeAll(){
+            Slots[0].GetComponent<SlotOrganizer>().ReorganizeSlots();
+            Slots[1].GetComponent<SlotOrganizer>().ReorganizeSlots();
+            Slots[2].GetComponent<SlotOrganizer>().ReorganizeSlots();
+            Slots[3].GetComponent<SlotOrganizer>().ReorganizeSlots();
         }
     }
 }

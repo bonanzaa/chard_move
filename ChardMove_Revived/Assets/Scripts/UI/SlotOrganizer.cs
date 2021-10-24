@@ -9,13 +9,49 @@ namespace ChardMove
     public class SlotOrganizer : MonoBehaviour
     {
         public List<Transform> _ActiveChildren = new List<Transform>();
-        [SerializeField] private TMP_Text _cardCountText;
+
+        private void Awake() {
+            GameManager.onNewLevelLoaded += DeleteInactiveCards;
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if(!transform.GetChild(i).gameObject.activeSelf){
+                    Destroy(transform.GetChild(i).gameObject);
+                }
+            }
+            OrganizeSlots();
+            ReorganizeSlots();
+        }
+
+        private void OnDestroy() {
+            GameManager.onNewLevelLoaded -= DeleteInactiveCards;
+        }
+
+        public void DeleteInactiveCards(){
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if(!transform.GetChild(i).gameObject.activeSelf){
+                    Destroy(transform.GetChild(i).gameObject);
+                }
+            }
+            OrganizeSlots();
+            ReorganizeSlots();
+        }
+
+        private void RemoveInactive(){
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if(!transform.GetChild(i).gameObject.activeSelf){
+                    Destroy(transform.GetChild(i).gameObject);
+                }
+            }
+        }
         public void OrganizeSlots(){
             _ActiveChildren.Clear();
+            RemoveInactive();
             int activeChildCount = 0;
             foreach (Transform item in transform)
             {
-                if(item.gameObject.activeSelf && item != null && !item.TryGetComponent(out TMP_Text text)){
+                if(item.gameObject.activeSelf && item != null){
                     activeChildCount ++;
                     _ActiveChildren.Add(item);
                 }else if(item != null){
@@ -56,16 +92,10 @@ namespace ChardMove
                 }
             }
         }
-
-        private void FixedUpdate() {
-            _cardCountText.text = _ActiveChildren.Count.ToString();
-        }
-
         public void ReorganizeSlots(){
             foreach (RectTransform item in transform)
             {
-                if(!item.gameObject.TryGetComponent(out TMP_Text text))
-                    item.localPosition = new Vector3(0,0,0);
+                item.localPosition = new Vector3(0,0,0);
             }
             OrganizeSlots();
         }
@@ -73,8 +103,7 @@ namespace ChardMove
         public void ClearSlot(){
             foreach (Transform item in transform)
             {
-                if(!item.gameObject.TryGetComponent(out TMP_Text text))
-                    Destroy(item.gameObject);
+                Destroy(item.gameObject);
             }
             _ActiveChildren.Clear();
         }

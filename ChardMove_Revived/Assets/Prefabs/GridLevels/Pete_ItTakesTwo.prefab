@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPosition: {x: -3.3, y: -3.47, z: -10}
+  CameraPosition: {x: -0.75, y: -3.65, z: -10}
 --- !u!1001 &279492232178217069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -475,6 +475,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5742789046877155659, guid: 8d07e95656ab4cc41b4d960417225355, type: 3}
   m_PrefabInstance: {fileID: 2686955244295728014}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2110906433386929679 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4035939645543150977, guid: 8d07e95656ab4cc41b4d960417225355, type: 3}
+  m_PrefabInstance: {fileID: 2686955244295728014}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26709cc9ec12edd438fa6673a4bb8f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3473299657701109426
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -654,6 +665,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5338072802434279971, guid: db1a4c90c0ecaf14db51cbe945e0e225, type: 3}
+      propertyPath: GateSwitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338072802434279971, guid: db1a4c90c0ecaf14db51cbe945e0e225, type: 3}
+      propertyPath: Gates.Array.data[0]
+      value: 
+      objectReference: {fileID: 2110906433386929679}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db1a4c90c0ecaf14db51cbe945e0e225, type: 3}
 --- !u!4 &7588956305007159719 stripped

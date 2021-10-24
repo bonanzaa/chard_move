@@ -12,6 +12,9 @@ namespace ChardMove.gameManager
         public delegate void ResetButtonPressed();
         public static event ResetButtonPressed resetButtonPressed;
 
+        public delegate void NewLevelLoaded();
+        public static event NewLevelLoaded onNewLevelLoaded;
+
         public delegate void UndoButtonPressed();
         public static event UndoButtonPressed undoButtonPressed;
         public delegate void UndoDirectionalChoice();
@@ -60,21 +63,15 @@ namespace ChardMove.gameManager
         public void LoadLevel(GameObject level) {
             if(Level != null){
                 Destroy(_currentLevel);
-                ClearDictionaries();
                 ResetPlayerCards();
-            //    Vector3 lvlOffset = level.transform.position;
-            //    if(lvlOffset == Vector3.zero){
-            //        _currentLevel = Instantiate(level,new Vector3(1.32f,3.62f,0),Quaternion.identity);
-            //    }else{
-            //         _currentLevel = Instantiate(level,lvlOffset,Quaternion.identity);
-            //    }
-               //_currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
+                ClearDictionaries();
                StartCoroutine(LevelInstantiatingTimer(level));
                
             }else{
                 ClearDictionaries();
                 ResetPlayerCards();
                 LevelLoaded = true;
+                CardStacker.Instance.LoadCards();
             }
 
             if(level.TryGetComponent(out CameraOffsetRegister _cameraOffset)){
@@ -82,21 +79,22 @@ namespace ChardMove.gameManager
                 GameObject.FindGameObjectWithTag("Canvas").gameObject.transform.position = new Vector3(_cameraOffset.CameraPosition.x,_cameraOffset.CameraPosition.y,0);
             }
 
-            CardStacker.Instance.LoadCards();
         }
 
         private IEnumerator LevelInstantiatingTimer(GameObject level){
             yield return new WaitForEndOfFrame();
             _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
+            Level = _currentLevel;
             CardStacker.Instance.LoadCards();
+            onNewLevelLoaded();
         }
 
         public void Reset(){
             if(_botMoving) return;
             BotDB.Clear();
             PushableDB.Clear();
-            resetButtonPressed();
             DeletePlayerCards(); 
+            resetButtonPressed();
         }
 
         public void OnBotStartedMoving(){
@@ -111,10 +109,12 @@ namespace ChardMove.gameManager
             PlayerCards.Clear();
         }
         private void ResetPlayerCards(){
-            foreach (var item in PlayerCards)
+            for (int i = 0; i < PlayerCards.Count; i++)
             {
-                item.gameObject.SetActive(true);
+                Destroy(PlayerCards[i].gameObject);
             }
+            _tempPlayerCards.Clear();
+            PlayerCards.Clear();
         }
 
         public void Undo(){

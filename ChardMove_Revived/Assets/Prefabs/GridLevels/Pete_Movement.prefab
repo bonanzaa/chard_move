@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: 
-  OneTileCardCount: 1
+  OneTileCardCount: 2
   TwoTileCardCount: 1
   ThreeTileCardCount: 0
   FourTileCardCount: 0

@@ -7,8 +7,6 @@ namespace ChardMove
 {
     public class LatchSwitch : MonoBehaviour, SwitchBase
     {
-        public bool GateSwitch;
-        public bool MovingPlatformSwitch; 
         public List<Roadblock> Gates;
         public List<MovingTile> MovingPlatforms;
         public bool isTarget = false;
@@ -20,6 +18,11 @@ namespace ChardMove
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             // caching isTarget bool for Undo
             _lastIsTarget = isTarget;
+        }
+
+        private void OnDestroy() {
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
         }
 
         public void SetTarget(){
@@ -38,23 +41,19 @@ namespace ChardMove
         }
 
         private void Reset(){
-            if(GateSwitch){
                     foreach (var gate in Gates)
                     {
                        gate.Reset();
                     }
-                }
-                if(MovingPlatformSwitch){
                     foreach (var platform in MovingPlatforms)
                     {
                         if(!platform.Active) platform.Activate();
                     }
-                }
         }
 
         private void OnTriggerEnter2D(Collider2D other) {
             if(other.CompareTag("Bot") && isTarget){
-                if(GateSwitch){
+                if(Gates.Count != 0){
                     foreach (var gate in Gates)
                     {
                         if(gate.IsActive){
@@ -64,12 +63,15 @@ namespace ChardMove
                         }
                     }
                 }
-                if(MovingPlatformSwitch){
+
+                if(MovingPlatforms.Count != 0){
                     foreach (var platform in MovingPlatforms)
                     {
                         if(!platform.Active) platform.Activate();
                     }
+
                 }
+
                 isTarget = false;
             }
         }

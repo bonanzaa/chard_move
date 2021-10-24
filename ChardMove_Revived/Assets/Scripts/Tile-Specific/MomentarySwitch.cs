@@ -19,6 +19,11 @@ namespace ChardMove
             _lastIsTarget = isTarget;
         }
 
+        private void OnDestroy() {
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
+        }
+
         private void OnUndoButtonPressed(){
             isTarget = _lastIsTarget;
             _currentBot = null;

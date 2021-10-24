@@ -94,6 +94,7 @@ namespace ChardMove
 
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
+            GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;
 
             CacheLastInfo();
             _spriteRenderer =  GetComponent<SpriteRenderer>();
@@ -121,6 +122,10 @@ namespace ChardMove
             _targetPosition = TargetTilePosition();
         }
 
+        private void OnUndoDirectionalChoice(){
+            _highlight.SetActive(false);
+        }
+
         private void OnUndoButtonPressed(){
             GameManager.Instance.RemoveFromTileDB(transform.position);
             transform.position = _lastPosition;
@@ -138,6 +143,7 @@ namespace ChardMove
         private void OnDisable()
         {
             BotGridMovement.botMoved -= OnBotMoved;
+            GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
         }
 
         public void Deactivate(){
