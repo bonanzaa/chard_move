@@ -38,7 +38,6 @@ namespace ChardMove
         public override void Start() {
             Vector2 myPos = new Vector2(transform.position.x,transform.position.y-0.125f);
             GameManager.Instance.AddToPushableDB(myPos,this,this.gameObject,_lastPosition);
-            print($"ADDED PUSHABLE TO: ({myPos.x},{myPos.y})");
             // if(GameManager.Instance.PushableDB.TryGetValue(myPos,out var _value)){
             //    var myKey = GameManager.Instance.PushableDB.FirstOrDefault(x => x.Value == (this,this.gameObject)).Key;
             // }

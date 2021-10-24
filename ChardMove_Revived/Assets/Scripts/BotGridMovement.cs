@@ -202,9 +202,30 @@ namespace ChardMove.BotMovement
         }
         
         private void FindTargetTiles(MovementDirection direction, int distance){
-            // NEED TO RESTORE PREVIOUS FUNCTIONALITY
-            TryToFindSwitch(_target);
-            TryToFindWinTile(_target);
+            Vector2 target = new Vector2();
+            switch(direction){
+                case(MovementDirection.Forward):
+                target =  new Vector2(transform.position.x + 0.5f*distance, transform.position.y + 0.25f*distance);
+                break;
+
+                case(MovementDirection.Backward):
+                target =  new Vector2(transform.position.x - 0.5f*distance, transform.position.y - 0.25f*distance);
+                break;
+                
+                case(MovementDirection.Left):
+                target =  new Vector2(transform.position.x - 0.5f*distance, transform.position.y + 0.25f*distance);
+                break;
+
+                case(MovementDirection.Right):
+                target =  new Vector2(transform.position.x + 0.5f*distance, transform.position.y - 0.25f*distance);
+                break;
+
+                default:
+                break;
+            }
+
+            TryToFindSwitch(target);
+            TryToFindWinTile(target);
         }
         
 
@@ -462,8 +483,8 @@ namespace ChardMove.BotMovement
                 target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.250f); // y+0.375f
                 break;
 
-                case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f -0.5f, transform.position.y- 0.250f - 0.25f); // y-0.250f
+                case(MovementDirection.Backward):             // -0.5f                         // -0.25f
+                target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.250f); // y-0.250f
                 break;
                 
                 case(MovementDirection.Left):

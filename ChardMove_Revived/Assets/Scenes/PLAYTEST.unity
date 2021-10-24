@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dainis_TakingTurns
       objectReference: {fileID: 0}
+    - target: {fileID: 1119723167089539205, guid: 668f2b287a28d5542b8d3e1ad05c6ffb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1119723167089539207, guid: 668f2b287a28d5542b8d3e1ad05c6ffb, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -177,10 +181,6 @@ PrefabInstance:
     - target: {fileID: 1119723167089539207, guid: 668f2b287a28d5542b8d3e1ad05c6ffb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5523628245840942520, guid: 668f2b287a28d5542b8d3e1ad05c6ffb, type: 3}
-      propertyPath: OneTileCardCount
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 668f2b287a28d5542b8d3e1ad05c6ffb, type: 3}
@@ -285,7 +285,7 @@ PrefabInstance:
     - target: {fileID: 4421515442645678523, guid: e11cc6b258346ef4c91591e5e4ed58f2, type: 3}
       propertyPath: Level
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1119723167089539205, guid: 668f2b287a28d5542b8d3e1ad05c6ffb, type: 3}
     - target: {fileID: 4421515442645678524, guid: e11cc6b258346ef4c91591e5e4ed58f2, type: 3}
       propertyPath: m_RootOrder
       value: 3

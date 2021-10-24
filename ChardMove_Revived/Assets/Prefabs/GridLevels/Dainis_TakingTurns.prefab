@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Taking Turns
-  OneTileCardCount: 4
+  OneTileCardCount: 3
   TwoTileCardCount: 0
   ThreeTileCardCount: 2
   FourTileCardCount: 1
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPosition: {x: -0.97, y: 0, z: -10}
+  CameraPosition: {x: -0.97, y: -0, z: -10}
 --- !u!1 &1119723167235184327
 GameObject:
   m_ObjectHideFlags: 0

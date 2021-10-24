@@ -39,14 +39,14 @@ namespace ChardMove.gameManager
             _botMoving = false;
             LevelLoaded = false;
             Instance = this;
-            // if(Level == null && LevelLoader.Instance != null)
-            // {
-            //     Level = _levelLoader.Levels[LevelLoader.LevelIndex];
-            // }
-            // if(Level != null){
-            //     LevelLoaded = true;
-            //     ClearDictionaries();
-            // }
+            if(Level == null && LevelLoader.Instance != null)
+            {
+                Level = _levelLoader.Levels[LevelLoader.LevelIndex];
+            }
+            if(Level != null){
+                LevelLoaded = true;
+                ClearDictionaries();
+            }
         }
 
         private void OnNextLevelLoad()
