@@ -17,9 +17,13 @@ namespace ChardMove
         private SceneLoader _sceneLoader;
         private void Awake()
         {
-            _sceneLoader = SceneLoader.Instance;
-            _levelLoader = LevelLoader.Instance;
-            _levelLoader.CacheLevelCompleteReference(this);
+            if(SceneLoader.Instance != null){
+                _sceneLoader = SceneLoader.Instance;
+            }
+            if(LevelLoader.Instance != null){
+                _levelLoader = LevelLoader.Instance;
+                _levelLoader.CacheLevelCompleteReference(this);
+            }
         }
         public void OpenWinScreen()
         {

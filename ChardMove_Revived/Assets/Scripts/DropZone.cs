@@ -36,6 +36,7 @@ namespace ChardMove
             DirectionalButtonClick.onButtonPressed += OnButtonPressed;
             
             GameManager.undoButtonPressed += OnUndo;
+            _direction = MovementDirection.None;
         }
 
         private void Start() {
