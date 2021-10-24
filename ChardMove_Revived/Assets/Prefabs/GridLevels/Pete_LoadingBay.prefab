@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPosition: {x: -3.3, y: -3.47, z: -10}
+  CameraPosition: {x: -2.86, y: -3.71, z: -10}
 --- !u!1 &6530420575708195188
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,6 +921,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6530420575708195187}
     m_Modifications:
+    - target: {fileID: 269021961, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: m_Size.y
+      value: 0.2477231
+      objectReference: {fileID: 0}
+    - target: {fileID: 269021961, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.08496761
+      objectReference: {fileID: 0}
     - target: {fileID: 578975172233849896, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
       propertyPath: Distance
       value: 2

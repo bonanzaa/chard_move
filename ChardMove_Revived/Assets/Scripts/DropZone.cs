@@ -91,7 +91,7 @@ namespace ChardMove
                 {
                     target =  new Vector2(Bot.transform.position.x + 0.5f*i, Bot.transform.position.y + 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
-                    if(tileType == TileType.Walkable){
+                    if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
                         Tile newTile = GameManager.Instance.GetTile(target);
                         _availableTiles.Add(newTile);
                     }else{
@@ -105,7 +105,7 @@ namespace ChardMove
                 {
                     target =  new Vector2(Bot.transform.position.x - 0.5f*i, Bot.transform.position.y - 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
-                    if(tileType == TileType.Walkable){
+                    if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
                         Tile newTile = GameManager.Instance.GetTile(target);
                         _availableTiles.Add(newTile);
                     }else{
@@ -119,7 +119,7 @@ namespace ChardMove
                 {
                     target =  new Vector2(Bot.transform.position.x - 0.5f*i, Bot.transform.position.y + 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
-                    if(tileType == TileType.Walkable){
+                    if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
                         Tile newTile = GameManager.Instance.GetTile(target);
                         _availableTiles.Add(newTile);
                     }else{
@@ -133,7 +133,7 @@ namespace ChardMove
                 {
                     target =  new Vector2(Bot.transform.position.x + 0.5f*i, Bot.transform.position.y - 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
-                    if(tileType == TileType.Walkable){
+                    if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
                         Tile newTile = GameManager.Instance.GetTile(target);
                         _availableTiles.Add(newTile);
                     }else{

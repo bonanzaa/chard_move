@@ -30,10 +30,12 @@ namespace ChardMove
         }
 
         private void OnResetButtonPressed(){
-            foreach (var gate in Gates)
-                {
-                    gate.Reset();
-                }
+            if(Gates.Count != 0){
+                foreach (var gate in Gates)
+                    {
+                        gate.Reset();
+                    }
+            }
         }
 
         public void SetTarget(){

@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPosition: {x: -2.1, y: -3.53, z: -10}
+  CameraPosition: {x: -1.81, y: -3.2, z: -10}
 --- !u!1 &4914902643202269429
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,6 +299,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4914902643202269426}
     m_Modifications:
+    - target: {fileID: 269021961, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: m_Size.y
+      value: 0.23207998
+      objectReference: {fileID: 0}
+    - target: {fileID: 269021961, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.103001356
+      objectReference: {fileID: 0}
     - target: {fileID: 578975172233849896, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
       propertyPath: Distance
       value: 2
@@ -613,6 +621,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4914902643202269426}
     m_Modifications:
+    - target: {fileID: 429425315601779365, guid: 8c1b8046c8d09d640a6a1fc5a20faf63, type: 3}
+      propertyPath: Gates.Array.data[0]
+      value: 
+      objectReference: {fileID: 3847110904130898851}
     - target: {fileID: 5617548512682195890, guid: 8c1b8046c8d09d640a6a1fc5a20faf63, type: 3}
       propertyPath: m_Name
       value: MomentarySwitch
@@ -675,6 +687,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4914902643202269426}
     m_Modifications:
+    - target: {fileID: 269021961, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: m_Size.y
+      value: 0.27666306
+      objectReference: {fileID: 0}
+    - target: {fileID: 269021961, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.08000195
+      objectReference: {fileID: 0}
     - target: {fileID: 578975172233849896, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
       propertyPath: Distance
       value: 2
@@ -800,6 +820,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5742789046877155659, guid: 8d07e95656ab4cc41b4d960417225355, type: 3}
   m_PrefabInstance: {fileID: 964094974415273506}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3847110904130898851 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4035939645543150977, guid: 8d07e95656ab4cc41b4d960417225355, type: 3}
+  m_PrefabInstance: {fileID: 964094974415273506}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26709cc9ec12edd438fa6673a4bb8f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &964094974418294791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -869,6 +900,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4914902643202269426}
     m_Modifications:
+    - target: {fileID: 269021961, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: m_Size.y
+      value: 0.2416122
+      objectReference: {fileID: 0}
+    - target: {fileID: 269021961, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.10038316
+      objectReference: {fileID: 0}
     - target: {fileID: 578975172233849896, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
       propertyPath: Distance
       value: 2

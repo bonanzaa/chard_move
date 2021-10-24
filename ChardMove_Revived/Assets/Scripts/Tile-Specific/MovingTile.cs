@@ -35,8 +35,11 @@ namespace ChardMove
 
         private void OnTriggerEnter2D(Collider2D other) {
             if(other.CompareTag("Bot")){
+                if(_botOnPlatform) return;
                 _currentBot = other.gameObject;
                 _botOnPlatform = true;
+                if(!_currentBot.GetComponent<BotGridMovement>().IsPushable)
+                    TileType = TileType.Unwalkable;
             }
         }
 
@@ -44,6 +47,7 @@ namespace ChardMove
             if(other.CompareTag("Bot")){
                 _currentBot = null;
                 _botOnPlatform = false;
+                TileType = TileType.Walkable;
             }
         }
 
@@ -91,6 +95,8 @@ namespace ChardMove
             _originalDirection = Direction;
             _originalStep = CurrentStep;
             _originalIsActive = Active;
+            _botOnPlatform = false;
+            _currentBot = null;
 
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;

@@ -33,6 +33,9 @@ namespace ChardMove.BotMovement
         private Vector2 _lastPositionBeforeMovement;
         private SpriteRenderer _spriteRenderer;
         private bool _amGoingToDie = false;
+        private Vector2 _target;
+        private Vector2 _originalTarget;
+        private int _steps;
 
 
         private void Awake() {
@@ -65,7 +68,8 @@ namespace ChardMove.BotMovement
         }
 
         public void Move(MovementDirection direction, int steps){ 
-            botStartedMoving(direction,steps);
+            _steps = steps;
+            botStartedMoving(direction,_steps);
             ChangeSprite(direction);
             GameManager.Instance.OnBotStartedMoving();
             _lastPositionBeforeMovement = transform.position;
@@ -75,11 +79,14 @@ namespace ChardMove.BotMovement
             var moveCheck = CanMove(direction);
             var canMove = moveCheck.Item1; // bool checking if the next tile is walkable/death
             var target = moveCheck.Item2; // Target Vector2 of the next tile
-            walkingCoroutine = MoveToNextTile(direction,steps,target);
+            _originalTarget = target;
+            _target = target;
+            walkingCoroutine = MoveToNextTile(direction,_steps,target);
             bool botInTheWay = GameManager.Instance.BotInTheWay(target); // bool checking if another bot is in the next tile
             if(canMove && !botInTheWay){
+                _steps = CheckPath(direction,steps);
                 FindPushable(direction);
-                FindTargetTiles(direction,steps);
+                FindTargetTilesWithTarget();
                 //walkingCoroutine = MoveToNextTile(direction,steps,target);
                 StartCoroutine(walkingCoroutine);
             }else{
@@ -91,6 +98,82 @@ namespace ChardMove.BotMovement
                 print($"I cannot move {direction.ToString()}...");
             }
         
+        }
+
+        private int CheckPath(MovementDirection Direction, int Distance){
+            int _distance = Distance;
+            Vector2 target = new Vector2();
+            TileType tileType = new TileType();
+            switch(Direction){
+                case(MovementDirection.Forward):
+                for (int i = 1; i < Distance+1; i++)
+                {
+                    target =  new Vector2(transform.position.x + 0.5f*i, transform.position.y + 0.25f*i);
+                    tileType = GameManager.Instance.GetTileType(target);
+                    if(GameManager.Instance.PushableInTheWay(target)){
+                        _distance++;
+                    }
+                    if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
+                        _target = target;
+                    }else{
+                        _distance--;
+                        break;
+                    }
+                }
+                break;
+
+                case(MovementDirection.Backward):
+                for (int i = 1; i < Distance+1; i++)
+                {
+                    target =  new Vector2(transform.position.x - 0.5f*i, transform.position.y - 0.25f*i);
+                    tileType = GameManager.Instance.GetTileType(target);
+                    if(GameManager.Instance.PushableInTheWay(target)){
+                        _distance++;
+                    }
+                    if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
+                        _target = target;
+                    }else{
+                        _distance--;
+                        break;
+                    }
+                }
+                break;
+
+                case(MovementDirection.Left):
+                for (int i = 1; i < Distance+1; i++)
+                {
+                    target =  new Vector2(transform.position.x - 0.5f*i, transform.position.y + 0.25f*i);
+                    tileType = GameManager.Instance.GetTileType(target);
+                    if(GameManager.Instance.PushableInTheWay(target)){
+                        _distance++;
+                    }
+                    if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
+                        _target = target;
+                    }else{
+                        _distance--;
+                        break;
+                    }
+                }
+                break;
+
+                case(MovementDirection.Right):
+                for (int i = 1; i < Distance+1; i++)
+                {
+                    target =  new Vector2(transform.position.x + 0.5f*i, transform.position.y - 0.25f*i);
+                    tileType = GameManager.Instance.GetTileType(target);
+                    if(GameManager.Instance.PushableInTheWay(target)){
+                        _distance++;
+                    }
+                    if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
+                        _target = target;
+                    }else{
+                        _distance--;
+                        break;
+                    }
+                }
+                break;
+            }
+            return _distance;
         }
 
         private void ChangeSprite(MovementDirection direction){
@@ -113,32 +196,17 @@ namespace ChardMove.BotMovement
             }
         }
 
-        private void FindTargetTiles(MovementDirection direction, int distance){
-            Vector2 target = new Vector2();
-            switch(direction){
-                case(MovementDirection.Forward):
-                target =  new Vector2(transform.position.x + 0.5f*distance, transform.position.y + 0.25f*distance);
-                break;
-
-                case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f*distance, transform.position.y - 0.25f*distance);
-                break;
-                
-                case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f*distance, transform.position.y + 0.25f*distance);
-                break;
-
-                case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f*distance, transform.position.y - 0.25f*distance);
-                break;
-
-                default:
-                break;
-            }
-
-            TryToFindSwitch(target);
-            TryToFindWinTile(target);
+        private void FindTargetTilesWithTarget(){
+            TryToFindSwitch(_target);
+            TryToFindWinTile(_target);
         }
+        
+        private void FindTargetTiles(MovementDirection direction, int distance){
+            // NEED TO RESTORE PREVIOUS FUNCTIONALITY
+            TryToFindSwitch(_target);
+            TryToFindWinTile(_target);
+        }
+        
 
         private void TryToFindWinTile(Vector2 target){
             Tile targetTile = GameManager.Instance.GetTile(target);
@@ -149,7 +217,7 @@ namespace ChardMove.BotMovement
         }
 
         private IEnumerator MoveToNextTile(MovementDirection direction, int steps, Vector2 target){
-            // used by pushable bots
+            steps = _steps;
             _canMove = false;
             FindPushable(direction);
             yield return new WaitForEndOfFrame();
@@ -168,7 +236,7 @@ namespace ChardMove.BotMovement
                     }
                     yield return null;
                 }
-                var stepsLeft = steps - (i+1);
+               var stepsLeft = steps - (i+1);
 
                 if(stepsLeft!=0){
                     FindPushable(direction);
@@ -305,6 +373,7 @@ namespace ChardMove.BotMovement
                 break;
 
                 case(MovementDirection.Right):
+                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.250f);
                 break;
             }
             TileType tileType = GameManager.Instance.GetTileType(target);
@@ -361,7 +430,9 @@ namespace ChardMove.BotMovement
         }
 
         private void OnUndoButtonPressed(){
-            GameManager.Instance.RemovePushableFromDB(transform.position);
+            if(IsPushable){
+                GameManager.Instance.RemovePushableFromDB(transform.position);
+            }
             GameManager.Instance.RemoveBotFromDB(transform.position);
             GameManager.Instance.RemoveBotFromDB(_lastPosition);
             transform.position = _lastPositionBeforeMovement;
@@ -392,7 +463,7 @@ namespace ChardMove.BotMovement
                 break;
 
                 case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.250f); // y-0.125f
+                target =  new Vector2(transform.position.x - 0.5f -0.5f, transform.position.y- 0.250f - 0.25f); // y-0.250f
                 break;
                 
                 case(MovementDirection.Left):
@@ -440,12 +511,12 @@ namespace ChardMove.BotMovement
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;
-
-            if(walkable && !playerDead){
+            bool _botInTheWay = GameManager.Instance.BotInTheWay(nextTilePos);
+            if(walkable && !playerDead && !_botInTheWay){
                 return (true, nextTilePos);
             }else if(!walkable && !playerDead){
                 return (false, nextTilePos);
-            }else if(walkable && playerDead){
+            }else if((!walkable && !playerDead) || _botInTheWay){
 
                 if(walkingCoroutine != null) StopCoroutine(walkingCoroutine);
                 StartCoroutine(MoveToDeath(MovementDirection.Forward,nextTilePos));
@@ -460,9 +531,10 @@ namespace ChardMove.BotMovement
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;
-            if(walkable && !playerDead){
+            bool _botInTheWay = GameManager.Instance.BotInTheWay(nextTilePos);
+            if(walkable && !playerDead && !_botInTheWay){
                 return (true, nextTilePos);
-            }else if(!walkable && !playerDead){
+            }else if((!walkable && !playerDead) || _botInTheWay){
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
                 if(walkingCoroutine != null) StopCoroutine(walkingCoroutine);
@@ -477,10 +549,10 @@ namespace ChardMove.BotMovement
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;
-
-            if(walkable && !playerDead){
+            bool _botInTheWay = GameManager.Instance.BotInTheWay(nextTilePos);
+            if(walkable && !playerDead && !_botInTheWay){
                 return (true, nextTilePos);
-            }else if(!walkable && !playerDead){
+            }else if((!walkable && !playerDead) || _botInTheWay){
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
                 if(walkingCoroutine != null) StopCoroutine(walkingCoroutine);
@@ -495,9 +567,10 @@ namespace ChardMove.BotMovement
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;
-            if(walkable && !playerDead){
+            bool _botInTheWay = GameManager.Instance.BotInTheWay(nextTilePos);
+            if(walkable && !playerDead && !_botInTheWay){
                 return (true, nextTilePos);
-            }else if(!walkable && !playerDead){
+            }else if((!walkable && !playerDead) || _botInTheWay){
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
                 if(walkingCoroutine != null) StopCoroutine(walkingCoroutine);

@@ -37,15 +37,16 @@ namespace ChardMove.gameManager
             _levelLoader = LevelLoader.Instance;
             LevelCompleteReference.nextLevel += OnNextLevelLoad;
             _botMoving = false;
+            LevelLoaded = false;
             Instance = this;
-            if(Level == null && LevelLoader.Instance != null)
-            {
-                Level = _levelLoader.Levels[LevelLoader.LevelIndex];
-            }
-            if(Level != null){
-                LevelLoaded = true;
-                ClearDictionaries();
-            }
+            // if(Level == null && LevelLoader.Instance != null)
+            // {
+            //     Level = _levelLoader.Levels[LevelLoader.LevelIndex];
+            // }
+            // if(Level != null){
+            //     LevelLoaded = true;
+            //     ClearDictionaries();
+            // }
         }
 
         private void OnNextLevelLoad()
@@ -63,13 +64,14 @@ namespace ChardMove.gameManager
         public void LoadLevel(GameObject level) {
             if(Level != null){
                 Destroy(_currentLevel);
-                ResetPlayerCards();
                 ClearDictionaries();
+                ResetPlayerCards();
+                LevelLoaded = true;
                StartCoroutine(LevelInstantiatingTimer(level));
                
             }else{
                 ClearDictionaries();
-                ResetPlayerCards();
+                //ResetPlayerCards();
                 LevelLoaded = true;
                 CardStacker.Instance.LoadCards();
             }
@@ -270,6 +272,14 @@ namespace ChardMove.gameManager
                 return pushableGO;
             }else{
                 return null;
+            }
+        }
+
+        public bool PushableInTheWay(Vector2 pos){
+            if(PushableDB.TryGetValue(pos,out var _value)){
+                return true;
+            }else{
+                return false;
             }
         }
 
