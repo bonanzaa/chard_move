@@ -214,9 +214,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a01dd74fb933418e06f60a9eea68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OneTileCardCount: 0
-  TwoTileCardCount: 0
-  ThreeTileCardCount: 0
+  OneTileCardCount: 1
+  TwoTileCardCount: 1
+  ThreeTileCardCount: 1
   FourTileCardCount: 0
 --- !u!1001 &5272028588300001389
 PrefabInstance:

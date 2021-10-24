@@ -57,10 +57,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a01dd74fb933418e06f60a9eea68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OneTileCardCount: 0
-  TwoTileCardCount: 0
-  ThreeTileCardCount: 0
-  FourTileCardCount: 0
+  OneTileCardCount: 3
+  TwoTileCardCount: 3
+  ThreeTileCardCount: 3
+  FourTileCardCount: 3
 --- !u!1 &3303337304182060324
 GameObject:
   m_ObjectHideFlags: 0

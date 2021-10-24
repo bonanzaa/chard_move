@@ -8,37 +8,24 @@ namespace ChardMove
 {
     public class LevelLoader : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> _levels;
-        [SerializeField] private GameObject _winScreenUI;
         public static GameObject CurrentLevel;
-        //[SerializeField] private List<GameObject> _deactivatedUI;
-
-        private SceneLoader _sceneLoader;
-        private CardSpaceMarker _cardContainer;
-        private GameObject _previousLevel;
-        private SaveSystem _saveSystem = new SaveSystem();
-
-        public int GetLevelCount { get => _levels.Count;}
-
-        public static int LevelIndex;
-        public bool CanLoadLevel = true;
         public static LevelLoader Instance;
+        public static int LevelIndex;
+        public int GetLevelCount { get => Levels.Count;}
+        public bool CanLoadLevel = true;
+        public List<GameObject> Levels;
+
+        private SaveSystem _saveSystem = new SaveSystem();
+        private LevelCompleteReference _levelCompleteReference;
         
         private void Awake()
         {
-            //DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
             Instance = this;
             _saveSystem.Deserialize();
-            _saveSystem.Serialize(0);
-            _saveSystem.Deserialize();
-            for (int i = 0; i < _saveSystem.CompletedLevels.Length; i++)
-            {
-                print(_saveSystem.CompletedLevels[i]);
-
-            }
-            SceneLoader.sceneLoaded += OnSceneLoaded;
+            LevelIndex = _saveSystem.RefreshLvlIndex();
             WinTile.playerWin += OnPlayerWin;
-            SceneMarker.sceneMarked += OnSceneLoaded;
+            //SceneMarker.sceneMarked += OnSceneLoaded;
 
             if (CanLoadLevel)
             {
@@ -50,74 +37,80 @@ namespace ChardMove
             }
             CanLoadLevel = true;
         }
-        private void Start()
+        public void CacheLevelCompleteReference(LevelCompleteReference levelCompleteReference)
         {
-            CatchReferences();
+            _levelCompleteReference = levelCompleteReference;
         }
+        //private void Start()
+        //{
+        //    CatchReferences();
+        //}
 
-        private void CatchReferences()
-        {
-            _sceneLoader = SceneLoader.Instance;
-            _cardContainer = CardSpaceMarker.Instance;
-            if (_winScreenUI != null)
-            {
-                _winScreenUI = WinScreen.Instance.gameObject;
-                _winScreenUI.SetActive(false);
-            }
-        }
+        //private void CatchReferences()
+        //{
+        //    _sceneLoader = SceneLoader.Instance;
+        //    _cardContainer = CardSpaceMarker.Instance;
+        //    if (_winScreenUI != null)
+        //    {
+        //        _winScreenUI = WinScreen.Instance.gameObject;
+        //        _winScreenUI.SetActive(false);
+        //    }
+        //}
 
-        private void OnSceneLoaded()
-        {
-            LoadLevel(LevelIndex);
-            ////Click button event getting called before changing Scene to soooooooooooooooooooooooooooooooooooon
-            //CatchReferences();
-            //Awake();
-        }
-        private void OnDisable()
-        {
-            SceneLoader.sceneLoaded -= OnSceneLoaded;
-            SceneMarker.sceneMarked -= OnSceneLoaded;
-        }
+        //private void OnSceneLoaded()
+        //{
+        //    LoadLevel(LevelIndex);
+        //    ////Click button event getting called before changing Scene to soooooooooooooooooooooooooooooooooooon
+        //    //CatchReferences();
+        //    //Awake();
+        //}
+        //private void OnDisable()
+        //{
+        //    SceneLoader.sceneLoaded -= OnSceneLoaded;
+        //    SceneMarker.sceneMarked -= OnSceneLoaded;
+        //}
         public void OnSelectedLevelLoad(int index)
         {
             LevelIndex = index;
+            _saveSystem.Serialize();
+
         }
         private void OnPlayerWin()
         {
-            _winScreenUI.SetActive(true);
-            _saveSystem.Serialize(LevelIndex);
-            print("Player won");
+            LevelIndex++;
+            _saveSystem.Serialize();
+            _levelCompleteReference.OpenWinScreen();
         }
-        public void LoadLastSavedLevel()
-        {
-            LoadLevel(LevelIndex);
-        }
-        private void LoadLevel(int index)
-        {
-            //if(_currentLevel != null)
-            //{
-            //    Destroy(_currentLevel);
-            //}
-            GameManager.Instance.ClearDictionaries();
-            GameManager.Instance.DeletePlayerCards();
-            //StartCoroutine(LoadBuffer(2));
-            GameObject newLevel = _levels[index];
-            CurrentLevel = newLevel;
-            print("loading level");
-            //print(index);
-            //_currentLevelGrid = instance;
-            CurrentLevel = Instantiate(newLevel,transform.position,Quaternion.identity);
+        //public void LoadLastSavedLevel()
+        //{
+        //    LoadLevel(LevelIndex);
+        //}
+        //private void LoadLevel(int index)
+        //{
+        //    //if(_currentLevel != null)
+        //    //{
+        //    //    Destroy(_currentLevel);
+        //    //}
+        //    GameManager.Instance.ClearDictionaries();
+        //    GameManager.Instance.DeletePlayerCards();
+        //    //StartCoroutine(LoadBuffer(2));
+        //    GameObject newLevel = Levels[index];
+        //    CurrentLevel = newLevel;
+        //    print("loading level");
+        //    //print(index);
+        //    //_currentLevelGrid = instance;
+        //    CurrentLevel = Instantiate(newLevel,transform.position,Quaternion.identity);
 
-        }
+        //}
         
-        private IEnumerator LoadBuffer(float timer)
-        {
-            while (timer > 0)
-            {
-                timer -= Time.deltaTime;
-                yield return null;
-            }
-            yield break;
-        }
+        //private IEnumerator LoadBuffer(float timer)
+        //{
+        //    while (timer > 0)
+        //    {
+        //        timer -= Time.deltaTime;
+        //        yield return null;
+        //    }
+        //    yield break;
+        //}
     }
 }

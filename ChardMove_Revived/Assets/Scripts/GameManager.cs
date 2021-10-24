@@ -7,7 +7,7 @@ namespace ChardMove.gameManager
 {
     public class GameManager : MonoBehaviour
     {
-        public Grid Level;
+        public GameObject Level;
 
         public delegate void ResetButtonPressed();
         public static event ResetButtonPressed resetButtonPressed;
@@ -24,17 +24,29 @@ namespace ChardMove.gameManager
         public List<Draggable> PlayerCards = new List<Draggable>();
         public List<Draggable> _tempPlayerCards = new List<Draggable>();
 
+        private LevelLoader _levelLoader;
         private List<Draggable> _originalPlayerCards = new List<Draggable>();
-        private Grid _currentLevel;
+        private GameObject _currentLevel;
         public bool LevelLoaded = false;
         private bool _botMoving = false;
 
         private void Awake() {
+            _levelLoader = LevelLoader.Instance;
+            LevelCompleteReference.nextLevel += OnNextLevelLoad;
             Instance = this;
+            if(Level == null)
+            {
+                Level = _levelLoader.Levels[LevelLoader.LevelIndex];
+            }
             if(Level != null){
                 LevelLoaded = true;
                 ClearDictionaries();
             }
+        }
+
+        private void OnNextLevelLoad()
+        {
+            LoadLevel(_levelLoader.Levels[LevelLoader.LevelIndex]);
         }
 
         private void Start() {
@@ -49,12 +61,25 @@ namespace ChardMove.gameManager
                 Destroy(_currentLevel);
                 ClearDictionaries();
                 ResetPlayerCards();
-                _currentLevel = Instantiate(Level,new Vector3(0,0,0),Quaternion.identity);
+            //    Vector3 lvlOffset = level.transform.position;
+            //    if(lvlOffset == Vector3.zero){
+            //        _currentLevel = Instantiate(level,new Vector3(1.32f,3.62f,0),Quaternion.identity);
+            //    }else{
+            //         _currentLevel = Instantiate(level,lvlOffset,Quaternion.identity);
+            //    }
+               _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
+               
             }else{
                 ClearDictionaries();
                 ResetPlayerCards();
                 LevelLoaded = true;
             }
+
+            if(level.TryGetComponent(out CameraOffsetRegister _cameraOffset)){
+                Camera.main.gameObject.transform.position = _cameraOffset.CameraPosition;
+                GameObject.FindGameObjectWithTag("Canvas").gameObject.transform.position = new Vector3(_cameraOffset.CameraPosition.x,_cameraOffset.CameraPosition.y,0);
+            }
+
             CardStacker.Instance.LoadCards();
         }
 

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -12,23 +10,40 @@ namespace ChardMove
     public class SaveSystem
     {
         public bool[] CompletedLevels;
+        public int LastLevelIndex;
         private void InitializeArray()
         {
             CompletedLevels = new bool[LevelLoader.Instance.GetLevelCount];
             for (int i = 0; i < CompletedLevels.Length; i++)
             {
-                CompletedLevels[i] = false;
+                if(i < LastLevelIndex)
+                {
+                    CompletedLevels[i] = true;
+                }
+                else
+                {
+                    CompletedLevels[i] = false;
+                }
             }
         }
-        public void Serialize(int index)
+        private void AssignLastLevelIndex()
         {
-            CompletedLevels[index] = true;
+            if(LevelLoader.LevelIndex < LastLevelIndex)
+            {
+                LastLevelIndex = LevelLoader.LevelIndex;
+            }
+        }
+        public void Serialize()
+        {
+            //CompletedLevels[index] = true;
+            LastLevelIndex = LevelLoader.LevelIndex;
 
             FileStream fs = new FileStream(Application.persistentDataPath + "/SaveFile.info", FileMode.Create);
             BinaryFormatter formatter = new BinaryFormatter();
             try
             {
-                formatter.Serialize(fs, CompletedLevels);
+                formatter.Serialize(fs, LastLevelIndex);
+                //formatter.Serialize(fs, CompletedLevels);
             }
             catch(SerializationException e)
             {
@@ -44,14 +59,16 @@ namespace ChardMove
         {
             if(!File.Exists(Application.persistentDataPath + "/SaveFile.info"))
             {
-                InitializeArray();
+                AssignLastLevelIndex();
+                //InitializeArray();
                 return;
             }
             FileStream fs = new FileStream(Application.persistentDataPath + "/SaveFile.info", FileMode.Open);
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                CompletedLevels = (bool[])formatter.Deserialize(fs);
+                LastLevelIndex = (int)formatter.Deserialize(fs);
+                //CompletedLevels = (bool[])formatter.Deserialize(fs);
             }
             catch (SerializationException e)
             {
@@ -63,6 +80,10 @@ namespace ChardMove
                 fs.Close();
             }
 
+        }
+        public int RefreshLvlIndex()
+        {
+            return LastLevelIndex;
         }
     }
 }

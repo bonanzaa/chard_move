@@ -92,7 +92,7 @@ namespace ChardMove
                 Vector2 myPos = new Vector2(transform.position.x,transform.position.y-0.125f);
                 GameManager.Instance.RemovePushableFromDB(myPos);
                 transform.position = _lastPositionWorldSpace;
-                transform.localScale = new Vector3(0.7f,0.7f,0.7f);
+                transform.localScale = new Vector3(1f,1f,1f);
                 _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
                 GameManager.Instance.PushableDB.Add(_lastPosition,(this,this.gameObject));
             }
@@ -144,7 +144,7 @@ namespace ChardMove
                 _movingTileReference = null;
                 TileType = TileType.Walkable;
                 GetComponent<SpriteRenderer>().sortingOrder = -2;
-                transform.localScale = new Vector3(1,1,1);
+                
                 StartCoroutine(ActivationAnimation());
                 yield break;
             }
@@ -154,20 +154,35 @@ namespace ChardMove
             float currentY = transform.position.y;
             float currentZ = transform.position.z;
 
+            float currentScaleX = transform.localScale.x;
+            float currentScaleY = transform.localScale.y;
+
+            float targetScaleX = 1.5f;
+            float targetScaleY = 1.5f;
+
             float targetY = currentY - 0.5f;
-            float targetZ = currentZ + 1f;
+            float targetZ = currentZ + 0.81f;
 
             float newY = 0;
             float newZ = 0;
+
+            float newScaleX = 0;
+            float newScaleY = 0;
 
             float t  = 0;
             while(transform.position.y != targetY && transform.position.z != targetZ){
                 t += Time.deltaTime;
                 newY = Mathf.Lerp(currentY,targetY,t);
                 newZ = Mathf.Lerp(currentZ,targetZ,t);
+
+                newScaleX = Mathf.Lerp(currentScaleX,targetScaleX,t*3);
+                newScaleY = Mathf.Lerp(currentScaleY,targetScaleY,t*3);
+
                 transform.position = new Vector3(transform.position.x,newY,newZ);
+                transform.localScale = new Vector3(newScaleX,newScaleY,0);
                 yield return null;
             }
+            transform.localScale = new Vector3(1.5f,1.5f,1.5f);
         }
 
         public Vector2 TargetTilePosition(MovementDirection direction){
