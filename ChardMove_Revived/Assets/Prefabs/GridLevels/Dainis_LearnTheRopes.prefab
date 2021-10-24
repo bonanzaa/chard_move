@@ -101,7 +101,7 @@ BoxCollider2D:
   m_Offset: {x: 0.012171894, y: -0.117661595}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.3}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -3458,8 +3458,9 @@ GameObject:
   - component: {fileID: 6610374178838648546}
   - component: {fileID: 6610374178838648547}
   - component: {fileID: 6610374178838648551}
+  - component: {fileID: 3937508254441771187}
   m_Layer: 0
-  m_Name: DainisLVL3
+  m_Name: Dainis_LearnTheRopes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3504,10 +3505,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a01dd74fb933418e06f60a9eea68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelName: 
   OneTileCardCount: 1
   TwoTileCardCount: 2
   ThreeTileCardCount: 3
   FourTileCardCount: 1
+--- !u!114 &3937508254441771187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6610374178838648544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraPosition: {x: -0.51, y: -0.22, z: -10}
 --- !u!1 &8429914332512215645
 GameObject:
   m_ObjectHideFlags: 0

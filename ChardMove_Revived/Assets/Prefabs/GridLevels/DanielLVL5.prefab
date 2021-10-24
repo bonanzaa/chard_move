@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1701077596766336597}
   - component: {fileID: 1701077596766336596}
   - component: {fileID: 6104244301534698346}
+  - component: {fileID: 3823981402426955985}
   m_Layer: 0
   m_Name: DanielLVL5
   m_TagString: Untagged
@@ -61,6 +62,19 @@ MonoBehaviour:
   TwoTileCardCount: 2
   ThreeTileCardCount: 3
   FourTileCardCount: 0
+--- !u!114 &3823981402426955985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701077596766336599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraPosition: {x: -0.88, y: -4.49, z: -10}
 --- !u!1 &1701077596895205397
 GameObject:
   m_ObjectHideFlags: 0
