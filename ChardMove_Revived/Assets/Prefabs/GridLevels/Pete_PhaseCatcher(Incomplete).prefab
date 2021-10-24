@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 4557727541328749429}
   - component: {fileID: 8965995999074340427}
   m_Layer: 0
-  m_Name: Pete_PhaseCatcher
+  m_Name: Pete_PhaseCatcher(Incomplete)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a01dd74fb933418e06f60a9eea68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelName: Phase Catcher
   OneTileCardCount: 0
   TwoTileCardCount: 0
   ThreeTileCardCount: 0

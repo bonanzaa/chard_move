@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a01dd74fb933418e06f60a9eea68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: 
+  LevelName: Second Sequence
   OneTileCardCount: 1
   TwoTileCardCount: 1
   ThreeTileCardCount: 0
