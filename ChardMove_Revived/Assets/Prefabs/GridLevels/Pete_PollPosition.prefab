@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPosition: {x: -1.64, y: -3.86, z: -10}
+  CameraPosition: {x: -3.13, y: -3.7, z: -10}
 --- !u!1 &9095414905238472526
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +353,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d07e95656ab4cc41b4d960417225355, type: 3}
+--- !u!114 &8692381404505554738 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4035939645543150977, guid: 8d07e95656ab4cc41b4d960417225355, type: 3}
+  m_PrefabInstance: {fileID: 4657570202563660467}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26709cc9ec12edd438fa6673a4bb8f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1085789009820367864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5742789046877155659, guid: 8d07e95656ab4cc41b4d960417225355, type: 3}
@@ -365,6 +376,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9095414905238472521}
     m_Modifications:
+    - target: {fileID: 429425315601779365, guid: 8c1b8046c8d09d640a6a1fc5a20faf63, type: 3}
+      propertyPath: Gates.Array.data[0]
+      value: 
+      objectReference: {fileID: 8692381404505554738}
     - target: {fileID: 5617548512682195890, guid: 8c1b8046c8d09d640a6a1fc5a20faf63, type: 3}
       propertyPath: m_Name
       value: MomentarySwitch
