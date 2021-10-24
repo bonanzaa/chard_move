@@ -32,6 +32,10 @@ namespace ChardMove
         }
 
         private void OnDestroy() {
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
+            BotGridMovement.botAboutToDie -= OnBotIsAboutToDie;
+            BotGridMovement.botStartedMoving -= OnBotStartedMoving;
             Destroy(_bot);
         }
 

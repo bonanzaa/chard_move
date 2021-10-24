@@ -28,13 +28,14 @@ namespace ChardMove.gameManager
         private List<Draggable> _originalPlayerCards = new List<Draggable>();
         private GameObject _currentLevel;
         public bool LevelLoaded = false;
-        private bool _botMoving = false;
+        public bool _botMoving = false;
 
         private void Awake() {
             _levelLoader = LevelLoader.Instance;
             LevelCompleteReference.nextLevel += OnNextLevelLoad;
+            _botMoving = false;
             Instance = this;
-            if(Level == null)
+            if(Level == null && LevelLoader.Instance != null)
             {
                 Level = _levelLoader.Levels[LevelLoader.LevelIndex];
             }
@@ -67,7 +68,8 @@ namespace ChardMove.gameManager
             //    }else{
             //         _currentLevel = Instantiate(level,lvlOffset,Quaternion.identity);
             //    }
-               _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
+               //_currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
+               StartCoroutine(LevelInstantiatingTimer(level));
                
             }else{
                 ClearDictionaries();
@@ -83,10 +85,17 @@ namespace ChardMove.gameManager
             CardStacker.Instance.LoadCards();
         }
 
+        private IEnumerator LevelInstantiatingTimer(GameObject level){
+            yield return new WaitForEndOfFrame();
+            _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
+            CardStacker.Instance.LoadCards();
+        }
+
         public void Reset(){
             if(_botMoving) return;
-            resetButtonPressed();
             BotDB.Clear();
+            PushableDB.Clear();
+            resetButtonPressed();
             DeletePlayerCards(); 
         }
 
@@ -127,12 +136,15 @@ namespace ChardMove.gameManager
         public (bool,bool) TileWalkable(Vector2 pos){
             if(TileDB.TryGetValue(pos,out Tile value)){
                 if(value.TileType == TileType.Walkable){
+                    //print("Walkable");
                     return (true,false);
                 }else{
+                    //print("Not walkable");
                     return (false,false);
                 }
 
             }else{
+                //print("Death");
                 return (true,true);
             }
         }

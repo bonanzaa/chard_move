@@ -22,6 +22,7 @@ namespace ChardMove
         }
 
         private void OnDestroy() {
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
             Destroy(_pushableGO);
         }
 

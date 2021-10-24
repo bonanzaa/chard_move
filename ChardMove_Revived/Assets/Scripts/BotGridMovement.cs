@@ -245,6 +245,7 @@ namespace ChardMove.BotMovement
         }
 
         public IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
+            if(!IsPushable) yield break;
                 // only used in pushable bots
                 FindPushable(direction);
                 _lastPosition = transform.position;
@@ -491,6 +492,7 @@ namespace ChardMove.BotMovement
 
         private (bool,Vector2) CheckBackward(){
             Vector2 nextTilePos = new Vector2(transform.position.x - 0.5f, transform.position.y - 0.25f);
+            print($"Checking ({nextTilePos.x},{nextTilePos.y})");
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;

@@ -21,11 +21,11 @@ namespace ChardMove
                 _highlight.SetActive(false);
         }
         public virtual void Start() {
-            GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
             if(transform.childCount != 0){
                 _highlight = transform.GetChild(0).gameObject;
                 _highlight.SetActive(false);
             }
+            GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
         }
 
         private void OnDestroy() {

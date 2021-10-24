@@ -18,7 +18,7 @@ namespace ChardMove
         [SerializeField] private Sprite _LeftRight;
         [SerializeField] private Sprite _ForwardBackward;
         
-        private GameObject _currentBot;
+        public GameObject _currentBot;
         private PushableBlock _pushableBlock;
         private Vector3 _originalPosition;
         private Vector3 _targetPosition;
@@ -29,24 +29,28 @@ namespace ChardMove
         private bool _lastIsActive;
         private bool _originalIsActive;
         private int _originalStep;
+        private bool _botOnPlatform = false;
         private bool _moving;
         private SpriteRenderer _spriteRenderer;
 
         private void OnTriggerEnter2D(Collider2D other) {
             if(other.CompareTag("Bot")){
                 _currentBot = other.gameObject;
+                _botOnPlatform = true;
             }
         }
 
         private void OnTriggerExit2D(Collider2D other) {
             if(other.CompareTag("Bot")){
                 _currentBot = null;
+                _botOnPlatform = false;
             }
         }
 
         private void OnTriggerStay2D(Collider2D other) {
             if(other.CompareTag("Bot")){
                 _currentBot = other.gameObject;
+                _botOnPlatform = true;
             }
         }
 
@@ -76,6 +80,7 @@ namespace ChardMove
         }
 
         public void RemovePushableBlock(){
+            if(_botOnPlatform) return;
             _currentBot = null;
         }
 
@@ -187,6 +192,7 @@ namespace ChardMove
 
                 newPos = Vector2.Lerp(startPosition,_targetPosition,EaseOutQuart(t/duration));
 
+                transform.position = new Vector3(newPos.x,newPos.y,transform.position.z);
                 if(_currentBot != null){
                     // disable player controls here
                     //_currentBot.transform.position = Vector2.MoveTowards(transform.position, target, Speed * Time.deltaTime);
@@ -196,7 +202,6 @@ namespace ChardMove
                         _currentBot.transform.position = transform.position;
                     }
                 }
-                transform.position = new Vector3(newPos.x,newPos.y,transform.position.z);
 
                 if((Vector2)transform.position == (Vector2)_targetPosition){
 
@@ -215,8 +220,9 @@ namespace ChardMove
                 yield return null;
             }
             transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
-            if(_pushableBlock == null)
+            if(_pushableBlock == null && !_botOnPlatform){
                 _currentBot = null;
+            }
             // update TileDB with our new position
             if(_pushableBlock != null){
                 _pushableBlock.UpdateDB();

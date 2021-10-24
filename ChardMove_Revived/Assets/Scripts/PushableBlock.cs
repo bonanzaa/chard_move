@@ -38,9 +38,9 @@ namespace ChardMove
         public override void Start() {
             Vector2 myPos = new Vector2(transform.position.x,transform.position.y-0.125f);
             GameManager.Instance.AddToPushableDB(myPos,this,this.gameObject,_lastPosition);
-            if(GameManager.Instance.PushableDB.TryGetValue(myPos,out var _value)){
-               var myKey = GameManager.Instance.PushableDB.FirstOrDefault(x => x.Value == (this,this.gameObject)).Key;
-            }
+            // if(GameManager.Instance.PushableDB.TryGetValue(myPos,out var _value)){
+            //    var myKey = GameManager.Instance.PushableDB.FirstOrDefault(x => x.Value == (this,this.gameObject)).Key;
+            // }
         }
 
         public void UpdateDB(){
@@ -58,14 +58,32 @@ namespace ChardMove
             GameManager.undoButtonPressed -= OnUndoButtonPressed;
         }
 
+        private void OnDestroy() {
+            // if(_transformIntoTile){
+            //     Vector2 mypos = new Vector2(transform.position.x,transform.position.y-0.125f);
+            //     GameManager.Instance.RemoveFromTileDB(mypos);
+            // }else{
+            //     Vector2 mypos = new Vector2(transform.position.x,transform.position.y-0.125f);
+            //     GameManager.Instance.PushableDB.Remove(mypos);
+            // }
+
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
+            BotGridMovement.botStartedMoving -= OnBotStartedMoving;
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
+        }
+
         private void OnResetButtonPressed()
         {
             Vector2 pos = new Vector2(transform.position.x,transform.position.y + 0.375f);
             if(_transformIntoTile){
+                Vector2 newpos = new Vector2(transform.position.x,transform.position.y-0.125f);
                 GameManager.Instance.RemoveFromTileDB(pos);
+                GameManager.Instance.RemoveFromTileDB(newpos);
+            }else{
+                Vector2 newpos = new Vector2(transform.position.x,transform.position.y-0.125f);
+                GameManager.Instance.PushableDB.Remove(newpos);
             }
 
-            GameManager.Instance.PushableDB.Clear();
             Destroy(this.gameObject);
         }
 
@@ -115,7 +133,7 @@ namespace ChardMove
                 StartCoroutine(MoveToNextTile(direction, targetTile));
             }else{
                 cannotBePushed();
-            }
+            } 
         }
 
         public IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
@@ -151,6 +169,7 @@ namespace ChardMove
         }
 
         private IEnumerator ActivationAnimation(){
+            GameManager.Instance._botMoving = true;
             float currentY = transform.position.y;
             float currentZ = transform.position.z;
 
@@ -171,6 +190,7 @@ namespace ChardMove
 
             float t  = 0;
             while(transform.position.y != targetY && transform.position.z != targetZ){
+                GameManager.Instance._botMoving = true;
                 t += Time.deltaTime;
                 newY = Mathf.Lerp(currentY,targetY,t);
                 newZ = Mathf.Lerp(currentZ,targetZ,t);
@@ -183,6 +203,7 @@ namespace ChardMove
                 yield return null;
             }
             transform.localScale = new Vector3(1.5f,1.5f,1.5f);
+            GameManager.Instance._botMoving = false;
         }
 
         public Vector2 TargetTilePosition(MovementDirection direction){
