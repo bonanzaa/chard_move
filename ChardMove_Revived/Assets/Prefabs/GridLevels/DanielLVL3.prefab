@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a01dd74fb933418e06f60a9eea68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: 
+  LevelName: Bridge Builder
   OneTileCardCount: 4
   TwoTileCardCount: 4
   ThreeTileCardCount: 2
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPosition: {x: 1.05, y: -0.95, z: -10}
+  CameraPosition: {x: 0, y: 0, z: -10}
 --- !u!1001 &3413913068349834794
 PrefabInstance:
   m_ObjectHideFlags: 0
