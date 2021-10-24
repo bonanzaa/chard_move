@@ -2,18 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChardMove.gameManager;
+using TMPro;
 
 namespace ChardMove
 {
     public class SlotOrganizer : MonoBehaviour
     {
         public List<Transform> _ActiveChildren = new List<Transform>();
+        [SerializeField] private TMP_Text _cardCountText;
         public void OrganizeSlots(){
             _ActiveChildren.Clear();
             int activeChildCount = 0;
             foreach (Transform item in transform)
             {
-                if(item.gameObject.activeSelf && item != null){
+                if(item.gameObject.activeSelf && item != null && !item.TryGetComponent(out TMP_Text text)){
                     activeChildCount ++;
                     _ActiveChildren.Add(item);
                 }else if(item != null){
@@ -44,17 +46,26 @@ namespace ChardMove
             {
                 childInd = i;
                 RectTransform currentChild = transform.GetChild(childInd).GetComponent<RectTransform>();
-                Vector3 _plusOffset = new Vector3(-17,17,0);
-                offset += _plusOffset;
-                currentChild.localPosition += offset;
-                currentChild.SetSiblingIndex(0);
+                if(currentChild.TryGetComponent(out TMP_Text text)){
+                    continue;
+                }else{
+                    Vector3 _plusOffset = new Vector3(-17,17,0);
+                    offset += _plusOffset;
+                    currentChild.localPosition += offset;
+                    currentChild.SetSiblingIndex(0);
+                }
             }
+        }
+
+        private void FixedUpdate() {
+            _cardCountText.text = _ActiveChildren.Count.ToString();
         }
 
         public void ReorganizeSlots(){
             foreach (RectTransform item in transform)
             {
-                item.localPosition = new Vector3(0,0,0);
+                if(!item.gameObject.TryGetComponent(out TMP_Text text))
+                    item.localPosition = new Vector3(0,0,0);
             }
             OrganizeSlots();
         }
@@ -62,7 +73,8 @@ namespace ChardMove
         public void ClearSlot(){
             foreach (Transform item in transform)
             {
-                Destroy(item.gameObject);
+                if(!item.gameObject.TryGetComponent(out TMP_Text text))
+                    Destroy(item.gameObject);
             }
             _ActiveChildren.Clear();
         }
