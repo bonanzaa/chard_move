@@ -13,6 +13,10 @@ namespace ChardMove
         [SerializeField] private int Distance;
         [SerializeField] private int CurrentStep;
         public bool Active = true;
+
+        [Header("Sprites for movement sprite switching")]
+        [SerializeField] private Sprite _LeftRight;
+        [SerializeField] private Sprite _ForwardBackward;
         
         private GameObject _currentBot;
         private PushableBlock _pushableBlock;
@@ -26,6 +30,7 @@ namespace ChardMove
         private bool _originalIsActive;
         private int _originalStep;
         private bool _moving;
+        private SpriteRenderer _spriteRenderer;
 
         private void OnTriggerEnter2D(Collider2D other) {
             if(other.CompareTag("Bot")){
@@ -50,6 +55,26 @@ namespace ChardMove
             _pushableBlock = pushableGO.GetComponent<PushableBlock>();
         }
 
+        private void ChangeSprite(MovementDirection direction){
+            switch(direction){
+                case(MovementDirection.Forward):
+                _spriteRenderer.sprite = _ForwardBackward;
+                break;
+
+                case(MovementDirection.Left):
+                _spriteRenderer.sprite = _LeftRight;
+                break;
+
+                case(MovementDirection.Right):
+                _spriteRenderer.sprite = _LeftRight;
+                break;
+
+                case(MovementDirection.Backward):
+                _spriteRenderer.sprite = _ForwardBackward;
+                break;
+            }
+        }
+
         public void RemovePushableBlock(){
             _currentBot = null;
         }
@@ -66,6 +91,9 @@ namespace ChardMove
             GameManager.undoButtonPressed += OnUndoButtonPressed;
 
             CacheLastInfo();
+            _spriteRenderer =  GetComponent<SpriteRenderer>();
+            ChangeSprite(Direction);
+            print("My pos is " + transform.position);
         }
 
         private void CacheLastInfo(){
@@ -123,6 +151,7 @@ namespace ChardMove
         }
 
         private IEnumerator Move(){
+            ChangeSprite(Direction);
             // need to check for pushable on top of us
             if(_pushableBlock != null){
                 _pushableBlock.CacheLastPos();
@@ -132,6 +161,7 @@ namespace ChardMove
             _targetPosition = target;
             CheckPath();
             CacheLastInfo();
+            print($"Target tile pos: ({_targetPosition.x},{_targetPosition.y})");
             // in case CheckPath() detects there is an obstacle in our way,
             // it overwrites _targetPosition, adjusting for the obstacle.
             Vector2 startPosition = transform.position;
@@ -186,6 +216,7 @@ namespace ChardMove
                 }
                 yield return null;
             }
+            transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
             if(_pushableBlock == null)
                 _currentBot = null;
             // update TileDB with our new position

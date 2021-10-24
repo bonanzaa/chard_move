@@ -61,18 +61,25 @@ namespace ChardMove.gameManager
                 Destroy(_currentLevel);
                 ClearDictionaries();
                 ResetPlayerCards();
-               Vector3 lvlOffset = level.transform.position;
-               if(lvlOffset == Vector3.zero){
-                   _currentLevel = Instantiate(level,new Vector3(1.32f,3.62f,0),Quaternion.identity);
-               }else{
-                    _currentLevel = Instantiate(level,lvlOffset,Quaternion.identity);
-               }
+            //    Vector3 lvlOffset = level.transform.position;
+            //    if(lvlOffset == Vector3.zero){
+            //        _currentLevel = Instantiate(level,new Vector3(1.32f,3.62f,0),Quaternion.identity);
+            //    }else{
+            //         _currentLevel = Instantiate(level,lvlOffset,Quaternion.identity);
+            //    }
+               _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
                
             }else{
                 ClearDictionaries();
                 ResetPlayerCards();
                 LevelLoaded = true;
             }
+
+            if(level.TryGetComponent(out CameraOffsetRegister _cameraOffset)){
+                Camera.main.gameObject.transform.position = _cameraOffset.CameraPosition;
+                GameObject.FindGameObjectWithTag("Canvas").gameObject.transform.position = new Vector3(_cameraOffset.CameraPosition.x,_cameraOffset.CameraPosition.y,0);
+            }
+
             CardStacker.Instance.LoadCards();
         }
 

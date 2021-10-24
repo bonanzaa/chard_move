@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 4204295756218153931}
   - component: {fileID: 4204295756218153930}
   - component: {fileID: 8752033810844800756}
+  - component: {fileID: -8592772728508243283}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -203,3 +204,15 @@ MonoBehaviour:
   TwoTileCardCount: 0
   ThreeTileCardCount: 0
   FourTileCardCount: 0
+--- !u!114 &-8592772728508243283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4204295756218153929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

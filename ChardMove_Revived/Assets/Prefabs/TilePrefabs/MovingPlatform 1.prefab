@@ -186,6 +186,8 @@ MonoBehaviour:
   Distance: 1
   CurrentStep: 0
   Active: 1
+  _LeftRight: {fileID: -4571891095695291320, guid: a25053678f842994aa76c40c60cb3942, type: 3}
+  _ForwardBackward: {fileID: 1810682828556523565, guid: 7ba2e4f88644e074ba4cb556d3e6ecd6, type: 3}
 --- !u!61 &269021961
 BoxCollider2D:
   m_ObjectHideFlags: 0
