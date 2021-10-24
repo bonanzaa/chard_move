@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 9199969657094049705}
   - component: {fileID: 9199969657094049704}
   - component: {fileID: 4359778552866595478}
+  - component: {fileID: 782091369344444775}
   m_Layer: 0
   m_Name: Pete_CannonJump
   m_TagString: Untagged
@@ -218,6 +219,19 @@ MonoBehaviour:
   TwoTileCardCount: 2
   ThreeTileCardCount: 3
   FourTileCardCount: 0
+--- !u!114 &782091369344444775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9199969657094049707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraPosition: {x: 0, y: -3.5, z: 0}
 --- !u!1001 &997814780301564280
 PrefabInstance:
   m_ObjectHideFlags: 0

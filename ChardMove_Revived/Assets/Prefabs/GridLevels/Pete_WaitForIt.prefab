@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 4684119461542934102}
   - component: {fileID: 4684119461542934103}
   - component: {fileID: 156646336380197737}
+  - component: {fileID: 8040889958604690852}
   m_Layer: 0
   m_Name: Pete_WaitForIt
   m_TagString: Untagged
@@ -213,6 +214,19 @@ MonoBehaviour:
   TwoTileCardCount: 2
   ThreeTileCardCount: 0
   FourTileCardCount: 1
+--- !u!114 &8040889958604690852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4684119461542934100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraPosition: {x: -0.83, y: -3.86, z: 0}
 --- !u!1001 &7966182586180147192
 PrefabInstance:
   m_ObjectHideFlags: 0

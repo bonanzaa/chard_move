@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 3607386216416614413}
   - component: {fileID: 3607386216416614412}
   - component: {fileID: 8159909481844274482}
+  - component: {fileID: 4238314277338930034}
   m_Layer: 0
   m_Name: Pete_Deuces
   m_TagString: Untagged
@@ -222,6 +223,19 @@ MonoBehaviour:
   TwoTileCardCount: 4
   ThreeTileCardCount: 0
   FourTileCardCount: 0
+--- !u!114 &4238314277338930034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3607386216416614415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraPosition: {x: -1.72, y: -3.23, z: 0}
 --- !u!1001 &1489555401072279282
 PrefabInstance:
   m_ObjectHideFlags: 0

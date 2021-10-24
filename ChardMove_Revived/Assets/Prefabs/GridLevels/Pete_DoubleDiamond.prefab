@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 8373451558329357404}
   - component: {fileID: 8373451558329357405}
   - component: {fileID: 3970390387920861539}
+  - component: {fileID: 6041284877943089357}
   m_Layer: 0
   m_Name: Pete_DoubleDiamond
   m_TagString: Untagged
@@ -217,6 +218,19 @@ MonoBehaviour:
   TwoTileCardCount: 1
   ThreeTileCardCount: 1
   FourTileCardCount: 0
+--- !u!114 &6041284877943089357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8373451558329357406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraPosition: {x: -1.72, y: -3.23, z: 0}
 --- !u!1001 &761607296299690862
 PrefabInstance:
   m_ObjectHideFlags: 0

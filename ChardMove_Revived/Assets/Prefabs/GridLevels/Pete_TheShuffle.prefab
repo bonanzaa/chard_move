@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 888963259909186901}
   - component: {fileID: 888963259909186900}
   - component: {fileID: 5727430326935799914}
+  - component: {fileID: 6546984306776446220}
   m_Layer: 0
   m_Name: Pete_TheShuffle(needsmomentaryswitchupdate)
   m_TagString: Untagged
@@ -219,6 +220,19 @@ MonoBehaviour:
   TwoTileCardCount: 1
   ThreeTileCardCount: 3
   FourTileCardCount: 0
+--- !u!114 &6546984306776446220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888963259909186903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraPosition: {x: 0.1, y: -3.95, z: 0}
 --- !u!1001 &130981066490126984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -785,6 +799,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 888963259782335250}
     m_Modifications:
     - target: {fileID: 578975172233849896, guid: dcfa7428d07f0894b93ce758f9170b76, type: 3}
+      propertyPath: Active
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 578975172233849896, guid: dcfa7428d07f0894b93ce758f9170b76, type: 3}
       propertyPath: Distance
       value: 3
       objectReference: {fileID: 0}
@@ -1068,6 +1086,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 888963259782335250}
     m_Modifications:
     - target: {fileID: 578975172233849896, guid: dcfa7428d07f0894b93ce758f9170b76, type: 3}
+      propertyPath: Active
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 578975172233849896, guid: dcfa7428d07f0894b93ce758f9170b76, type: 3}
       propertyPath: Direction
       value: 0
       objectReference: {fileID: 0}
@@ -1121,6 +1143,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcfa7428d07f0894b93ce758f9170b76, type: 3}
+--- !u!4 &7314270758300871927 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6021050367095043382, guid: dcfa7428d07f0894b93ce758f9170b76, type: 3}
+  m_PrefabInstance: {fileID: 3895213356438755777}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4469397337942750697 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 578975172233849896, guid: dcfa7428d07f0894b93ce758f9170b76, type: 3}
@@ -1132,11 +1159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24424a878eda0545a55373deae72b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &7314270758300871927 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6021050367095043382, guid: dcfa7428d07f0894b93ce758f9170b76, type: 3}
-  m_PrefabInstance: {fileID: 3895213356438755777}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5777816955690918372
 PrefabInstance:
   m_ObjectHideFlags: 0

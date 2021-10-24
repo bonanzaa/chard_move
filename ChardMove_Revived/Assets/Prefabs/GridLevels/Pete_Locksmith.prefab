@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 2530574013361098313}
   - component: {fileID: 2530574013361098312}
   - component: {fileID: 6932086003879732086}
+  - component: {fileID: 30020401591547079}
   m_Layer: 0
   m_Name: Pete_Locksmith
   m_TagString: Untagged
@@ -209,6 +210,19 @@ MonoBehaviour:
   TwoTileCardCount: 2
   ThreeTileCardCount: 0
   FourTileCardCount: 0
+--- !u!114 &30020401591547079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2530574013361098315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraPosition: {x: -1.04, y: -3.53, z: 0}
 --- !u!1001 &7892486831531031744
 PrefabInstance:
   m_ObjectHideFlags: 0

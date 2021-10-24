@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3078399379012820627}
   - component: {fileID: 3078399379012820626}
   - component: {fileID: 7608122637425570732}
+  - component: {fileID: 5725163671410022559}
   m_Layer: 0
   m_Name: Pete_FirstSteps
   m_TagString: Untagged
@@ -61,6 +62,19 @@ MonoBehaviour:
   TwoTileCardCount: 1
   ThreeTileCardCount: 0
   FourTileCardCount: 0
+--- !u!114 &5725163671410022559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3078399379012820625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraPosition: {x: -1.72, y: -3.23, z: 0}
 --- !u!1 &3078399379135410387
 GameObject:
   m_ObjectHideFlags: 0
