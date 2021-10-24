@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3303337304061434724}
   - component: {fileID: 3303337304061434725}
   - component: {fileID: 3303337304061434721}
+  - component: {fileID: 2340642570604792002}
   m_Layer: 0
-  m_Name: DainisLVL4
+  m_Name: Dainis_ThisThingMoves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,10 +58,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a01dd74fb933418e06f60a9eea68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelName: 
   OneTileCardCount: 3
   TwoTileCardCount: 2
   ThreeTileCardCount: 0
   FourTileCardCount: 0
+--- !u!114 &2340642570604792002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303337304061434726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraPosition: {x: 0.23, y: -2.55, z: -10}
 --- !u!1 &3303337304182060324
 GameObject:
   m_ObjectHideFlags: 0
