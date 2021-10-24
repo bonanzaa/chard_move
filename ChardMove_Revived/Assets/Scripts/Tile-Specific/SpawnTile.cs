@@ -31,6 +31,10 @@ namespace ChardMove
             _botJustDied = false;
         }
 
+        private void OnDestroy() {
+            Destroy(_bot);
+        }
+
         private void OnResetButtonPressed(){
             if(_bot != null){
                 Destroy(_bot);

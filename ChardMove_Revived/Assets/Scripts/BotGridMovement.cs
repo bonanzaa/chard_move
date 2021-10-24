@@ -11,6 +11,13 @@ namespace ChardMove.BotMovement
         [SerializeField] private GameObject Highlight;
         public bool IsPushable = false;
 
+        [Header("Sprites for movement sprite switching")]
+        [SerializeField] private Sprite _facingForward;
+        [SerializeField] private Sprite _facingLeft;
+        [SerializeField] private Sprite _facingRight;
+        [SerializeField] private Sprite _facingBackward;
+
+
         public delegate void BotStartedMoving(MovementDirection direction1, int steps);
         public static event BotStartedMoving botStartedMoving;
         public delegate void BotCannotBePushed();
@@ -24,6 +31,7 @@ namespace ChardMove.BotMovement
         private Vector2 _originalPosition;
         private Vector2 _lastPosition;
         private Vector2 _lastPositionBeforeMovement;
+        private SpriteRenderer _spriteRenderer;
         private bool _amGoingToDie = false;
 
 
@@ -39,6 +47,8 @@ namespace ChardMove.BotMovement
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             PushableBlock.cannotBePushed += OnCannotBePushed;
             BotGridMovement.botCannotBePushed += OnCannotBePushed;
+
+            _spriteRenderer =  GetComponent<SpriteRenderer>();
         }
 
         private void Start() {
@@ -56,11 +66,12 @@ namespace ChardMove.BotMovement
 
         public void Move(MovementDirection direction, int steps){ 
             botStartedMoving(direction,steps);
+            ChangeSprite(direction);
             GameManager.Instance.OnBotStartedMoving();
             _lastPositionBeforeMovement = transform.position;
             _lastPosition = transform.position;
             // readjust highlight GO
-            Highlight.transform.localPosition = Vector3.zero;
+            //Highlight.transform.localPosition = Vector3.zero;
             var moveCheck = CanMove(direction);
             var canMove = moveCheck.Item1; // bool checking if the next tile is walkable/death
             var target = moveCheck.Item2; // Target Vector2 of the next tile
@@ -80,6 +91,26 @@ namespace ChardMove.BotMovement
                 print($"I cannot move {direction.ToString()}...");
             }
         
+        }
+
+        private void ChangeSprite(MovementDirection direction){
+            switch(direction){
+                case(MovementDirection.Forward):
+                _spriteRenderer.sprite = _facingForward;
+                break;
+
+                case(MovementDirection.Left):
+                _spriteRenderer.sprite = _facingLeft;
+                break;
+
+                case(MovementDirection.Right):
+                _spriteRenderer.sprite = _facingRight;
+                break;
+
+                case(MovementDirection.Backward):
+                _spriteRenderer.sprite = _facingBackward;
+                break;
+            }
         }
 
         private void FindTargetTiles(MovementDirection direction, int distance){
@@ -338,7 +369,7 @@ namespace ChardMove.BotMovement
                 GameManager.Instance.PushableDB.Add(transform.position,(this,this.gameObject));
             }
             // only exists, because of some weird glitches
-            Highlight.transform.localPosition = Vector3.zero;
+            //Highlight.transform.localPosition = Vector3.zero;
         }
 
 

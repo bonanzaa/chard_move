@@ -32,7 +32,6 @@ namespace ChardMove.gameManager
 
         private void Awake() {
             _levelLoader = LevelLoader.Instance;
-            Debug.Log($"GameManager has LvlIndex:{LevelLoader.LevelIndex}");
             LevelCompleteReference.nextLevel += OnNextLevelLoad;
             Instance = this;
             if(Level == null)
@@ -62,7 +61,13 @@ namespace ChardMove.gameManager
                 Destroy(_currentLevel);
                 ClearDictionaries();
                 ResetPlayerCards();
-                _currentLevel = Instantiate(level,new Vector3(1.32f,3.62f,0),Quaternion.identity);
+               Vector3 lvlOffset = level.transform.position;
+               if(lvlOffset == Vector3.zero){
+                   _currentLevel = Instantiate(level,new Vector3(1.32f,3.62f,0),Quaternion.identity);
+               }else{
+                    _currentLevel = Instantiate(level,lvlOffset,Quaternion.identity);
+               }
+               
             }else{
                 ClearDictionaries();
                 ResetPlayerCards();

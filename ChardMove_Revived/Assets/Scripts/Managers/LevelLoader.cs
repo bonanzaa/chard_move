@@ -24,7 +24,6 @@ namespace ChardMove
             Instance = this;
             _saveSystem.Deserialize();
             LevelIndex = _saveSystem.RefreshLvlIndex();
-            Debug.Log($"LevelIndex: {LevelIndex}");
             WinTile.playerWin += OnPlayerWin;
             //SceneMarker.sceneMarked += OnSceneLoaded;
 
@@ -75,12 +74,10 @@ namespace ChardMove
             LevelIndex = index;
             _saveSystem.Serialize();
 
-            Debug.Log($"You selected level {LevelIndex}");
         }
         private void OnPlayerWin()
         {
             LevelIndex++;
-            Debug.Log($"You are going to level {LevelIndex}");
             _saveSystem.Serialize();
             _levelCompleteReference.OpenWinScreen();
         }

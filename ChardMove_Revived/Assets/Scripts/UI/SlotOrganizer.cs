@@ -23,6 +23,8 @@ namespace ChardMove
 
             if(activeChildCount == 0){
                 this.gameObject.SetActive(false);
+            }else{
+                this.gameObject.SetActive(true);
             }
 
             if(activeChildCount == 1){

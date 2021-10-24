@@ -43,7 +43,6 @@ namespace ChardMove
             try
             {
                 formatter.Serialize(fs, LastLevelIndex);
-                Debug.Log($"Saving new LvlIndex = {LastLevelIndex}");
                 //formatter.Serialize(fs, CompletedLevels);
             }
             catch(SerializationException e)
@@ -69,7 +68,6 @@ namespace ChardMove
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 LastLevelIndex = (int)formatter.Deserialize(fs);
-                Debug.Log($"LastLevelIndexSaved is{LastLevelIndex}");
                 //CompletedLevels = (bool[])formatter.Deserialize(fs);
             }
             catch (SerializationException e)
