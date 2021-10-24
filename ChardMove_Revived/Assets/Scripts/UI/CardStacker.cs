@@ -10,6 +10,7 @@ namespace ChardMove
         public static CardStacker Instance;
         public List<GameObject> Slots;
 
+
         private void Awake() {
             Instance = this;
             Draggable.onBeginDrag += Reorganize;

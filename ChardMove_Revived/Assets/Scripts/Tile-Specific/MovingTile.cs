@@ -93,7 +93,6 @@ namespace ChardMove
             CacheLastInfo();
             _spriteRenderer =  GetComponent<SpriteRenderer>();
             ChangeSprite(Direction);
-            print("My pos is " + transform.position);
         }
 
         private void CacheLastInfo(){
@@ -161,7 +160,6 @@ namespace ChardMove
             _targetPosition = target;
             CheckPath();
             CacheLastInfo();
-            print($"Target tile pos: ({_targetPosition.x},{_targetPosition.y})");
             // in case CheckPath() detects there is an obstacle in our way,
             // it overwrites _targetPosition, adjusting for the obstacle.
             Vector2 startPosition = transform.position;
