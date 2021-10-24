@@ -8,6 +8,10 @@ namespace ChardMove
 {
     public class CardContainer : MonoBehaviour
     {
+        [Header("Level Name")]
+        public string LevelName;
+
+        [Header("Card Info")]
         public int OneTileCardCount;
         public int TwoTileCardCount;
         public int ThreeTileCardCount;

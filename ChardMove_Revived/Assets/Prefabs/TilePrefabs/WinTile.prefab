@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: -8434918555552693597, guid: 8fa2f500389edb440a29eee8a935cb66, type: 3}
-  m_Color: {r: 0, g: 0.06773472, b: 1, a: 1}
+  m_Sprite: {fileID: 2573861871351969521, guid: 5a44e64406f1a3947be3e0eb33c9a551, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,7 +102,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.0078945, y: 0.6548387}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TileType: 0
+  _highlight: {fileID: 0}
   _winScreenUI: {fileID: 0}
   Target: 0
 --- !u!1 &8603130200300828597

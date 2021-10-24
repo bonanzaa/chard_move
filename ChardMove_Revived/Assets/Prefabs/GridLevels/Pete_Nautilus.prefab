@@ -281,6 +281,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7249055876766205610}
     m_Modifications:
+    - target: {fileID: 578975172233849896, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: Distance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 578975172233849896, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: Direction
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3561019846631732650, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
       propertyPath: m_Name
       value: MovingPlatform 1
@@ -715,6 +723,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7249055876766205610}
     m_Modifications:
+    - target: {fileID: 578975172233849896, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: Distance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 578975172233849896, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
+      propertyPath: Direction
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3561019846631732650, guid: 691177fa077325b4eb187e0c004499fe, type: 3}
       propertyPath: m_Name
       value: MovingPlatform 1
