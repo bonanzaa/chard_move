@@ -89,7 +89,6 @@ namespace ChardMove
         }
 
         private void Awake() {
-            BotGridMovement.botMoved += OnBotMoved;
             // cache in our original stats for the Reset
             _originalPosition = transform.position;
             _originalDirection = Direction;
@@ -98,13 +97,22 @@ namespace ChardMove
             _botOnPlatform = false;
             _currentBot = null;
 
+            BotGridMovement.botMoved += OnBotMoved;
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;
+            BotGridMovement.botAboutToDie += OnBotAboutToDie;
 
             CacheLastInfo();
             _spriteRenderer =  GetComponent<SpriteRenderer>();
             ChangeSprite(Direction);
+        }
+
+        private void OnBotAboutToDie(GameObject bot){
+            if(bot == _currentBot){
+                _currentBot = null;
+                _botOnPlatform = false;
+            }
         }
 
         private void CacheLastInfo(){
@@ -150,6 +158,17 @@ namespace ChardMove
         {
             BotGridMovement.botMoved -= OnBotMoved;
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
+            BotGridMovement.botAboutToDie -= OnBotAboutToDie;
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
+        }
+
+        private void OnDestroy() {
+            BotGridMovement.botMoved -= OnBotMoved;
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
+            BotGridMovement.botAboutToDie -= OnBotAboutToDie;
+            GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
+            GameManager.undoButtonPressed -= OnUndoButtonPressed;
         }
 
         public void Deactivate(){

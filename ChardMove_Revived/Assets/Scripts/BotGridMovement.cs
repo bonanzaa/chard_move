@@ -79,12 +79,12 @@ namespace ChardMove.BotMovement
             var moveCheck = CanMove(direction);
             var canMove = moveCheck.Item1; // bool checking if the next tile is walkable/death
             var target = moveCheck.Item2; // Target Vector2 of the next tile
+            walkingCoroutine = MoveToNextTile(direction,_steps,target);
             _originalTarget = target;
             _target = target;
-            walkingCoroutine = MoveToNextTile(direction,_steps,target);
             bool botInTheWay = GameManager.Instance.BotInTheWay(target); // bool checking if another bot is in the next tile
+            _steps = CheckPath(direction,steps);
             if(canMove && !botInTheWay){
-                _steps = CheckPath(direction,steps);
                 FindPushable(direction);
                 FindTargetTilesWithTarget();
                 //walkingCoroutine = MoveToNextTile(direction,steps,target);
@@ -93,15 +93,21 @@ namespace ChardMove.BotMovement
                 // next tile is unwalkable (roadblock) so nothing happens
                 if(botMoved != null)
                 // this is considered a move, so update world state
-                botMoved();
                 GameManager.Instance.OnBotFinishedMoving();
                 print($"I cannot move {direction.ToString()}...");
+                StartCoroutine(BotMovedEventTimer());
             }
-        
+        }
+
+        private IEnumerator BotMovedEventTimer(){
+            yield return new WaitForSeconds(0.125f);
+            botMoved();
         }
 
         private int CheckPath(MovementDirection Direction, int Distance){
+            if(Distance == 1) return 1;
             int _distance = Distance;
+            Vector2 originalTarget = _target;
             Vector2 target = new Vector2();
             TileType tileType = new TileType();
             switch(Direction){
@@ -110,6 +116,10 @@ namespace ChardMove.BotMovement
                 {
                     target =  new Vector2(transform.position.x + 0.5f*i, transform.position.y + 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
+                    if(tileType == TileType.Death){
+                        _target = originalTarget;
+                        return Distance;
+                    }
                     if(GameManager.Instance.PushableInTheWay(target)){
                         _distance++;
                     }
@@ -127,6 +137,10 @@ namespace ChardMove.BotMovement
                 {
                     target =  new Vector2(transform.position.x - 0.5f*i, transform.position.y - 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
+                    if(tileType == TileType.Death){
+                        _target = originalTarget;
+                        return Distance;
+                    }
                     if(GameManager.Instance.PushableInTheWay(target)){
                         _distance++;
                     }
@@ -144,6 +158,10 @@ namespace ChardMove.BotMovement
                 {
                     target =  new Vector2(transform.position.x - 0.5f*i, transform.position.y + 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
+                    if(tileType == TileType.Death){
+                        _target = originalTarget;
+                        return Distance;
+                    }
                     if(GameManager.Instance.PushableInTheWay(target)){
                         _distance++;
                     }
@@ -161,6 +179,10 @@ namespace ChardMove.BotMovement
                 {
                     target =  new Vector2(transform.position.x + 0.5f*i, transform.position.y - 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
+                    if(tileType == TileType.Death){
+                        _target = originalTarget;
+                        return Distance;
+                    }
                     if(GameManager.Instance.PushableInTheWay(target)){
                         _distance++;
                     }
@@ -537,9 +559,10 @@ namespace ChardMove.BotMovement
                 return (true, nextTilePos);
             }else if(!walkable && !playerDead){
                 return (false, nextTilePos);
-            }else if((!walkable && !playerDead) || _botInTheWay){
+            }else if(walkable && playerDead){
 
                 if(walkingCoroutine != null) StopCoroutine(walkingCoroutine);
+                print("moving to death");
                 StartCoroutine(MoveToDeath(MovementDirection.Forward,nextTilePos));
                 return (false, nextTilePos);
             }

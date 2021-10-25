@@ -21,7 +21,12 @@ namespace ChardMove
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            Instance = this;
+            if(Instance != null){
+                Destroy(Instance.gameObject);
+                Instance = this;
+            }else{
+                Instance = this;
+            }
             _saveSystem.Deserialize();
             LevelIndex = _saveSystem.RefreshLvlIndex();
             WinTile.playerWin += OnPlayerWin;
@@ -36,6 +41,10 @@ namespace ChardMove
                 //LoadLevel(LevelIndex);
             }
             CanLoadLevel = true;
+        }
+
+        private void OnDestroy() {
+            WinTile.playerWin -= OnPlayerWin;
         }
         public void CacheLevelCompleteReference(LevelCompleteReference levelCompleteReference)
         {
