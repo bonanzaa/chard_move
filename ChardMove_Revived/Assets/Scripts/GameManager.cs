@@ -32,10 +32,14 @@ namespace ChardMove.gameManager
         private GameObject _currentLevel;
         public bool LevelLoaded = false;
         public bool _botMoving = false;
+        public bool AnimationInProgress = false;
 
         private void Awake() {
             _levelLoader = LevelLoader.Instance;
             LevelCompleteReference.nextLevel += OnNextLevelLoad;
+            BotGridMovement.botMovedPos += OnBotMoved;
+            BotGridMovement.botStartedMovingPos += OnBotStartedMoving;
+            BotGridMovement.botUndoPressed += OnBotUndoMoved;
             _botMoving = false;
             LevelLoaded = false;
             Instance = this;
@@ -49,6 +53,68 @@ namespace ChardMove.gameManager
             }
         }
 
+        private void OnBotMoved(Vector2 pos){
+            FindSwitch(pos);
+            FindWinTile(pos);
+        }
+
+        private void OnBotUndoMoved(Vector2 pos){
+            if(TileDB.TryGetValue(pos,out Tile value)){
+   
+                if(value.TryGetComponent(out LatchSwitch component)){
+                    component.OnUndoBotLanded();
+                }else if(value.TryGetComponent(out MomentarySwitch component1)){
+                    component1.OnUndoBotLanded();
+                }
+
+            }
+        }
+
+        private void OnBotStartedMoving(Vector2 pos){
+            if(TileDB.TryGetValue(pos,out Tile value)){
+
+                if(value.TryGetComponent(out MomentarySwitch component)){
+                    component.RemoveTarget();
+                }
+            }
+
+            if(TileDB.TryGetValue(pos,out Tile value1)){
+
+                if(value.TryGetComponent(out LatchSwitch component)){
+                    component.CacheState();
+                }
+            }
+        }
+
+        private void FindSwitch(Vector2 pos){
+            if(TileDB.TryGetValue(pos,out Tile value)){
+                // if we find a tile at bot's position look for a SwitchBase interface, indicating
+                // the tile is a switch
+                if(value.TryGetComponent(out SwitchBase switchbase)){
+                    switchbase.SetTarget();
+                }
+            }
+        }
+
+        private void FindWinTile(Vector2 pos){
+            if(TileDB.TryGetValue(pos,out Tile value)){
+
+                if(value.TryGetComponent(out WinTile wintile)){
+                    wintile.SetTarget();
+                }
+            }
+        }
+
+        private void FindMovingPlatform(Vector2 pos){
+            if(TileDB.TryGetValue(pos, out Tile value)){
+
+                if(value.TryGetComponent(out MovingTile platform)){
+                    // reference player for the moving platform here
+                }
+            }
+        }
+
+
         private void OnNextLevelLoad()
         {
             LoadLevel(_levelLoader.Levels[LevelLoader.LevelIndex]);
@@ -59,6 +125,12 @@ namespace ChardMove.gameManager
             if(Level != null){
                 LoadLevel(Level.gameObject);
             }
+        }
+
+        private void OnDestroy() {
+            BotGridMovement.botMovedPos -= OnBotMoved;
+            BotGridMovement.botStartedMovingPos -= OnBotStartedMoving;
+            LevelCompleteReference.nextLevel -= OnNextLevelLoad;
         }
 
         public void LoadLevel(GameObject level) {
@@ -92,7 +164,7 @@ namespace ChardMove.gameManager
         }
 
         public void Reset(){
-            if(_botMoving) return;
+            if(_botMoving || AnimationInProgress) return;
             BotDB.Clear();
             PushableDB.Clear();
             DeletePlayerCards(); 
@@ -120,7 +192,7 @@ namespace ChardMove.gameManager
         }
 
         public void Undo(){
-            if(_botMoving) return;
+            if(_botMoving || AnimationInProgress) return;
             if(LastCardPlayed!= null)
                 PlayerCards.Add(LastCardPlayed);
             undoButtonPressed();

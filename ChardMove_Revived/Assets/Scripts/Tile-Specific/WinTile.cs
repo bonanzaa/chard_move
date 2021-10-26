@@ -19,7 +19,7 @@ namespace ChardMove
         }
 
         public void SetTarget(){
-            Target = true;
+            playerWin();
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {

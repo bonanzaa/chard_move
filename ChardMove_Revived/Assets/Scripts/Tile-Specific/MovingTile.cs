@@ -32,6 +32,7 @@ namespace ChardMove
         private bool _botOnPlatform = false;
         private bool _moving;
         private SpriteRenderer _spriteRenderer;
+        
 
         private void OnTriggerEnter2D(Collider2D other) {
             if(other.CompareTag("Bot")){
@@ -173,6 +174,10 @@ namespace ChardMove
 
         public void Deactivate(){
             Active = false;
+        }
+
+        public void SetTarget(){
+
         }
 
         private void OnBotMoved(){

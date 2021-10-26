@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChardMove.gameManager;
+using ChardMove.BotMovement;
 
 namespace ChardMove
 {
@@ -9,71 +10,89 @@ namespace ChardMove
     {
         public List<Roadblock> Gates;
         public List<MovingTile> MovingPlatforms;
-        public bool isTarget = false;
-        private bool _lastIsTarget;
+        private bool _isActive = false;
+        private bool _lastIsActive;
 
         private void Awake() {
             // subscribe to reset/undo events
             GameManager.resetButtonPressed += OnResetButtonPressed;
-            GameManager.undoButtonPressed += OnUndoButtonPressed;
+            GameManager.undoButtonPressed += OnUndoBotLanded;
             // caching isTarget bool for Undo
-            _lastIsTarget = isTarget;
+            _lastIsActive = _isActive;
         }
 
         private void OnDestroy() {
             GameManager.resetButtonPressed -= OnResetButtonPressed;
-            GameManager.undoButtonPressed -= OnUndoButtonPressed;
+            GameManager.undoButtonPressed -= OnUndoBotLanded;
         }
 
         public void SetTarget(){
-            // is called from BotGridMovement, indicating that player has landed on this tile
-            _lastIsTarget = isTarget;
-            isTarget = true;
+            _lastIsActive = _isActive;
+            _isActive = true;
+            //print($"Setting target. LastIsActive: ({_lastIsActive}). IsActive: ({_isActive})");
+            Activate();
+        }
+
+        private void Activate(){
+            if(Gates.Count != 0){
+                foreach (var gate in Gates)
+                {
+                    gate.Activate();
+                }
+            }
+
+            if(MovingPlatforms.Count != 0){
+                foreach (var item in MovingPlatforms)
+                {
+                    item.Activate();
+                }
+            }
+        }
+
+        private void Deactivate(){
+            if(Gates.Count != 0){
+                foreach (var gate in Gates)
+                {
+                    gate.Deactivate();
+                }
+            }
+
+            if(MovingPlatforms.Count != 0){
+                foreach (var item in MovingPlatforms)
+                {
+                    item.Deactivate();
+                }
+            }
         }
 
         private void OnResetButtonPressed(){
-            isTarget = false;
+            _isActive = false;
+            _lastIsActive = _isActive;
             Reset();
         }
 
-        private void OnUndoButtonPressed(){
-            isTarget = _lastIsTarget;
+        public void CacheState(){
+            _lastIsActive = _isActive;
+        }
+
+        public void OnUndoBotLanded(){
+            if(_isActive == _lastIsActive) return;
+            if(_isActive != _lastIsActive){
+                if(_lastIsActive){
+                    Activate();
+                }else{
+                    Deactivate();
+                }
+            }
+            _isActive = _lastIsActive;
         }
 
         private void Reset(){
-                    foreach (var gate in Gates)
-                    {
-                       gate.Reset();
-                    }
-                    foreach (var platform in MovingPlatforms)
-                    {
-                        if(!platform.Active) platform.Activate();
-                    }
-        }
-
-        private void OnTriggerEnter2D(Collider2D other) {
-            if(other.CompareTag("Bot") && isTarget){
-                if(Gates.Count != 0){
-                    foreach (var gate in Gates)
-                    {
-                        if(gate.IsActive){
-                            gate.Deactivate();
-                        }else{
-                            gate.Activate();
-                        }
-                    }
-                }
-
-                if(MovingPlatforms.Count != 0){
-                    foreach (var platform in MovingPlatforms)
-                    {
-                        if(!platform.Active) platform.Activate();
-                    }
-
-                }
-
-                isTarget = false;
+            foreach (var gate in Gates)
+            {
+                gate.Reset();
             }
         }
+
     }
 }
