@@ -34,30 +34,30 @@ namespace ChardMove
         private SpriteRenderer _spriteRenderer;
         
 
-        private void OnTriggerEnter2D(Collider2D other) {
-            if(other.CompareTag("Bot")){
-                if(_botOnPlatform) return;
-                _currentBot = other.gameObject;
-                _botOnPlatform = true;
-                if(!_currentBot.GetComponent<BotGridMovement>().IsPushable)
-                    TileType = TileType.Unwalkable;
-            }
-        }
+        // private void OnTriggerEnter2D(Collider2D other) {
+        //     if(other.CompareTag("Bot")){
+        //         if(_botOnPlatform) return;
+        //         _currentBot = other.gameObject;
+        //         _botOnPlatform = true;
+        //         if(!_currentBot.GetComponent<BotGridMovement>().IsPushable)
+        //             TileType = TileType.Unwalkable;
+        //     }
+        // }
 
-        private void OnTriggerExit2D(Collider2D other) {
-            if(other.CompareTag("Bot")){
-                _currentBot = null;
-                _botOnPlatform = false;
-                TileType = TileType.Walkable;
-            }
-        }
+        // private void OnTriggerExit2D(Collider2D other) {
+        //     if(other.CompareTag("Bot")){
+        //         _currentBot = null;
+        //         _botOnPlatform = false;
+        //         TileType = TileType.Walkable;
+        //     }
+        // }
 
-        private void OnTriggerStay2D(Collider2D other) {
-            if(other.CompareTag("Bot")){
-                _currentBot = other.gameObject;
-                _botOnPlatform = true;
-            }
-        }
+        // private void OnTriggerStay2D(Collider2D other) {
+        //     if(other.CompareTag("Bot")){
+        //         _currentBot = other.gameObject;
+        //         _botOnPlatform = true;
+        //     }
+        // }
 
         public void CachePushableBlock(GameObject pushableGO){
             _currentBot = pushableGO;
@@ -142,6 +142,11 @@ namespace ChardMove
         }
 
         private void OnUndoButtonPressed(){
+            StartCoroutine(UndoTimer());
+        }
+
+        private IEnumerator UndoTimer(){
+            yield return new WaitForEndOfFrame();
             GameManager.Instance.RemoveFromTileDB(transform.position);
             transform.position = _lastPosition;
             GameManager.Instance.TileDB.Add(transform.position,this);
@@ -149,6 +154,10 @@ namespace ChardMove
             Direction = _lastDirection;
             Active = _lastIsActive;
             CheckPath();
+        }
+
+        public void OnUndoBotLanded(GameObject bot){
+            SetTarget(bot);
         }
 
         public void Activate(){
@@ -176,8 +185,17 @@ namespace ChardMove
             Active = false;
         }
 
-        public void SetTarget(){
+        public void SetTarget(GameObject bot){
+            _currentBot = bot;
+            _botOnPlatform = true;
+            if(!_currentBot.GetComponent<BotGridMovement>().IsPushable)
+                TileType = TileType.Unwalkable;
+        }
 
+        public void RemoveTarget(){
+            _currentBot = null;
+            _botOnPlatform = false;
+            TileType = TileType.Walkable;
         }
 
         private void OnBotMoved(){

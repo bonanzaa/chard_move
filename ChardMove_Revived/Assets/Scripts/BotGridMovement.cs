@@ -30,7 +30,7 @@ namespace ChardMove.BotMovement
         public static event BotMoved botMoved;
         public delegate void BotMovedPos(Vector2 pos);
         public static event BotMovedPos botMovedPos;
-        public delegate void BotUndoPressed(Vector2 pos);
+        public delegate void BotUndoPressed(Vector2 pos, Vector2 lastpos);
         public static event BotUndoPressed botUndoPressed;
         private bool _canMove = true;
         private IEnumerator walkingCoroutine;
@@ -202,11 +202,11 @@ namespace ChardMove.BotMovement
                         GameManager.Instance.OnBotFinishedMoving();
                         if(botMoved != null)
                             botMoved();
-                        botMovedPos(transform.position);
                         GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
                         if(IsPushable){
                             GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
                         }
+                        botMovedPos(transform.position);
                         yield break;
                     }else{
                         target = nextTarget;
@@ -217,6 +217,7 @@ namespace ChardMove.BotMovement
                     // gets called in case we only move 1 
                     if(botMoved != null)
                         botMoved();
+                        GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
                         botMovedPos(transform.position);
                     } 
 
@@ -385,6 +386,7 @@ namespace ChardMove.BotMovement
         }
 
         private void OnUndoButtonPressed(){
+            botUndoPressed(transform.position, _lastPosition);
             if(IsPushable){
                 GameManager.Instance.RemovePushableFromDB(transform.position);
             }
@@ -395,7 +397,6 @@ namespace ChardMove.BotMovement
             if(IsPushable){
                 GameManager.Instance.PushableDB.Add(transform.position,(this,this.gameObject));
             }
-            botUndoPressed(transform.position);
         }
 
 
