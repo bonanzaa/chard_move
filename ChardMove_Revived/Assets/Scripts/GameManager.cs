@@ -35,6 +35,7 @@ namespace ChardMove.gameManager
         public bool AnimationInProgress = false;
 
         private void Awake() {
+            Time.timeScale = 1;
             _levelLoader = LevelLoader.Instance;
             LevelCompleteReference.nextLevel += OnNextLevelLoad;
             BotGridMovement.botMovedPos += OnBotMoved;

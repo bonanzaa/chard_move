@@ -96,18 +96,19 @@ namespace ChardMove.BotMovement
                 StartCoroutine(walkingCoroutine);
             }else{
                 // next tile is unwalkable (roadblock) so nothing happens
-                if(botMoved != null)
                 // this is considered a move, so update world state
                 GameManager.Instance.OnBotFinishedMoving();
                 print($"I cannot move {direction.ToString()}...");
                 // need to delay this, otherwise world state updates instanly,
                 // which causes some fucked up interactions
-                StartCoroutine(BotMovedEventTimer());
+                if(botMoved != null)
+                    StartCoroutine(BotMovedEventTimer());
             }
         }
 
         private IEnumerator BotMovedEventTimer(){
             yield return new WaitForSeconds(0.125f);
+            
             botMoved();
             botMovedPos(transform.position);
         }
