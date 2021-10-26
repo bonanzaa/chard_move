@@ -15,7 +15,6 @@ namespace ChardMove
 
         private void Awake() {
             _originalIsActive = IsActive;
-            GameManager.undoButtonPressed += OnUndoButtonPressed;
             BotGridMovement.botStartedMoving += OnBotStartedMoving;
             GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;
             _lastTileType = TileType;
@@ -30,13 +29,11 @@ namespace ChardMove
         }
 
         private void OnDisable() {
-            GameManager.undoButtonPressed -= OnUndoButtonPressed;
             BotGridMovement.botStartedMoving -= OnBotStartedMoving;
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
         }
 
         private void OnDestroy() {
-            GameManager.undoButtonPressed -= OnUndoButtonPressed;
             BotGridMovement.botStartedMoving -= OnBotStartedMoving;
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
         }
@@ -47,22 +44,21 @@ namespace ChardMove
             IsActive = true;
             StartCoroutine(ActivationAnimation());
         }
+        public void Deactivate(){
+            CheckForBot();
+            _lastTileType = TileType;
+            _lastIsActive = IsActive;
+            TileType = TileType.Unwalkable;
+            IsActive = false;
+            StartCoroutine(DeactivationAnimation());
+        }
 
         private void OnBotStartedMoving(MovementDirection direction, int steps){
             _lastIsActive = IsActive;
         }
 
-
-        private void OnUndoButtonPressed(){
-            if(_lastIsActive == IsActive) return;
-            TileType = _lastTileType;
-            IsActive = _lastIsActive;
-            if(IsActive){
-                StartCoroutine(ActivationAnimation());
-            }
-        }
-
         private IEnumerator ActivationAnimation(){
+            GameManager.Instance.AnimationInProgress = true;
             float currentY = transform.position.y;
             float currentZ = transform.position.z;
 
@@ -80,6 +76,7 @@ namespace ChardMove
                 transform.position = new Vector3(transform.position.x,newY,newZ);
                 yield return null;
             }
+            GameManager.Instance.AnimationInProgress = false;
         }
 
         public void Reset(){
@@ -95,14 +92,6 @@ namespace ChardMove
             }
         }
 
-        public void Deactivate(){
-            CheckForBot();
-            _lastTileType = TileType;
-            _lastIsActive = IsActive;
-            TileType = TileType.Unwalkable;
-            IsActive = false;
-            StartCoroutine(DeactivationAnimation());
-        }
 
         private void CheckForBot(){
             Vector2 potentialBotPos = new Vector2(transform.position.x,transform.position.y + 0.375f);
@@ -115,6 +104,7 @@ namespace ChardMove
         }
 
         private IEnumerator DeactivationAnimation(){
+            GameManager.Instance.AnimationInProgress = true;
             float currentY = transform.position.y;
             float currentZ = transform.position.z;
 
@@ -132,6 +122,7 @@ namespace ChardMove
                 transform.position = new Vector3(transform.position.x,newY,newZ);
                 yield return null;
             }
+            GameManager.Instance.AnimationInProgress = false;
         }
     }
 }

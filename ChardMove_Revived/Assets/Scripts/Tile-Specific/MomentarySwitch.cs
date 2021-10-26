@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChardMove.gameManager;
+using ChardMove.BotMovement;
 
 namespace ChardMove
 {
@@ -9,14 +10,15 @@ namespace ChardMove
     {
         public List<Roadblock> Gates; 
         public List<MovingTile> MovingPlatforms;
-        public bool isTarget = false;
-        private bool _lastIsTarget;
+        private bool _isActive = false;
+        private bool _lastIsActive;
         public GameObject _currentBot;
 
         private void Awake() {
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
-            _lastIsTarget = isTarget;
+            _isActive = false;
+            _lastIsActive = _isActive;
         }
 
         private void OnDestroy() {
@@ -25,11 +27,29 @@ namespace ChardMove
         }
 
         private void OnUndoButtonPressed(){
-            isTarget = _lastIsTarget;
-            _currentBot = null;
+            print($"Undo pressed. LastIsActive: ({_lastIsActive}). IsActive: ({_isActive})");
+            if(_isActive != _lastIsActive){
+                if(_lastIsActive){
+                    SetTarget();
+                }else{
+                    RemoveTarget();
+                }
+
+            }
+        }
+
+        public void OnUndoBotLanded(){
+            print("Undo bot landed");
+            SetTarget();
+        }
+
+        public void CacheState(){
+            _lastIsActive = _isActive;
         }
 
         private void OnResetButtonPressed(){
+            _isActive = false;
+            _lastIsActive = _isActive;
             if(Gates.Count != 0){
                 foreach (var gate in Gates)
                     {
@@ -39,42 +59,50 @@ namespace ChardMove
         }
 
         public void SetTarget(){
-            _lastIsTarget = isTarget;
-            isTarget = true;
+            _lastIsActive = _isActive;
+            _isActive = true;
+            Activate();
         }
-        private void OnTriggerEnter2D(Collider2D other) {
-            if(other.CompareTag("Bot") && isTarget){
+
+        public void RemoveTarget(){
+            _lastIsActive = _isActive;
+            _isActive = false;
+            Deactivate();
+        }
+
+        private void Activate(){
+            print("Activating");
+            if(Gates.Count != 0){
                 foreach (var gate in Gates)
                 {
                     gate.Activate();
                 }
+            }
+
+            if(MovingPlatforms.Count != 0){
                 foreach (var item in MovingPlatforms)
                 {
                     item.Activate();
                 }
-                isTarget = false;
             }
         }
 
-        private void OnTriggerStay2D(Collider2D other) {
-            if(other.CompareTag("Bot")){
-                _currentBot = other.gameObject;
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D other) {
-            if(other.CompareTag("Bot")){
+        private void Deactivate(){
+            print("Deactivating");
+            if(Gates.Count != 0){
                 foreach (var gate in Gates)
                 {
-                    if(gate.IsActive){
-                        gate.Deactivate();
-                    }
+                    gate.Deactivate();
                 }
+            }
+
+            if(MovingPlatforms.Count != 0){
                 foreach (var item in MovingPlatforms)
                 {
                     item.Deactivate();
                 }
             }
         }
+
     }
 }
