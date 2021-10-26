@@ -15,16 +15,17 @@ namespace ChardMove
 
         private void Awake()
         {
-            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
             ogScene = GetCurrentSceneIndex();
             sceneLoaded += OnSceneChanged;
-        }
-        private void Update()
-        {
-            //if(ogScene != GetCurrentSceneIndex())
-            //{
-            //    sceneLoaded();
-            //}
         }
         public void SceneChange()
         {

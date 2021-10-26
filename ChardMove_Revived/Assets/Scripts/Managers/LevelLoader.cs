@@ -21,11 +21,13 @@ namespace ChardMove
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            if(Instance != null){
-                Destroy(Instance.gameObject);
+            if(Instance == null)
+            {
                 Instance = this;
-            }else{
-                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
             }
             _saveSystem.Deserialize();
             LevelIndex = _saveSystem.RefreshLvlIndex();
@@ -82,7 +84,6 @@ namespace ChardMove
         {
             LevelIndex = index;
             _saveSystem.Serialize();
-
         }
         private void OnPlayerWin()
         {
