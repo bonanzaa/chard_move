@@ -28,10 +28,7 @@ namespace ChardMove
         }
         private void AssignLastLevelIndex()
         {
-            if(LevelLoader.LevelIndex < LastLevelIndex)
-            {
                 LastLevelIndex = LevelLoader.LevelIndex;
-            }
         }
         public void Serialize()
         {

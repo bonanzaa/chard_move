@@ -33,6 +33,7 @@ namespace ChardMove
         public void MainMenuButtonPressed()
         {
             SceneLoader.Instance.GoToMainMenu();
+            Time.timeScale = 1;
         }
         public void NextLevelButtonPressed()
         {

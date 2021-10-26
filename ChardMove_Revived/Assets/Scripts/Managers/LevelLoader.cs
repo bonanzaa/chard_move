@@ -89,6 +89,7 @@ namespace ChardMove
         {
             LevelIndex++;
             _saveSystem.Serialize();
+            _saveSystem.Deserialize();
             _levelCompleteReference.OpenWinScreen();
         }
         //public void LoadLastSavedLevel()
