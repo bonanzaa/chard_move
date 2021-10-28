@@ -27,7 +27,6 @@ namespace ChardMove
         }
 
         private void OnUndoButtonPressed(){
-            print($"Undo pressed. LastIsActive: ({_lastIsActive}). IsActive: ({_isActive})");
             if(_isActive != _lastIsActive){
                 if(_lastIsActive){
                     SetTarget();
@@ -39,7 +38,6 @@ namespace ChardMove
         }
 
         public void OnUndoBotLanded(){
-            print("Undo bot landed");
             SetTarget();
         }
 

@@ -57,17 +57,31 @@ namespace ChardMove.gameManager
         private void OnBotMoved(Vector2 pos){
             FindSwitch(pos);
             FindWinTile(pos);
+            FindMovingPlatform(pos);
+
         }
 
-        private void OnBotUndoMoved(Vector2 pos){
-            if(TileDB.TryGetValue(pos,out Tile value)){
+        private void OnBotUndoMoved(Vector2 pos, Vector2 lastpos){
+            if(pos == lastpos) return;
+            if(TileDB.TryGetValue(lastpos,out Tile value)){
    
                 if(value.TryGetComponent(out LatchSwitch component)){
                     component.OnUndoBotLanded();
                 }else if(value.TryGetComponent(out MomentarySwitch component1)){
                     component1.OnUndoBotLanded();
+                }else if(value.TryGetComponent(out MovingTile component2)){
+                    var currentbot = BotInTheWayOutBot(pos);
+                    var botGO = currentbot.Item2.gameObject;
+                    component2.OnUndoBotLanded(botGO);
                 }
+            }
 
+            if(TileDB.TryGetValue(pos, out Tile value1)){
+                if(value1.TryGetComponent(out MomentarySwitch component1)){
+                    component1.RemoveTarget();
+                }else if(value1.TryGetComponent(out MovingTile component2)){
+                    component2.RemoveTarget();
+                }
             }
         }
 
@@ -77,14 +91,16 @@ namespace ChardMove.gameManager
                 if(value.TryGetComponent(out MomentarySwitch component)){
                     component.RemoveTarget();
                 }
-            }
 
-            if(TileDB.TryGetValue(pos,out Tile value1)){
+                if(value.TryGetComponent(out LatchSwitch component1)){
+                    component1.CacheState();
+                }
 
-                if(value.TryGetComponent(out LatchSwitch component)){
-                    component.CacheState();
+                if(value.TryGetComponent(out MovingTile component2)){
+                    component2.RemoveTarget();
                 }
             }
+
         }
 
         private void FindSwitch(Vector2 pos){
@@ -111,6 +127,11 @@ namespace ChardMove.gameManager
 
                 if(value.TryGetComponent(out MovingTile platform)){
                     // reference player for the moving platform here
+                    var currentbot = BotInTheWayOutBot(pos);
+                    var botGO = currentbot.Item2.gameObject;
+                    platform.SetTarget(botGO);
+
+                    RemoveFromBotDB(pos);
                 }
             }
         }
