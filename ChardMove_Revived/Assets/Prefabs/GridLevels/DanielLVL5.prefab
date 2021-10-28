@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Overlord
+  LevelPic: {fileID: 21300000, guid: 50c7ec9ffda50294e914219ad745d59b, type: 3}
   OneTileCardCount: 4
   TwoTileCardCount: 2
   ThreeTileCardCount: 2

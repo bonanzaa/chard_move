@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Substraction
+  LevelPic: {fileID: 21300000, guid: 730ddf20f1715d749b5f2756b24fa6d9, type: 3}
   OneTileCardCount: 0
   TwoTileCardCount: 2
   ThreeTileCardCount: 2

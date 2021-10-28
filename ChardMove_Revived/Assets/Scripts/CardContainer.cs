@@ -10,6 +10,8 @@ namespace ChardMove
     {
         [Header("Level Name")]
         public string LevelName;
+        [Header("Level Pic")]
+        public Sprite LevelPic;
 
         [Header("Card Info")]
         public int OneTileCardCount;
