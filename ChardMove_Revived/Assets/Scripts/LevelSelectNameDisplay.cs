@@ -18,14 +18,15 @@ namespace ChardMove
         private void Awake()
         {
             _levelLoader = LevelLoader.Instance;
-            AssignNames();
-            AssignImage();
+            //AssignNames();
+            //AssignImage();
             //GetAllChildren();
+            AssignLevelValues();
         }
         private void AssignImage()
         {
             int count = 0;
-            
+
             for (int i = 0; i < _levelButtons.Count; i++)
             {
                 //_button = _levelLoader.Levels[count].GetComponent<Image>();
@@ -45,36 +46,27 @@ namespace ChardMove
             for (int i = 0; i < _levelButtons.Count; i++)
             {
                 _textMeshProUGUI = _levelButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-                if(levelCount < _levelLoader.Levels.Count)
+                if (levelCount < _levelLoader.Levels.Count)
                 {
                     _textMeshProUGUI.text = _levelLoader.Levels[levelCount].GetComponent<CardContainer>().LevelName;
                     levelCount++;
                 }
             }
         }
-
-        //private void GetAllChildren()
-        //{
-        //    List<GameObject> levelButtons = new List<GameObject>();
-        //    for (int i = 0; i < _levelBatches.Count; i++)
-        //    {
-        //        foreach (GameObject child in _levelBatches)
-        //        {
-        //            levelButtons.Add(child);
-        //            foreach (GameObject childText in levelButtons)
-        //            {
-
-        //                _textMeshProUGUI = childText.GetComponent<TextMeshProUGUI>();
-        //                _textMeshProUGUI.text = ahhh
-        //            }
-        //        }
-        //    }
-        //}
-
-        ////Can also use for images, each grid containing it's own pic
-        //private void AssignNames(string name)
-        //{
-
-        //}
+        private void AssignLevelValues()
+        {
+            int lvlCount = 0;
+            for (int i = 0; i < _levelButtons.Count; i++)
+            {
+                _textMeshProUGUI = _levelButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+                _spriteRenderer = _levelButtons[i].GetComponentInChildren<LevelScreenshotMarker>().gameObject.GetComponent<SpriteRenderer>();
+                if (lvlCount < _levelLoader.Levels.Count)
+                {
+                    _textMeshProUGUI.text = _levelLoader.Levels[lvlCount].GetComponent<CardContainer>().LevelName;
+                    _spriteRenderer.sprite = _levelLoader.Levels[lvlCount].GetComponent<CardContainer>().LevelPic;
+                    lvlCount++;
+                }
+            }
+        }
     }
 }
