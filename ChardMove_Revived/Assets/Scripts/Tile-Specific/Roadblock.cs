@@ -14,6 +14,7 @@ namespace ChardMove
         [HideInInspector] public bool _lastIsActive;
 
         private void Awake() {
+            transform.position = new Vector3(transform.position.x,transform.position.y,-0.3f);
             _originalIsActive = IsActive;
             BotGridMovement.botStartedMoving += OnBotStartedMoving;
             GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;
@@ -69,7 +70,8 @@ namespace ChardMove
             float newZ = 0;
 
             float t  = 0;
-            while(transform.position.y != targetY && transform.position.z != targetZ){
+                                                // && transform.position.z != targetZ
+            while(transform.position.y != targetY){
                 t += Time.deltaTime;
                 newY = Mathf.Lerp(currentY,targetY,t);
                 newZ = Mathf.Lerp(currentZ,targetZ,t);

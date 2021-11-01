@@ -81,6 +81,7 @@ namespace ChardMove.gameManager
                     component1.RemoveTarget();
                 }else if(value1.TryGetComponent(out MovingTile component2)){
                     component2.RemoveTarget();
+                    BotDB.Remove(pos);
                 }
             }
         }
