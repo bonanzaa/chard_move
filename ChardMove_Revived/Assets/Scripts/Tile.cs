@@ -10,6 +10,7 @@ namespace ChardMove
         public TileType TileType = TileType.Walkable;
         [HideInInspector] public GameObject _highlight;
         private void Awake() {
+            transform.position = new Vector3(transform.position.x,transform.position.y,0);
             GameManager.resetButtonPressed += OnResetButtonPressed;
         }
         public void Highlight(){

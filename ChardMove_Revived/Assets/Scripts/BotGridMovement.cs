@@ -46,6 +46,7 @@ namespace ChardMove.BotMovement
 
         private void Awake() {
             // used by reset
+            transform.position = new Vector3(transform.position.x,transform.position.y,-0.5f);
             _originalPosition = transform.position;
             // used by undo
             _lastPosition = transform.position;
@@ -344,8 +345,9 @@ namespace ChardMove.BotMovement
             }
         }
         public void MoveTowards(Vector2 target){
+            Vector3 targetWithZ = new Vector3(target.x,target.y,-0.5f);
             // used by both types of bots to move
-            this.transform.position = Vector2.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+            this.transform.position = Vector3.MoveTowards(transform.position, targetWithZ, moveSpeed * Time.deltaTime);
         }
 
         // event callbacks

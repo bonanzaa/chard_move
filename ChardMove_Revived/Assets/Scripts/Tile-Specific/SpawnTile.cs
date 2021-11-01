@@ -14,7 +14,9 @@ namespace ChardMove
         private bool _botJustDied = false;
 
         private void Awake() {
-            _bot = Instantiate(BotPrefab,transform.position,Quaternion.identity);
+            transform.position = new Vector3(transform.position.x,transform.position.y,0);
+            Vector3 myPos = new Vector3(transform.position.x,transform.position.y,-0.5f);
+            _bot = Instantiate(BotPrefab,myPos,Quaternion.identity);
             _botJustDied = false;
             _lastBotPosition = transform.position;
         }

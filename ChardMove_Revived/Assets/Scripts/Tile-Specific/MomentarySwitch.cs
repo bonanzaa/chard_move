@@ -15,6 +15,7 @@ namespace ChardMove
         public GameObject _currentBot;
 
         private void Awake() {
+            transform.position = new Vector3(transform.position.x,transform.position.y,0);
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             _isActive = false;

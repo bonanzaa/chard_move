@@ -14,6 +14,7 @@ namespace ChardMove
         private bool _lastIsActive;
 
         private void Awake() {
+            transform.position = new Vector3(transform.position.x,transform.position.y,0);
             // subscribe to reset/undo events
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoBotLanded;
