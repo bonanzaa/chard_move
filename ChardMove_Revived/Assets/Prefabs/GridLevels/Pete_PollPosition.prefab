@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Poll Position
+  LevelPic: {fileID: 21300000, guid: bfda3341a9a9a2549b87a2bd0ce0d5f9, type: 3}
   OneTileCardCount: 0
   TwoTileCardCount: 3
   ThreeTileCardCount: 0

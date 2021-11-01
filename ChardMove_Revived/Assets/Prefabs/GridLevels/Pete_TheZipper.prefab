@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: The Zipper
+  LevelPic: {fileID: 21300000, guid: e5c5d883a17c5fb4c9f68d7c11b1a1e8, type: 3}
   OneTileCardCount: 1
   TwoTileCardCount: 2
   ThreeTileCardCount: 0

@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Tradeoff
+  LevelPic: {fileID: 21300000, guid: 432fd6429658c9f45ad02605e1c5e5ad, type: 3}
   OneTileCardCount: 2
   TwoTileCardCount: 1
   ThreeTileCardCount: 2

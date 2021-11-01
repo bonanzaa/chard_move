@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: The Block
+  LevelPic: {fileID: 21300000, guid: 723f2f34905fda742a0d7a08f9665fbc, type: 3}
   OneTileCardCount: 0
   TwoTileCardCount: 1
   ThreeTileCardCount: 4

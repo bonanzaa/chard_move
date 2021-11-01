@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Meet In The Middle
+  LevelPic: {fileID: 21300000, guid: a525e73572daf5f49bc4c96cc8a205da, type: 3}
   OneTileCardCount: 3
   TwoTileCardCount: 1
   ThreeTileCardCount: 1

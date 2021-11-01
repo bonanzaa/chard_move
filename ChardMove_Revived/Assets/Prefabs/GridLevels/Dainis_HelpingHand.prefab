@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Helping hand
+  LevelPic: {fileID: 21300000, guid: fbdf47c4ab5921f44b4c1d659a65b332, type: 3}
   OneTileCardCount: 3
   TwoTileCardCount: 4
   ThreeTileCardCount: 1

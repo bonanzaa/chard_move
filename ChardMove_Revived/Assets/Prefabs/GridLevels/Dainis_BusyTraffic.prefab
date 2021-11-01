@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Busy Traffic
+  LevelPic: {fileID: 21300000, guid: bcab1b50dc7acf8479050a4fd1d0d5e2, type: 3}
   OneTileCardCount: 9
   TwoTileCardCount: 5
   ThreeTileCardCount: 2

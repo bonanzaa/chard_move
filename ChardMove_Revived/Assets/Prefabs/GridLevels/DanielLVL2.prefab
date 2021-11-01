@@ -214,6 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Close Enough
+  LevelPic: {fileID: 21300000, guid: 5d38ad0bc172a514e9c5e30e5194d90a, type: 3}
   OneTileCardCount: 3
   TwoTileCardCount: 4
   ThreeTileCardCount: 1
