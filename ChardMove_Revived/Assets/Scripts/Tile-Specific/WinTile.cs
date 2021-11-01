@@ -15,7 +15,6 @@ namespace ChardMove
         public static event PlayerWin playerWin;
         private void Awake()
         {
-            transform.position = new Vector3(transform.position.x,transform.position.y,0);
             _levelLoader = LevelLoader.Instance;
         }
 

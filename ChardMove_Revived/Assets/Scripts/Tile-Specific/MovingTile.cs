@@ -91,7 +91,6 @@ namespace ChardMove
 
         private void Awake() {
             // cache in our original stats for the Reset
-            transform.position = new Vector3(transform.position.x,transform.position.y,0.3f);
             _originalPosition = transform.position;
             _originalDirection = Direction;
             _originalStep = CurrentStep;
@@ -237,10 +236,10 @@ namespace ChardMove
                         if(_pushableBlock != null){
                             _currentBot.transform.position =  new Vector3(_targetPosition.x,_targetPosition.y+0.125f,_targetPosition.z);
                         }else{
-                            _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,-0.15f);
+                            _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
                         }
                     }
-                    transform.position = new Vector3(_targetPosition.x,_targetPosition.y,transform.position.z);
+                    transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
                     _moving = false;
                     break;
                 }
@@ -254,7 +253,7 @@ namespace ChardMove
                     if(_pushableBlock != null){
                         _currentBot.transform.position = new Vector3(transform.position.x,transform.position.y+0.125f,transform.position.z);
                     }else{
-                        _currentBot.transform.position = new Vector3(transform.position.x,transform.position.y,-0.15f);
+                        _currentBot.transform.position = new Vector3(transform.position.x,transform.position.y,_targetPosition.z);
                     }
                 }
 
@@ -266,7 +265,7 @@ namespace ChardMove
                         if(_pushableBlock != null){
                             _currentBot.transform.position =  new Vector3(_targetPosition.x,_targetPosition.y+0.125f,_targetPosition.z);
                         }else{
-                            _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,-0.15f);
+                            _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
                         }
                     }
                     _moving = false;
@@ -274,7 +273,7 @@ namespace ChardMove
                 }
                 yield return null;
             }
-            transform.position = new Vector3(_targetPosition.x,_targetPosition.y,transform.position.z);
+            transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
             if(_pushableBlock == null && !_botOnPlatform){
                 _currentBot = null;
             }

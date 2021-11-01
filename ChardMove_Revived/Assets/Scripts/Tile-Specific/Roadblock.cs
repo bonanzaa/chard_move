@@ -14,7 +14,6 @@ namespace ChardMove
         [HideInInspector] public bool _lastIsActive;
 
         private void Awake() {
-            transform.position = new Vector3(transform.position.x,transform.position.y,-0.3f);
             _originalIsActive = IsActive;
             BotGridMovement.botStartedMoving += OnBotStartedMoving;
             GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;
@@ -64,7 +63,7 @@ namespace ChardMove
             float currentZ = transform.position.z;
 
             float targetY = currentY - 0.375f;
-            float targetZ = currentZ + 0.5f;
+            float targetZ = currentZ + 1.5f;
 
             float newY = 0;
             float newZ = 0;

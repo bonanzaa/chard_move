@@ -20,7 +20,6 @@ namespace ChardMove
         private MovingTile _movingTileReference = null;
         private MovingTile _lastMovingTileReference = null;
         private void Awake() {
-            transform.position = new Vector3(transform.position.x,transform.position.y,-0.1f);
             _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
             _lastPositionWorldSpace = transform.position;
             _transformIntoTile = false;
@@ -179,8 +178,8 @@ namespace ChardMove
             float targetScaleX = 1.5f;
             float targetScaleY = 1.5f;
 
-            float targetY = currentY - 0.5f;
-            float targetZ = currentZ + 0.81f;
+            float targetY = currentY - 0.55f;
+            float targetZ = currentZ + 1.5f;
 
             float newY = 0;
             float newZ = 0;
