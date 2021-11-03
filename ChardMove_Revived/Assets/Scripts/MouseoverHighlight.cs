@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace ChardMove
 {
     public class MouseoverHighlight : MonoBehaviour,IPointerExitHandler, IPointerEnterHandler
     {
         public GameObject Switch;
+        public float AlphaThreshold = 1;
         private LatchSwitch _latch;
         private MomentarySwitch _momentary;
         private bool _useLatch = false;
@@ -21,6 +23,10 @@ namespace ChardMove
                 _momentary = momentary;
                 _useLatch = false;
             }
+        }
+
+        private void Start() {
+             this.GetComponent<Image>().alphaHitTestMinimumThreshold = AlphaThreshold;
         }
         public void OnPointerEnter(PointerEventData data){
             if(_useLatch){

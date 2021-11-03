@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.59, y: -29.76}
-  m_SizeDelta: {x: 132.46, y: 84.85}
+  m_AnchoredPosition: {x: 7.2, y: -21.44}
+  m_SizeDelta: {x: 131.51, y: 100.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5613377244384936081
 CanvasRenderer:
@@ -59,14 +59,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0.41037738, b: 0.41037738, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -5462193196941671250, guid: 62ac182169daa3c4ab2f563ab1b89c2b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 0
+  m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 1
 --- !u!114 &1700347414737616343
 MonoBehaviour:
@@ -288,8 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e84dea744586134bb284e35b1ceebc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gates:
-  - {fileID: 0}
+  Gates: []
   MovingPlatforms: []
 --- !u!114 &7419245820633616423
 MonoBehaviour:
