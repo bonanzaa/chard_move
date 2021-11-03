@@ -11,6 +11,7 @@ namespace ChardMove
         private GameObject _pushableGO;
 
         private void Awake() {
+            GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
             GameManager.resetButtonPressed += OnResetButtonPressed;
             SpawnPushable();
             

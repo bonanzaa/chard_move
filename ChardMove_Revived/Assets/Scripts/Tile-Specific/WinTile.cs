@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ChardMove.gameManager;
 
 namespace ChardMove
 {
@@ -15,7 +16,9 @@ namespace ChardMove
         public static event PlayerWin playerWin;
         private void Awake()
         {
+            GameManager.Instance.RedButton = this;
             _levelLoader = LevelLoader.Instance;
+            GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
         }
 
         public void SetTarget(){

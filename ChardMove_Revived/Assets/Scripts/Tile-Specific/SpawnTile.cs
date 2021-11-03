@@ -14,11 +14,13 @@ namespace ChardMove
         private bool _botJustDied = false;
 
         private void Awake() {
-            transform.position = new Vector3(transform.position.x,transform.position.y,0);
             Vector3 myPos = new Vector3(transform.position.x,transform.position.y,-0.5f);
             _bot = Instantiate(BotPrefab,myPos,Quaternion.identity);
             _botJustDied = false;
             _lastBotPosition = transform.position;
+            if(!GameManager.Instance.TileDB.TryGetValue(transform.position,out Tile value)){
+                GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
+            }
         }
 
         public override void Start() {

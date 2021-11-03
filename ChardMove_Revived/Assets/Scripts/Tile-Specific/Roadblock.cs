@@ -14,6 +14,7 @@ namespace ChardMove
         [HideInInspector] public bool _lastIsActive;
 
         private void Awake() {
+            GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
             _originalIsActive = IsActive;
             BotGridMovement.botStartedMoving += OnBotStartedMoving;
             GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;

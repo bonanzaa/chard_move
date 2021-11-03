@@ -465,7 +465,7 @@ namespace ChardMove.BotMovement
             }else if(!walkable && !playerDead){
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
-
+                print("Death zone ahead, i am dying");
                 if(walkingCoroutine != null) StopCoroutine(walkingCoroutine);
                 StartCoroutine(MoveToDeath(MovementDirection.Forward,nextTilePos));
                 return (false, nextTilePos);

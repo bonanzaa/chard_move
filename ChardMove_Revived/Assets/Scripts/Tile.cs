@@ -10,8 +10,8 @@ namespace ChardMove
         public TileType TileType = TileType.Walkable;
         [HideInInspector] public GameObject _highlight;
         private void Awake() {
-            transform.position = new Vector3(transform.position.x,transform.position.y,0);
             GameManager.resetButtonPressed += OnResetButtonPressed;
+            GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
         }
         public void Highlight(){
             if(_highlight != null)
@@ -26,7 +26,7 @@ namespace ChardMove
                 _highlight = transform.GetChild(0).gameObject;
                 _highlight.SetActive(false);
             }
-            GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
+            //GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
         }
 
         private void OnDestroy() {
