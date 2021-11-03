@@ -24,6 +24,7 @@ namespace ChardMove
         }
         public void OnPointerEnter(PointerEventData data){
             if(_useLatch){
+                _latch.GetComponent<Tile>()._highlight.SetActive(true);
                 if(_latch.Gates.Count != 0){
                     foreach (var item in _latch.Gates)
                     {
@@ -38,6 +39,7 @@ namespace ChardMove
                     }
                 }
             }else{
+                _momentary.GetComponent<Tile>()._highlight.SetActive(true);
                 if(_momentary.Gates.Count !=0){
                     foreach (var item in _momentary.Gates)
                     {
@@ -56,6 +58,7 @@ namespace ChardMove
 
          public void OnPointerExit(PointerEventData data){
             if(_useLatch){
+                _latch.GetComponent<Tile>()._highlight.SetActive(false);
                 if(_latch.Gates.Count != 0){
                     foreach (var item in _latch.Gates)
                     {
@@ -70,6 +73,7 @@ namespace ChardMove
                     }
                 }
             }else{
+                _momentary.GetComponent<Tile>()._highlight.SetActive(false);
                 if(_momentary.Gates.Count !=0){
                     foreach (var item in _momentary.Gates)
                     {
