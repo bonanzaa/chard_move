@@ -9,6 +9,8 @@ namespace ChardMove
     [Serializable]
     public class SaveSystem
     {
+        public delegate void ProgressCleared();
+        public static event ProgressCleared onProgressCleared;
         public bool[] CompletedLevels;
         public int LastLevelIndex;
         private void InitializeArray()
@@ -77,6 +79,22 @@ namespace ChardMove
                 fs.Close();
             }
 
+        }
+        public void ClearSaveData()
+        {
+            //var saveFile = File.Exists(Application.persistentDataPath + "/SaveFile.info");
+            //if (saveFile == true)
+            //{
+                File.Delete(Application.persistentDataPath + "/SaveFile.info");
+            //}
+            //else
+            //{
+            //    return;
+            //}
+            LastLevelIndex = 0;
+            //Serialize();
+            //Deserialize();
+            //onProgressCleared();
         }
         public int RefreshLvlIndex()
         {

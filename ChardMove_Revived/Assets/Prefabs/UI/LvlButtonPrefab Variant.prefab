@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &2309789195988935233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918410367880503105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5410d159f99ddc34b81c774cdbc1e0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8575116108976867845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9,7 +21,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -24,9 +36,17 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1302916168578894113}
+    - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 2309789195988935233}
     - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -40,15 +60,31 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: OnLoadThisLevelPressed
+      objectReference: {fileID: 0}
+    - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: OnStartButtonPressed
       objectReference: {fileID: 0}
     - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: ChardMove.LvlSelectButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: ChardMove.StartButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: -5957518467231352886, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2126040172874858419, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
@@ -149,12 +185,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
+--- !u!1 &1918410367880503105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7899171616036902212, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
+  m_PrefabInstance: {fileID: 8575116108976867845}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1302916168578894113 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7283461826758165284, guid: 9f63ad726ebbc6b4c9193c83077190ae, type: 3}
   m_PrefabInstance: {fileID: 8575116108976867845}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1918410367880503105}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5f3c132ef5769b46974d451f968b446, type: 3}

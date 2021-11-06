@@ -68,5 +68,14 @@ namespace ChardMove
                 }
             }
         }
+        private void AssignPlayableLevels()
+        {
+            int index = LevelLoader.LevelIndex;
+            for (int i = 39; i > index; i--)
+            {
+                Button activeButton =_levelButtons[i].GetComponent<Button>();
+                activeButton.enabled = !activeButton.enabled;
+            }
+        }
     }
 }
