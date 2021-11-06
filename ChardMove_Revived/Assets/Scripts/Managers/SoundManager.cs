@@ -9,14 +9,16 @@ namespace ChardMove
 {
     public class SoundManager : MonoBehaviour
     {
+
         [SerializeField] private List<AudioClip> _audioClips;
         [SerializeField] private AudioClip _backGroundMusic;
         private AudioSource _audioSource;
+        
 
         public static SoundManager Instance;
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             if (Instance == null)
             {
                 Instance = this;
@@ -33,6 +35,13 @@ namespace ChardMove
             //_audioSource.Play(_backGroundMusic);
             
         }
+        //public void PlaySoundEvent()
+        //{
+        //    if(_eventPath!= null)
+        //    {
+        //        RuntimeManager.PlayOneShot(_eventPath);
+        //    }
+        //}
 
         private void OnResetButtonPressed()
         {

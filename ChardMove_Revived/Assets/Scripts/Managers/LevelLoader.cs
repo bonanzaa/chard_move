@@ -31,9 +31,16 @@ namespace ChardMove
             }
             _saveSystem.Deserialize();
             LevelIndex = _saveSystem.RefreshLvlIndex();
+            Debug.Log(LevelIndex);
             WinTile.playerWin += OnPlayerWin;
+            SaveSystem.onProgressCleared += OnProgressCleared;
             //SceneMarker.sceneMarked += OnSceneLoaded;
 
+        }
+
+        private void OnProgressCleared()
+        {
+            LevelIndex = _saveSystem.RefreshLvlIndex();
         }
 
         private void OnDestroy() {
