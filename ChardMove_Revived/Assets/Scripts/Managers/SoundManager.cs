@@ -1,7 +1,6 @@
 using ChardMove.BotMovement;
 using ChardMove.gameManager;
-using System;
-using System.Collections;
+using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,16 +8,15 @@ namespace ChardMove
 {
     public class SoundManager : MonoBehaviour
     {
-
-        [SerializeField] private List<AudioClip> _audioClips;
-        [SerializeField] private AudioClip _backGroundMusic;
-        private AudioSource _audioSource;
-        
-
+        [SerializeField] [EventRef] private string _clickEvent = null;
+        [SerializeField] [EventRef] private string _hoverEvent = null;
+        [SerializeField] [EventRef] private string _pushableBoxEvent = null;
+        [SerializeField] [EventRef] private string _cardPickedEvent = null;
+        [SerializeField] [EventRef] private string _cardDroppedEvent = null;
         public static SoundManager Instance;
         private void Awake()
         {
-            //DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
             if (Instance == null)
             {
                 Instance = this;
@@ -27,51 +25,48 @@ namespace ChardMove
             {
                 Destroy(gameObject);
             }
-            _audioSource = GetComponent<AudioSource>();
-            WinTile.playerWin += OnPlayerWin;
-            LevelCompleteReference.nextLevel += OnNextLevelLoad;
-            BotGridMovement.botMoved += OnBotMoved;
-            GameManager.resetButtonPressed += OnResetButtonPressed;
-            //_audioSource.Play(_backGroundMusic);
-            
+            ButtonEvent.onButtonPressed += OnButtonClick;
         }
-        //public void PlaySoundEvent()
-        //{
-        //    if(_eventPath!= null)
-        //    {
-        //        RuntimeManager.PlayOneShot(_eventPath);
-        //    }
-        //}
-
-        private void OnResetButtonPressed()
+        #region Events
+        public void OnButtonClick()
         {
-            //Pretty straight forward huh
+            if(_clickEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_clickEvent);
+            }
         }
-
-        private void OnBotMoved()
+        public void OnButtonHover() 
         {
-            //Idk like robotic floating sounds?
+            if(_hoverEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_hoverEvent);
+            }
         }
-
-        private void OnNextLevelLoad()
+        public void OnPushedBlock()
         {
-            //paper flipping, robot sounds, whooosh idk sound
+            if (_pushableBoxEvent!= null)
+            {
+                RuntimeManager.PlayOneShot(_pushableBoxEvent);
+            }
         }
-
-        private void OnPlayerWin()
+        public void OnCardPickedUp()
         {
-           //play celebrate sound;
+            if (_cardPickedEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_cardPickedEvent);
+            }
         }
-        private void OnBotDeath()
+        public void OnCardDropped()
         {
-
+            if (_cardDroppedEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_cardDroppedEvent);
+            }
         }
-        private void OnDisable()
+        #endregion
+        private void OnDestroy()
         {
-            WinTile.playerWin -= OnPlayerWin;
-            LevelCompleteReference.nextLevel -= OnNextLevelLoad;
-            BotGridMovement.botMoved -= OnBotMoved;
-            GameManager.resetButtonPressed -= OnResetButtonPressed;
+            ButtonEvent.onButtonPressed -= OnButtonClick;
         }
     }
 }
