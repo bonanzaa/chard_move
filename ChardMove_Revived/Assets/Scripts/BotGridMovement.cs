@@ -9,6 +9,7 @@ namespace ChardMove.BotMovement
     {
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private GameObject Highlight;
+        [SerializeField] private float _LiftoffHeight = 0.128f;
         public bool IsPushable = false;
 
         [Header("Sprites for movement sprite switching")]
@@ -42,6 +43,7 @@ namespace ChardMove.BotMovement
         private Vector2 _target;
         private Vector2 _originalTarget;
         private int _steps;
+        [HideInInspector] public float _actualY;
 
 
         private void Awake() {
@@ -58,9 +60,6 @@ namespace ChardMove.BotMovement
             BotGridMovement.botCannotBePushed += OnCannotBePushed;
 
             _spriteRenderer =  GetComponent<SpriteRenderer>();
-        }
-
-        private void Start() {
             if(IsPushable){
                 // we offset our position, because initially bot is a bit higher
                 // than the tile it is on
@@ -71,6 +70,7 @@ namespace ChardMove.BotMovement
                 BotGridMovement.botCannotBePushed += OnCannotBePushed;
             }
             GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
+            _actualY = transform.position.y;
         }
 
         public void Move(MovementDirection direction, int steps){ 
@@ -157,7 +157,6 @@ namespace ChardMove.BotMovement
             }
             TryToFindWinTile(target);
         }
-        
 
         private void TryToFindWinTile(Vector2 target){
             Tile targetTile = GameManager.Instance.GetTile(target);
@@ -168,21 +167,34 @@ namespace ChardMove.BotMovement
         }
 
         private IEnumerator MoveToNextTile(MovementDirection direction, int steps, Vector2 target){
+            // play liftoff animation here
+            _actualY = transform.position.y;
+            Vector3 targetVector = new Vector3(transform.position.x,transform.position.y + _LiftoffHeight, transform.position.z);
+            while(transform.position != targetVector){
+                transform.position = Vector3.Lerp(transform.position,targetVector,0.2f);
+                yield return null;
+            }
+            //
             steps = _steps;
             _canMove = false;
+            float speedBetweenSteps = 0.5f;
             FindPushable(direction);
             yield return new WaitForEndOfFrame();
             for (int i = 0; i < steps; i++)
             {
-                _lastPosition = transform.position;
+                _lastPosition = new Vector3(transform.position.x,_actualY,transform.position.z);
+                //_lastPosition = transform.position;
                 while(true){
                     MoveTowards(target);
-                    if((Vector2)transform.position == target){
+                    _actualY = transform.position.y - _LiftoffHeight;
+                    Vector2 dictPos = new Vector2(transform.position.x,_actualY);
+                    if(dictPos == target){
                         if(i+1 == steps){
                             yield return new WaitForSeconds(0.1f);
                             break;
                         }
-                        yield return new WaitForSeconds(0.5f);
+                        yield return new WaitForSeconds(speedBetweenSteps);
+                        speedBetweenSteps -= 0.15f;
                         break;
                     }
                     yield return null;
@@ -197,6 +209,15 @@ namespace ChardMove.BotMovement
                     if(!canMoveBool){
                         // the event, indicating end of the movement for a bot.
                         // Time to update gamestate!
+
+                        //play landing animation here
+                            Vector3 landingVector1 = new Vector3(transform.position.x,transform.position.y - _LiftoffHeight, transform.position.z);
+                            while(transform.position != landingVector1){
+                                transform.position = Vector3.Lerp(transform.position,landingVector1,0.1f);
+                                yield return null;
+                            }
+                            transform.position = landingVector1;
+                        //
                         if(botMoved != null)
                             yield return new WaitForSeconds(0.125f);
                         GameManager.Instance.OnBotFinishedMoving();
@@ -213,6 +234,14 @@ namespace ChardMove.BotMovement
                     }
                 }else{
                     yield return new WaitForSeconds(0.125f);
+                    //play landing animation here
+                    Vector3 landingVector2 = new Vector3(transform.position.x,transform.position.y - _LiftoffHeight, transform.position.z);
+                    while(transform.position != landingVector2){
+                        transform.position = Vector3.Lerp(transform.position,landingVector2,0.1f);
+                        yield return null;
+                    }
+                    transform.position = landingVector2;
+                    //
                     GameManager.Instance.OnBotFinishedMoving();
                     // gets called in case we only move 1 
                     if(botMoved != null)
@@ -227,19 +256,30 @@ namespace ChardMove.BotMovement
                     GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
                 }
             }
+            //play landing animation here
+            // Vector3 landingVector = new Vector3(transform.position.x,transform.position.y - 0.128f, transform.position.z);
+            // while(transform.position != landingVector){
+            //     transform.position = Vector3.Lerp(transform.position,landingVector,0.1f);
+            //     yield return null;
+            // }
+
+            //
             GameManager.Instance.OnBotFinishedMoving();
             _canMove = true;
         }
 
         private IEnumerator MoveToDeath(MovementDirection direction, Vector2 target){
             botAboutToDie(this.gameObject);
-            GameManager.Instance.RemoveBotFromDB(transform.position);
+            print("MOVING TO DEATH");
+            GameManager.Instance.RemoveBotFromDB(new Vector3(transform.position.x,_actualY,transform.position.z));
             if(IsPushable){
-                GameManager.Instance.RemovePushableFromDB(transform.position);
+                GameManager.Instance.RemovePushableFromDB(new Vector3(transform.position.x,_actualY,transform.position.z));
             }
             while(true){
                 MoveTowards(target);
-                if((Vector2)transform.position == target){
+                _actualY = transform.position.y - _LiftoffHeight;
+                Vector2 dictPos = new Vector2(transform.position.x,_actualY);
+                if(dictPos == target){
                     GameManager.Instance._botMoving = false; 
                     // play death animation here
                     _canMove = false;
@@ -291,19 +331,19 @@ namespace ChardMove.BotMovement
             // calculating next tile's position in the given direction
             switch(direction){
                 case(MovementDirection.Forward):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.25f);
+                target =  new Vector2(transform.position.x + 0.5f, _actualY + 0.25f);
                 return target;
 
                 case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.25f);
+                target =  new Vector2(transform.position.x - 0.5f, _actualY - 0.25f);
                 return target;
 
                 case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.25f);
+                target =  new Vector2(transform.position.x - 0.5f, _actualY + 0.25f);
                 return target;
 
                 case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.25f);
+                target =  new Vector2(transform.position.x + 0.5f, _actualY - 0.25f);
                 return target;
 
                 default:
@@ -317,19 +357,19 @@ namespace ChardMove.BotMovement
             Vector2 target = new Vector2();
             switch(direction){
                 case(MovementDirection.Forward):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.250f);
+                target =  new Vector2(transform.position.x + 0.5f, _actualY + 0.250f);
                 break;
 
                 case(MovementDirection.Backward):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y - 0.250f); // y-0.375f
+                target =  new Vector2(transform.position.x - 0.5f, _actualY - 0.250f); // y-0.375f
                 break;
 
                 case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.250f);
+                target =  new Vector2(transform.position.x - 0.5f, _actualY + 0.250f);
                 break;
 
                 case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y - 0.250f);
+                target =  new Vector2(transform.position.x + 0.5f, _actualY - 0.250f);
                 break;
             }
             TileType tileType = GameManager.Instance.GetTileType(target);
@@ -345,7 +385,8 @@ namespace ChardMove.BotMovement
         }
         public void MoveTowards(Vector2 target){
             // used by both types of bots to move
-            this.transform.position = Vector2.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+            Vector2 newTarget = new Vector2(target.x,target.y+_LiftoffHeight);
+            this.transform.position = Vector2.MoveTowards(transform.position, newTarget, moveSpeed * Time.deltaTime);
         }
 
         // event callbacks
@@ -407,19 +448,19 @@ namespace ChardMove.BotMovement
             
             switch(direction){
                 case(MovementDirection.Forward):
-                target =  new Vector2(transform.position.x + 0.5f, transform.position.y + 0.250f); // y+0.375f
+                target =  new Vector2(transform.position.x + 0.5f, _actualY + 0.250f); // y+0.375f
                 break;
 
                 case(MovementDirection.Backward):             // -0.5f                         // -0.25f
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y- 0.250f); // y-0.250f
+                target =  new Vector2(transform.position.x - 0.5f, _actualY- 0.250f); // y-0.250f
                 break;
                 
                 case(MovementDirection.Left):
-                target =  new Vector2(transform.position.x - 0.5f, transform.position.y + 0.250f); //y+0.375f
+                target =  new Vector2(transform.position.x - 0.5f, _actualY + 0.250f); //y+0.375f
                 break;
 
                 case(MovementDirection.Right):
-                target =  new Vector2(transform.position.x + 0.5f,transform.position.y - 0.250f); // y-0.125f
+                target =  new Vector2(transform.position.x + 0.5f,_actualY - 0.250f); // y-0.125f
                 break;
 
                 default:
@@ -455,7 +496,7 @@ namespace ChardMove.BotMovement
         }
 
         private (bool,Vector2) CheckForward(){
-            Vector2 nextTilePos = new Vector2(transform.position.x + 0.5f, transform.position.y + 0.25f);
+            Vector2 nextTilePos = new Vector2(transform.position.x + 0.5f, _actualY + 0.25f);
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;
@@ -475,7 +516,7 @@ namespace ChardMove.BotMovement
         }
 
         private (bool,Vector2) CheckLeft(){
-            Vector2 nextTilePos = new Vector2(transform.position.x - 0.5f, transform.position.y + 0.25f);
+            Vector2 nextTilePos = new Vector2(transform.position.x - 0.5f, _actualY + 0.25f);
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;
@@ -493,7 +534,7 @@ namespace ChardMove.BotMovement
         }
 
         private (bool,Vector2) CheckRight(){
-            Vector2 nextTilePos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.25f);
+            Vector2 nextTilePos = new Vector2(transform.position.x + 0.5f, _actualY - 0.25f);
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;
@@ -511,7 +552,7 @@ namespace ChardMove.BotMovement
         }
 
         private (bool,Vector2) CheckBackward(){
-            Vector2 nextTilePos = new Vector2(transform.position.x - 0.5f, transform.position.y - 0.25f);
+            Vector2 nextTilePos = new Vector2(transform.position.x - 0.5f, _actualY - 0.25f);
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;

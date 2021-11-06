@@ -9,9 +9,11 @@ namespace ChardMove
     {
         public TileType TileType = TileType.Walkable;
         [HideInInspector] public GameObject _highlight;
+        private SpriteRenderer _renderer;
         private void Awake() {
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
+            _renderer = GetComponent<SpriteRenderer>();
         }
         public void Highlight(){
             if(_highlight != null)
@@ -38,6 +40,5 @@ namespace ChardMove
             GameManager.Instance.TileDB.Remove(new Vector2(transform.position.x,transform.position.y));
             GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
         }
-
     }
 }
