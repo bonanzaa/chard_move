@@ -7,6 +7,7 @@ namespace ChardMove
     public class LevelCompleteReference : MonoBehaviour
     {
         [SerializeField] private GameObject _winScreenUI;
+        [SerializeField] private float _winScreenTimer;
 
         private LevelLoader _levelLoader;
 
@@ -27,6 +28,7 @@ namespace ChardMove
         }
         public void OpenWinScreen()
         {
+            StartCoroutine(nameof(Countdown));
             _winScreenUI.SetActive(true);
             Time.timeScale = 0 ;
         }
@@ -40,6 +42,13 @@ namespace ChardMove
             _winScreenUI.SetActive(false);
             Time.timeScale = 1;
             nextLevel();
+        }
+        private IEnumerator Countdown()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(_winScreenTimer);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 using ChardMove.BotMovement;
 using ChardMove.gameManager;
 using FMODUnity;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +14,15 @@ namespace ChardMove
         [SerializeField] [EventRef] private string _pushableBoxEvent = null;
         [SerializeField] [EventRef] private string _cardPickedEvent = null;
         [SerializeField] [EventRef] private string _cardDroppedEvent = null;
+
+        private float _musicVolume=0.5f;
+        private float _sfxVolume = 0.5f;
+
         public static SoundManager Instance;
+        
+        FMOD.Studio.Bus Music;
+        FMOD.Studio.Bus SFX;
+        FMOD.Studio.Bus Master;
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
@@ -26,8 +35,26 @@ namespace ChardMove
                 Destroy(gameObject);
             }
             ButtonEvent.onButtonPressed += OnButtonClick;
+            WinTile.playerWin += OnPlayerWin;
         }
+        private void AssignBusses()
+        {
+            //Music = RuntimeManager.GetBus();
+            //SFX = RuntimeManager.GetBus();
+            Master = RuntimeManager.GetBus("bus:/");
+
+        }
+        private void OnDestroy()
+        {
+            ButtonEvent.onButtonPressed -= OnButtonClick;
+            WinTile.playerWin -= OnPlayerWin;
+        }
+
         #region Events
+        private void OnPlayerWin()
+        {
+            // idk the triumpgh sound c:
+        }
         public void OnButtonClick()
         {
             if(_clickEvent != null)
@@ -64,9 +91,5 @@ namespace ChardMove
             }
         }
         #endregion
-        private void OnDestroy()
-        {
-            ButtonEvent.onButtonPressed -= OnButtonClick;
-        }
     }
 }

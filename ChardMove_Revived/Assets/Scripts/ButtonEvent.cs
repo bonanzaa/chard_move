@@ -10,6 +10,8 @@ namespace ChardMove
 
         public delegate void ButtonPressed();
         public static event ButtonPressed onButtonPressed;
+        public delegate void ToggleChecked();
+        public static event ToggleChecked onToggleChecked;
         private void Awake()
         {
             _instance = SoundManager.Instance;
