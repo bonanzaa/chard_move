@@ -10,6 +10,7 @@ namespace ChardMove
     {
         [HideInInspector] public bool IsActive = false;
         public Animator AnimatorBase;
+        public Animation SpikesDownAnimation;
         private bool _originalIsActive;
         private TileType _lastTileType;
         [HideInInspector] public bool _lastIsActive;
@@ -46,6 +47,9 @@ namespace ChardMove
             TileType = TileType.Walkable;
             IsActive = true;
             
+            AnimatorBase.SetBool("RoadblockDown",true);
+            SpikesDownAnimation.wrapMode = WrapMode.Once;
+            SpikesDownAnimation.Play();
             //StartCoroutine(ActivationAnimation());
             
         }
