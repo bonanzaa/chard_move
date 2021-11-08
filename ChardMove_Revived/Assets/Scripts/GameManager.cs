@@ -223,6 +223,7 @@ namespace ChardMove.gameManager
 
 
             if(_lastLevel != null){
+                ResetPlayerCards();
                 StartCoroutine(UnloadLevelWithAnimation(level,_currentLevel));
             }else{
                 LoadNewLevelDebug(level);
