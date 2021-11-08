@@ -34,9 +34,16 @@ namespace ChardMove
             {
                 Destroy(gameObject);
             }
-            ButtonEvent.onButtonPressed += OnButtonClick;
+            //ButtonEvent.onButtonPressed += OnButtonClick;
+            ButtonEvent.onToggleChecked += OnMuteToggled;
             WinTile.playerWin += OnPlayerWin;
         }
+
+        private void OnMuteToggled()
+        {
+            Master.setMute(true);
+        }
+
         private void AssignBusses()
         {
             //Music = RuntimeManager.GetBus();
@@ -46,7 +53,7 @@ namespace ChardMove
         }
         private void OnDestroy()
         {
-            ButtonEvent.onButtonPressed -= OnButtonClick;
+            //ButtonEvent.onButtonPressed -= OnButtonClick;
             WinTile.playerWin -= OnPlayerWin;
         }
 

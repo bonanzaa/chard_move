@@ -8,7 +8,7 @@ namespace ChardMove
     {
         [SerializeField] private GameObject _winScreenUI;
         [SerializeField] private float _winScreenTimer;
-
+        [SerializeField] private GameObject _winParticleSystem;
         private LevelLoader _levelLoader;
 
         public delegate void NextLevel();
@@ -28,9 +28,11 @@ namespace ChardMove
         }
         public void OpenWinScreen()
         {
+            GameObject particles = Instantiate(_winParticleSystem, transform.position, Quaternion.identity);
             StartCoroutine(nameof(Countdown));
             _winScreenUI.SetActive(true);
             Time.timeScale = 0 ;
+            Destroy(particles);
         }
         public void MainMenuButtonPressed()
         {

@@ -18,7 +18,11 @@ namespace ChardMove
         }
         public void OnButtonPressed()
         {
-            onButtonPressed();
+            //onButtonPressed();
+        }
+        public void OnMuteToggled()
+        {
+            onToggleChecked();
         }
     }
 }
