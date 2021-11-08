@@ -9,6 +9,7 @@ namespace ChardMove
     public class Roadblock : Tile
     {
         [HideInInspector] public bool IsActive = false;
+        public Animator AnimatorBase;
         private bool _originalIsActive;
         private TileType _lastTileType;
         [HideInInspector] public bool _lastIsActive;
@@ -39,11 +40,14 @@ namespace ChardMove
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
         }
         public void Activate(){
+            print("Roadblock activated");
             _lastTileType = TileType;
             _lastIsActive = IsActive;
             TileType = TileType.Walkable;
             IsActive = true;
-            StartCoroutine(ActivationAnimation());
+            
+            //StartCoroutine(ActivationAnimation());
+            
         }
         public void Deactivate(){
             CheckForBot();
@@ -51,14 +55,14 @@ namespace ChardMove
             _lastIsActive = IsActive;
             TileType = TileType.Unwalkable;
             IsActive = false;
-            StartCoroutine(DeactivationAnimation());
+            // ACTIVATE HERE
         }
 
         private void OnBotStartedMoving(MovementDirection direction, int steps){
             _lastIsActive = IsActive;
         }
 
-        private IEnumerator ActivationAnimation(){
+        private IEnumerator ActivationAnimationCoroutine(){
             GameManager.Instance.AnimationInProgress = true;
             float currentY = transform.position.y;
             float currentZ = transform.position.z;
@@ -88,9 +92,9 @@ namespace ChardMove
             }
             IsActive = _originalIsActive;
             if(IsActive){
-                StartCoroutine(ActivationAnimation());
+                //StartCoroutine(ActivationAnimation());
             }else{
-                StartCoroutine(DeactivationAnimation());
+                //StartCoroutine(DeactivationAnimation());
             }
         }
 
@@ -105,7 +109,7 @@ namespace ChardMove
             }
         }
 
-        private IEnumerator DeactivationAnimation(){
+        private IEnumerator DeactivationAnimationCoroutine(){
             GameManager.Instance.AnimationInProgress = true;
             float currentY = transform.position.y;
             float currentZ = transform.position.z;

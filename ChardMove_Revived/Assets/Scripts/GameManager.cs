@@ -215,8 +215,11 @@ namespace ChardMove.gameManager
             //     Camera.main.gameObject.transform.position = _cameraOffset.CameraPosition;
             //     GameObject.FindGameObjectWithTag("Canvas").gameObject.transform.position = new Vector3(_cameraOffset.CameraPosition.x,_cameraOffset.CameraPosition.y,0);
             // }
-            //StartCoroutine(UnloadLevelWithAnimation(level));
-            CardStacker.Instance.LoadCards();
+
+
+            
+            StartCoroutine(UnloadLevelWithAnimation(level,_currentLevel));
+            //CardStacker.Instance.LoadCards();
             //StartCoroutine(LoadLevelWithAnimation(level));
         }
 
@@ -232,10 +235,10 @@ namespace ChardMove.gameManager
 
             _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
             Level = _currentLevel;
+            _lastLevel = _currentLevel;
             CardStacker.Instance.LoadCards();
 
-            //CardStacker.Instance.LoadCards();
-            //yield return null;
+            
             
             foreach (var item in TileDB.Values)
             {
@@ -263,49 +266,42 @@ namespace ChardMove.gameManager
             yield return null;
         }
 
-        public IEnumerator UnloadLevelWithAnimation(GameObject level){
+        public IEnumerator UnloadLevelWithAnimation(GameObject level, GameObject lastLevel){
+            _allEntitiesToUnload.Clear();
+            if(_lastLevel == null){
+                LoadNewLevelDebug(level);
+                yield break;
+            }
             LevelLoaded = true;
-            _lastLevel = level;
-            level.transform.SetParent(Camera.main.transform);
+            _lastLevel.transform.SetParent(Camera.main.transform);
             yield return null;
             foreach (var item in TileDB.Values)
             {
                 _allEntitiesToUnload.Add(item.gameObject);
-                // if(item.gameObject.GetComponent<WinTile>()){
-                //     continue;
-                // }else{
-                //     StartCoroutine(OutTileTween(item));
-                // }
             }
 
             foreach (var item in PushableDB.Values)
             {
                 _allEntitiesToUnload.Add(item.Item2.gameObject);
-                // if(item.Item2.GetComponent<BotGridMovement>()){
-                //     continue;
-                // }else{
-                //     StartCoroutine(OutBlockTween(item.Item2));
-                // }
             }
 
             foreach (var item in BotDB.Values)
             {
                 _allEntitiesToUnload.Add(item.gameObject);
-                //StartCoroutine(OutBotTween(item));
             }
             yield return null;
 
-            //StartCoroutine(OutRedButtonTween(RedButton));
             ClearDictionaries();
-            //_currentLevel = null;
+
             _allEntitiesToUnload = _allEntitiesToUnload.OrderBy(entity => entity.transform.position.x).ToList();
-            onLevelUnload();
+            if(onLevelUnload != null)
+                onLevelUnload();
             foreach (var item in _allEntitiesToUnload)
             {
                 StartCoroutine(OutTween(item));
                 yield return new WaitForSeconds(0.01f);
             }
-            LoadNewLevelDebug(NextLevelDebug);
+            LoadNewLevelDebug(level);
         }
 
         private IEnumerator InTileTween(Tile tile){
@@ -346,7 +342,12 @@ namespace ChardMove.gameManager
         }
 
         private IEnumerator LevelInstantiatingTimer(GameObject level){
-            yield return new WaitForSeconds(0.5f);
+            if(_lastLevel == null){
+                yield return null;
+            }else{
+                yield return new WaitForSeconds(2f); // 0.5f
+            }
+
 
             if(level.TryGetComponent(out CameraOffsetRegister _cameraOffset)){
                 Camera.main.gameObject.transform.position = _cameraOffset.CameraPosition;

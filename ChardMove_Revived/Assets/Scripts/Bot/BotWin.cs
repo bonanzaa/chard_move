@@ -14,7 +14,7 @@ namespace ChardMove
 
         private void OnPlayerWin()
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
 
         private void OnDisable()

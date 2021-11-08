@@ -270,7 +270,6 @@ namespace ChardMove.BotMovement
 
         private IEnumerator MoveToDeath(MovementDirection direction, Vector2 target){
             botAboutToDie(this.gameObject);
-            print("MOVING TO DEATH");
             GameManager.Instance.RemoveBotFromDB(new Vector3(transform.position.x,_actualY,transform.position.z));
             if(IsPushable){
                 GameManager.Instance.RemovePushableFromDB(new Vector3(transform.position.x,_actualY,transform.position.z));
@@ -506,7 +505,6 @@ namespace ChardMove.BotMovement
             }else if(!walkable && !playerDead){
                 return (false, nextTilePos);
             }else if(walkable && playerDead){
-                print("Death zone ahead, i am dying");
                 if(walkingCoroutine != null) StopCoroutine(walkingCoroutine);
                 StartCoroutine(MoveToDeath(MovementDirection.Forward,nextTilePos));
                 return (false, nextTilePos);
