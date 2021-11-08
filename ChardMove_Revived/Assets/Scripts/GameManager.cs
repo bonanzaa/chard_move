@@ -218,8 +218,8 @@ namespace ChardMove.gameManager
 
 
             
-            //StartCoroutine(UnloadLevelWithAnimation(level,_currentLevel));
-            CardStacker.Instance.LoadCards();
+            StartCoroutine(UnloadLevelWithAnimation(level,_currentLevel));
+            //CardStacker.Instance.LoadCards();
             //StartCoroutine(LoadLevelWithAnimation(level));
         }
 

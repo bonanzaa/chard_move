@@ -28,7 +28,10 @@ namespace ChardMove
         }
         public void OpenWinScreen()
         {
+            if(_winParticleSystem != null)
+            {
             GameObject particles = Instantiate(_winParticleSystem, transform.position, Quaternion.identity);
+            }
             StartCoroutine(nameof(Countdown));
             _winScreenUI.SetActive(true);
             Time.timeScale = 0 ;

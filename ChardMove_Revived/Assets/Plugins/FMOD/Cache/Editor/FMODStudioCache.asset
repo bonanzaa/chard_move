@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.assets.bank
   Name: Master.assets
   StudioPath: bank:/Master.assets
-  lastModified: 637718215034155727
+  lastModified: 637717210150000000
   FileSizes: []
   Exists: 1
 --- !u!114 &-7415961368253643187
@@ -33,7 +33,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637718215034175729
+  lastModified: 637717210150000000
   FileSizes:
   - Name: 
     Value: 1382
@@ -53,7 +53,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637718215034165732
+  lastModified: 637717210150000000
   FileSizes: []
   Exists: 1
 --- !u!114 &-3961190402566438485
@@ -71,7 +71,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 637718215034195747
+  lastModified: 637717210150000000
   FileSizes: []
   Exists: 1
 --- !u!114 &-3072250502214782967
@@ -89,7 +89,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/SFX.assets.bank
   Name: SFX.assets
   StudioPath: bank:/SFX.assets
-  lastModified: 637718215034185731
+  lastModified: 637717210150000000
   FileSizes: []
   Exists: 1
 --- !u!114 &-1760587192597887780
@@ -130,7 +130,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/BGM.assets.bank
   Name: BGM.assets
   StudioPath: bank:/BGM.assets
-  lastModified: 637718215034135731
+  lastModified: 637717210150000000
   FileSizes: []
   Exists: 1
 --- !u!114 &-1259741532990803892
@@ -213,7 +213,7 @@ MonoBehaviour:
   - {fileID: -7066058568542428866}
   StringsBanks:
   - {fileID: -7415961368253643187}
-  stringsBankWriteTime: 637718215034175729
+  stringsBankWriteTime: 637717210150000000
   cacheVersion: 8
 --- !u!114 &317616615840395867
 MonoBehaviour:
@@ -276,7 +276,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/BGM.bank
   Name: BGM
   StudioPath: bank:/BGM
-  lastModified: 637718215034145728
+  lastModified: 637717210150000000
   FileSizes: []
   Exists: 1
 --- !u!114 &4908798657270863523
