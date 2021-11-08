@@ -27,6 +27,7 @@ namespace ChardMove.gameManager
         public Dictionary<Vector2,(IPushable,GameObject)> PushableDB = new Dictionary<Vector2, (IPushable,GameObject)>();
         public Dictionary<Vector2,BotGridMovement> BotDB = new Dictionary<Vector2, BotGridMovement>();
         public List<GameObject> _allEntitiesToUnload;
+        public List<GameObject> _ghosts;
         [HideInInspector]public WinTile RedButton;
         public Draggable LastCardPlayed;
         public static GameManager Instance;
@@ -161,6 +162,10 @@ namespace ChardMove.gameManager
                 if(value.TryGetComponent(out WinTile wintile)){
                     wintile.SetTarget();
                 }
+            }else{
+                if((Vector2)RedButton.transform.position == pos){
+                    RedButton.GetComponent<WinTile>().SetTarget();
+                }
             }
         }
 
@@ -217,8 +222,11 @@ namespace ChardMove.gameManager
             // }
 
 
-            
-            StartCoroutine(UnloadLevelWithAnimation(level,_currentLevel));
+            if(_lastLevel != null){
+                StartCoroutine(UnloadLevelWithAnimation(level,_currentLevel));
+            }else{
+                LoadNewLevelDebug(level);
+            }
             //CardStacker.Instance.LoadCards();
             //StartCoroutine(LoadLevelWithAnimation(level));
         }
@@ -249,6 +257,13 @@ namespace ChardMove.gameManager
                     StartCoroutine(InTileTween(item));
                 }
             }
+            if(_ghosts.Count != 0){
+                foreach (var item in _ghosts)
+                {
+                    StartCoroutine(InGhostTween(item));
+                }
+            }
+
             StartCoroutine(InRedButtonTween(RedButton));
 
             foreach (var item in PushableDB.Values)
@@ -310,6 +325,14 @@ namespace ChardMove.gameManager
             float randSpeed = Random.Range(TileSpeedMin,TileSpeedMax);
             yield return new WaitForSeconds(DelayBeforeTiles);       
             tile.transform.DOMove(endPosition,randSpeed,false).SetEase(Ease.OutBack,0.75f);
+        }
+
+        private IEnumerator InGhostTween(GameObject ghost){
+            Vector3 endPosition = ghost.transform.position;
+            ghost.transform.position = new Vector3(ghost.transform.position.x,5,ghost.transform.position.z);
+            float randSpeed = Random.Range(TileSpeedMin,TileSpeedMax);
+            yield return new WaitForSeconds(DelayBeforeTiles);       
+            ghost.transform.DOMove(endPosition,randSpeed,false).SetEase(Ease.OutBack,0.75f);
         }
 
         private IEnumerator InBotTween(BotGridMovement bot){

@@ -35,7 +35,6 @@ namespace ChardMove
             StartCoroutine(nameof(Countdown));
             _winScreenUI.SetActive(true);
             Time.timeScale = 0 ;
-            Destroy(particles);
         }
         public void MainMenuButtonPressed()
         {

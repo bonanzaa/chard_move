@@ -41,16 +41,16 @@ namespace ChardMove
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
         }
         public void Activate(){
-            print("Roadblock activated");
+            print("Activating roablock");
             _lastTileType = TileType;
             _lastIsActive = IsActive;
             TileType = TileType.Walkable;
             IsActive = true;
             
-            AnimatorBase.SetBool("RoadblockDown",true);
-            SpikesDownAnimation.wrapMode = WrapMode.Once;
-            SpikesDownAnimation.Play();
-            //StartCoroutine(ActivationAnimation());
+            // AnimatorBase.SetBool("RoadblockDown",true);
+            // SpikesDownAnimation.wrapMode = WrapMode.Once;
+            // SpikesDownAnimation.Play();
+            StartCoroutine(ActivationAnimationCoroutine());
             
         }
         public void Deactivate(){
@@ -60,6 +60,7 @@ namespace ChardMove
             TileType = TileType.Unwalkable;
             IsActive = false;
             // ACTIVATE HERE
+            StartCoroutine(DeactivationAnimationCoroutine());
         }
 
         private void OnBotStartedMoving(MovementDirection direction, int steps){

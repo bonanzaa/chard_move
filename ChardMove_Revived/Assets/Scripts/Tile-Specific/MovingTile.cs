@@ -86,8 +86,6 @@ namespace ChardMove
 
         public override void Start() {
             base.Start();
-            CheckPath();
-            _ghost = Instantiate(GhostPrefab,_targetPosition,Quaternion.identity);
         }
 
         private void ManageGhost(){
@@ -137,6 +135,10 @@ namespace ChardMove
             _spriteRenderer =  GetComponent<SpriteRenderer>();
             ChangeSprite(Direction);
             GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
+
+            CheckPath();
+            _ghost = Instantiate(GhostPrefab,_targetPosition,Quaternion.identity);
+            GameManager.Instance._ghosts.Add(_ghost);
         }
 
         private void OnLevelUnload(){
@@ -277,6 +279,7 @@ namespace ChardMove
                         }else{
                             _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
                         }
+                        _currentBot.GetComponent<BotGridMovement>().UpdateDB();
                     }
                     transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
                     _moving = false;
@@ -306,6 +309,7 @@ namespace ChardMove
                         }else{
                             _currentBot.transform.position = new Vector3(_targetPosition.x,_targetPosition.y,_targetPosition.z);
                         }
+                         _currentBot.GetComponent<BotGridMovement>().UpdateDB();
                     }
                     _moving = false;
                     break;

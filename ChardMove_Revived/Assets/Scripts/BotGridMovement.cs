@@ -106,6 +106,11 @@ namespace ChardMove.BotMovement
             }
         }
 
+        public void UpdateDB(){
+            _actualY = transform.position.y;
+            GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
+        }
+
         private IEnumerator BotMovedEventTimer(){
             yield return new WaitForSeconds(0.125f);
             
@@ -551,6 +556,7 @@ namespace ChardMove.BotMovement
 
         private (bool,Vector2) CheckBackward(){
             Vector2 nextTilePos = new Vector2(transform.position.x - 0.5f, _actualY - 0.25f);
+            //print($"Checking ({nextTilePos.x},{nextTilePos.y})");
             var tileWalkable = GameManager.Instance.TileWalkable(nextTilePos);
             var walkable = tileWalkable.Item1;
             var playerDead = tileWalkable.Item2;
