@@ -69,7 +69,6 @@ namespace ChardMove
         }
 
         private void Activate(){
-            print("Activating");
             if(Gates.Count != 0){
                 foreach (var gate in Gates)
                 {
@@ -86,7 +85,6 @@ namespace ChardMove
         }
 
         private void Deactivate(){
-            print("Deactivating");
             if(Gates.Count != 0){
                 foreach (var gate in Gates)
                 {

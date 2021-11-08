@@ -98,8 +98,15 @@ namespace ChardMove
             }
 
 
-            _ghost.SetActive(true);
             StartCoroutine(GhostLerp());
+        }
+
+        public void ShowGhost(){
+            _ghost.SetActive(true);
+        }
+
+        public void HideGhost(){
+            _ghost.SetActive(false);
         }
 
         private IEnumerator GhostLerp(){
@@ -130,6 +137,8 @@ namespace ChardMove
             GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;
             BotGridMovement.botAboutToDie += OnBotAboutToDie;
             GameManager.onLevelUnload += OnLevelUnload;
+            GameManager.onLevelFullyLoaded += OnLevelFullyLoaded;
+            
 
             CacheLastInfo();
             _spriteRenderer =  GetComponent<SpriteRenderer>();
@@ -138,7 +147,14 @@ namespace ChardMove
 
             CheckPath();
             _ghost = Instantiate(GhostPrefab,_targetPosition,Quaternion.identity);
+            _ghost.SetActive(false);
+            ManageGhost();
             GameManager.Instance._ghosts.Add(_ghost);
+        }
+
+        private void OnLevelFullyLoaded(){
+            CheckPath();
+            ManageGhost();
         }
 
         private void OnLevelUnload(){
@@ -170,8 +186,14 @@ namespace ChardMove
             Direction = _originalDirection;
             Active = _originalIsActive;
             // choose a new target
-            _targetPosition = TargetTilePosition();
+            StartCoroutine(DelayBeforeCheckPath());
+        }
 
+        private IEnumerator DelayBeforeCheckPath(){
+            yield return new WaitForEndOfFrame();
+            CheckPath();
+            _targetPosition = TargetTilePosition();
+            ChangeSprite(Direction);
             ManageGhost();
         }
 
@@ -210,6 +232,7 @@ namespace ChardMove
             BotGridMovement.botAboutToDie -= OnBotAboutToDie;
             GameManager.undoButtonPressed -= OnUndoButtonPressed;
             GameManager.onLevelUnload -= OnLevelUnload;
+            GameManager.onLevelFullyLoaded -= OnLevelFullyLoaded;
         }
 
         private void OnDestroy() {
@@ -219,6 +242,7 @@ namespace ChardMove
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
             GameManager.undoButtonPressed -= OnUndoButtonPressed;
             GameManager.onLevelUnload -= OnLevelUnload;
+            GameManager.onLevelFullyLoaded -= OnLevelFullyLoaded;
         }
 
         public void Deactivate(){
@@ -262,7 +286,6 @@ namespace ChardMove
             // in case CheckPath() detects there is an obstacle in our way,
             // it overwrites _targetPosition, adjusting for the obstacle.
             Vector2 startPosition = transform.position;
-            _ghost.SetActive(false);
             
             float totalDistance = Vector2.Distance(_targetPosition,transform.position);
             float t = 0;

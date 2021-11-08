@@ -41,16 +41,12 @@ namespace ChardMove
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
         }
         public void Activate(){
-            print("Activating roablock");
             _lastTileType = TileType;
             _lastIsActive = IsActive;
             TileType = TileType.Walkable;
             IsActive = true;
             
-            // AnimatorBase.SetBool("RoadblockDown",true);
-            // SpikesDownAnimation.wrapMode = WrapMode.Once;
-            // SpikesDownAnimation.Play();
-            StartCoroutine(ActivationAnimationCoroutine());
+            AnimatorBase.SetBool("RoadblockDown",true);
             
         }
         public void Deactivate(){
@@ -60,35 +56,14 @@ namespace ChardMove
             TileType = TileType.Unwalkable;
             IsActive = false;
             // ACTIVATE HERE
-            StartCoroutine(DeactivationAnimationCoroutine());
+            AnimatorBase.SetBool("RoadblockDown",false);
         }
 
         private void OnBotStartedMoving(MovementDirection direction, int steps){
             _lastIsActive = IsActive;
         }
 
-        private IEnumerator ActivationAnimationCoroutine(){
-            GameManager.Instance.AnimationInProgress = true;
-            float currentY = transform.position.y;
-            float currentZ = transform.position.z;
 
-            float targetY = currentY - 0.375f;
-            float targetZ = currentZ + 1.5f;
-
-            float newY = 0;
-            float newZ = 0;
-
-            float t  = 0;
-                                                // && transform.position.z != targetZ
-            while(transform.position.y != targetY){
-                t += Time.deltaTime;
-                newY = Mathf.Lerp(currentY,targetY,t);
-                newZ = Mathf.Lerp(currentZ,targetZ,t);
-                transform.position = new Vector3(transform.position.x,newY,newZ);
-                yield return null;
-            }
-            GameManager.Instance.AnimationInProgress = false;
-        }
 
         public void Reset(){
             TileType = TileType.Unwalkable;
@@ -96,11 +71,8 @@ namespace ChardMove
                 return;
             }
             IsActive = _originalIsActive;
-            if(IsActive){
-                //StartCoroutine(ActivationAnimation());
-            }else{
-                //StartCoroutine(DeactivationAnimation());
-            }
+            
+            AnimatorBase.SetBool("RoadblockDown",false);
         }
 
 
@@ -114,26 +86,5 @@ namespace ChardMove
             }
         }
 
-        private IEnumerator DeactivationAnimationCoroutine(){
-            GameManager.Instance.AnimationInProgress = true;
-            float currentY = transform.position.y;
-            float currentZ = transform.position.z;
-
-            float targetY = currentY + 0.375f;
-            float targetZ = currentZ - 0.5f;
-
-            float newY = 0;
-            float newZ = 0;
-
-            float t  = 0;
-            while(transform.position.y != targetY && transform.position.z != targetZ){
-                t += Time.deltaTime;
-                newY = Mathf.Lerp(currentY,targetY,t);
-                newZ = Mathf.Lerp(currentZ,targetZ,t);
-                transform.position = new Vector3(transform.position.x,newY,newZ);
-                yield return null;
-            }
-            GameManager.Instance.AnimationInProgress = false;
-        }
     }
 }
