@@ -85,11 +85,12 @@ namespace ChardMove
         private void CheckPath(MovementDirection direction,int distance){
             Vector2 target = new Vector2();
             TileType tileType = new TileType();
+            BotGridMovement bot = Bot.GetComponent<BotGridMovement>();
             switch(direction){
                 case(MovementDirection.Forward):
                 for (int i = 1; i < distance+1; i++)
                 {
-                    target =  new Vector2(Bot.transform.position.x + 0.5f*i, Bot.transform.position.y + 0.25f*i);
+                    target =  new Vector2(Bot.transform.position.x + 0.5f*i, bot._actualY + 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
                     if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
                         Tile newTile = GameManager.Instance.GetTile(target);
@@ -103,7 +104,7 @@ namespace ChardMove
                 case(MovementDirection.Backward):
                 for (int i = 1; i < distance+1; i++)
                 {
-                    target =  new Vector2(Bot.transform.position.x - 0.5f*i, Bot.transform.position.y - 0.25f*i);
+                    target =  new Vector2(Bot.transform.position.x - 0.5f*i, bot._actualY  - 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
                     if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
                         Tile newTile = GameManager.Instance.GetTile(target);
@@ -117,7 +118,7 @@ namespace ChardMove
                 case(MovementDirection.Left):
                 for (int i = 1; i < distance+1; i++)
                 {
-                    target =  new Vector2(Bot.transform.position.x - 0.5f*i, Bot.transform.position.y + 0.25f*i);
+                    target =  new Vector2(Bot.transform.position.x - 0.5f*i, bot._actualY  + 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
                     if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
                         Tile newTile = GameManager.Instance.GetTile(target);
@@ -131,7 +132,7 @@ namespace ChardMove
                 case(MovementDirection.Right):
                 for (int i = 1; i < distance+1; i++)
                 {
-                    target =  new Vector2(Bot.transform.position.x + 0.5f*i, Bot.transform.position.y - 0.25f*i);
+                    target =  new Vector2(Bot.transform.position.x + 0.5f*i, bot._actualY  - 0.25f*i);
                     tileType = GameManager.Instance.GetTileType(target);
                     if(tileType == TileType.Walkable && !GameManager.Instance.BotInTheWay(target)){
                         Tile newTile = GameManager.Instance.GetTile(target);

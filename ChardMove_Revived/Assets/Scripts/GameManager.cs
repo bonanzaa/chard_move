@@ -19,11 +19,14 @@ namespace ChardMove.gameManager
 
         public delegate void UndoButtonPressed();
         public static event UndoButtonPressed undoButtonPressed;
+        public delegate void LevelUnload();
+        public static event LevelUnload onLevelUnload;
         public delegate void UndoDirectionalChoice();
         public static event UndoDirectionalChoice undoDirectionalChoice;
         public Dictionary<Vector2,Tile> TileDB =  new Dictionary<Vector2, Tile>();
         public Dictionary<Vector2,(IPushable,GameObject)> PushableDB = new Dictionary<Vector2, (IPushable,GameObject)>();
         public Dictionary<Vector2,BotGridMovement> BotDB = new Dictionary<Vector2, BotGridMovement>();
+        public List<GameObject> _allEntitiesToUnload;
         [HideInInspector]public WinTile RedButton;
         public Draggable LastCardPlayed;
         public static GameManager Instance;
@@ -33,6 +36,7 @@ namespace ChardMove.gameManager
         private LevelLoader _levelLoader;
         private List<Draggable> _originalPlayerCards = new List<Draggable>();
         private GameObject _currentLevel;
+        public GameObject _lastLevel;
        [HideInInspector] public bool LevelLoaded = false;
        [HideInInspector] public bool _botMoving = false;
        [HideInInspector] public bool AnimationInProgress = false;
@@ -68,7 +72,8 @@ namespace ChardMove.gameManager
        public float BotSpeedMax;
 
         // for loading animation
-        
+        public GameObject NextLevelDebug;
+        public int _i = 0;
 
         private void Awake() {
             //Time.timeScale = 1;
@@ -210,15 +215,31 @@ namespace ChardMove.gameManager
             //     Camera.main.gameObject.transform.position = _cameraOffset.CameraPosition;
             //     GameObject.FindGameObjectWithTag("Canvas").gameObject.transform.position = new Vector3(_cameraOffset.CameraPosition.x,_cameraOffset.CameraPosition.y,0);
             // }
-            StartCoroutine(LoadLevelWithAnimation(level));
+            //StartCoroutine(UnloadLevelWithAnimation(level));
+            CardStacker.Instance.LoadCards();
+            //StartCoroutine(LoadLevelWithAnimation(level));
+        }
+
+        private void LoadNewLevelDebug(GameObject level){
+            StartCoroutine(LevelInstantiatingTimer(level));
+            //StartCoroutine(LoadLevelWithAnimation(level));
+
         }
 
         public IEnumerator LoadLevelWithAnimation(GameObject level){
             LevelLoaded = true;
+            //instantiate level here
+
+            _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
+            Level = _currentLevel;
             CardStacker.Instance.LoadCards();
-            yield return null;
+
+            //CardStacker.Instance.LoadCards();
+            //yield return null;
+            
             foreach (var item in TileDB.Values)
             {
+
                 if(item.gameObject.GetComponent<WinTile>()){
                     continue;
                 }else{
@@ -235,7 +256,6 @@ namespace ChardMove.gameManager
                     StartCoroutine(InBlockTween(item.Item2));
                 }
             }
-
             foreach (var item in BotDB.Values)
             {
                 StartCoroutine(InBotTween(item));
@@ -243,9 +263,54 @@ namespace ChardMove.gameManager
             yield return null;
         }
 
+        public IEnumerator UnloadLevelWithAnimation(GameObject level){
+            LevelLoaded = true;
+            _lastLevel = level;
+            level.transform.SetParent(Camera.main.transform);
+            yield return null;
+            foreach (var item in TileDB.Values)
+            {
+                _allEntitiesToUnload.Add(item.gameObject);
+                // if(item.gameObject.GetComponent<WinTile>()){
+                //     continue;
+                // }else{
+                //     StartCoroutine(OutTileTween(item));
+                // }
+            }
+
+            foreach (var item in PushableDB.Values)
+            {
+                _allEntitiesToUnload.Add(item.Item2.gameObject);
+                // if(item.Item2.GetComponent<BotGridMovement>()){
+                //     continue;
+                // }else{
+                //     StartCoroutine(OutBlockTween(item.Item2));
+                // }
+            }
+
+            foreach (var item in BotDB.Values)
+            {
+                _allEntitiesToUnload.Add(item.gameObject);
+                //StartCoroutine(OutBotTween(item));
+            }
+            yield return null;
+
+            //StartCoroutine(OutRedButtonTween(RedButton));
+            ClearDictionaries();
+            //_currentLevel = null;
+            _allEntitiesToUnload = _allEntitiesToUnload.OrderBy(entity => entity.transform.position.x).ToList();
+            onLevelUnload();
+            foreach (var item in _allEntitiesToUnload)
+            {
+                StartCoroutine(OutTween(item));
+                yield return new WaitForSeconds(0.01f);
+            }
+            LoadNewLevelDebug(NextLevelDebug);
+        }
+
         private IEnumerator InTileTween(Tile tile){
             Vector3 endPosition = tile.transform.position;
-            tile.transform.position = new Vector3(tile.transform.position.x,1,tile.transform.position.z);
+            tile.transform.position = new Vector3(tile.transform.position.x,5,tile.transform.position.z);
             float randSpeed = Random.Range(TileSpeedMin,TileSpeedMax);
             yield return new WaitForSeconds(DelayBeforeTiles);       
             tile.transform.DOMove(endPosition,randSpeed,false).SetEase(Ease.OutBack,0.75f);
@@ -253,7 +318,7 @@ namespace ChardMove.gameManager
 
         private IEnumerator InBotTween(BotGridMovement bot){
             Vector3 endPosition = bot.transform.position;
-            bot.transform.position = new Vector3(bot.transform.position.x,1,bot.transform.position.z);
+            bot.transform.position = new Vector3(bot.transform.position.x,5,bot.transform.position.z);
             float randSpeed = Random.Range(BotSpeedMin,BotSpeedMax);
             yield return new WaitForSeconds(DelayBeforeBots);       
             bot.transform.DOMove(endPosition,randSpeed,false).SetEase(Ease.InQuart);
@@ -261,7 +326,7 @@ namespace ChardMove.gameManager
 
         private IEnumerator InBlockTween(GameObject pushable){
             Vector3 endPosition = pushable.transform.position;
-            pushable.transform.position = new Vector3(pushable.transform.position.x,1,pushable.transform.position.z);
+            pushable.transform.position = new Vector3(pushable.transform.position.x,5,pushable.transform.position.z);
             float randSpeed = Random.Range(BlockSpeedMin,BlockSpeedMax);
             yield return new WaitForSeconds(DelayBeforeBlocks);       
             pushable.transform.DOMove(endPosition,randSpeed,false).SetEase(Ease.OutQuart);
@@ -269,18 +334,38 @@ namespace ChardMove.gameManager
 
         private IEnumerator InRedButtonTween(WinTile wintile){
             Vector3 endPosition = wintile.transform.position;
-            wintile.transform.position = new Vector3(wintile.transform.position.x,1,wintile.transform.position.z);
+            wintile.transform.position = new Vector3(wintile.transform.position.x,5,wintile.transform.position.z);
             yield return new WaitForSeconds(DelayBeforeRedButton);       
             wintile.transform.DOMove(endPosition,RedButtonSpeed,false).SetEase(Ease.OutBack,0.4f);
         }
 
+        private IEnumerator OutTween(GameObject entity){
+            Vector3 endPosition = new Vector3(entity.transform.position.x,-15,entity.transform.position.z);
+            entity.transform.DOMove(endPosition,0.6f,false).SetEase(Ease.InBack,0.1f).OnComplete(TweenCompletionCounter);
+            yield return null;
+        }
+
         private IEnumerator LevelInstantiatingTimer(GameObject level){
+            yield return new WaitForSeconds(0.5f);
+
+            if(level.TryGetComponent(out CameraOffsetRegister _cameraOffset)){
+                Camera.main.gameObject.transform.position = _cameraOffset.CameraPosition;
+                GameObject.FindGameObjectWithTag("Canvas").gameObject.transform.position = new Vector3(_cameraOffset.CameraPosition.x,_cameraOffset.CameraPosition.y,0);
+            }
+            StartCoroutine(LoadLevelWithAnimation(level));
             yield return new WaitForEndOfFrame();
-            _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
-            Level = _currentLevel;
-            CardStacker.Instance.LoadCards();
             onNewLevelLoaded();
         }
+
+        private void TweenCompletionCounter(){
+            _i++;
+            if(_i == _allEntitiesToUnload.Count){
+                Destroy(_lastLevel);
+                _lastLevel = null;
+                _i = 0;
+            }
+        }
+
 
         public void Reset(){
             if(_botMoving || AnimationInProgress) return;

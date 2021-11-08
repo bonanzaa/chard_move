@@ -43,5 +43,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6216de431d5d84ca64440001fe8e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Level: {fileID: 0}
+  _allEntitiesToUnload: []
+  RedButton: {fileID: 0}
   LastCardPlayed: {fileID: 0}
   PlayerCards: []
+  _tempPlayerCards: []
+  _lastLevel: {fileID: 0}
+  LevelLoaded: 0
+  _botMoving: 0
+  AnimationInProgress: 0
+  DelayBeforeTiles: 0.47
+  TileSpeedMin: 0.5
+  TileSpeedMax: 4
+  DelayBeforeRedButton: 1
+  RedButtonSpeed: 3.5
+  DelayBeforeBlocks: 2.39
+  BlockSpeedMin: 1.5
+  BlockSpeedMax: 2.47
+  DelayBeforeBots: 2.13
+  BotSpeedMin: 1.29
+  BotSpeedMax: 2.48
+  NextLevelDebug: {fileID: 2732176282758029588, guid: 6a08e2c73d8798f4086be105aec11ab3, type: 3}
+  _i: 0

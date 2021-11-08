@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 492472431517413673}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.161, z: -0.5}
+  m_LocalPosition: {x: 0, y: 0.074, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6021050367095043382}
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: de8780e6c287b92468829cd1092af0aa, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 7587470829862816501, guid: 53183a91bc9ef584cb1f541897af9c7f, type: 3}
+  m_Color: {r: 0.04460144, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -188,6 +188,11 @@ MonoBehaviour:
   Active: 1
   _LeftRight: {fileID: -4571891095695291320, guid: a25053678f842994aa76c40c60cb3942, type: 3}
   _ForwardBackward: {fileID: 1810682828556523565, guid: 7ba2e4f88644e074ba4cb556d3e6ecd6, type: 3}
+  _GoingRight: {fileID: 6904850895560063889, guid: 4e786fc02d151a44e9678db210539037, type: 3}
+  _GoingLeft: {fileID: -8003267789114562753, guid: de59476cfc1e6d44fa469cdacf4d9c31, type: 3}
+  _GoingForward: {fileID: 2964499257700878983, guid: 18bcb562c65813e4f87c3ef31eef6886, type: 3}
+  _GoingBackward: {fileID: 3856611540345170254, guid: 51c9f3bb48f1133438339355114abe20, type: 3}
+  GhostPrefab: {fileID: 8341739803549559721, guid: b538334cf72385d449c9ce614d8c67d8, type: 3}
   _currentBot: {fileID: 0}
 --- !u!61 &269021961
 BoxCollider2D:

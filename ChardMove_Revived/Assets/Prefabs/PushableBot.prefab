@@ -170,8 +170,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4269388098254146124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.03, z: 0}
-  m_LocalScale: {x: 1.1232, y: 1.1232, z: 1.1232}
+  m_LocalPosition: {x: -0, y: 0.211, z: 0}
+  m_LocalScale: {x: 1.392768, y: 1.392768, z: 1.392768}
   m_Children: []
   m_Father: {fileID: 4461372744452508115}
   m_RootOrder: 0
@@ -215,8 +215,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
-  m_Sprite: {fileID: 4149343753704602046, guid: c84e5d5c62f67854faef517d0c227f1e, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 57180386858576299, guid: 2b501a615ca87fe45983ce57193d1a45, type: 3}
   m_Color: {r: 0, g: 1, b: 0.018348932, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -304,7 +304,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4149343753704602046, guid: c84e5d5c62f67854faef517d0c227f1e, type: 3}
+  m_Sprite: {fileID: 5150255276235434617, guid: 1997f6c15e513b041adbd1986218dddb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -330,10 +330,10 @@ MonoBehaviour:
   moveSpeed: 5
   Highlight: {fileID: 4269388098254146124}
   IsPushable: 1
-  _facingForward: {fileID: -2111710138019565381, guid: 6ede391d922cd824bb7c0ffc5380951b, type: 3}
-  _facingLeft: {fileID: -2514956250212235932, guid: d70ad2ab4dc936b478c15e4f0ae63a33, type: 3}
-  _facingRight: {fileID: 4149343753704602046, guid: c84e5d5c62f67854faef517d0c227f1e, type: 3}
-  _facingBackward: {fileID: 1710288239918556917, guid: f2841e1e45966fd40a6e69316985aef6, type: 3}
+  _facingForward: {fileID: -2702576674014227298, guid: b8b395601a0c38f4ca253ab00ddfdba3, type: 3}
+  _facingLeft: {fileID: 8761043811414136903, guid: 36fc9a6470cc47f44b73ba18be174c07, type: 3}
+  _facingRight: {fileID: 5150255276235434617, guid: 1997f6c15e513b041adbd1986218dddb, type: 3}
+  _facingBackward: {fileID: 3342675500317968996, guid: 9bcf8393c0dd15b449a22c286aa6ae85, type: 3}
 --- !u!68 &1669698909834610217
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -757,7 +757,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5121808490531911450
 RectTransform:
   m_ObjectHideFlags: 0

@@ -17,9 +17,15 @@ namespace ChardMove
         [Header("Sprites for movement sprite switching")]
         [SerializeField] private Sprite _LeftRight;
         [SerializeField] private Sprite _ForwardBackward;
-        
+        [SerializeField] private Sprite _GoingRight;
+        [SerializeField] private Sprite _GoingLeft;
+        [SerializeField] private Sprite _GoingForward;
+        [SerializeField] private Sprite _GoingBackward;
+
+        public GameObject GhostPrefab;
         public GameObject _currentBot;
         private PushableBlock _pushableBlock;
+        private GameObject _ghost;
         private Vector3 _originalPosition;
         private Vector3 _targetPosition;
         private MovementDirection _originalDirection;
@@ -32,32 +38,6 @@ namespace ChardMove
         private bool _botOnPlatform = false;
         private bool _moving;
         private SpriteRenderer _spriteRenderer;
-        
-
-        // private void OnTriggerEnter2D(Collider2D other) {
-        //     if(other.CompareTag("Bot")){
-        //         if(_botOnPlatform) return;
-        //         _currentBot = other.gameObject;
-        //         _botOnPlatform = true;
-        //         if(!_currentBot.GetComponent<BotGridMovement>().IsPushable)
-        //             TileType = TileType.Unwalkable;
-        //     }
-        // }
-
-        // private void OnTriggerExit2D(Collider2D other) {
-        //     if(other.CompareTag("Bot")){
-        //         _currentBot = null;
-        //         _botOnPlatform = false;
-        //         TileType = TileType.Walkable;
-        //     }
-        // }
-
-        // private void OnTriggerStay2D(Collider2D other) {
-        //     if(other.CompareTag("Bot")){
-        //         _currentBot = other.gameObject;
-        //         _botOnPlatform = true;
-        //     }
-        // }
 
         public void CachePushableBlock(GameObject pushableGO){
             _currentBot = pushableGO;
@@ -65,23 +45,71 @@ namespace ChardMove
         }
 
         private void ChangeSprite(MovementDirection direction){
-            switch(direction){
-                case(MovementDirection.Forward):
-                _spriteRenderer.sprite = _ForwardBackward;
-                break;
+            if(Active){
+                switch(direction){
+                    case(MovementDirection.Forward):
+                    _spriteRenderer.sprite = _GoingForward;
+                    break;
 
-                case(MovementDirection.Left):
-                _spriteRenderer.sprite = _LeftRight;
-                break;
+                    case(MovementDirection.Left):
+                    _spriteRenderer.sprite = _GoingLeft;
+                    break;
 
-                case(MovementDirection.Right):
-                _spriteRenderer.sprite = _LeftRight;
-                break;
+                    case(MovementDirection.Right):
+                    _spriteRenderer.sprite = _GoingRight;
+                    break;
 
-                case(MovementDirection.Backward):
-                _spriteRenderer.sprite = _ForwardBackward;
-                break;
+                    case(MovementDirection.Backward):
+                    _spriteRenderer.sprite = _GoingBackward;
+                    break;
+                }
+            }else{
+                switch(direction){
+                    case(MovementDirection.Forward):
+                    _spriteRenderer.sprite = _ForwardBackward;
+                    break;
+
+                    case(MovementDirection.Left):
+                    _spriteRenderer.sprite = _LeftRight;
+                    break;
+
+                    case(MovementDirection.Right):
+                    _spriteRenderer.sprite = _LeftRight;
+                    break;
+
+                    case(MovementDirection.Backward):
+                    _spriteRenderer.sprite = _ForwardBackward;
+                    break;
+                }
             }
+        }
+
+        public override void Start() {
+            base.Start();
+            CheckPath();
+            _ghost = Instantiate(GhostPrefab,_targetPosition,Quaternion.identity);
+        }
+
+        private void ManageGhost(){
+            CheckPath();
+            SpriteRenderer ghostSpriteRenderer = _ghost.GetComponent<SpriteRenderer>();
+            if(Direction == MovementDirection.Forward || Direction == MovementDirection.Backward){
+                ghostSpriteRenderer.sprite = _ForwardBackward;
+            }else if(Direction == MovementDirection.Right || Direction == MovementDirection.Left){
+                ghostSpriteRenderer.sprite = _LeftRight;
+            }
+
+
+            _ghost.SetActive(true);
+            StartCoroutine(GhostLerp());
+        }
+
+        private IEnumerator GhostLerp(){
+            while(_ghost.transform.position != _targetPosition){
+                _ghost.transform.position = Vector3.Lerp(_ghost.transform.position,_targetPosition,0.2f);
+                yield return null;
+            }
+            _ghost.transform.position = _targetPosition;
         }
 
         public void RemovePushableBlock(){
@@ -103,10 +131,16 @@ namespace ChardMove
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;
             BotGridMovement.botAboutToDie += OnBotAboutToDie;
+            GameManager.onLevelUnload += OnLevelUnload;
 
             CacheLastInfo();
             _spriteRenderer =  GetComponent<SpriteRenderer>();
             ChangeSprite(Direction);
+            GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
+        }
+
+        private void OnLevelUnload(){
+            Destroy(_ghost);
         }
 
         private void OnBotAboutToDie(GameObject bot){
@@ -135,6 +169,8 @@ namespace ChardMove
             Active = _originalIsActive;
             // choose a new target
             _targetPosition = TargetTilePosition();
+
+            ManageGhost();
         }
 
         private void OnUndoDirectionalChoice(){
@@ -171,6 +207,7 @@ namespace ChardMove
             GameManager.resetButtonPressed -= OnResetButtonPressed;
             BotGridMovement.botAboutToDie -= OnBotAboutToDie;
             GameManager.undoButtonPressed -= OnUndoButtonPressed;
+            GameManager.onLevelUnload -= OnLevelUnload;
         }
 
         private void OnDestroy() {
@@ -179,6 +216,7 @@ namespace ChardMove
             BotGridMovement.botAboutToDie -= OnBotAboutToDie;
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
             GameManager.undoButtonPressed -= OnUndoButtonPressed;
+            GameManager.onLevelUnload -= OnLevelUnload;
         }
 
         public void Deactivate(){
@@ -222,6 +260,7 @@ namespace ChardMove
             // in case CheckPath() detects there is an obstacle in our way,
             // it overwrites _targetPosition, adjusting for the obstacle.
             Vector2 startPosition = transform.position;
+            _ghost.SetActive(false);
             
             float totalDistance = Vector2.Distance(_targetPosition,transform.position);
             float t = 0;
@@ -284,7 +323,11 @@ namespace ChardMove
             GameManager.Instance.UpdateTileDB(transform.position,this,_lastPosition);
             
             ChangeDirection();
+            ChangeSprite(Direction);
+            CheckPath();
             _moving = false;
+            yield return new WaitForSeconds(0.1f);
+            ManageGhost();
         }
 
         private void ChangeDirection(){

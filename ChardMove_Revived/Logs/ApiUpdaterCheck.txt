@@ -416,8 +416,8 @@ C# parse time         : 357ms
 candidates check time : 55ms
 console write time    : 1ms
 
-[api-updater (non-obsolete-error-filter)] 11/5/2021 10:43:12 AM : Starting D:/Unity/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
-[api-updater (non-obsolete-error-filter)] Exception caught while loading types from D:\Unity\Projects\ChardMove\ChardMove_Revived\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll (some types may not be loaded)
+[api-updater (non-obsolete-error-filter)] 11/6/2021 2:42:30 AM : Starting C:/Program Files/Unity/Hub/Editor/2020.3.4f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] Exception caught while loading types from C:\Users\bonan\Documents\ChardMove\ChardMove_Revived\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll (some types may not be loaded)
 	Exception of type 'System.Reflection.ReflectionTypeLoadException' was thrown.
 	  at (wrapper managed-to-native) System.Reflection.Assembly.GetTypes(System.Reflection.Assembly,bool)
   at System.Reflection.Assembly.GetTypes () [0x00000] in <695d1cc93cca45069c528c15c9fdd749>:0 
@@ -426,61 +426,10 @@ console write time    : 1ms
 
 [api-updater (non-obsolete-error-filter)] 
 ----------------------------------
-jit/startup time      : 455.7811ms
-moved types parse time: 64ms
-candidates parse time : 12ms
-C# parse time         : 913ms
-candidates check time : 479ms
-console write time    : 0ms
-
-[api-updater (non-obsolete-error-filter)] 11/5/2021 11:50:22 AM : Starting D:/Unity/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
-[api-updater (non-obsolete-error-filter)] Exception caught while loading types from D:\Unity\Projects\ChardMove\ChardMove_Revived\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll (some types may not be loaded)
-	Exception of type 'System.Reflection.ReflectionTypeLoadException' was thrown.
-	  at (wrapper managed-to-native) System.Reflection.Assembly.GetTypes(System.Reflection.Assembly,bool)
-  at System.Reflection.Assembly.GetTypes () [0x00000] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at APIUpdater.NonObsoleteApiUpdaterDetector.ExtraInfoParser+<LoadTypesWithMovedFromAttributeAsync>d__3.MoveNext () [0x000c8] in <68bff7873e0e4aa69a14dfc30bebbe3e>:0 
-	Could not load file or assembly 'UnityEngine.TilemapModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies.
-
-[api-updater (non-obsolete-error-filter)] 
-----------------------------------
-jit/startup time      : 529.7395ms
-moved types parse time: 79ms
+jit/startup time      : 649.4501ms
+moved types parse time: 49ms
 candidates parse time : 1ms
-C# parse time         : 585ms
-candidates check time : 63ms
-console write time    : 2ms
-
-[api-updater (non-obsolete-error-filter)] 11/5/2021 3:30:17 PM : Starting D:/Unity/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
-[api-updater (non-obsolete-error-filter)] Exception caught while loading types from D:\Unity\Projects\ChardMove\ChardMove_Revived\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll (some types may not be loaded)
-	Exception of type 'System.Reflection.ReflectionTypeLoadException' was thrown.
-	  at (wrapper managed-to-native) System.Reflection.Assembly.GetTypes(System.Reflection.Assembly,bool)
-  at System.Reflection.Assembly.GetTypes () [0x00000] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at APIUpdater.NonObsoleteApiUpdaterDetector.ExtraInfoParser+<LoadTypesWithMovedFromAttributeAsync>d__3.MoveNext () [0x000c8] in <68bff7873e0e4aa69a14dfc30bebbe3e>:0 
-	Could not load file or assembly 'UnityEditor.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies.
-
-[api-updater (non-obsolete-error-filter)] 
-----------------------------------
-jit/startup time      : 2497.9669ms
-moved types parse time: 79ms
-candidates parse time : 1ms
-C# parse time         : 1447ms
-candidates check time : 80ms
-console write time    : 0ms
-
-[api-updater (non-obsolete-error-filter)] 11/5/2021 3:31:22 PM : Starting D:/Unity/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
-[api-updater (non-obsolete-error-filter)] Exception caught while loading types from D:\Unity\Projects\ChardMove\ChardMove_Revived\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll (some types may not be loaded)
-	Exception of type 'System.Reflection.ReflectionTypeLoadException' was thrown.
-	  at (wrapper managed-to-native) System.Reflection.Assembly.GetTypes(System.Reflection.Assembly,bool)
-  at System.Reflection.Assembly.GetTypes () [0x00000] in <695d1cc93cca45069c528c15c9fdd749>:0 
-  at APIUpdater.NonObsoleteApiUpdaterDetector.ExtraInfoParser+<LoadTypesWithMovedFromAttributeAsync>d__3.MoveNext () [0x000c8] in <68bff7873e0e4aa69a14dfc30bebbe3e>:0 
-	Could not load file or assembly 'UnityEngine.TilemapModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies.
-
-[api-updater (non-obsolete-error-filter)] 
-----------------------------------
-jit/startup time      : 339.0245ms
-moved types parse time: 74ms
-candidates parse time : 1ms
-C# parse time         : 279ms
-candidates check time : 67ms
+C# parse time         : 304ms
+candidates check time : 66ms
 console write time    : 0ms
 
