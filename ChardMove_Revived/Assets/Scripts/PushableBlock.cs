@@ -76,7 +76,7 @@ namespace ChardMove
 
         private void OnResetButtonPressed()
         {
-            Vector2 pos = new Vector2(transform.position.x,transform.position.y + 0.375f);
+            Vector2 pos = new Vector2(transform.position.x,transform.position.y + 0.375f + 0.05f);
             if(_transformIntoTile){
                 Vector2 newpos = new Vector2(transform.position.x,transform.position.y-0.125f);
                 GameManager.Instance.RemoveFromTileDB(pos);
@@ -174,11 +174,6 @@ namespace ChardMove
             float currentY = transform.position.y;
             float currentZ = transform.position.z;
 
-            float currentScaleX = transform.localScale.x;
-            float currentScaleY = transform.localScale.y;
-
-            float targetScaleX = 1.5f;
-            float targetScaleY = 1.5f;
 
             float targetY = currentY - 0.55f;
             float targetZ = currentZ + 1.5f;
@@ -186,8 +181,6 @@ namespace ChardMove
             float newY = 0;
             float newZ = 0;
 
-            float newScaleX = 0;
-            float newScaleY = 0;
 
             float t  = 0;
             while(transform.position.y != targetY && transform.position.z != targetZ){
@@ -196,14 +189,10 @@ namespace ChardMove
                 newY = Mathf.Lerp(currentY,targetY,t);
                 newZ = Mathf.Lerp(currentZ,targetZ,t);
 
-                newScaleX = Mathf.Lerp(currentScaleX,targetScaleX,t*3);
-                newScaleY = Mathf.Lerp(currentScaleY,targetScaleY,t*3);
-
                 transform.position = new Vector3(transform.position.x,newY,newZ);
-                transform.localScale = new Vector3(newScaleX,newScaleY,0);
+
                 yield return null;
             }
-            transform.localScale = new Vector3(1.5f,1.5f,1.5f);
             GameManager.Instance._botMoving = false;
         }
 

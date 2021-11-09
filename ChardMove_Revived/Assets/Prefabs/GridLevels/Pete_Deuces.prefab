@@ -237,7 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPosition: {x: -1.43, y: -4.17, z: -10}
+  UseCurrentCameraPosition: 0
+  CameraPosition: {x: -1.79, y: -3.89, z: -10}
 --- !u!1001 &1489555401072279282
 PrefabInstance:
   m_ObjectHideFlags: 0

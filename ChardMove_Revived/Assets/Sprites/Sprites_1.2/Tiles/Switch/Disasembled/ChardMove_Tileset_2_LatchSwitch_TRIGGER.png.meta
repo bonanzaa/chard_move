@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 51c9f3bb48f1133438339355114abe20
+guid: ea64009e4c44ea1478688a27649a7846
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3856611540345170254
-    second: ChardMove_Tileset_2_MovingTile_NS_On_S_0
+      213: 158580897773907577
+    second: ChardMove_Tileset_2_LatchSwitch_TRIGGER_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -23,7 +23,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -46,7 +46,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 930
@@ -106,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ChardMove_Tileset_2_MovingTile_NS_On_S_0
+      name: ChardMove_Tileset_2_LatchSwitch_TRIGGER_1
       rect:
         serializedVersion: 2
-        x: 1206
-        y: 369
-        width: 939
-        height: 610
+        x: 268
+        y: 278
+        width: 465
+        height: 258
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,8 +120,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4922f243cf658530800000000000000
-      internalID: 3856611540345170254
+      spriteID: 97ee9ff7c74633200800000000000000
+      internalID: 158580897773907577
       vertices: []
       indices: 
       edges: []

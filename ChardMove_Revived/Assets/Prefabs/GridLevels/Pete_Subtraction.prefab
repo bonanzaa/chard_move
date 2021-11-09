@@ -76,7 +76,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPosition: {x: -1.67, y: -2.69, z: -10}
+  UseCurrentCameraPosition: 0
+  CameraPosition: {x: -1.24, y: -3.41, z: -10}
 --- !u!1 &1817830214823489687
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,6 +1172,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5338072802434279971, guid: db1a4c90c0ecaf14db51cbe945e0e225, type: 3}
       propertyPath: GateSwitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338072802434279971, guid: db1a4c90c0ecaf14db51cbe945e0e225, type: 3}
+      propertyPath: Gates.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5338072802434279971, guid: db1a4c90c0ecaf14db51cbe945e0e225, type: 3}

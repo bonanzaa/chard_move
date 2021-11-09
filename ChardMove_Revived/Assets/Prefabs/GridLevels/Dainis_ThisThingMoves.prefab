@@ -76,7 +76,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPosition: {x: 0.23, y: -2.55, z: -10}
+  UseCurrentCameraPosition: 0
+  CameraPosition: {x: 0.32, y: -2.97, z: -10}
 --- !u!1 &3303337304182060324
 GameObject:
   m_ObjectHideFlags: 0

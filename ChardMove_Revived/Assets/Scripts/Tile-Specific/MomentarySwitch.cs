@@ -13,12 +13,26 @@ namespace ChardMove
         private bool _isActive = false;
         private bool _lastIsActive;
         public GameObject _currentBot;
+        [Header("Sprite/Pole management")]
+        public Sprite PoleActive;
+        public Sprite PoleInactive;
+        public GameObject Pole;
+        private SpriteRenderer _spriteRenderer;
 
         private void Awake() {
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             _isActive = false;
             _lastIsActive = _isActive;
+             _spriteRenderer = Pole.GetComponent<SpriteRenderer>();
+        }
+
+        private void ChangePoleSprite(){
+            if(_isActive){
+                _spriteRenderer.sprite = PoleActive;
+            }else{
+                _spriteRenderer.sprite = PoleInactive;
+            }
         }
 
         private void OnDestroy() {
@@ -47,6 +61,7 @@ namespace ChardMove
 
         private void OnResetButtonPressed(){
             _isActive = false;
+            ChangePoleSprite();
             _lastIsActive = _isActive;
             if(Gates.Count != 0){
                 foreach (var gate in Gates)
@@ -69,7 +84,7 @@ namespace ChardMove
         }
 
         private void Activate(){
-            print("Activating");
+            ChangePoleSprite();
             if(Gates.Count != 0){
                 foreach (var gate in Gates)
                 {
@@ -86,7 +101,7 @@ namespace ChardMove
         }
 
         private void Deactivate(){
-            print("Deactivating");
+            ChangePoleSprite();
             if(Gates.Count != 0){
                 foreach (var gate in Gates)
                 {
