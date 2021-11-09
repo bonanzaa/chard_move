@@ -435,7 +435,6 @@ namespace ChardMove.gameManager
                 _allEntitiesToUnload.Add(item.gameObject);
             }
 
-                print(PushableDB.Count);
             foreach (var item in PushableDB.Values)
             {
                 _allEntitiesToUnload.Add(item.Item2.gameObject);
@@ -469,6 +468,7 @@ namespace ChardMove.gameManager
         }
 
         private IEnumerator InGhostTween(GameObject ghost){
+            if(ghost == null) yield break;
             Vector3 endPosition = ghost.transform.position;
             ghost.transform.position = new Vector3(ghost.transform.position.x,5,ghost.transform.position.z);
             float randSpeed = Random.Range(TileSpeedMin,TileSpeedMax);
@@ -542,7 +542,7 @@ namespace ChardMove.gameManager
                 {
                     Destroy(item);
                 }
-                _allEntitiesToUnload.Clear();
+                //_allEntitiesToUnload.Clear();
             }
         }
 
@@ -550,12 +550,10 @@ namespace ChardMove.gameManager
             level.SetActive(true);
             LevelLoaded = true;
             //instantiate level here
-            print($"Is level null?: {level == null}");
             _currentLevel = level;
             Level = _currentLevel;
             CardStacker.Instance.LoadCards();
 
-            print($"Is currentLevel null?: {_currentLevel == null}");
             
             foreach (var item in TileDB.Values)
             {
@@ -654,11 +652,17 @@ namespace ChardMove.gameManager
                 if(_lastLevel != null){
                     //Destroy(_lastLevel);
                 }
+                _allEntitiesToUnload.Clear();
                 onLevelFullyLoaded();
             }
         }
 
         private void OrderListByFinalY(){
+            for(var i = _allEntitiesToLoad.Count - 1; i > -1; i--)
+            {
+                if (_allEntitiesToLoad[i] == null)
+                _allEntitiesToLoad.RemoveAt(i);
+            }
             _allEntitiesToLoad = _allEntitiesToLoad.OrderBy(entity => entity.transform.position.y).ToList();
             float currentZ = 300;
             foreach (var item in _allEntitiesToLoad)
@@ -695,14 +699,17 @@ namespace ChardMove.gameManager
 
         public void Reset(){
             if(_botMoving || AnimationInProgress) return;
-            DeletePlayerCards(); 
+            _allEntitiesToUnload.Clear();
+            _allEntitiesToLoad.Clear();
+            //DeletePlayerCards();
             //resetButtonPressed();
             CacheTilesInTheScene();
             StartCoroutine(ResetDictClearTimer());
+            ResetPlayerCards();
         }
 
         private IEnumerator ResetDictClearTimer(){
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
             BotDB.Clear();
             PushableDB.Clear();
             TileDB.Clear();
