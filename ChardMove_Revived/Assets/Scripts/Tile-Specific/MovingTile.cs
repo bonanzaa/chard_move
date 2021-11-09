@@ -239,6 +239,16 @@ namespace ChardMove
             GameManager.onLevelFullyLoaded -= OnLevelFullyLoaded;
         }
 
+        private void OnEnable() {
+            BotGridMovement.botMoved += OnBotMoved;
+            GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;
+            GameManager.resetButtonPressed += OnResetButtonPressed;
+            BotGridMovement.botAboutToDie += OnBotAboutToDie;
+            GameManager.undoButtonPressed += OnUndoButtonPressed;
+            GameManager.onLevelUnload += OnLevelUnload;
+            GameManager.onLevelFullyLoaded += OnLevelFullyLoaded;
+        }
+
         private void OnDestroy() {
             BotGridMovement.botMoved -= OnBotMoved;
             GameManager.resetButtonPressed -= OnResetButtonPressed;
@@ -247,6 +257,8 @@ namespace ChardMove
             GameManager.undoButtonPressed -= OnUndoButtonPressed;
             GameManager.onLevelUnload -= OnLevelUnload;
             GameManager.onLevelFullyLoaded -= OnLevelFullyLoaded;
+
+            Destroy(_ghost);
         }
 
         public void Deactivate(){

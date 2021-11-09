@@ -79,6 +79,7 @@ namespace ChardMove.gameManager
         public GameObject NextLevelDebug;
         private int _i = 0;
         public int _k = 0;
+        private int _j = 0;
 
         private void Awake() {
             //Time.timeScale = 1;
@@ -233,7 +234,6 @@ namespace ChardMove.gameManager
 
             if(Level == null && !LevelLoaded){
                 LevelLoaded = true;
-                print("No instantiate loading");
                 LoadNewLevelNoInstantiate(level);
                 return;
             }
@@ -303,7 +303,7 @@ namespace ChardMove.gameManager
                 _allEntitiesToLoad.Add(item.gameObject);
                 //StartCoroutine(InBotTween(item));
             }
-            
+
             OrderListByFinalY();
 
             foreach (var item in TileDB.Values)
@@ -345,7 +345,6 @@ namespace ChardMove.gameManager
 
             _currentLevel = level;
             Level = _currentLevel;
-            _lastLevel = _currentLevel;
             CardStacker.Instance.LoadCards();
 
             
@@ -521,50 +520,42 @@ namespace ChardMove.gameManager
         }
 
         private IEnumerator ResetUnloadLevel(GameObject level){
-            _allEntitiesToUnload.Clear();
-
-            LevelLoaded = true;
-            _lastLevel.transform.SetParent(Camera.main.transform);
-            yield return null;
-            foreach (var item in TileDB.Values)
-            {
-                _allEntitiesToUnload.Add(item.gameObject);
-            }
-
-            foreach (var item in PushableDB.Values)
-            {
-                _allEntitiesToUnload.Add(item.Item2.gameObject);
-            }
-
-            foreach (var item in BotDB.Values)
-            {
-                _allEntitiesToUnload.Add(item.gameObject);
-            }
-            yield return null;
-
-
-            _allEntitiesToUnload = _allEntitiesToUnload.OrderBy(entity => entity.transform.position.x).ToList();
-            ClearDictionaries();
-            if(onLevelUnload != null)
-                onLevelUnload();
+            level.name = "OLD LEVEL";
             foreach (var item in _allEntitiesToUnload)
             {
-                StartCoroutine(OutTween(item));
-                yield return new WaitForSeconds(0.01f);
+               StartCoroutine(OutTweenReset(item));
+               yield return new WaitForSeconds(0.01f); 
             }
-            StartCoroutine(ResetLoadLevel());
         }
 
-        private IEnumerator ResetLoadLevel(){
+        private IEnumerator OutTweenReset(GameObject entity){
+            Vector3 endPosition = new Vector3(entity.transform.position.x,-15,entity.transform.position.z);
+            entity.transform.DOMove(endPosition,0.6f,false).SetEase(Ease.InBack,0.1f).OnComplete(OnUnloaded);
+            yield return null;
+        }
+
+        private void OnUnloaded(){
+            _j++;
+            if(_j == _allEntitiesToUnload.Count){
+                _j = 0;
+                foreach (var item in _allEntitiesToUnload)
+                {
+                    Destroy(item);
+                }
+                _allEntitiesToUnload.Clear();
+            }
+        }
+
+        private IEnumerator ResetLoadLevel(GameObject level){
+            level.SetActive(true);
             LevelLoaded = true;
             //instantiate level here
-
-            _currentLevel = Instantiate(_lastLevel, new Vector3(0,0,0),Quaternion.identity);
+            print($"Is level null?: {level == null}");
+            _currentLevel = level;
             Level = _currentLevel;
-            _lastLevel = _currentLevel;
             CardStacker.Instance.LoadCards();
 
-            
+            print($"Is currentLevel null?: {_currentLevel == null}");
             
             foreach (var item in TileDB.Values)
             {
@@ -572,18 +563,18 @@ namespace ChardMove.gameManager
                 if(item.gameObject.GetComponent<WinTile>()){
                     continue;
                 }else{
-                    StartCoroutine(InTileTween(item));
+                    //StartCoroutine(InTileTween(item));
                 }
             }
             if(_ghosts.Count != 0){
                 foreach (var item in _ghosts)
                 {
                     _allEntitiesToLoad.Add(item.gameObject);
-                    StartCoroutine(InGhostTween(item));
+                    //StartCoroutine(InGhostTween(item));
                 }
             }
 
-            StartCoroutine(InRedButtonTween(RedButton));
+            //StartCoroutine(InRedButtonTween(RedButton));
 
             foreach (var item in PushableDB.Values)
             {
@@ -591,16 +582,19 @@ namespace ChardMove.gameManager
                     continue;
                 }else{
                     _allEntitiesToLoad.Add(item.Item2);
-                    StartCoroutine(InBlockTween(item.Item2));
+                    //StartCoroutine(InBlockTween(item.Item2));
                 }
             }
             foreach (var item in BotDB.Values)
             {
                 _allEntitiesToLoad.Add(item.gameObject);
-                StartCoroutine(InBotTween(item));
+                //StartCoroutine(InBotTween(item));
             }
             yield return null;
             OrderListByFinalY();
+
+            // iterate through the shit again, but now we are actually tweening the shit
+            // this is retarded way to do it, but cba
 
             foreach (var item in TileDB.Values)
             {
@@ -632,13 +626,14 @@ namespace ChardMove.gameManager
                 StartCoroutine(InBotTween(item));
             }
             yield return null;
+            _currentLevel = level;
         }
 
         private void TweenCompletionCounter(){
             _i++;
             if(_i == _allEntitiesToUnload.Count){
-                Destroy(_lastLevel);
-                _lastLevel = null;
+                //Destroy(_lastLevel);
+                //_lastLevel = null;
                 _i = 0;
                 _allEntitiesToUnload.Clear();
             }
@@ -656,6 +651,9 @@ namespace ChardMove.gameManager
                 _allEntitiesToLoad.Clear();
                 _k = 0;
                 Camera.main.transparencySortAxis = new Vector3(0,1,0);
+                if(_lastLevel != null){
+                    //Destroy(_lastLevel);
+                }
                 onLevelFullyLoaded();
             }
         }
@@ -670,24 +668,54 @@ namespace ChardMove.gameManager
             }
         }
 
-        private void OnResetUnload(){
+
+        private void CacheTilesInTheScene(){
+            _allEntitiesToUnload.Clear();
             _lastLevel = _currentLevel;
-            StartCoroutine(ResetUnloadLevel(_currentLevel));
+            _lastLevel.transform.SetParent(Camera.main.transform);
+            foreach (var item in TileDB.Values)
+            {
+                _allEntitiesToUnload.Add(item.gameObject);
+            }
+
+            foreach (var item in PushableDB.Values)
+            {
+                _allEntitiesToUnload.Add(item.Item2.gameObject);
+            }
+
+            foreach (var item in BotDB.Values)
+            {
+                _allEntitiesToUnload.Add(item.gameObject);
+            }
+
+
+            _allEntitiesToUnload = _allEntitiesToUnload.OrderBy(entity => entity.transform.position.x).ToList();
         }
 
 
         public void Reset(){
             if(_botMoving || AnimationInProgress) return;
-            //OnResetUnload();
             DeletePlayerCards(); 
-            resetButtonPressed();
+            //resetButtonPressed();
+            CacheTilesInTheScene();
             StartCoroutine(ResetDictClearTimer());
         }
 
         private IEnumerator ResetDictClearTimer(){
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.1f);
             BotDB.Clear();
             PushableDB.Clear();
+            TileDB.Clear();
+            // spawn in a new one
+            GameObject newLevel = Instantiate(_currentLevel,new Vector3(0,0,0),Quaternion.identity);
+            newLevel.name = "NEW LEVEL";
+            newLevel.SetActive(false);
+            //load in a copy of the level
+            StartCoroutine(ResetLoadLevel(newLevel));
+
+            // unload current level
+            StartCoroutine(ResetUnloadLevel(_currentLevel));
+            _currentLevel = null;
         }
 
         public void OnBotStartedMoving(){
