@@ -174,9 +174,9 @@ namespace ChardMove.BotMovement
 
         private IEnumerator MoveToNextTile(MovementDirection direction, int steps, Vector2 target){
             // play liftoff animation here
-            Vector3 targetVector = new Vector3(transform.position.x,transform.position.y + _LiftoffHeight, transform.position.z);
+            Vector3 targetVector = new Vector2(transform.position.x,transform.position.y + _LiftoffHeight);
             while(SpriteGO.transform.position != targetVector){
-                SpriteGO.transform.position = Vector3.Lerp(SpriteGO.transform.position,targetVector,0.2f);
+                SpriteGO.transform.position = Vector2.Lerp(SpriteGO.transform.position,targetVector,0.2f);
                 yield return null;
             }
             //

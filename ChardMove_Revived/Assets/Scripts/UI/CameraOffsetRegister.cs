@@ -7,6 +7,7 @@ namespace ChardMove
     [ExecuteInEditMode]
     public class CameraOffsetRegister : MonoBehaviour
     {
+        public bool UseCurrentCameraPosition = false;
         public Vector3 CameraPosition;
         private Camera _mainCamera;
         [ExecuteInEditMode]
@@ -17,7 +18,9 @@ namespace ChardMove
 
         [ExecuteInEditMode]
         private void Update() {
-            CameraPosition = _mainCamera.gameObject.transform.position;
+            if(UseCurrentCameraPosition){
+                CameraPosition = _mainCamera.gameObject.transform.position;
+            }
         }
     }
 }

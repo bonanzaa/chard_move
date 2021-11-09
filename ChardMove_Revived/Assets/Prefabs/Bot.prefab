@@ -354,11 +354,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4269388098254146124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.215, z: 0}
+  m_LocalPosition: {x: 0, y: 0.215, z: -0.15}
   m_LocalScale: {x: 1.41355, y: 1.41355, z: 1.41355}
   m_Children: []
-  m_Father: {fileID: 4461372744452508115}
-  m_RootOrder: 1
+  m_Father: {fileID: 7653865538239562507}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7717435136897145627
 SpriteRenderer:
@@ -589,7 +589,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7653865538239562507}
-  - {fileID: 2058718586883312456}
   - {fileID: 4461372744485484975}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -666,7 +665,6 @@ MonoBehaviour:
   _facingLeft: {fileID: 5151124772689430045, guid: 20aef151520115440af906b917671aeb, type: 3}
   _facingRight: {fileID: 5881504507467733494, guid: 2057552dc4cbc95448c5cff04fb01a13, type: 3}
   _facingBackward: {fileID: -7602074730993963604, guid: 77ec4c5c5752c7940a249f91012af950, type: 3}
-  _actualY: 0
 --- !u!68 &1669698909834610217
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -758,7 +756,7 @@ RectTransform:
   - {fileID: 4461372745662209833}
   - {fileID: 1635809201947045829}
   m_Father: {fileID: 4461372744452508115}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -957,7 +955,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2058718586883312456}
   m_Father: {fileID: 4461372744452508115}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

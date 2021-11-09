@@ -10,8 +10,14 @@ namespace ChardMove
     {
         public List<Roadblock> Gates;
         public List<MovingTile> MovingPlatforms;
+        [Header("Sprite/Pole management")]
+        public Sprite PoleActive;
+        public Sprite PoleInactive;
+        public GameObject Pole;
+        private SpriteRenderer _spriteRenderer;
         private bool _isActive = false;
         private bool _lastIsActive;
+        
 
         private void Awake() {
             // subscribe to reset/undo events
@@ -19,6 +25,15 @@ namespace ChardMove
             GameManager.undoButtonPressed += OnUndoBotLanded;
             // caching isTarget bool for Undo
             _lastIsActive = _isActive;
+            _spriteRenderer = Pole.GetComponent<SpriteRenderer>();
+        }
+
+        private void ChangePoleSprite(){
+            if(_isActive){
+                _spriteRenderer.sprite = PoleActive;
+            }else{
+                _spriteRenderer.sprite = PoleInactive;
+            }
         }
 
         private void OnDestroy() {
@@ -29,6 +44,7 @@ namespace ChardMove
         public void SetTarget(){
             _lastIsActive = _isActive;
             _isActive = true;
+            ChangePoleSprite();
             //print($"Setting target. LastIsActive: ({_lastIsActive}). IsActive: ({_isActive})");
             Activate();
         }
@@ -50,6 +66,8 @@ namespace ChardMove
         }
 
         private void Deactivate(){
+            _isActive = false;
+            ChangePoleSprite();
             if(Gates.Count != 0){
                 foreach (var gate in Gates)
                 {
@@ -67,6 +85,7 @@ namespace ChardMove
 
         private void OnResetButtonPressed(){
             _isActive = false;
+            ChangePoleSprite();
             _lastIsActive = _isActive;
             Reset();
         }

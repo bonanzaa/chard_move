@@ -89,6 +89,7 @@ namespace ChardMove
         }
 
         private void ManageGhost(){
+            if(_ghost == null) return;
             CheckPath();
             SpriteRenderer ghostSpriteRenderer = _ghost.GetComponent<SpriteRenderer>();
             if(Direction == MovementDirection.Forward || Direction == MovementDirection.Backward){
@@ -110,6 +111,9 @@ namespace ChardMove
         }
 
         private IEnumerator GhostLerp(){
+            if(_ghost == null){
+                yield break;
+            }
             while(_ghost.transform.position != _targetPosition){
                 _ghost.transform.position = Vector3.Lerp(_ghost.transform.position,_targetPosition,0.2f);
                 yield return null;
