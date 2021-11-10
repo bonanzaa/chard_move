@@ -15,6 +15,10 @@ namespace ChardMove
         [SerializeField] [EventRef] private string _cardPickedEvent = null;
         [SerializeField] [EventRef] private string _cardDroppedEvent = null;
         [SerializeField] [EventRef] private string _sliderChangedEvent = null;
+        [SerializeField] [EventRef] private string _latchActivatedEvent  = null;
+        [SerializeField] [EventRef] private string _momentaryActivatedEvent  = null;
+        [SerializeField] [EventRef] private string _roadBlockEvent  = null;
+        [SerializeField] [EventRef] private string _playerWinEvent  = null;
 
         private float _musicVolume = 0.5f;
         private float _sfxVolume = 0.5f;
@@ -40,8 +44,14 @@ namespace ChardMove
             ButtonEvent.onButtonPressed += OnButtonClick;
             ButtonEvent.onToggleChecked += OnMuteToggled;
             ButtonEvent.onButtonHovered += OnButtonHover;
+            LatchSwitch.onLatchActivated += OnLatchSwitchActivated;
+            MomentarySwitch.onMomentaryActivated += OnMomentarySwitchActivated;
+            Roadblock.onRoadblockActivated += OnRoadblockActivated;
+            PushableBlock.onPushableBlockMoved += OnPushedBlock;
             WinTile.playerWin += OnPlayerWin;
         }
+
+
         private void Update()
         {
             ChangeVolume();
@@ -72,6 +82,28 @@ namespace ChardMove
         }
 
         #region Events
+        private void OnRoadblockActivated()
+        {
+            if(_roadBlockEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_roadBlockEvent);
+            }
+        }
+        private void OnMomentarySwitchActivated()
+        {
+            if(_momentaryActivatedEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_momentaryActivatedEvent);
+            }
+        }
+
+        private void OnLatchSwitchActivated()
+        {
+            if(_latchActivatedEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_latchActivatedEvent);
+            }
+        }
         private void OnPlayerWin()
         {
             // idk the triumpgh sound c:
