@@ -34,7 +34,7 @@ namespace ChardMove.gameManager
         [HideInInspector]public WinTile RedButton;
         public Draggable LastCardPlayed;
         public static GameManager Instance;
-        [HideInInspector]public List<Draggable> PlayerCards = new List<Draggable>();
+        public List<Draggable> PlayerCards = new List<Draggable>();
        [HideInInspector] public List<Draggable> _tempPlayerCards = new List<Draggable>();
 
         private LevelLoader _levelLoader;
@@ -654,6 +654,15 @@ namespace ChardMove.gameManager
                 }
                 _allEntitiesToUnload.Clear();
                 onLevelFullyLoaded();
+
+
+                GameObject oldLevel = Camera.main.transform.GetChild(0).gameObject;
+                if(oldLevel.TryGetComponent(out Canvas canvas)){
+
+                }else{
+                    Destroy(oldLevel);
+                }
+
             }
         }
 
