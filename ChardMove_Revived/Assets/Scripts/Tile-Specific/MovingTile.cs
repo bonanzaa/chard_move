@@ -226,6 +226,7 @@ namespace ChardMove
 
         public void Activate(){
             Active = true;
+            ChangeSprite(Direction);
         }
 
         private void OnDisable()

@@ -215,7 +215,7 @@ namespace ChardMove.BotMovement
                         //play landing animation here
                             Vector3 landingVector1 = new Vector3(transform.position.x,SpriteGO.transform.position.y - _LiftoffHeight, transform.position.z);
                             while(SpriteGO.transform.position != landingVector1){
-                                SpriteGO.transform.position = Vector3.Lerp(SpriteGO.transform.position,landingVector1,0.1f);
+                                SpriteGO.transform.position = Vector3.Lerp(SpriteGO.transform.position,landingVector1,0.2f);
                                 yield return null;
                             }
                         //
@@ -238,7 +238,7 @@ namespace ChardMove.BotMovement
                     //play landing animation here
                     Vector3 landingVector2 = new Vector3(transform.position.x,SpriteGO.transform.position.y - _LiftoffHeight, transform.position.z);
                     while(SpriteGO.transform.position != landingVector2){
-                        SpriteGO.transform.position = Vector3.Lerp(SpriteGO.transform.position,landingVector2,0.1f);
+                        SpriteGO.transform.position = Vector3.Lerp(SpriteGO.transform.position,landingVector2,0.2f);
                         yield return null;
                     }
                     //
