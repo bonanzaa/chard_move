@@ -12,17 +12,23 @@ namespace ChardMove
         public static event ButtonPressed onButtonPressed;
         public delegate void ToggleChecked();
         public static event ToggleChecked onToggleChecked;
+        public delegate void ButtonHoveredOver();
+        public static event ButtonHoveredOver onButtonHovered;
         private void Awake()
         {
             _instance = SoundManager.Instance;
         }
         public void OnButtonPressed()
         {
-            //onButtonPressed();
+            onButtonPressed();
         }
         public void OnMuteToggled()
         {
             onToggleChecked();
+        }
+        public void OnButtonHovered()
+        {
+            onButtonHovered();
         }
     }
 }

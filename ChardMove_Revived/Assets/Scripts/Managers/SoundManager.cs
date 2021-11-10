@@ -34,26 +34,28 @@ namespace ChardMove
             {
                 Destroy(gameObject);
             }
+            AssignBusses();
             //ButtonEvent.onButtonPressed += OnButtonClick;
             ButtonEvent.onToggleChecked += OnMuteToggled;
+            ButtonEvent.onButtonHovered += OnButtonHover;
             WinTile.playerWin += OnPlayerWin;
         }
 
-        private void OnMuteToggled()
+        public void OnMuteToggled()
         {
             Master.setMute(true);
         }
 
-        private void AssignBusses()
+        public void AssignBusses()
         {
-            //Music = RuntimeManager.GetBus();
-            //SFX = RuntimeManager.GetBus();
+            Music = RuntimeManager.GetBus("bus:/Master/-MUSIC");
+            SFX = RuntimeManager.GetBus("bus:/Master/-SFX");
             Master = RuntimeManager.GetBus("bus:/");
 
         }
-        private void OnDestroy()
+        public void OnDestroy()
         {
-            //ButtonEvent.onButtonPressed -= OnButtonClick;
+            ButtonEvent.onButtonPressed -= OnButtonClick;
             WinTile.playerWin -= OnPlayerWin;
         }
 
