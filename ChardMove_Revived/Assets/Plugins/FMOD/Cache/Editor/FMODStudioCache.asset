@@ -18,6 +18,24 @@ MonoBehaviour:
   lastModified: 637717210150000000
   FileSizes: []
   Exists: 1
+--- !u!114 &-7577748083834578110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 637720669180000000
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-7415961368253643187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37,7 +55,7 @@ MonoBehaviour:
   FileSizes:
   - Name: 
     Value: 1382
-  Exists: 1
+  Exists: 0
 --- !u!114 &-7066058568542428866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,8 +125,8 @@ MonoBehaviour:
   Path: event:/card pickup 2
   guid: 30e4963485568148a36bea4fff1ed721
   Banks:
-  - {fileID: -3961190402566438485}
-  IsStream: 0
+  - {fileID: -7577748083834578110}
+  IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters: []
@@ -148,14 +166,35 @@ MonoBehaviour:
   Path: event:/card drop 2
   guid: 090123f9e2faff4a8117c44b5a197a73
   Banks:
-  - {fileID: -3961190402566438485}
-  IsStream: 0
+  - {fileID: -7577748083834578110}
+  IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
   Length: 169148
+--- !u!114 &-1215688878952829482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: C:/Users/Daniel/Desktop/ActualFMODPRoject/New Chard Move Folder/chard move
+    session/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 637720669180000000
+  FileSizes:
+  - Name: 
+    Value: 1835584
+  Exists: 0
 --- !u!114 &-352475426993830207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,8 +210,8 @@ MonoBehaviour:
   Path: event:/card drop
   guid: 770e26e3dcdea34d8669779bf06a014a
   Banks:
-  - {fileID: -3961190402566438485}
-  IsStream: 0
+  - {fileID: -7577748083834578110}
+  IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters: []
@@ -192,13 +231,8 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -7415961368253643187}
-  - {fileID: -1723904312749611579}
-  - {fileID: 2578511837100992922}
-  - {fileID: -7654089169892319225}
-  - {fileID: -7066058568542428866}
-  - {fileID: -3072250502214782967}
-  - {fileID: -3961190402566438485}
+  - {fileID: 1104598412360003695}
+  - {fileID: -7577748083834578110}
   EditorEvents:
   - {fileID: 7886092243565297706}
   - {fileID: -1259741532990803892}
@@ -210,10 +244,10 @@ MonoBehaviour:
   - {fileID: 317616615840395867}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -7066058568542428866}
+  - {fileID: -7577748083834578110}
   StringsBanks:
-  - {fileID: -7415961368253643187}
-  stringsBankWriteTime: 637717210150000000
+  - {fileID: 1104598412360003695}
+  stringsBankWriteTime: 637720669180000000
   cacheVersion: 8
 --- !u!114 &317616615840395867
 MonoBehaviour:
@@ -230,14 +264,55 @@ MonoBehaviour:
   Path: event:/select click
   guid: de310f9509be784aa0f227f1df18c489
   Banks:
-  - {fileID: -3961190402566438485}
-  IsStream: 0
+  - {fileID: -7577748083834578110}
+  IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
   Length: 169148
+--- !u!114 &663155691767610707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: C:/Users/Daniel/Desktop/ActualFMODPRoject/New Chard Move Folder/chard move
+    session/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 637720669180000000
+  FileSizes:
+  - Name: 
+    Value: 1156
+  Exists: 0
+--- !u!114 &1104598412360003695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 637720669180000000
+  FileSizes:
+  - Name: 
+    Value: 1156
+  Exists: 1
 --- !u!114 &1324078493650563624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,8 +328,8 @@ MonoBehaviour:
   Path: event:/move blocked
   guid: 89a6fd63db546a48afea66604b855416
   Banks:
-  - {fileID: -3961190402566438485}
-  IsStream: 0
+  - {fileID: -7577748083834578110}
+  IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters: []
@@ -294,8 +369,8 @@ MonoBehaviour:
   Path: event:/card pickup
   guid: 38e0e528d2b6b74bbad7cfdd6db220b9
   Banks:
-  - {fileID: -3961190402566438485}
-  IsStream: 0
+  - {fileID: -7577748083834578110}
+  IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters: []
@@ -317,8 +392,8 @@ MonoBehaviour:
   Path: event:/select click 2
   guid: 6a3af07087e5d7418dbc2367c536abed
   Banks:
-  - {fileID: -3961190402566438485}
-  IsStream: 0
+  - {fileID: -7577748083834578110}
+  IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters: []
@@ -340,8 +415,8 @@ MonoBehaviour:
   Path: event:/music
   guid: 7b5e0e9369997a4a93d1cccc48703e89
   Banks:
-  - {fileID: 2578511837100992922}
-  IsStream: 0
+  - {fileID: -7577748083834578110}
+  IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters: []

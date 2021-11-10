@@ -368,12 +368,7 @@ MonoBehaviour:
   Plugins: []
   MasterBanks:
   - Master
-  Banks:
-  - BGM
-  - BGM.assets
-  - Master.assets
-  - SFX
-  - SFX.assets
+  Banks: []
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
