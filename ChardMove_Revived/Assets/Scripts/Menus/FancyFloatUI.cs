@@ -25,7 +25,7 @@ namespace ChardMove.Assets.Scripts.NewFolder1
 
         void Update()
         {
-            _currentObj.position += new Vector3(0, _verticalSpeedMultiplier * _speed, 0f);
+            _currentObj.position += new Vector3(0, _verticalSpeedMultiplier *Time.deltaTime* _speed, 0f);
 
             UpdateMoveDirection();
         }

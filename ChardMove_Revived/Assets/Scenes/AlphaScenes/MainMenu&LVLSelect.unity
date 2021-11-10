@@ -944,6 +944,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 743744654024702490, guid: 33a1200d464191d40ad2f4942df31ce0, type: 3}
+      propertyPath: _botMovedEvent
+      value: event:/select click
+      objectReference: {fileID: 0}
+    - target: {fileID: 743744654024702490, guid: 33a1200d464191d40ad2f4942df31ce0, type: 3}
+      propertyPath: _playerWinEvent
+      value: event:/select click
+      objectReference: {fileID: 0}
+    - target: {fileID: 743744654024702490, guid: 33a1200d464191d40ad2f4942df31ce0, type: 3}
+      propertyPath: _roadBlockEvent
+      value: event:/select click
+      objectReference: {fileID: 0}
+    - target: {fileID: 743744654024702490, guid: 33a1200d464191d40ad2f4942df31ce0, type: 3}
+      propertyPath: _sliderChangedEvent
+      value: event:/select click
+      objectReference: {fileID: 0}
+    - target: {fileID: 743744654024702490, guid: 33a1200d464191d40ad2f4942df31ce0, type: 3}
+      propertyPath: _latchActivatedEvent
+      value: event:/select click
+      objectReference: {fileID: 0}
+    - target: {fileID: 743744654024702490, guid: 33a1200d464191d40ad2f4942df31ce0, type: 3}
+      propertyPath: _momentaryActivatedEvent
+      value: event:/select click
+      objectReference: {fileID: 0}
     - target: {fileID: 743744654024702491, guid: 33a1200d464191d40ad2f4942df31ce0, type: 3}
       propertyPath: m_Name
       value: SoundManager

@@ -19,6 +19,7 @@ namespace ChardMove
         [SerializeField] [EventRef] private string _momentaryActivatedEvent  = null;
         [SerializeField] [EventRef] private string _roadBlockEvent  = null;
         [SerializeField] [EventRef] private string _playerWinEvent  = null;
+        [SerializeField] [EventRef] private string _botMovedEvent  = null;
 
         private float _musicVolume = 0.5f;
         private float _sfxVolume = 0.5f;
@@ -44,6 +45,13 @@ namespace ChardMove
             ButtonEvent.onButtonPressed += OnButtonClick;
             ButtonEvent.onToggleChecked += OnMuteToggled;
             ButtonEvent.onButtonHovered += OnButtonHover;
+            BotGridMovement.botMoved += OnBotMoved;
+            //BOT DIED NOT BOT ABOUT TO DIE FOR SOUND
+            //ARROW DIRECTION CLICKED
+            //ADD DRAG AND DROP CARD EVENT
+            //LEVEL LOAD 
+            //RESET BUTTON (LEVEL LOAD)
+            //
             LatchSwitch.onLatchActivated += OnLatchSwitchActivated;
             MomentarySwitch.onMomentaryActivated += OnMomentarySwitchActivated;
             Roadblock.onRoadblockActivated += OnRoadblockActivated;
@@ -78,10 +86,30 @@ namespace ChardMove
         public void OnDestroy()
         {
             ButtonEvent.onButtonPressed -= OnButtonClick;
+            ButtonEvent.onToggleChecked -= OnMuteToggled;
+            ButtonEvent.onButtonHovered -= OnButtonHover;
+            BotGridMovement.botMoved -= OnBotMoved;
+            //BOT DIED NOT BOT ABOUT TO DIE FOR SOUND
+            //ARROW DIRECTION CLICKED
+            //ADD DRAG AND DROP CARD EVENT
+            //LEVEL LOAD 
+            //RESET BUTTON (LEVEL LOAD)
+            //
+            LatchSwitch.onLatchActivated -= OnLatchSwitchActivated;
+            MomentarySwitch.onMomentaryActivated -= OnMomentarySwitchActivated;
+            Roadblock.onRoadblockActivated -= OnRoadblockActivated;
+            PushableBlock.onPushableBlockMoved -= OnPushedBlock;
             WinTile.playerWin -= OnPlayerWin;
         }
 
         #region Events
+        private void OnBotMoved()
+        {
+            if(_botMovedEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_botMovedEvent);
+            }
+        }
         private void OnRoadblockActivated()
         {
             if(_roadBlockEvent != null)
