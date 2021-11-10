@@ -8,6 +8,8 @@ namespace ChardMove
 {
     public class MomentarySwitch : MonoBehaviour, SwitchBase
     {
+        public delegate void MomentaryActivated();
+        public static event MomentaryActivated onMomentaryActivated;
         public List<Roadblock> Gates; 
         public List<MovingTile> MovingPlatforms;
         private bool _isActive = false;
@@ -84,6 +86,7 @@ namespace ChardMove
         }
 
         private void Activate(){
+            onMomentaryActivated();
             ChangePoleSprite();
             if(Gates.Count != 0){
                 foreach (var gate in Gates)

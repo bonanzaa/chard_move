@@ -8,6 +8,8 @@ namespace ChardMove
 {
     public class LatchSwitch : MonoBehaviour, SwitchBase
     {
+        public delegate void LatchActivated();
+        public static event LatchActivated onLatchActivated;
         public List<Roadblock> Gates;
         public List<MovingTile> MovingPlatforms;
         [Header("Sprite/Pole management")]
@@ -50,6 +52,7 @@ namespace ChardMove
         }
 
         private void Activate(){
+            onLatchActivated();
             if(Gates.Count != 0){
                 foreach (var gate in Gates)
                 {

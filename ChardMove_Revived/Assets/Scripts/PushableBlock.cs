@@ -12,6 +12,8 @@ namespace ChardMove
         
         public delegate void CannotBePushed();
         public static event CannotBePushed cannotBePushed;
+        public delegate void PushableBlockMoved();
+        public static event PushableBlockMoved onPushableBlockMoved;
         private Vector2 _lastPosition;
         private Vector2 _lastPositionWorldSpace;
         private float _moveSpeed;
@@ -138,6 +140,7 @@ namespace ChardMove
         }
 
         public IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
+            onPushableBlockMoved();
             FindPushable(direction,_moveSpeed);
             _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
             yield return null;

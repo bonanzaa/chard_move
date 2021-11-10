@@ -8,6 +8,8 @@ namespace ChardMove
 {
     public class Roadblock : Tile
     {
+        public delegate void RoadblockActivated();
+        public static event RoadblockActivated onRoadblockActivated;
         [HideInInspector] public bool IsActive = false;
         public Animator AnimatorBase;
         public Animation SpikesDownAnimation;
@@ -41,6 +43,7 @@ namespace ChardMove
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
         }
         public void Activate(){
+            onRoadblockActivated();
             _lastTileType = TileType;
             _lastIsActive = IsActive;
             TileType = TileType.Walkable;
