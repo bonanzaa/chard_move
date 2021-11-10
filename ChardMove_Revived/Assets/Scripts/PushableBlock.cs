@@ -140,7 +140,8 @@ namespace ChardMove
         }
 
         public IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
-            onPushableBlockMoved();
+            if(onPushableBlockMoved != null)
+                onPushableBlockMoved();
             FindPushable(direction,_moveSpeed);
             _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
             yield return null;

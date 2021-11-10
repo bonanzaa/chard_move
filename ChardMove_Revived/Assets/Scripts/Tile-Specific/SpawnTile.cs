@@ -44,10 +44,10 @@ namespace ChardMove
         }
 
         private void OnResetButtonPressed(){
-            if(_bot != null){
-                Destroy(_bot);
-            }
-            StartCoroutine(AwakeTimer());
+            // if(_bot != null){
+            //     Destroy(_bot);
+            // }
+            // StartCoroutine(AwakeTimer());
         }
 
         private IEnumerator AwakeTimer(){

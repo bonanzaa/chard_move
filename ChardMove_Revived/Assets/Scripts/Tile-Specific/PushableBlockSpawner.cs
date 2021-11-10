@@ -29,7 +29,7 @@ namespace ChardMove
 
         private void OnResetButtonPressed()
         {
-            SpawnPushable();
+            //SpawnPushable();
         }
     }
 }

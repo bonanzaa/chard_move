@@ -86,7 +86,8 @@ namespace ChardMove
         }
 
         private void Activate(){
-            onMomentaryActivated();
+            if(onMomentaryActivated != null)
+                onMomentaryActivated();
             ChangePoleSprite();
             if(Gates.Count != 0){
                 foreach (var gate in Gates)

@@ -152,6 +152,7 @@ namespace ChardMove
             CheckPath();
             _ghost = Instantiate(GhostPrefab,_targetPosition,Quaternion.identity);
             _ghost.SetActive(false);
+            _ghost.transform.SetParent(this.gameObject.transform);
             ManageGhost();
             GameManager.Instance._ghosts.Add(_ghost);
         }
@@ -259,7 +260,7 @@ namespace ChardMove
             GameManager.onLevelUnload -= OnLevelUnload;
             GameManager.onLevelFullyLoaded -= OnLevelFullyLoaded;
 
-            Destroy(_ghost);
+            //Destroy(_ghost);
         }
 
         public void Deactivate(){

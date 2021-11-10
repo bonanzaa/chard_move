@@ -279,13 +279,6 @@ namespace ChardMove.gameManager
                     //StartCoroutine(InTileTween(item));
                 }
             }
-            if(_ghosts.Count != 0){
-                foreach (var item in _ghosts)
-                {
-                    _allEntitiesToLoad.Add(item.gameObject);
-                    //StartCoroutine(InGhostTween(item));
-                }
-            }
 
             //StartCoroutine(InRedButtonTween(RedButton));
 
@@ -312,12 +305,6 @@ namespace ChardMove.gameManager
                     continue;
                 }else{
                     StartCoroutine(InTileTween(item));
-                }
-            }
-            if(_ghosts.Count != 0){
-                foreach (var item in _ghosts)
-                {
-                    StartCoroutine(InGhostTween(item));
                 }
             }
 
@@ -358,13 +345,6 @@ namespace ChardMove.gameManager
                     //StartCoroutine(InTileTween(item));
                 }
             }
-            if(_ghosts.Count != 0){
-                foreach (var item in _ghosts)
-                {
-                    _allEntitiesToLoad.Add(item.gameObject);
-                    //StartCoroutine(InGhostTween(item));
-                }
-            }
 
             //StartCoroutine(InRedButtonTween(RedButton));
 
@@ -396,13 +376,6 @@ namespace ChardMove.gameManager
                     StartCoroutine(InTileTween(item));
                 }
             }
-            if(_ghosts.Count != 0){
-                foreach (var item in _ghosts)
-                {
-                    StartCoroutine(InGhostTween(item));
-                }
-            }
-
             StartCoroutine(InRedButtonTween(RedButton));
 
             foreach (var item in PushableDB.Values)
@@ -564,15 +537,6 @@ namespace ChardMove.gameManager
                     //StartCoroutine(InTileTween(item));
                 }
             }
-            if(_ghosts.Count != 0){
-                foreach (var item in _ghosts)
-                {
-                    _allEntitiesToLoad.Add(item.gameObject);
-                    //StartCoroutine(InGhostTween(item));
-                }
-            }
-
-            //StartCoroutine(InRedButtonTween(RedButton));
 
             foreach (var item in PushableDB.Values)
             {
@@ -588,7 +552,7 @@ namespace ChardMove.gameManager
                 _allEntitiesToLoad.Add(item.gameObject);
                 //StartCoroutine(InBotTween(item));
             }
-            yield return null;
+
             OrderListByFinalY();
 
             // iterate through the shit again, but now we are actually tweening the shit
@@ -600,12 +564,6 @@ namespace ChardMove.gameManager
                     continue;
                 }else{
                     StartCoroutine(InTileTween(item));
-                }
-            }
-            if(_ghosts.Count != 0){
-                foreach (var item in _ghosts)
-                {
-                    StartCoroutine(InGhostTween(item));
                 }
             }
 
@@ -662,6 +620,7 @@ namespace ChardMove.gameManager
                 }else{
                     Destroy(oldLevel);
                 }
+                AnimationInProgress = false;
 
             }
         }
@@ -708,6 +667,7 @@ namespace ChardMove.gameManager
 
         public void Reset(){
             if(_botMoving || AnimationInProgress) return;
+            AnimationInProgress = true;
             _allEntitiesToUnload.Clear();
             _allEntitiesToLoad.Clear();
             //DeletePlayerCards();

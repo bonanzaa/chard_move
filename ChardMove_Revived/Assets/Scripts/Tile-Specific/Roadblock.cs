@@ -43,7 +43,8 @@ namespace ChardMove
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
         }
         public void Activate(){
-            onRoadblockActivated();
+            if(onRoadblockActivated != null)
+                onRoadblockActivated();
             _lastTileType = TileType;
             _lastIsActive = IsActive;
             TileType = TileType.Walkable;

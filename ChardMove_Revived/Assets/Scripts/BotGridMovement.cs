@@ -113,10 +113,17 @@ namespace ChardMove.BotMovement
         }
 
         private IEnumerator BotMovedEventTimer(){
-            yield return new WaitForSeconds(0.08f);
+            yield return new WaitForSeconds(1.3f);
             
             botMoved();
             botMovedPos(transform.position);
+        }
+
+        private void Update() {
+            if(Input.GetKeyDown(KeyCode.A)){
+                print($"BotMoving: {GameManager.Instance._botMoving}");
+                print($"Animation in progress: {GameManager.Instance.AnimationInProgress}");
+            }
         }
 
         private void ChangeSprite(MovementDirection direction){
@@ -421,7 +428,7 @@ namespace ChardMove.BotMovement
         }
 
         private void OnResetButtonPressed(){
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
 
         private void OnCannotBePushed(){

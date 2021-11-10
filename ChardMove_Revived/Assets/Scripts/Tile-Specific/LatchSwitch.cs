@@ -52,7 +52,8 @@ namespace ChardMove
         }
 
         private void Activate(){
-            onLatchActivated();
+            if(onLatchActivated != null)
+                onLatchActivated();
             if(Gates.Count != 0){
                 foreach (var gate in Gates)
                 {
