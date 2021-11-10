@@ -14,9 +14,11 @@ namespace ChardMove
         [SerializeField] [EventRef] private string _pushableBoxEvent = null;
         [SerializeField] [EventRef] private string _cardPickedEvent = null;
         [SerializeField] [EventRef] private string _cardDroppedEvent = null;
+        [SerializeField] [EventRef] private string _sliderChangedEvent = null;
 
-        private float _musicVolume=0.5f;
+        private float _musicVolume = 0.5f;
         private float _sfxVolume = 0.5f;
+        private float _masterVolume = 1f;
 
         public static SoundManager Instance;
         
@@ -34,22 +36,32 @@ namespace ChardMove
             {
                 Destroy(gameObject);
             }
-            AssignBusses();
-            //ButtonEvent.onButtonPressed += OnButtonClick;
+            //AssignBusses();
+            ButtonEvent.onButtonPressed += OnButtonClick;
             ButtonEvent.onToggleChecked += OnMuteToggled;
             ButtonEvent.onButtonHovered += OnButtonHover;
             WinTile.playerWin += OnPlayerWin;
         }
-
+        private void Update()
+        {
+            ChangeVolume();
+        }
+        private void ChangeVolume()
+        {
+            Music.setVolume(_musicVolume);
+            SFX.setVolume(_sfxVolume);
+            Master.setVolume(_masterVolume);
+        }
         public void OnMuteToggled()
         {
             Master.setMute(true);
+            Debug.Log("Muting Master Bus");
         }
 
         public void AssignBusses()
         {
-            Music = RuntimeManager.GetBus("bus:/Master/-MUSIC");
-            SFX = RuntimeManager.GetBus("bus:/Master/-SFX");
+            Music = RuntimeManager.GetBus("bus:/Master/MUSIC");
+            SFX = RuntimeManager.GetBus("bus:/Master/SFX");
             Master = RuntimeManager.GetBus("bus:/");
 
         }
@@ -64,18 +76,34 @@ namespace ChardMove
         {
             // idk the triumpgh sound c:
         }
+        public void MasterVolumeLevel(float newMasterVolume)
+        {
+            _masterVolume = newMasterVolume;
+        }
+        public void MusicVolumeLevel(float newMusicVolume)
+        {
+            _masterVolume = newMusicVolume;
+        }
+        public void SFXVolumeLevel(float newSFXVolume)
+        {
+            _masterVolume = newSFXVolume;
+        }
         public void OnButtonClick()
         {
-            if(_clickEvent != null)
+            if (_clickEvent != null)
             {
+                
                 RuntimeManager.PlayOneShot(_clickEvent);
+                
             }
         }
         public void OnButtonHover() 
         {
             if(_hoverEvent != null)
             {
+                RuntimeManager.MuteAllEvents(true);
                 RuntimeManager.PlayOneShot(_hoverEvent);
+                RuntimeManager.MuteAllEvents(false);
             }
         }
         public void OnPushedBlock()

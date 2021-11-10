@@ -20,15 +20,15 @@ namespace ChardMove
         }
         public void OnButtonPressed()
         {
-            onButtonPressed();
+            onButtonPressed?.Invoke();
         }
         public void OnMuteToggled()
         {
-            onToggleChecked();
+            onToggleChecked?.Invoke();
         }
         public void OnButtonHovered()
         {
-            onButtonHovered();
+            onButtonHovered?.Invoke();
         }
     }
 }

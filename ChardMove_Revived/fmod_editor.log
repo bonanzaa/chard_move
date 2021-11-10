@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x8000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 000002693ED69498 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000001FEE814E2C8 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -18,5 +18,586 @@
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[WRN] OutputWASAPI::mixerThread                : Starvation detected in WASAPI output buffer!
-[WRN] OutputWASAPI::mixerThread                : Starvation detected in WASAPI output buffer!
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C30D408 : node = 000001FEF36DD710
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C30D408
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF36DD820
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C30D408
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C307738 : node = 000001FEF36DD850
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C307738
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF36DD960
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C307738
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C30BAB8 : node = 000001FEF36DCD10
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C30BAB8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF36DCE20
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click', format=5, channels=2, frequency=48000, lengthbytes=25088, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.064844.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C30BAB8
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C307A98 : node = 0000020130C24A90
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C307A98
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000020130C24BA0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C307A98
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C30B248 : node = 000001FEF17B3FD0
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C30B248
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF17B40E0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click', format=5, channels=2, frequency=48000, lengthbytes=25088, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.064844.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C30B248
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C3089C8 : node = 000001FEF36DC450
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C3089C8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF36DC560
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C3089C8
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C308B78 : node = 000001FEE6D9C530
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C308B78
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEE6D9C640
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C308B78
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C30BE18 : node = 000001FEE6D9E6F0
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C30BE18
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEE6D9E800
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C30BE18
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C311278 : node = 000001FEF36DD210
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C311278
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF36DD320
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C311278
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C30E338 : node = 0000020130C24D10
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C30E338
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000020130C24E20
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click', format=5, channels=2, frequency=48000, lengthbytes=25088, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.064844.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C30E338
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C311938 : node = 000001FEF17B4C50
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C311938
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF17B4D60
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C311938
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C3115D8 : node = 000001FEF17B3D50
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C3115D8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF17B3E60
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C3115D8
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C3104F8 : node = 000001FEE6D9C8F0
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C3104F8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEE6D9CA00
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C3104F8
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C30F418 : node = 0000020130C28910
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C30F418
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000020130C28A20
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click', format=5, channels=2, frequency=48000, lengthbytes=25088, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.064844.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C30F418
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C311C98 : node = 000001FEE6D9CB70
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C311C98
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSound                     :     filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEE6D9CC80
+[LOG] SystemI::createSound                     :     setdata soundi = 000002008C30E698 : node = 000001FEE6D9E0B0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C311C98
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C30E698
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEE6D9E1C0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C30E698
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C312A18 : node = 0000020130C27150
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C312A18
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSound                     :     filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000020130C27260
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSound                     :     setdata soundi = 000002008C312358 : node = 0000020130C27510
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C312A18
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C312358
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000020130C27620
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C312358
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C312D78 : node = 000001FEE6D9CDF0
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C312D78
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSound                     :     filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEE6D9CF00
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSound                     :     setdata soundi = 000002008C30FAD8 : node = 000001FEE6D9D1B0
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C312D78
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C30FAD8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEE6D9D2C0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C30FAD8
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C313948 : node = 0000020130C24E50
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C313948
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSound                     :     filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000020130C24F60
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSound                     :     setdata soundi = 000002008C313CA8 : node = 0000020130C26610
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C313948
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C313CA8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000020130C26720
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C313CA8
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C3166D8 : node = 0000020130C27F10
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C3166D8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSound                     :     filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000020130C28020
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSound                     :     setdata soundi = 000002008C316888 : node = 0000020130C28CD0
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C3166D8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C316888
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000020130C28DE0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C316888
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C315958 : node = 000001FEF17B4110
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C315958
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF17B4220
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSound                     :     filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     :     setdata soundi = 000002008C315CB8 : node = 0000020130C28050
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] SystemI::createSound                     :     filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     :     setdata soundi = 000002008C316018 : node = 0000020130C26750
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000201300A5FF8.  list count = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click', format=5, channels=2, frequency=48000, lengthbytes=25088, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.064844.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C315958
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C315CB8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000020130C28160
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C315CB8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C316018
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000020130C26860
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C316018
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C314BD8 : node = 000001FEF17B2F90
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C314BD8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSound                     :     filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF17B30A0
+[LOG] SystemI::createSound                     :     setdata soundi = 000002008C316A38 : node = 000001FEF17B4250
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C314BD8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C316A38
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF17B4360
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click 2', format=5, channels=2, frequency=48000, lengthbytes=24736, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.098943.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C316A38
+[LOG] SystemI::createSound                     : filename = Assets/Sounds/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002008C3073D8 : node = 000001FEF36DC590
+[LOG] SystemI::createSound                     : add node to async list : head = 00000201300A5FF8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002008C3073D8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sounds/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1826944
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 8640
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000001FEF36DC6A0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='- select click', format=5, channels=2, frequency=48000, lengthbytes=25088, lengthpcm=8119119, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.064844.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002008C3073D8
+[LOG] SoundI::release                          : - select click 2 (000002008C316A38)
+[LOG] SoundI::release                          :     - select click 2 (000002008AAA6C18)
+[LOG] SoundI::release                          :     - select click 2 (000002008C3150E8)
+[LOG] SoundI::release                          : - select click 2 (000002008C314BD8)
+[LOG] SoundI::release                          :     - select click 2 (000002008AAA63F8)
+[LOG] SoundI::release                          :     - select click 2 (000002008C314F38)
+[LOG] SoundI::release                          : - select click 2 (000002008C316018)
+[LOG] SoundI::release                          :     - select click 2 (000002008AAA6258)
+[LOG] SoundI::release                          :     - select click 2 (000002008C316378)
+[LOG] SoundI::release                          : - select click 2 (000002008C315CB8)
+[LOG] SoundI::release                          :     - select click 2 (000002008AAA5A38)
+[LOG] SoundI::release                          :     - select click 2 (000002008C3161C8)
+[LOG] SoundI::release                          : - select click 2 (000002008C316888)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F4EE8)
+[LOG] SoundI::release                          :     - select click 2 (000002008C3157A8)
+[LOG] SoundI::release                          : - select click 2 (000002008C3166D8)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F0288)
+[LOG] SoundI::release                          :     - select click 2 (000002008C314D88)
+[LOG] SoundI::release                          : - select click 2 (000002008C313CA8)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F0908)
+[LOG] SoundI::release                          :     - select click 2 (000002008C316BE8)
+[LOG] SoundI::release                          : - select click 2 (000002008C313948)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F6748)
+[LOG] SoundI::release                          :     - select click 2 (000002008C3155F8)
+[LOG] SoundI::release                          : - select click 2 (000002008C30FAD8)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F0AA8)
+[LOG] SoundI::release                          :     - select click 2 (000002008C313798)
+[LOG] SoundI::release                          : - select click 2 (000002008C312D78)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F46C8)
+[LOG] SoundI::release                          :     - select click 2 (000002008C314008)
+[LOG] SoundI::release                          : - select click 2 (000002008C312358)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F0DE8)
+[LOG] SoundI::release                          :     - select click 2 (000002008C312BC8)
+[LOG] SoundI::release                          : - select click 2 (000002008C312A18)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F6268)
+[LOG] SoundI::release                          :     - select click 2 (000002008C312508)
+[LOG] SoundI::release                          : - select click 2 (000002008C30E698)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F4D48)
+[LOG] SoundI::release                          :     - select click 2 (000002008C313E58)
+[LOG] SoundI::release                          : - select click 2 (000002008C311C98)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F4528)
+[LOG] SoundI::release                          :     - select click 2 (000002008C30E848)
+[LOG] SoundI::release                          : - select click 2 (000002008C3104F8)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F0768)
+[LOG] SoundI::release                          :     - select click 2 (000002008C3106A8)
+[LOG] SoundI::release                          : - select click 2 (000002008C3115D8)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F1128)
+[LOG] SoundI::release                          :     - select click 2 (000002008C3135E8)
+[LOG] SoundI::release                          : - select click 2 (000002008C311938)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F4A08)
+[LOG] SoundI::release                          :     - select click 2 (000002008C30DC78)
+[LOG] SoundI::release                          : - select click 2 (000002008C311278)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F4048)
+[LOG] SoundI::release                          :     - select click 2 (000002008C30F0B8)
+[LOG] SoundI::release                          : - select click 2 (000002008C30BE18)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F3B68)
+[LOG] SoundI::release                          :     - select click 2 (000002008C30D5B8)
+[LOG] SoundI::release                          : - select click 2 (000002008C308B78)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F17A8)
+[LOG] SoundI::release                          :     - select click 2 (000002008C30BC68)
+[LOG] SoundI::release                          : - select click 2 (000002008C3089C8)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F53C8)
+[LOG] SoundI::release                          :     - select click 2 (000002008C30B3F8)
+[LOG] SoundI::release                          : - select click 2 (000002008C307A98)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F1608)
+[LOG] SoundI::release                          :     - select click 2 (000002008C307C48)
+[LOG] SoundI::release                          : - select click 2 (000002008C307738)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F2308)
+[LOG] SoundI::release                          :     - select click 2 (000002008C30B098)
+[LOG] SoundI::release                          : - select click 2 (000002008C30D408)
+[LOG] SoundI::release                          :     - select click 2 (000001FEEC0F3688)
+[LOG] SoundI::release                          :     - select click 2 (000002008C30C4D8)
+[LOG] SoundI::release                          : PlatformGameSound.2 (000002008C30D768)
+[LOG] SoundI::release                          :     PlatformGameSound.2 (000001FEEC0F27E8)
+[LOG] SoundI::release                          :     PlatformGameSound.2 (000002008C30D918)
+[LOG] SoundI::release                          : - select click (000002008C3073D8)
+[LOG] SoundI::release                          :     - select click (000002008AAA60B8)
+[LOG] SoundI::release                          :     - select click (0000020130C68818)
+[LOG] SoundI::release                          : - select click (000002008C30F418)
+[LOG] SoundI::release                          :     - select click (000001FEEC0F4388)
+[LOG] SoundI::release                          :     - select click (000002008C311428)
+[LOG] SoundI::release                          : - select click (000002008C30B248)
+[LOG] SoundI::release                          :     - select click (000001FEEC0F5228)
+[LOG] SoundI::release                          :     - select click (000002008C307FA8)
+[LOG] SoundI::release                          : - select click (000002008C30BAB8)
+[LOG] SoundI::release                          :     - select click (000001FEEC0F2988)
+[LOG] SoundI::release                          :     - select click (000002008C30AB88)
+[LOG] SoundI::release                          : - select click (000002008C30E338)
+[LOG] SoundI::release                          :     - select click (000001FEEC0F41E8)
+[LOG] SoundI::release                          :     - select click (000002008C313288)
+[LOG] SoundI::release                          : - select click (000002008C315958)
+[LOG] SoundI::release                          :     - select click (000001FEEC0F0428)
+[LOG] SoundI::release                          :     - select click (000002008C314A28)
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] SystemI::close                           : Closed.

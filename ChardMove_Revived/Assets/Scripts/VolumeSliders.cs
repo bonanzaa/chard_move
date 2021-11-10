@@ -8,13 +8,17 @@ namespace ChardMove
     {
         private SoundManager _soundManager;
 
-        //public int SFXSliderValueChanged()
-        //{
-            
-        //}
-        //public int BGMSliderValueChanged()
-        //{
-
-        //}
+        private void Awake()
+        {
+            _soundManager = SoundManager.Instance;
+        }
+        public void SFXSlider(float sfxVolume)
+        {
+            _soundManager.SFXVolumeLevel(sfxVolume);
+        }
+        public void MusicSlider(float musicVolume)
+        {
+            _soundManager.MusicVolumeLevel(musicVolume);
+        }
     }
 }
