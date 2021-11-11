@@ -1377,6 +1377,10 @@ PrefabInstance:
       propertyPath: OverrideMinDistance
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 117381914, guid: 33a1200d464191d40ad2f4942df31ce0, type: 3}
+      propertyPath: _arrowClickedEvent
+      value: event:/ArrowClick
+      objectReference: {fileID: 0}
     - target: {fileID: 743744654024702488, guid: 33a1200d464191d40ad2f4942df31ce0, type: 3}
       propertyPath: m_RootOrder
       value: 6
