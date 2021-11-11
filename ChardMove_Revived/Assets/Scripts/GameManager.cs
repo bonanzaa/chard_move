@@ -16,7 +16,8 @@ namespace ChardMove.gameManager
 
         public delegate void NewLevelLoaded();
         public static event NewLevelLoaded onNewLevelLoaded;
-
+        public delegate void BotLanded();
+        public static event BotLanded onBotLanded;
         public delegate void UndoButtonPressed();
         public static event UndoButtonPressed undoButtonPressed;
         public delegate void LevelUnload();
@@ -479,6 +480,7 @@ namespace ChardMove.gameManager
             float randSpeed = Random.Range(BotSpeedMin,BotSpeedMax);
             yield return new WaitForSeconds(DelayBeforeBots);       
             bot.transform.DOMoveY(endPosition.y,randSpeed,false).SetEase(Ease.InQuart).OnComplete(OnLevelFullyLoaded);
+            bot.transform.DOMoveX(bot.transform.position.x,randSpeed,false).OnComplete(OnBotLanded);
         }
 
         private IEnumerator InBlockTween(GameObject pushable){
@@ -513,7 +515,8 @@ namespace ChardMove.gameManager
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(LoadLevelWithAnimation(level));
             yield return new WaitForEndOfFrame();
-            onNewLevelLoaded();
+            if(onNewLevelLoaded != null)
+                onNewLevelLoaded();
         }
 
         private IEnumerator ResetUnloadLevel(GameObject level){
@@ -707,11 +710,16 @@ namespace ChardMove.gameManager
             _allEntitiesToUnload.Clear();
             _allEntitiesToLoad.Clear();
             //DeletePlayerCards();
-            //resetButtonPressed();
+            resetButtonPressed();
             StartCoroutine(TweenPlayerCards());
             CacheTilesInTheScene();
             StartCoroutine(ResetDictClearTimer());
             //ResetPlayerCards();
+        }
+
+        private void OnBotLanded(){
+            if(onBotLanded != null)
+                onBotLanded();
         }
 
         private IEnumerator TweenPlayerCards(){

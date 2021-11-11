@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseCurrentCameraPosition: 0
-  CameraPosition: {x: -3.13, y: -3.7, z: -10}
+  CameraPosition: {x: -0.9, y: -4.11, z: -10}
 --- !u!1 &9095414905238472526
 GameObject:
   m_ObjectHideFlags: 0

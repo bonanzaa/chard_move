@@ -14,6 +14,8 @@ namespace ChardMove
         public static event CannotBePushed cannotBePushed;
         public delegate void PushableBlockMoved();
         public static event PushableBlockMoved onPushableBlockMoved;
+        public delegate void PushableBlockLocked();
+        public static event PushableBlockLocked onPushableBlockLocked;
         private Vector2 _lastPosition;
         private Vector2 _lastPositionWorldSpace;
         private float _moveSpeed;
@@ -197,6 +199,8 @@ namespace ChardMove
 
                 yield return null;
             }
+            if(onPushableBlockMoved != null)
+                onPushableBlockMoved();
             GameManager.Instance._botMoving = false;
         }
 

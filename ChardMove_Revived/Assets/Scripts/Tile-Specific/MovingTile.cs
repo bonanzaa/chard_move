@@ -191,7 +191,7 @@ namespace ChardMove
             Direction = _originalDirection;
             Active = _originalIsActive;
             // choose a new target
-            StartCoroutine(DelayBeforeCheckPath());
+            //StartCoroutine(DelayBeforeCheckPath());
         }
 
         private IEnumerator DelayBeforeCheckPath(){
@@ -228,6 +228,7 @@ namespace ChardMove
         public void Activate(){
             Active = true;
             ChangeSprite(Direction);
+            StartCoroutine(Move());
         }
 
         private void OnDisable()

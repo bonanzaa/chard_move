@@ -23,6 +23,8 @@ namespace ChardMove.BotMovement
 
         public delegate void BotStartedMoving(MovementDirection direction1, int steps);
         public static event BotStartedMoving botStartedMoving;
+        public delegate void BotMovedATile();
+        public static event BotMovedATile onBotMovedATile;
         public delegate void BotStartedMovingPos(Vector2 pos);
         public static event BotStartedMovingPos botStartedMovingPos;
         public delegate void BotCannotBePushed();
@@ -205,6 +207,8 @@ namespace ChardMove.BotMovement
                         }
                         yield return new WaitForSeconds(speedBetweenSteps);
                         speedBetweenSteps -= 0.15f;
+                        if(onBotMovedATile != null)
+                            onBotMovedATile();
                         break;
                     }
                     yield return null;
