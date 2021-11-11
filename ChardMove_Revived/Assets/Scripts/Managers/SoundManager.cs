@@ -20,6 +20,8 @@ namespace ChardMove
         [SerializeField] [EventRef] private string _roadBlockEvent  = null;
         [SerializeField] [EventRef] private string _playerWinEvent  = null;
         [SerializeField] [EventRef] private string _botMovedEvent  = null;
+        [SerializeField] [EventRef] private string _botDeathEvent  = null;
+        [SerializeField] [EventRef] private string _loadLevel  = null;
 
         private float _musicVolume = 0.5f;
         private float _sfxVolume = 0.5f;
@@ -41,17 +43,22 @@ namespace ChardMove
             {
                 Destroy(gameObject);
             }
-            //AssignBusses();
+            AssignBusses();
             ButtonEvent.onButtonPressed += OnButtonClick;
             ButtonEvent.onToggleChecked += OnMuteToggled;
             ButtonEvent.onButtonHovered += OnButtonHover;
             BotGridMovement.botMoved += OnBotMoved;
             //BOT DIED NOT BOT ABOUT TO DIE FOR SOUND
+            BotGridMovement.botAboutToDie += OnBotDeath;
             //ARROW DIRECTION CLICKED
-            //ADD DRAG AND DROP CARD EVENT
-            //LEVEL LOAD 
+            //CARD DRAG AND DROP CARD EVENT
+            //LEVEL LOAD
+            GameManager.onNewLevelLoaded += OnNewLevelLoaded;
+            //PUSHABLE BLOCK BECOME A WALKABLE TILE (FALLS)
             //RESET BUTTON (LEVEL LOAD)
-            //
+            GameManager.resetButtonPressed += OnResetButtonPressed;
+            //BOT LANDS ON TILE AFTER RAIN ANIMATION
+            //BOT MOVE 
             LatchSwitch.onLatchActivated += OnLatchSwitchActivated;
             MomentarySwitch.onMomentaryActivated += OnMomentarySwitchActivated;
             Roadblock.onRoadblockActivated += OnRoadblockActivated;
@@ -78,9 +85,9 @@ namespace ChardMove
 
         public void AssignBusses()
         {
-            Music = RuntimeManager.GetBus("bus:/Master/MUSIC");
-            SFX = RuntimeManager.GetBus("bus:/Master/SFX");
             Master = RuntimeManager.GetBus("bus:/");
+            Music = RuntimeManager.GetBus("bus:/-MUSIC");
+            SFX = RuntimeManager.GetBus("bus:/-SFX");
 
         }
         public void OnDestroy()
@@ -90,11 +97,16 @@ namespace ChardMove
             ButtonEvent.onButtonHovered -= OnButtonHover;
             BotGridMovement.botMoved -= OnBotMoved;
             //BOT DIED NOT BOT ABOUT TO DIE FOR SOUND
+            BotGridMovement.botAboutToDie -= OnBotDeath;
             //ARROW DIRECTION CLICKED
-            //ADD DRAG AND DROP CARD EVENT
-            //LEVEL LOAD 
+            //CARD DRAG AND DROP CARD EVENT
+            //LEVEL LOAD
+            GameManager.onNewLevelLoaded -= OnNewLevelLoaded;
+            //PUSHABLE BLOCK BECOME A WALKABLE TILE (FALLS)
             //RESET BUTTON (LEVEL LOAD)
-            //
+            GameManager.resetButtonPressed -= OnResetButtonPressed;
+            //BOT LANDS ON TILE AFTER RAIN ANIMATION
+            //BOT MOVE 
             LatchSwitch.onLatchActivated -= OnLatchSwitchActivated;
             MomentarySwitch.onMomentaryActivated -= OnMomentarySwitchActivated;
             Roadblock.onRoadblockActivated -= OnRoadblockActivated;
@@ -103,6 +115,29 @@ namespace ChardMove
         }
 
         #region Events
+        private void OnNewLevelLoaded()
+        {
+            if(_loadLevel != null)
+            {
+                RuntimeManager.PlayOneShot(_loadLevel);
+            }
+        }
+
+        private void OnResetButtonPressed()
+        {
+            if(_loadLevel != null)
+            {
+                RuntimeManager.PlayOneShot(_loadLevel);
+            }
+        }
+
+        private void OnBotDeath(GameObject theBot)
+        {
+            if (_botDeathEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_botDeathEvent);
+            }
+        }
         private void OnBotMoved()
         {
             if(_botMovedEvent != null)
@@ -134,7 +169,10 @@ namespace ChardMove
         }
         private void OnPlayerWin()
         {
-            // idk the triumpgh sound c:
+            if(_playerWinEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_playerWinEvent);
+            }
         }
         public void MasterVolumeLevel(float newMasterVolume)
         {
