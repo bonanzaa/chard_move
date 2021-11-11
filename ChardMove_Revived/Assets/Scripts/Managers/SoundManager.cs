@@ -1,6 +1,7 @@
 using ChardMove.BotMovement;
 using ChardMove.gameManager;
 using FMODUnity;
+using System;
 using UnityEngine;
 
 namespace ChardMove
@@ -8,6 +9,7 @@ namespace ChardMove
     public class SoundManager : MonoBehaviour
     {
         [SerializeField] [EventRef] private string _clickEvent = null;
+        [SerializeField] [EventRef] private string _arrowClickedEvent = null;
         [SerializeField] [EventRef] private string _hoverEvent = null;
         [SerializeField] [EventRef] private string _pushableBoxEvent = null;
         [SerializeField] [EventRef] private string _cardPickedEvent = null;
@@ -48,6 +50,7 @@ namespace ChardMove
             BotGridMovement.botMoved += OnBotMoved;
             //BOT DIED NOT BOT ABOUT TO DIE FOR SOUND
             BotGridMovement.botAboutToDie += OnBotDeath;
+            DirectionalButtonClick.onButtonPressed += OnDirectionalButtonClick;
             //ARROW DIRECTION CLICKED
             //CARD DRAG AND DROP CARD EVENT
             //LEVEL LOAD
@@ -96,6 +99,7 @@ namespace ChardMove
             BotGridMovement.botMoved -= OnBotMoved;
             //BOT DIED NOT BOT ABOUT TO DIE FOR SOUND
             BotGridMovement.botAboutToDie -= OnBotDeath;
+            DirectionalButtonClick.onButtonPressed -= OnDirectionalButtonClick;
             //ARROW DIRECTION CLICKED
             //CARD DRAG AND DROP CARD EVENT
             //LEVEL LOAD
@@ -112,6 +116,28 @@ namespace ChardMove
             WinTile.playerWin -= OnPlayerWin;
         }
 
+        private void OnDirectionalButtonClick(bool pressed)
+        {
+            if (_arrowClickedEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_arrowClickedEvent);
+            }
+        }
+        #region VolumeHandler
+        public void MasterVolumeLevel(float newMasterVolume)
+        {
+            _masterVolume = newMasterVolume;
+        }
+        public void MusicVolumeLevel(float newMusicVolume)
+        {
+            _masterVolume = newMusicVolume;
+        }
+        public void SFXVolumeLevel(float newSFXVolume)
+        {
+            _masterVolume = newSFXVolume;
+        }
+        #endregion
+
         #region Events
         private void OnNewLevelLoaded()
         {
@@ -120,7 +146,6 @@ namespace ChardMove
                 RuntimeManager.PlayOneShot(_loadLevel);
             }
         }
-
         private void OnResetButtonPressed()
         {
             if (_loadLevel != null)
@@ -171,18 +196,6 @@ namespace ChardMove
             {
                 RuntimeManager.PlayOneShot(_playerWinEvent);
             }
-        }
-        public void MasterVolumeLevel(float newMasterVolume)
-        {
-            _masterVolume = newMasterVolume;
-        }
-        public void MusicVolumeLevel(float newMusicVolume)
-        {
-            _masterVolume = newMusicVolume;
-        }
-        public void SFXVolumeLevel(float newSFXVolume)
-        {
-            _masterVolume = newSFXVolume;
         }
         public void OnButtonClick()
         {

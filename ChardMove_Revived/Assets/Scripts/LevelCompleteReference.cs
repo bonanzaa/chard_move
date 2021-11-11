@@ -26,6 +26,10 @@ namespace ChardMove
                 _levelLoader.CacheLevelCompleteReference(this);
             }
         }
+        private void Update()
+        {
+            Debug.Log(Time.timeScale);
+        }
         public void OpenWinScreen()
         {
             if(_winParticleSystem != null)
@@ -38,14 +42,22 @@ namespace ChardMove
         }
         public void MainMenuButtonPressed()
         {
-            SceneLoader.Instance.GoToMainMenu();
             Time.timeScale = 1;
+            SceneLoader.Instance.GoToMainMenu();
         }
         public void NextLevelButtonPressed()
         {
             _winScreenUI.SetActive(false);
             Time.timeScale = 1;
             nextLevel();
+        }
+        public void GameMenuPressed()
+        {
+            Time.timeScale = 0;
+        }
+        public void GameMenuClosed()
+        {
+            Time.timeScale = 1;
         }
         private IEnumerator Countdown()
         {
