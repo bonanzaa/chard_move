@@ -84,8 +84,8 @@ namespace ChardMove
         public void AssignBusses()
         {
             Master = RuntimeManager.GetBus("bus:/");
-            Music = RuntimeManager.GetBus("bus:/-MUSIC");
-            SFX = RuntimeManager.GetBus("bus:/-SFX");
+            Music = RuntimeManager.GetBus("bus:/BGM");
+            SFX = RuntimeManager.GetBus("bus:/SFX");
 
         }
         public void OnDestroy()

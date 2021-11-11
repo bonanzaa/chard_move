@@ -61,7 +61,7 @@ MonoBehaviour:
   LevelName: Poll Position
   LevelPic: {fileID: 21300000, guid: bfda3341a9a9a2549b87a2bd0ce0d5f9, type: 3}
   OneTileCardCount: 0
-  TwoTileCardCount: 3
+  TwoTileCardCount: 5
   ThreeTileCardCount: 0
   FourTileCardCount: 0
 --- !u!114 &1082439366333118036
@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f307642ae17d42a01bc37b1e415af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseCurrentCameraPosition: 0
   CameraPosition: {x: -3.13, y: -3.7, z: -10}
 --- !u!1 &9095414905238472526
 GameObject:
