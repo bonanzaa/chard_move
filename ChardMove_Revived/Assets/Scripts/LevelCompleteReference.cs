@@ -26,10 +26,7 @@ namespace ChardMove
                 _levelLoader.CacheLevelCompleteReference(this);
             }
         }
-        private void Update()
-        {
-            Debug.Log(Time.timeScale);
-        }
+
         public void OpenWinScreen()
         {
             if(_winParticleSystem != null)

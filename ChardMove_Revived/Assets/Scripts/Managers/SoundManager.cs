@@ -21,6 +21,7 @@ namespace ChardMove
         [SerializeField] [EventRef] private string _playerWinEvent = null;
         [SerializeField] [EventRef] private string _botMovedEvent = null;
         [SerializeField] [EventRef] private string _botDeathEvent = null;
+        [SerializeField] [EventRef] private string _botLandedEvent = null;
         [SerializeField] [EventRef] private string _loadLevel = null;
 
         private float _musicVolume = 0.5f;
@@ -47,10 +48,12 @@ namespace ChardMove
             ButtonEvent.onButtonPressed += OnButtonClick;
             ButtonEvent.onToggleChecked += OnMuteToggled;
             ButtonEvent.onButtonHovered += OnButtonHover;
-            BotGridMovement.botMoved += OnBotMoved;
+            BotGridMovement.onBotMovedATile += OnBotMoved;
             //BOT DIED NOT BOT ABOUT TO DIE FOR SOUND
             BotGridMovement.botAboutToDie += OnBotDeath;
             DirectionalButtonClick.onButtonPressed += OnDirectionalButtonClick;
+            Draggable.onBeginDrag += onCardDrag;
+            DropZone.directionChoiceActive += OnCardDropped;
             //ARROW DIRECTION CLICKED
             //CARD DRAG AND DROP CARD EVENT
             //LEVEL LOAD
@@ -59,6 +62,7 @@ namespace ChardMove
             //RESET BUTTON (LEVEL LOAD)
             GameManager.resetButtonPressed += OnResetButtonPressed;
             //BOT LANDS ON TILE AFTER RAIN ANIMATION
+            GameManager.onBotLanded += OnbotLanded;
             //BOT MOVE 
             LatchSwitch.onLatchActivated += OnLatchSwitchActivated;
             MomentarySwitch.onMomentaryActivated += OnMomentarySwitchActivated;
@@ -96,24 +100,40 @@ namespace ChardMove
             ButtonEvent.onButtonPressed -= OnButtonClick;
             ButtonEvent.onToggleChecked -= OnMuteToggled;
             ButtonEvent.onButtonHovered -= OnButtonHover;
-            BotGridMovement.botMoved -= OnBotMoved;
-            //BOT DIED NOT BOT ABOUT TO DIE FOR SOUND
+            BotGridMovement.onBotMovedATile -= OnBotMoved;
             BotGridMovement.botAboutToDie -= OnBotDeath;
             DirectionalButtonClick.onButtonPressed -= OnDirectionalButtonClick;
-            //ARROW DIRECTION CLICKED
-            //CARD DRAG AND DROP CARD EVENT
+            Draggable.onBeginDrag -= onCardDrag;
+            DropZone.directionChoiceActive -= OnCardDropped;
             //LEVEL LOAD
             GameManager.onNewLevelLoaded -= OnNewLevelLoaded;
             //PUSHABLE BLOCK BECOME A WALKABLE TILE (FALLS)
             //RESET BUTTON (LEVEL LOAD)
             GameManager.resetButtonPressed -= OnResetButtonPressed;
             //BOT LANDS ON TILE AFTER RAIN ANIMATION
+            GameManager.onBotLanded -= OnbotLanded;
             //BOT MOVE 
             LatchSwitch.onLatchActivated -= OnLatchSwitchActivated;
             MomentarySwitch.onMomentaryActivated -= OnMomentarySwitchActivated;
             Roadblock.onRoadblockActivated -= OnRoadblockActivated;
             PushableBlock.onPushableBlockMoved -= OnPushedBlock;
             WinTile.playerWin -= OnPlayerWin;
+        }
+
+        private void OnbotLanded()
+        {
+            if(_botLandedEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_botLandedEvent);
+            }
+        }
+
+        private void onCardDrag(int distance)
+        {
+            if(_cardPickedEvent!= null)
+            {
+                RuntimeManager.PlayOneShot(_cardPickedEvent);
+            }
         }
 
         private void OnDirectionalButtonClick(bool pressed)
