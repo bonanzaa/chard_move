@@ -9,8 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 743744654024702488}
-  - component: {fileID: 743744654024702490}
-  - component: {fileID: 743744654024702489}
+  - component: {fileID: 2554098168915921852}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -32,24 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &743744654024702490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743744654024702491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae7c1e230ea68e246acf936c1dee687b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clickEvent: event:/select click
-  _hoverEvent: event:/select click 2
-  _pushableBoxEvent: event:/move blocked
-  _cardPickedEvent: event:/card pickup
-  _cardDroppedEvent: event:/card drop
---- !u!114 &743744654024702489
+--- !u!114 &2554098168915921852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,13 +44,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: 
-  Event: event:/music
-  PlayEvent: 1
-  StopEvent: 2
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: 0
-  OverrideMaxDistance: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1

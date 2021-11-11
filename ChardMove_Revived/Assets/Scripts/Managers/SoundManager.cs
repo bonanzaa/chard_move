@@ -1,8 +1,6 @@
 using ChardMove.BotMovement;
 using ChardMove.gameManager;
 using FMODUnity;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ChardMove
@@ -15,20 +13,20 @@ namespace ChardMove
         [SerializeField] [EventRef] private string _cardPickedEvent = null;
         [SerializeField] [EventRef] private string _cardDroppedEvent = null;
         [SerializeField] [EventRef] private string _sliderChangedEvent = null;
-        [SerializeField] [EventRef] private string _latchActivatedEvent  = null;
-        [SerializeField] [EventRef] private string _momentaryActivatedEvent  = null;
-        [SerializeField] [EventRef] private string _roadBlockEvent  = null;
-        [SerializeField] [EventRef] private string _playerWinEvent  = null;
-        [SerializeField] [EventRef] private string _botMovedEvent  = null;
-        [SerializeField] [EventRef] private string _botDeathEvent  = null;
-        [SerializeField] [EventRef] private string _loadLevel  = null;
+        [SerializeField] [EventRef] private string _latchActivatedEvent = null;
+        [SerializeField] [EventRef] private string _momentaryActivatedEvent = null;
+        [SerializeField] [EventRef] private string _roadBlockEvent = null;
+        [SerializeField] [EventRef] private string _playerWinEvent = null;
+        [SerializeField] [EventRef] private string _botMovedEvent = null;
+        [SerializeField] [EventRef] private string _botDeathEvent = null;
+        [SerializeField] [EventRef] private string _loadLevel = null;
 
         private float _musicVolume = 0.5f;
         private float _sfxVolume = 0.5f;
         private float _masterVolume = 1f;
 
         public static SoundManager Instance;
-        
+
         FMOD.Studio.Bus Music;
         FMOD.Studio.Bus SFX;
         FMOD.Studio.Bus Master;
@@ -117,7 +115,7 @@ namespace ChardMove
         #region Events
         private void OnNewLevelLoaded()
         {
-            if(_loadLevel != null)
+            if (_loadLevel != null)
             {
                 RuntimeManager.PlayOneShot(_loadLevel);
             }
@@ -125,7 +123,7 @@ namespace ChardMove
 
         private void OnResetButtonPressed()
         {
-            if(_loadLevel != null)
+            if (_loadLevel != null)
             {
                 RuntimeManager.PlayOneShot(_loadLevel);
             }
@@ -140,21 +138,21 @@ namespace ChardMove
         }
         private void OnBotMoved()
         {
-            if(_botMovedEvent != null)
+            if (_botMovedEvent != null)
             {
                 RuntimeManager.PlayOneShot(_botMovedEvent);
             }
         }
         private void OnRoadblockActivated()
         {
-            if(_roadBlockEvent != null)
+            if (_roadBlockEvent != null)
             {
                 RuntimeManager.PlayOneShot(_roadBlockEvent);
             }
         }
         private void OnMomentarySwitchActivated()
         {
-            if(_momentaryActivatedEvent != null)
+            if (_momentaryActivatedEvent != null)
             {
                 RuntimeManager.PlayOneShot(_momentaryActivatedEvent);
             }
@@ -162,14 +160,14 @@ namespace ChardMove
 
         private void OnLatchSwitchActivated()
         {
-            if(_latchActivatedEvent != null)
+            if (_latchActivatedEvent != null)
             {
                 RuntimeManager.PlayOneShot(_latchActivatedEvent);
             }
         }
         private void OnPlayerWin()
         {
-            if(_playerWinEvent != null)
+            if (_playerWinEvent != null)
             {
                 RuntimeManager.PlayOneShot(_playerWinEvent);
             }
@@ -190,14 +188,14 @@ namespace ChardMove
         {
             if (_clickEvent != null)
             {
-                
+
                 RuntimeManager.PlayOneShot(_clickEvent);
-                
+
             }
         }
-        public void OnButtonHover() 
+        public void OnButtonHover()
         {
-            if(_hoverEvent != null)
+            if (_hoverEvent != null)
             {
                 RuntimeManager.MuteAllEvents(true);
                 RuntimeManager.PlayOneShot(_hoverEvent);
@@ -206,7 +204,7 @@ namespace ChardMove
         }
         public void OnPushedBlock()
         {
-            if (_pushableBoxEvent!= null)
+            if (_pushableBoxEvent != null)
             {
                 RuntimeManager.PlayOneShot(_pushableBoxEvent);
             }
