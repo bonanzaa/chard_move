@@ -120,6 +120,7 @@ namespace ChardMove
         }
         public void MusicVolumeLevel(float newMusicVolume)
         {
+            Debug.Log(_musicVolume);
             _musicVolume = newMusicVolume;
         }
         public void SFXVolumeLevel(float newSFXVolume)
