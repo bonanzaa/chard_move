@@ -9,6 +9,7 @@ TagManager:
   - CardSpace
   - Level
   - PushableBlock
+  - cardCount
   layers:
   - Default
   - TransparentFX

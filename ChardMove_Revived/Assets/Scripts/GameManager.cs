@@ -240,8 +240,10 @@ namespace ChardMove.gameManager
 
             if(_lastLevel != null){
                 ResetPlayerCards();
+                StartCoroutine(TweenPlayerCards());
                 StartCoroutine(UnloadLevelWithAnimation(level));
             }else{
+                StartCoroutine(TweenPlayerCards());
                 LoadNewLevelDebug(level);
             }
 
@@ -266,17 +268,20 @@ namespace ChardMove.gameManager
             _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
             Level = _currentLevel;
             _lastLevel = _currentLevel;
-            CardStacker.Instance.LoadCards();
+            //CardStacker.Instance.LoadCards();
 
             
             
             foreach (var item in TileDB.Values)
             {
-                _allEntitiesToLoad.Add(item.gameObject);
-                if(item.gameObject.GetComponent<WinTile>()){
-                    continue;
-                }else{
-                    //StartCoroutine(InTileTween(item));
+                if(item != null){
+                    _allEntitiesToLoad.Add(item.gameObject);
+                    if(item.gameObject.GetComponent<WinTile>()){
+                        continue;
+                    }else{
+                        //StartCoroutine(InTileTween(item));
+                    }
+
                 }
             }
 
@@ -284,23 +289,30 @@ namespace ChardMove.gameManager
 
             foreach (var item in PushableDB.Values)
             {
-                if(item.Item2.GetComponent<BotGridMovement>()){
-                    continue;
-                }else{
-                    _allEntitiesToLoad.Add(item.Item2);
-                    //StartCoroutine(InBlockTween(item.Item2));
+                if(item.Item2 != null){
+                    if(item.Item2.GetComponent<BotGridMovement>()){
+                        continue;
+                    }else{
+                        _allEntitiesToLoad.Add(item.Item2);
+                        //StartCoroutine(InBlockTween(item.Item2));
+                    }
+
                 }
             }
             foreach (var item in BotDB.Values)
             {
-                _allEntitiesToLoad.Add(item.gameObject);
-                //StartCoroutine(InBotTween(item));
+                if(item != null){
+                    _allEntitiesToLoad.Add(item.gameObject);
+                    //StartCoroutine(InBotTween(item));
+
+                }
             }
 
             OrderListByFinalY();
 
             foreach (var item in TileDB.Values)
             {
+                if(item == null) continue;
                 if(item.gameObject.GetComponent<WinTile>()){
                     continue;
                 }else{
@@ -312,6 +324,7 @@ namespace ChardMove.gameManager
 
             foreach (var item in PushableDB.Values)
             {
+                if(item.Item2 == null) continue;
                 if(item.Item2.GetComponent<BotGridMovement>()){
                     continue;
                 }else{
@@ -320,6 +333,7 @@ namespace ChardMove.gameManager
             }
             foreach (var item in BotDB.Values)
             {
+                if(item == null) continue;
                 StartCoroutine(InBotTween(item));
             }
             yield return null;
@@ -405,17 +419,26 @@ namespace ChardMove.gameManager
             yield return null;
             foreach (var item in TileDB.Values)
             {
-                _allEntitiesToUnload.Add(item.gameObject);
+                if(item != null){
+                    _allEntitiesToUnload.Add(item.gameObject);
+
+                }
             }
 
             foreach (var item in PushableDB.Values)
             {
-                _allEntitiesToUnload.Add(item.Item2.gameObject);
+                if(item.Item2 != null){
+                    _allEntitiesToUnload.Add(item.Item2.gameObject);
+
+                }
             }
 
             foreach (var item in BotDB.Values)
             {
-                _allEntitiesToUnload.Add(item.gameObject);
+                if(item != null){
+                    _allEntitiesToUnload.Add(item.gameObject);
+
+                }
             }
             yield return null;
 
@@ -426,6 +449,7 @@ namespace ChardMove.gameManager
                 onLevelUnload();
             foreach (var item in _allEntitiesToUnload)
             {
+                if(item == null) continue;
                 StartCoroutine(OutTween(item));
                 yield return new WaitForSeconds(0.01f);
             }
@@ -525,7 +549,7 @@ namespace ChardMove.gameManager
             //instantiate level here
             _currentLevel = level;
             Level = _currentLevel;
-            CardStacker.Instance.LoadCards();
+            //CardStacker.Instance.LoadCards();
 
             
             foreach (var item in TileDB.Values)
@@ -595,6 +619,12 @@ namespace ChardMove.gameManager
             }
         }
 
+        private void Update() {
+            if(Input.GetKeyDown(KeyCode.A)){
+                print($"Bot moving: {_botMoving}. Animation in progress: {AnimationInProgress}");
+            }
+        }
+
         private void OnLevelFullyLoaded(){
             _k++;
             if(_k == _allEntitiesToLoad.Count){
@@ -647,17 +677,23 @@ namespace ChardMove.gameManager
             _lastLevel.transform.SetParent(Camera.main.transform);
             foreach (var item in TileDB.Values)
             {
-                _allEntitiesToUnload.Add(item.gameObject);
+                if(item != null){
+                    _allEntitiesToUnload.Add(item.gameObject);
+                }
             }
 
             foreach (var item in PushableDB.Values)
             {
-                _allEntitiesToUnload.Add(item.Item2.gameObject);
+                if(item.Item2 != null){
+                    _allEntitiesToUnload.Add(item.Item2.gameObject);
+                }
             }
 
             foreach (var item in BotDB.Values)
             {
-                _allEntitiesToUnload.Add(item.gameObject);
+                if(item != null){
+                    _allEntitiesToUnload.Add(item.gameObject);
+                }
             }
 
 
@@ -672,10 +708,47 @@ namespace ChardMove.gameManager
             _allEntitiesToLoad.Clear();
             //DeletePlayerCards();
             //resetButtonPressed();
+            StartCoroutine(TweenPlayerCards());
             CacheTilesInTheScene();
             StartCoroutine(ResetDictClearTimer());
-            ResetPlayerCards();
+            //ResetPlayerCards();
         }
+
+        private IEnumerator TweenPlayerCards(){
+            _tempPlayerCards.Clear();
+            foreach (var item in PlayerCards)
+            {
+                if(item == null) continue;
+                item.transform.DOMoveX(-15,1,false);
+                yield return null;
+            }
+            yield return new WaitForSeconds(1.1f);
+            foreach (var item in PlayerCards)
+            {
+                if(item == null) continue;
+                Destroy(item.gameObject);
+                yield return null;
+            }
+            PlayerCards.Clear();
+            
+            CardStacker.Instance.LoadCards();
+        }
+
+        public void LoadCardsWithTween(GameObject card){
+            GameObject bigIcon = card.GetComponent<Draggable>().BigIcon;
+            bigIcon.SetActive(false);
+            StartCoroutine(LoadCardsTween(card,bigIcon));
+        }
+
+        public IEnumerator LoadCardsTween(GameObject card, GameObject icon){
+            yield return new WaitForEndOfFrame();
+            Vector3 endPos = card.transform.position;
+            card.transform.position = new Vector3(15,card.transform.position.y,card.transform.position.z);
+            icon.SetActive(true);
+            card.transform.DOMove(endPos,1,false);
+            yield return null;
+        }
+
 
         private IEnumerator ResetDictClearTimer(){
             yield return new WaitForSeconds(0.05f);

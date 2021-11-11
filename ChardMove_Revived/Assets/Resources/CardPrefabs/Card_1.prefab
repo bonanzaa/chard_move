@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 4708357839005892581}
   - component: {fileID: 6954118493969583302}
   m_Layer: 5
-  m_Name: OnlyDistanceSpace
+  m_Name: SmallIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,7 +283,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1.1, y: -5.5}
-  m_SizeDelta: {x: 82.68, y: 75.11}
+  m_SizeDelta: {x: 82.68, y: 118.4173}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4708357839005892581
 CanvasRenderer:
@@ -306,14 +306,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 4244505198381532329, guid: b9dc31268cdbad84b88c898998be0169, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2882720481443510088, guid: c7862725812cc304ea21d14959830c0e, type: 3}
+  m_Sprite: {fileID: 4244505198381532329, guid: b9dc31268cdbad84b88c898998be0169, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

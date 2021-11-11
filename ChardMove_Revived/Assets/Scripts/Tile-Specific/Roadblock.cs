@@ -22,11 +22,13 @@ namespace ChardMove
             _originalIsActive = IsActive;
             BotGridMovement.botStartedMoving += OnBotStartedMoving;
             GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;
+            GameManager.onLevelFullyLoaded += OnLevelLoaded;
             _lastTileType = TileType;
             if(transform.childCount != 0){
                 _highlight = transform.GetChild(0).gameObject;
                 _highlight.SetActive(false);
             }
+            AnimatorBase.SetBool("RoadblockDown",false);
         }
 
         private void OnUndoDirectionalChoice(){
@@ -36,13 +38,17 @@ namespace ChardMove
         private void OnDisable() {
             BotGridMovement.botStartedMoving -= OnBotStartedMoving;
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
+            GameManager.onLevelFullyLoaded -= OnLevelLoaded;
         }
 
         private void OnDestroy() {
             BotGridMovement.botStartedMoving -= OnBotStartedMoving;
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
+            GameManager.onLevelFullyLoaded -= OnLevelLoaded;
         }
         public void Activate(){
+            SpriteRenderer _spriteRenderer = AnimatorBase.gameObject.GetComponent<SpriteRenderer>();
+            _spriteRenderer.sortingOrder = -1;
             if(onRoadblockActivated != null)
                 onRoadblockActivated();
             _lastTileType = TileType;
@@ -54,6 +60,8 @@ namespace ChardMove
             
         }
         public void Deactivate(){
+            SpriteRenderer _spriteRenderer = AnimatorBase.gameObject.GetComponent<SpriteRenderer>();
+            _spriteRenderer.sortingOrder = 0;
             CheckForBot();
             _lastTileType = TileType;
             _lastIsActive = IsActive;
@@ -67,6 +75,9 @@ namespace ChardMove
             _lastIsActive = IsActive;
         }
 
+        private void OnLevelLoaded(){
+            AnimatorBase.SetBool("RoadblockDown",false);
+        }
 
 
         public void Reset(){
@@ -77,6 +88,7 @@ namespace ChardMove
             IsActive = _originalIsActive;
             
             AnimatorBase.SetBool("RoadblockDown",false);
+            AnimatorBase.Play("spikes_up");
         }
 
 

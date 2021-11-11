@@ -9,6 +9,7 @@ namespace ChardMove
     public class SlotOrganizer : MonoBehaviour
     {
         public List<Transform> _ActiveChildren = new List<Transform>();
+        public TMP_Text CardCountText;
 
         private void Awake() {
             GameManager.onNewLevelLoaded += DeleteInactiveCards;
@@ -45,12 +46,17 @@ namespace ChardMove
                 }
             }
         }
+
+        private void Update() {
+            CardCountText.text = string.Format($"x{_ActiveChildren.Count}");
+        }
         public void OrganizeSlots(){
             _ActiveChildren.Clear();
             RemoveInactive();
             int activeChildCount = 0;
             foreach (Transform item in transform)
             {
+                if(item.CompareTag("cardCount")) continue;
                 if(item.gameObject.activeSelf && item != null){
                     activeChildCount ++;
                     _ActiveChildren.Add(item);
@@ -80,6 +86,7 @@ namespace ChardMove
             }
             for (int i = 1; i < count; i++)
             {
+                if(transform.GetChild(i).CompareTag("cardCount")) continue;
                 childInd = i;
                 RectTransform currentChild = transform.GetChild(childInd).GetComponent<RectTransform>();
                 if(currentChild.TryGetComponent(out TMP_Text text)){
@@ -95,6 +102,7 @@ namespace ChardMove
         public void ReorganizeSlots(){
             foreach (RectTransform item in transform)
             {
+                if(item.CompareTag("cardCount")) continue;
                 item.localPosition = new Vector3(0,0,0);
             }
             OrganizeSlots();
@@ -103,6 +111,7 @@ namespace ChardMove
         public void ClearSlot(){
             foreach (Transform item in transform)
             {
+                if(item.CompareTag("cardCount")) continue;
                 Destroy(item.gameObject);
             }
             _ActiveChildren.Clear();

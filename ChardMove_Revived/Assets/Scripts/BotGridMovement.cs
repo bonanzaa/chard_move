@@ -181,6 +181,7 @@ namespace ChardMove.BotMovement
 
         private IEnumerator MoveToNextTile(MovementDirection direction, int steps, Vector2 target){
             // play liftoff animation here
+            GameManager.Instance._botMoving = true;
             Vector3 targetVector = new Vector2(transform.position.x,transform.position.y + _LiftoffHeight);
             while(SpriteGO.transform.position != targetVector){
                 SpriteGO.transform.position = Vector2.Lerp(SpriteGO.transform.position,targetVector,0.2f);
@@ -235,6 +236,7 @@ namespace ChardMove.BotMovement
                         if(IsPushable){
                             GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
                         }
+                        GameManager.Instance._botMoving = false;
                         botMovedPos(transform.position);
                         yield break;
                     }else{
@@ -250,6 +252,7 @@ namespace ChardMove.BotMovement
                     }
                     //
                     GameManager.Instance.OnBotFinishedMoving();
+                    GameManager.Instance._botMoving = false;
                     // gets called in case we only move 1 
                     if(botMoved != null)
                         botMoved();
@@ -272,6 +275,7 @@ namespace ChardMove.BotMovement
 
             //
             GameManager.Instance.OnBotFinishedMoving();
+            GameManager.Instance._botMoving = false;
             _canMove = true;
         }
 

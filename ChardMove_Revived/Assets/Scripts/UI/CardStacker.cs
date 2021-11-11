@@ -121,19 +121,23 @@ namespace ChardMove
             {
                 switch(item.Distance){
                     case 1:
-                    Instantiate(item,Slots[0].transform);
+                    GameObject card = Instantiate(item,Slots[0].transform).gameObject;
+                    GameManager.Instance.LoadCardsWithTween(card);
                     break;
 
                     case 2:
-                    Instantiate(item,Slots[1].transform);
+                    GameObject card1 = Instantiate(item,Slots[1].transform).gameObject;
+                    GameManager.Instance.LoadCardsWithTween(card1);
                     break;
 
                     case 3:
-                    Instantiate(item,Slots[2].transform);
+                    GameObject card2 = Instantiate(item,Slots[2].transform).gameObject;
+                    GameManager.Instance.LoadCardsWithTween(card2);
                     break;
 
                     case 4:
-                    Instantiate(item,Slots[3].transform);
+                    GameObject card3 = Instantiate(item,Slots[3].transform).gameObject;
+                    GameManager.Instance.LoadCardsWithTween(card3);
                     break;
                 }
             }

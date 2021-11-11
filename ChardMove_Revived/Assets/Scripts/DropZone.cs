@@ -148,6 +148,7 @@ namespace ChardMove
 
         public void OnDrop(PointerEventData data){
             if(_choosing) return;
+            if(GameManager.Instance._botMoving || GameManager.Instance.AnimationInProgress) return;
             _choosing = true;
             var draggable = data.pointerDrag.GetComponent<Draggable>();
             _distance = draggable.Distance;
