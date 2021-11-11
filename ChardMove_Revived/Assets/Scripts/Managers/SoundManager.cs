@@ -8,6 +8,8 @@ namespace ChardMove
 {
     public class SoundManager : MonoBehaviour
     {
+        FMOD.Studio.EventInstance SFXVolumeTestEvent;
+
         [SerializeField] [EventRef] private string _clickEvent = null;
         [SerializeField] [EventRef] private string _arrowClickedEvent = null;
         [SerializeField] [EventRef] private string _hoverEvent = null;
@@ -21,6 +23,7 @@ namespace ChardMove
         [SerializeField] [EventRef] private string _playerWinEvent = null;
         [SerializeField] [EventRef] private string _botMovedEvent = null;
         [SerializeField] [EventRef] private string _botDeathEvent = null;
+        [SerializeField] [EventRef] private string _botLandedEvent = null;
         [SerializeField] [EventRef] private string _loadLevel = null;
 
         private float _musicVolume = 0.5f;
@@ -47,18 +50,22 @@ namespace ChardMove
             ButtonEvent.onButtonPressed += OnButtonClick;
             ButtonEvent.onToggleChecked += OnMuteToggled;
             ButtonEvent.onButtonHovered += OnButtonHover;
-            BotGridMovement.botMoved += OnBotMoved;
+            BotGridMovement.onBotMovedATile += OnBotMoved;
             //BOT DIED NOT BOT ABOUT TO DIE FOR SOUND
             BotGridMovement.botAboutToDie += OnBotDeath;
             DirectionalButtonClick.onButtonPressed += OnDirectionalButtonClick;
+            Draggable.onBeginDrag += onCardDrag;
+            DropZone.directionChoiceActive += OnCardDropped;
             //ARROW DIRECTION CLICKED
             //CARD DRAG AND DROP CARD EVENT
             //LEVEL LOAD
+            VolumeSliders.onSliderChanged += OnSliderChanged;
             GameManager.onNewLevelLoaded += OnNewLevelLoaded;
             //PUSHABLE BLOCK BECOME A WALKABLE TILE (FALLS)
             //RESET BUTTON (LEVEL LOAD)
             GameManager.resetButtonPressed += OnResetButtonPressed;
             //BOT LANDS ON TILE AFTER RAIN ANIMATION
+            GameManager.onBotLanded += OnbotLanded;
             //BOT MOVE 
             LatchSwitch.onLatchActivated += OnLatchSwitchActivated;
             MomentarySwitch.onMomentaryActivated += OnMomentarySwitchActivated;
@@ -78,11 +85,6 @@ namespace ChardMove
             SFX.setVolume(_sfxVolume);
             Master.setVolume(_masterVolume);
         }
-        public void OnMuteToggled()
-        {
-            Master.setMute(true);
-            Debug.Log("Muting Master Bus");
-        }
 
         public void AssignBusses()
         {
@@ -96,24 +98,63 @@ namespace ChardMove
             ButtonEvent.onButtonPressed -= OnButtonClick;
             ButtonEvent.onToggleChecked -= OnMuteToggled;
             ButtonEvent.onButtonHovered -= OnButtonHover;
-            BotGridMovement.botMoved -= OnBotMoved;
-            //BOT DIED NOT BOT ABOUT TO DIE FOR SOUND
+            BotGridMovement.onBotMovedATile -= OnBotMoved;
             BotGridMovement.botAboutToDie -= OnBotDeath;
             DirectionalButtonClick.onButtonPressed -= OnDirectionalButtonClick;
-            //ARROW DIRECTION CLICKED
-            //CARD DRAG AND DROP CARD EVENT
-            //LEVEL LOAD
+            Draggable.onBeginDrag -= onCardDrag;
+            DropZone.directionChoiceActive -= OnCardDropped;
             GameManager.onNewLevelLoaded -= OnNewLevelLoaded;
-            //PUSHABLE BLOCK BECOME A WALKABLE TILE (FALLS)
-            //RESET BUTTON (LEVEL LOAD)
             GameManager.resetButtonPressed -= OnResetButtonPressed;
-            //BOT LANDS ON TILE AFTER RAIN ANIMATION
-            //BOT MOVE 
+            GameManager.onBotLanded -= OnbotLanded;
             LatchSwitch.onLatchActivated -= OnLatchSwitchActivated;
             MomentarySwitch.onMomentaryActivated -= OnMomentarySwitchActivated;
             Roadblock.onRoadblockActivated -= OnRoadblockActivated;
             PushableBlock.onPushableBlockMoved -= OnPushedBlock;
             WinTile.playerWin -= OnPlayerWin;
+        }
+
+        #region VolumeHandler
+        public void MasterVolumeLevel(float newMasterVolume)
+        {
+            _masterVolume = newMasterVolume;
+        }
+        public void MusicVolumeLevel(float newMusicVolume)
+        {
+            _musicVolume = newMusicVolume;
+        }
+        public void SFXVolumeLevel(float newSFXVolume)
+        {
+            _sfxVolume = newSFXVolume;
+        }
+        #endregion
+
+        #region Events
+        private void OnSliderChanged()
+        {
+            if(_sliderChangedEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_sliderChangedEvent);
+            }
+        }
+        public void OnMuteToggled()
+        {
+            Master.setMute(true);
+            Debug.Log("Muting Master Bus");
+        }
+        private void OnbotLanded()
+        {
+            if(_botLandedEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_botLandedEvent);
+            }
+        }
+
+        private void onCardDrag(int distance)
+        {
+            if(_cardPickedEvent!= null)
+            {
+                RuntimeManager.PlayOneShot(_cardPickedEvent);
+            }
         }
 
         private void OnDirectionalButtonClick(bool pressed)
@@ -123,22 +164,6 @@ namespace ChardMove
                 RuntimeManager.PlayOneShot(_arrowClickedEvent);
             }
         }
-        #region VolumeHandler
-        public void MasterVolumeLevel(float newMasterVolume)
-        {
-            _masterVolume = newMasterVolume;
-        }
-        public void MusicVolumeLevel(float newMusicVolume)
-        {
-            _masterVolume = newMusicVolume;
-        }
-        public void SFXVolumeLevel(float newSFXVolume)
-        {
-            _masterVolume = newSFXVolume;
-        }
-        #endregion
-
-        #region Events
         private void OnNewLevelLoaded()
         {
             if (_loadLevel != null)
@@ -210,9 +235,7 @@ namespace ChardMove
         {
             if (_hoverEvent != null)
             {
-                RuntimeManager.MuteAllEvents(true);
                 RuntimeManager.PlayOneShot(_hoverEvent);
-                RuntimeManager.MuteAllEvents(false);
             }
         }
         public void OnPushedBlock()
