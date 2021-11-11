@@ -8,6 +8,8 @@ namespace ChardMove
 {
     public class SoundManager : MonoBehaviour
     {
+        FMOD.Studio.EventInstance SFXVolumeTestEvent;
+
         [SerializeField] [EventRef] private string _clickEvent = null;
         [SerializeField] [EventRef] private string _arrowClickedEvent = null;
         [SerializeField] [EventRef] private string _hoverEvent = null;
@@ -57,6 +59,7 @@ namespace ChardMove
             //ARROW DIRECTION CLICKED
             //CARD DRAG AND DROP CARD EVENT
             //LEVEL LOAD
+            VolumeSliders.onSliderChanged += OnSliderChanged;
             GameManager.onNewLevelLoaded += OnNewLevelLoaded;
             //PUSHABLE BLOCK BECOME A WALKABLE TILE (FALLS)
             //RESET BUTTON (LEVEL LOAD)
@@ -82,11 +85,6 @@ namespace ChardMove
             SFX.setVolume(_sfxVolume);
             Master.setVolume(_masterVolume);
         }
-        public void OnMuteToggled()
-        {
-            Master.setMute(true);
-            Debug.Log("Muting Master Bus");
-        }
 
         public void AssignBusses()
         {
@@ -105,14 +103,9 @@ namespace ChardMove
             DirectionalButtonClick.onButtonPressed -= OnDirectionalButtonClick;
             Draggable.onBeginDrag -= onCardDrag;
             DropZone.directionChoiceActive -= OnCardDropped;
-            //LEVEL LOAD
             GameManager.onNewLevelLoaded -= OnNewLevelLoaded;
-            //PUSHABLE BLOCK BECOME A WALKABLE TILE (FALLS)
-            //RESET BUTTON (LEVEL LOAD)
             GameManager.resetButtonPressed -= OnResetButtonPressed;
-            //BOT LANDS ON TILE AFTER RAIN ANIMATION
             GameManager.onBotLanded -= OnbotLanded;
-            //BOT MOVE 
             LatchSwitch.onLatchActivated -= OnLatchSwitchActivated;
             MomentarySwitch.onMomentaryActivated -= OnMomentarySwitchActivated;
             Roadblock.onRoadblockActivated -= OnRoadblockActivated;
@@ -120,6 +113,34 @@ namespace ChardMove
             WinTile.playerWin -= OnPlayerWin;
         }
 
+        #region VolumeHandler
+        public void MasterVolumeLevel(float newMasterVolume)
+        {
+            _masterVolume = newMasterVolume;
+        }
+        public void MusicVolumeLevel(float newMusicVolume)
+        {
+            _musicVolume = newMusicVolume;
+        }
+        public void SFXVolumeLevel(float newSFXVolume)
+        {
+            _sfxVolume = newSFXVolume;
+        }
+        #endregion
+
+        #region Events
+        private void OnSliderChanged()
+        {
+            if(_sliderChangedEvent != null)
+            {
+                RuntimeManager.PlayOneShot(_sliderChangedEvent);
+            }
+        }
+        public void OnMuteToggled()
+        {
+            Master.setMute(true);
+            Debug.Log("Muting Master Bus");
+        }
         private void OnbotLanded()
         {
             if(_botLandedEvent != null)
@@ -143,22 +164,6 @@ namespace ChardMove
                 RuntimeManager.PlayOneShot(_arrowClickedEvent);
             }
         }
-        #region VolumeHandler
-        public void MasterVolumeLevel(float newMasterVolume)
-        {
-            _masterVolume = newMasterVolume;
-        }
-        public void MusicVolumeLevel(float newMusicVolume)
-        {
-            _masterVolume = newMusicVolume;
-        }
-        public void SFXVolumeLevel(float newSFXVolume)
-        {
-            _masterVolume = newSFXVolume;
-        }
-        #endregion
-
-        #region Events
         private void OnNewLevelLoaded()
         {
             if (_loadLevel != null)
@@ -230,9 +235,7 @@ namespace ChardMove
         {
             if (_hoverEvent != null)
             {
-                RuntimeManager.MuteAllEvents(true);
                 RuntimeManager.PlayOneShot(_hoverEvent);
-                RuntimeManager.MuteAllEvents(false);
             }
         }
         public void OnPushedBlock()
