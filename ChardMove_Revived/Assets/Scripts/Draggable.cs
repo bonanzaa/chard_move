@@ -67,7 +67,7 @@ namespace ChardMove
             BigIcon.SetActive(true);
             SmallIcon.SetActive(false);
             GetComponent<CanvasGroup>().blocksRaycasts = true;
-            transform.localScale = new Vector3(1,1,1);
+            transform.localScale = new Vector3(1.4f,1.4f,1.4f);
             onEndDrag(Distance);
         }
         public void ChangeParent() {
