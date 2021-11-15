@@ -103,11 +103,15 @@ namespace ChardMove
         }
 
         public void ShowGhost(){
-            _ghost.SetActive(true);
+            if(_ghost != null){
+                _ghost.SetActive(true);
+            }
         }
 
         public void HideGhost(){
-            _ghost.SetActive(false);
+            if(_ghost != null){
+                _ghost.SetActive(false);
+            }
         }
 
         private IEnumerator GhostLerp(){
