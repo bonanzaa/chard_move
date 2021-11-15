@@ -278,7 +278,7 @@ namespace ChardMove.BotMovement
             // }
 
             //
-            GameManager.Instance.OnBotFinishedMoving(transform.position);
+            //GameManager.Instance.OnBotFinishedMoving(transform.position);
             GameManager.Instance._botMoving = false;
             _canMove = true;
         }

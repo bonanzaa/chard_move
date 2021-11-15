@@ -107,7 +107,7 @@ namespace ChardMove.gameManager
 
         private void OnBotMoved(Vector2 pos){
             FindSwitch(pos);
-            FindWinTile(pos);
+            //FindWinTile(pos);
             FindMovingPlatform(pos);
 
         }
@@ -169,12 +169,12 @@ namespace ChardMove.gameManager
             if(TileDB.TryGetValue(pos,out Tile value)){
 
                 if(value.TryGetComponent(out WinTile wintile)){
-                    PlayerWon = true;
+                    print("Calling setTarget");
                     wintile.SetTarget();
                 }
             }else{
                 if((Vector2)RedButton.transform.position == pos){
-                    PlayerWon = true;
+                    print("Calling setTarget from here");
                     RedButton.GetComponent<WinTile>().SetTarget();
                 }
             }
@@ -233,6 +233,7 @@ namespace ChardMove.gameManager
             //     GameObject.FindGameObjectWithTag("Canvas").gameObject.transform.position = new Vector3(_cameraOffset.CameraPosition.x,_cameraOffset.CameraPosition.y,0);
             // }
             AnimationInProgress = true;
+            PlayerWon = false;
             Camera.main.transparencySortAxis = new Vector3(0,0,-1);
 
             // that's being called when you have the level in the scene already

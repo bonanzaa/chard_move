@@ -26,7 +26,7 @@ namespace ChardMove
 
         public void SetTarget()
         {
-            print("player won");
+            if(GameManager.Instance.PlayerWon) return;
             GameManager.Instance.PlayerWon = true;
             playerWin();
         }
