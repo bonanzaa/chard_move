@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: Distance
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4664495834210813646, guid: 55434fb76d70555459f88246f5eae64d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4244505198381532329, guid: b9dc31268cdbad84b88c898998be0169, type: 3}
+    - target: {fileID: 6954118493969583302, guid: 55434fb76d70555459f88246f5eae64d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4244505198381532329, guid: b9dc31268cdbad84b88c898998be0169, type: 3}
     - target: {fileID: 8598554467030697216, guid: 55434fb76d70555459f88246f5eae64d, type: 3}
       propertyPath: m_Name
       value: Card_4
