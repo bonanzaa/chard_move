@@ -23,12 +23,18 @@ namespace ChardMove
             BotGridMovement.botStartedMoving += OnBotStartedMoving;
             GameManager.undoDirectionalChoice += OnUndoDirectionalChoice;
             GameManager.onLevelFullyLoaded += OnLevelLoaded;
+            GameManager.resetButtonPressed += OnReset;
             _lastTileType = TileType;
             if(transform.childCount != 0){
                 _highlight = transform.GetChild(0).gameObject;
                 _highlight.SetActive(false);
             }
             AnimatorBase.SetBool("RoadblockDown",false);
+        }
+
+        private void OnReset(){
+            SpriteRenderer _spriteRenderer = AnimatorBase.gameObject.GetComponent<SpriteRenderer>();
+            _spriteRenderer.sortingOrder = -1;
         }
 
         private void OnUndoDirectionalChoice(){
@@ -39,12 +45,14 @@ namespace ChardMove
             BotGridMovement.botStartedMoving -= OnBotStartedMoving;
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
             GameManager.onLevelFullyLoaded -= OnLevelLoaded;
+            GameManager.resetButtonPressed -= OnReset;
         }
 
         private void OnDestroy() {
             BotGridMovement.botStartedMoving -= OnBotStartedMoving;
             GameManager.undoDirectionalChoice -= OnUndoDirectionalChoice;
             GameManager.onLevelFullyLoaded -= OnLevelLoaded;
+            GameManager.resetButtonPressed -= OnReset;
         }
         public void Activate(){
             SpriteRenderer _spriteRenderer = AnimatorBase.gameObject.GetComponent<SpriteRenderer>();

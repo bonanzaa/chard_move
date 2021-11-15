@@ -48,11 +48,12 @@ namespace ChardMove
             {
                 _cardList.Add(_prefabList[3]);
             }
-
             foreach (var item in _cardList)
             {
                 GameManager.Instance._tempPlayerCards.Add(item.GetComponent<Draggable>());
             }
+
+            //CardStacker.Instance.LoadCards();
 
             if(!GameManager.Instance.LevelLoaded){
                 GameManager.Instance.LoadLevel(this.gameObject);   

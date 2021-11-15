@@ -100,7 +100,7 @@ namespace ChardMove.BotMovement
             }else{
                 // next tile is unwalkable (roadblock) so nothing happens
                 // this is considered a move, so update world state
-                GameManager.Instance.OnBotFinishedMoving();
+                GameManager.Instance.OnBotFinishedMoving(transform.position);
                 print($"I cannot move {direction.ToString()}...");
                 // need to delay this, otherwise world state updates instanly,
                 // which causes some fucked up interactions
@@ -223,6 +223,7 @@ namespace ChardMove.BotMovement
                         // the event, indicating end of the movement for a bot.
                         // Time to update gamestate!
 
+                        GameManager.Instance.OnBotFinishedMoving(transform.position);
                         //play landing animation here
                             Vector3 landingVector1 = new Vector3(transform.position.x,SpriteGO.transform.position.y - _LiftoffHeight, transform.position.z);
                             while(SpriteGO.transform.position != landingVector1){
@@ -230,9 +231,8 @@ namespace ChardMove.BotMovement
                                 yield return null;
                             }
                         //
-                        if(botMoved != null)
-                            yield return new WaitForSeconds(0.15f);
-                        GameManager.Instance.OnBotFinishedMoving();
+                        yield return new WaitForSeconds(0.15f);
+                        yield return new WaitForEndOfFrame();
                         if(botMoved != null)
                             botMoved();
                         GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
@@ -246,16 +246,17 @@ namespace ChardMove.BotMovement
                         target = nextTarget;
                     }
                 }else{
-                    yield return new WaitForSeconds(0.15f);
                     //play landing animation here
+                    GameManager.Instance.OnBotFinishedMoving(transform.position);
                     Vector3 landingVector2 = new Vector3(transform.position.x,SpriteGO.transform.position.y - _LiftoffHeight, transform.position.z);
                     while(SpriteGO.transform.position != landingVector2){
                         SpriteGO.transform.position = Vector3.Lerp(SpriteGO.transform.position,landingVector2,0.2f);
                         yield return null;
                     }
+                    yield return new WaitForSeconds(0.15f);
                     //
-                    GameManager.Instance.OnBotFinishedMoving();
                     GameManager.Instance._botMoving = false;
+                    yield return new WaitForEndOfFrame();
                     // gets called in case we only move 1 
                     if(botMoved != null)
                         botMoved();
@@ -277,7 +278,7 @@ namespace ChardMove.BotMovement
             // }
 
             //
-            GameManager.Instance.OnBotFinishedMoving();
+            GameManager.Instance.OnBotFinishedMoving(transform.position);
             GameManager.Instance._botMoving = false;
             _canMove = true;
         }

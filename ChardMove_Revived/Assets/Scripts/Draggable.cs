@@ -69,6 +69,7 @@ namespace ChardMove
             GetComponent<CanvasGroup>().blocksRaycasts = true;
             transform.localScale = new Vector3(1.4f,1.4f,1.4f);
             onEndDrag(Distance);
+            GameManager.Instance.UndoDirectionalChoiceEvent();
         }
         public void ChangeParent() {
             // reparenting utility

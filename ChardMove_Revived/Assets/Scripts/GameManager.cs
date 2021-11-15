@@ -36,12 +36,13 @@ namespace ChardMove.gameManager
         public Draggable LastCardPlayed;
         public static GameManager Instance;
         public List<Draggable> PlayerCards = new List<Draggable>();
-       [HideInInspector] public List<Draggable> _tempPlayerCards = new List<Draggable>();
+        public List<Draggable> _tempPlayerCards = new List<Draggable>();
 
         private LevelLoader _levelLoader;
         private List<Draggable> _originalPlayerCards = new List<Draggable>();
         private GameObject _currentLevel;
         public GameObject _lastLevel;
+        public bool PlayerWon = false;
        [HideInInspector] public bool LevelLoaded = false;
        [HideInInspector] public bool _botMoving = false;
        [HideInInspector] public bool AnimationInProgress = false;
@@ -90,6 +91,7 @@ namespace ChardMove.gameManager
             BotGridMovement.botMovedPos += OnBotMoved;
             BotGridMovement.botStartedMovingPos += OnBotStartedMoving;
             BotGridMovement.botUndoPressed += OnBotUndoMoved;
+            PlayerWon = false;
             _botMoving = false;
             LevelLoaded = false;
             Instance = this;
@@ -167,10 +169,12 @@ namespace ChardMove.gameManager
             if(TileDB.TryGetValue(pos,out Tile value)){
 
                 if(value.TryGetComponent(out WinTile wintile)){
+                    PlayerWon = true;
                     wintile.SetTarget();
                 }
             }else{
                 if((Vector2)RedButton.transform.position == pos){
+                    PlayerWon = true;
                     RedButton.GetComponent<WinTile>().SetTarget();
                 }
             }
@@ -241,11 +245,12 @@ namespace ChardMove.gameManager
             }
 
             if(_lastLevel != null){
-                ResetPlayerCards();
                 StartCoroutine(TweenPlayerCards());
                 StartCoroutine(UnloadLevelWithAnimation(level));
             }else{
+                ResetPlayerCards();
                 StartCoroutine(TweenPlayerCards());
+                //CardStacker.Instance.LoadCards();
                 LoadNewLevelDebug(level);
             }
 
@@ -628,6 +633,10 @@ namespace ChardMove.gameManager
                 Destroy(_oldLevel);
                 Destroy(_lastLevel);
             }
+            // if(PlayerCards.Count != 0){
+            //     //CardStacker.Instance.LoadCards();
+            //     StartCoroutine(TweenPlayerCards());
+            // }
         }
 
         private void Update() {
@@ -731,22 +740,26 @@ namespace ChardMove.gameManager
         }
 
         private IEnumerator TweenPlayerCards(){
-            _tempPlayerCards.Clear();
             foreach (var item in PlayerCards)
             {
                 if(item == null) continue;
                 item.transform.DOMoveX(-15,1,false);
                 yield return null;
             }
+            _tempPlayerCards.Clear();
             yield return new WaitForSeconds(1.1f);
-            foreach (var item in PlayerCards)
+
+            for (int i = 0; i < PlayerCards.Count; i++)
             {
-                if(item == null) continue;
-                Destroy(item.gameObject);
+                if(PlayerCards[i] == null) continue;
+                Destroy(PlayerCards[i].gameObject);
+                //i--;
                 yield return null;
             }
+
+
             PlayerCards.Clear();
-            
+            yield return new WaitForSeconds(1f);
             CardStacker.Instance.LoadCards();
         }
 
@@ -787,8 +800,9 @@ namespace ChardMove.gameManager
             _botMoving = true;
         }
 
-        public void OnBotFinishedMoving(){
+        public void OnBotFinishedMoving(Vector3 pos){
             _botMoving = false;
+            FindWinTile(pos);
         }
 
         public void DeletePlayerCards(){

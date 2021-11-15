@@ -26,6 +26,8 @@ namespace ChardMove
 
         public void SetTarget()
         {
+            print("player won");
+            GameManager.Instance.PlayerWon = true;
             playerWin();
         }
         private void OnTriggerEnter2D(Collider2D collision)
@@ -44,7 +46,7 @@ namespace ChardMove
         }
         public  void SpawnConfetti()
         {
-            Debug.Log("Particle system should spawn in");
+            //Debug.Log("Particle system should spawn in");
             if (_winParticleSystem != null)
             {
                 for (int i = 0; i < _spawners.Count; i++)
@@ -52,7 +54,7 @@ namespace ChardMove
                     GameObject particles = Instantiate(_winParticleSystem, _spawners[i].position, Quaternion.identity);
                 }
             }
-            Debug.Log("Particle system should  have already spawned in");
+            //Debug.Log("Particle system should  have already spawned in");
         }
     }
 }
