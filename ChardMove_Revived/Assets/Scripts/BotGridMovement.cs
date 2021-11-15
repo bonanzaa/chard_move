@@ -175,9 +175,9 @@ namespace ChardMove.BotMovement
         private void TryToFindWinTile(Vector2 target){
             Tile targetTile = GameManager.Instance.GetTile(target);
             if(targetTile == null) return;
-            if(targetTile.gameObject.TryGetComponent(out WinTile component)){
-                component.SetTarget();
-            }
+            //if(targetTile.gameObject.TryGetComponent(out WinTile component)){
+            //    component.SetTarget();
+            //}
         }
 
         private IEnumerator MoveToNextTile(MovementDirection direction, int steps, Vector2 target){
