@@ -95,7 +95,6 @@ namespace ChardMove.BotMovement
             _target = target;
             bool botInTheWay = GameManager.Instance.BotInTheWay(target); // bool checking if another bot is in the next tile
             if(canMove && !botInTheWay){
-                FindPushable(direction);
                 //walkingCoroutine = MoveToNextTile(direction,steps,target);
                 StartCoroutine(walkingCoroutine);
             }else{
@@ -232,7 +231,7 @@ namespace ChardMove.BotMovement
                             }
                         //
                         if(botMoved != null)
-                            yield return new WaitForSeconds(0.08f);
+                            yield return new WaitForSeconds(0.15f);
                         GameManager.Instance.OnBotFinishedMoving();
                         if(botMoved != null)
                             botMoved();
@@ -247,7 +246,7 @@ namespace ChardMove.BotMovement
                         target = nextTarget;
                     }
                 }else{
-                    yield return new WaitForSeconds(0.08f);
+                    yield return new WaitForSeconds(0.15f);
                     //play landing animation here
                     Vector3 landingVector2 = new Vector3(transform.position.x,SpriteGO.transform.position.y - _LiftoffHeight, transform.position.z);
                     while(SpriteGO.transform.position != landingVector2){
@@ -441,6 +440,11 @@ namespace ChardMove.BotMovement
 
         private void OnCannotBePushed(){
             StopAllCoroutines();
+            Vector3 landingVector2 = new Vector3(transform.position.x,SpriteGO.transform.position.y - _LiftoffHeight, transform.position.z);
+            while(SpriteGO.transform.position != landingVector2){
+                SpriteGO.transform.position = Vector3.Lerp(SpriteGO.transform.position,landingVector2,0.2f);
+            }
+            GameManager.Instance._botMoving = false;
             _canMove = true;
             if(botMoved != null){
                 botMoved();

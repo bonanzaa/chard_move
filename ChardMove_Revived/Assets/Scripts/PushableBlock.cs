@@ -23,6 +23,7 @@ namespace ChardMove
         private bool _lastTransformIntoTile = false;
         private MovingTile _movingTileReference = null;
         private MovingTile _lastMovingTileReference = null;
+        private bool _cannotBePushed = false;
         private void Awake() {
             _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
             _lastPositionWorldSpace = transform.position;
@@ -30,6 +31,7 @@ namespace ChardMove
             _lastTransformIntoTile = _transformIntoTile;
             _lastMovingTileReference = null;
             _movingTileReference = null;
+            _cannotBePushed = false;
             GameManager.resetButtonPressed += OnResetButtonPressed;
             GameManager.undoButtonPressed += OnUndoButtonPressed;
             BotGridMovement.botStartedMoving += OnBotStartedMoving;
@@ -39,6 +41,7 @@ namespace ChardMove
             }
             Vector2 myPos = new Vector2(transform.position.x,transform.position.y-0.125f);
             GameManager.Instance.AddToPushableDB(myPos,this,this.gameObject,_lastPosition);
+            PushableBlock.cannotBePushed += OnCannotBePushed;
         }
 
         public override void Start() {
@@ -62,6 +65,7 @@ namespace ChardMove
             GameManager.resetButtonPressed -= OnResetButtonPressed;
             BotGridMovement.botStartedMoving -= OnBotStartedMoving;
             GameManager.undoButtonPressed -= OnUndoButtonPressed;
+            PushableBlock.cannotBePushed -= OnCannotBePushed;
         }
 
         private void OnDestroy() {
@@ -76,6 +80,7 @@ namespace ChardMove
             GameManager.resetButtonPressed -= OnResetButtonPressed;
             BotGridMovement.botStartedMoving -= OnBotStartedMoving;
             GameManager.undoButtonPressed -= OnUndoButtonPressed;
+            PushableBlock.cannotBePushed -= OnCannotBePushed;
         }
 
         private void OnResetButtonPressed()
@@ -123,6 +128,7 @@ namespace ChardMove
 
         private void OnBotStartedMoving(MovementDirection direction, int steps){
             // caching all the shit for the UNDO
+            _cannotBePushed = false;
             _lastPositionWorldSpace = transform.position;
             _lastTransformIntoTile = _transformIntoTile;
             _lastMovingTileReference = _movingTileReference;
@@ -137,16 +143,23 @@ namespace ChardMove
                 FindPushable(direction,moveSpeed);
                 StartCoroutine(MoveToNextTile(direction, targetTile));
             }else{
+                print("Cannot be pushed");
                 cannotBePushed();
             } 
         }
 
+        private void OnCannotBePushed(){
+            _cannotBePushed = true;
+        }
+
         public IEnumerator MoveToNextTile(MovementDirection direction, Vector2 target){
+            if(_cannotBePushed) yield break;
             if(onPushableBlockMoved != null)
                 onPushableBlockMoved();
             FindPushable(direction,_moveSpeed);
-            _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
             yield return null;
+            if(_cannotBePushed) yield break;
+            _lastPosition = new Vector2(transform.position.x,transform.position.y - 0.125f);
             while(true){
                     MoveTowards(target);
                     if((Vector2)transform.position == target){

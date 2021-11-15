@@ -267,7 +267,6 @@ namespace ChardMove.gameManager
             _allEntitiesToLoad.Clear();
             //instantiate level here
 
-            print("instantiating level");
             _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
             Level = _currentLevel;
             _lastLevel = _currentLevel;

@@ -296,10 +296,16 @@ namespace ChardMove
         }
 
         private IEnumerator Move(){
+            if(GameManager.Instance._botMoving) yield break;
+
+            _lastPosition = transform.position;
             ChangeSprite(Direction);
             // need to check for pushable on top of us
             if(_pushableBlock != null){
                 _pushableBlock.CacheLastPos();
+            }
+            if(_currentBot != null){
+                GameManager.Instance.RemoveBotFromDB(_currentBot.transform.position);
             }
             _moving = true;
             Vector2 target = TargetTilePosition();
@@ -313,7 +319,7 @@ namespace ChardMove
             float totalDistance = Vector2.Distance(_targetPosition,transform.position);
             float t = 0;
             float duration = totalDistance / Speed;
-
+            // GameManager.Instance.TileDB.Remove(transform.position);
             while(true){
                 Vector2 newPos = new Vector2();
 
