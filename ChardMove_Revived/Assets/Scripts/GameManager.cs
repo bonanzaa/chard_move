@@ -267,6 +267,7 @@ namespace ChardMove.gameManager
             _allEntitiesToLoad.Clear();
             //instantiate level here
 
+            print("instantiating level");
             _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
             Level = _currentLevel;
             _lastLevel = _currentLevel;
@@ -277,6 +278,9 @@ namespace ChardMove.gameManager
             foreach (var item in TileDB.Values)
             {
                 if(item != null){
+                    if(!item.enabled){
+                        item.enabled = true;
+                    }
                     _allEntitiesToLoad.Add(item.gameObject);
                     if(item.gameObject.GetComponent<WinTile>()){
                         continue;
@@ -506,7 +510,7 @@ namespace ChardMove.gameManager
         }
 
         private IEnumerator LevelInstantiatingTimer(GameObject level){
-             yield return new WaitForSeconds(0.5f); // 0.5f
+             yield return new WaitForSeconds(0.7f); // 0.5f
 
 
             if(level.TryGetComponent(out CameraOffsetRegister _cameraOffset)){
