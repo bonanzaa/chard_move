@@ -194,7 +194,7 @@ namespace ChardMove
             float currentZ = transform.position.z;
 
 
-            float targetY = currentY - 0.3f; //0.55f
+            float targetY = currentY - 0.385f; //0.55f
             float targetZ = currentZ + 1.5f;
 
             float newY = 0;
