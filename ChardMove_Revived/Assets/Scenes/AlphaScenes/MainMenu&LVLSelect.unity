@@ -1370,6 +1370,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 117381913, guid: 33a1200d464191d40ad2f4942df31ce0, type: 3}
+      propertyPath: AllowFadeout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 117381913, guid: 33a1200d464191d40ad2f4942df31ce0, type: 3}
       propertyPath: OverrideMaxDistance
       value: 0
       objectReference: {fileID: 0}
