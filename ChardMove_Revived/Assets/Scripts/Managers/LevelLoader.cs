@@ -63,5 +63,6 @@ namespace ChardMove
             _saveSystem.Deserialize();
             _levelCompleteReference.OpenWinScreen();
         }
+        private void CheckForLatyLevelIndex() { }
     }
 }
