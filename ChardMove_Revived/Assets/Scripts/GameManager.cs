@@ -81,6 +81,7 @@ namespace ChardMove.gameManager
         private int _i = 0;
         public int _k = 0;
         private int _j = 0;
+        private GameObject _oldLevel;
 
         private void Awake() {
             //Time.timeScale = 1;
@@ -526,6 +527,7 @@ namespace ChardMove.gameManager
                StartCoroutine(OutTweenReset(item));
                yield return new WaitForSeconds(0.01f); 
             }
+            _oldLevel = level;
         }
 
         private IEnumerator OutTweenReset(GameObject entity){
@@ -542,6 +544,7 @@ namespace ChardMove.gameManager
                 {
                     Destroy(item);
                 }
+                //Destroy(_oldLevel);
                 //_allEntitiesToUnload.Clear();
             }
         }
@@ -619,6 +622,8 @@ namespace ChardMove.gameManager
                 //_lastLevel = null;
                 _i = 0;
                 _allEntitiesToUnload.Clear();
+                Destroy(_oldLevel);
+                Destroy(_lastLevel);
             }
         }
 

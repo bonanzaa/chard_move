@@ -35,7 +35,7 @@ namespace ChardMove
         private bool _lastIsActive;
         private bool _originalIsActive;
         private int _originalStep;
-        private bool _botOnPlatform = false;
+        public bool _botOnPlatform = false;
         private bool _moving;
         private SpriteRenderer _spriteRenderer;
 
@@ -190,6 +190,8 @@ namespace ChardMove
             CurrentStep = _originalStep;
             Direction = _originalDirection;
             Active = _originalIsActive;
+            TileType = TileType.Walkable;
+            _botOnPlatform = false;
             // choose a new target
             //StartCoroutine(DelayBeforeCheckPath());
         }
@@ -260,8 +262,6 @@ namespace ChardMove
             GameManager.undoButtonPressed -= OnUndoButtonPressed;
             GameManager.onLevelUnload -= OnLevelUnload;
             GameManager.onLevelFullyLoaded -= OnLevelFullyLoaded;
-
-            //Destroy(_ghost);
         }
 
         public void Deactivate(){
