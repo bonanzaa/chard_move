@@ -296,7 +296,6 @@ namespace ChardMove
         }
 
         private IEnumerator Move(){
-            print("platform moving");
             if(GameManager.Instance._botMoving) yield break;
             if(GameManager.Instance.PlayerWon) yield break;
 
