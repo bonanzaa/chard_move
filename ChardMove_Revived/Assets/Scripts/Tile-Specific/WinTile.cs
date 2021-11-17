@@ -35,8 +35,6 @@ namespace ChardMove
             if (collision.gameObject.CompareTag("Bot"))
             {
                 if(!Target) return;
-                //winscreen active, wait for button input, when pressed calls the load level blah
-                //_levelLoader.CanLoadLevel = true;
                 playerWin();
             }
         }

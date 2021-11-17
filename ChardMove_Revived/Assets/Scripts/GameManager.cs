@@ -169,12 +169,10 @@ namespace ChardMove.gameManager
             if(TileDB.TryGetValue(pos,out Tile value)){
 
                 if(value.TryGetComponent(out WinTile wintile)){
-                    print("Calling setTarget");
                     wintile.SetTarget();
                 }
             }else{
                 if((Vector2)RedButton.transform.position == pos){
-                    print("Calling setTarget from here");
                     RedButton.GetComponent<WinTile>().SetTarget();
                 }
             }
@@ -215,23 +213,6 @@ namespace ChardMove.gameManager
         }
 
         public void LoadLevel(GameObject level) {
-            // if(Level != null){
-            //     Destroy(_currentLevel);
-            //     ClearDictionaries();
-            //     ResetPlayerCards();
-            //     LevelLoaded = true;
-            //     StartCoroutine(LevelInstantiatingTimer(level));
-               
-            // }else{
-            //     //ResetPlayerCards();
-            //     LevelLoaded = true;
-            //     CardStacker.Instance.LoadCards();
-            // }
-
-            // if(level.TryGetComponent(out CameraOffsetRegister _cameraOffset)){
-            //     Camera.main.gameObject.transform.position = _cameraOffset.CameraPosition;
-            //     GameObject.FindGameObjectWithTag("Canvas").gameObject.transform.position = new Vector3(_cameraOffset.CameraPosition.x,_cameraOffset.CameraPosition.y,0);
-            // }
             AnimationInProgress = true;
             PlayerWon = false;
             Camera.main.transparencySortAxis = new Vector3(0,0,-1);
@@ -254,9 +235,6 @@ namespace ChardMove.gameManager
                 //CardStacker.Instance.LoadCards();
                 LoadNewLevelDebug(level);
             }
-
-            //CardStacker.Instance.LoadCards();
-            //StartCoroutine(LoadLevelWithAnimation(level));
         }
 
         private void LoadNewLevelDebug(GameObject level){
@@ -432,27 +410,21 @@ namespace ChardMove.gameManager
             {
                 if(item != null){
                     _allEntitiesToUnload.Add(item.gameObject);
-
                 }
             }
-
             foreach (var item in PushableDB.Values)
             {
                 if(item.Item2 != null){
                     _allEntitiesToUnload.Add(item.Item2.gameObject);
-
                 }
             }
-
             foreach (var item in BotDB.Values)
             {
                 if(item != null){
                     _allEntitiesToUnload.Add(item.gameObject);
-
                 }
             }
             yield return null;
-
 
             _allEntitiesToUnload = _allEntitiesToUnload.OrderBy(entity => entity.transform.position.x).ToList();
             ClearDictionaries();

@@ -47,26 +47,19 @@ namespace ChardMove
                 Destroy(gameObject);
             }
             AssignBusses();
+
             ButtonEvent.onButtonPressed += OnButtonClick;
             ButtonEvent.onToggleChecked += OnMuteToggled;
             ButtonEvent.onButtonHovered += OnButtonHover;
             BotGridMovement.onBotMovedATile += OnBotMoved;
-            //BOT DIED NOT BOT ABOUT TO DIE FOR SOUND
             BotGridMovement.botAboutToDie += OnBotDeath;
             DirectionalButtonClick.onButtonPressed += OnDirectionalButtonClick;
             Draggable.onBeginDrag += onCardDrag;
             DropZone.directionChoiceActive += OnCardDropped;
-            //ARROW DIRECTION CLICKED
-            //CARD DRAG AND DROP CARD EVENT
-            //LEVEL LOAD
             VolumeSliders.onSliderChanged += OnSliderChanged;
             GameManager.onNewLevelLoaded += OnNewLevelLoaded;
-            //PUSHABLE BLOCK BECOME A WALKABLE TILE (FALLS)
-            //RESET BUTTON (LEVEL LOAD)
             GameManager.resetButtonPressed += OnResetButtonPressed;
-            //BOT LANDS ON TILE AFTER RAIN ANIMATION
             GameManager.onBotLanded += OnbotLanded;
-            //BOT MOVE 
             LatchSwitch.onLatchActivated += OnLatchSwitchActivated;
             MomentarySwitch.onMomentaryActivated += OnMomentarySwitchActivated;
             Roadblock.onRoadblockActivated += OnRoadblockActivated;

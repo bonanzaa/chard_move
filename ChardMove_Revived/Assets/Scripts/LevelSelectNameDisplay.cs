@@ -18,9 +18,7 @@ namespace ChardMove
         private void Awake()
         {
             _levelLoader = LevelLoader.Instance;
-            //AssignNames();
-            //AssignImage();
-            //GetAllChildren();
+
             AssignLevelValues();
         }
         private void AssignImage()

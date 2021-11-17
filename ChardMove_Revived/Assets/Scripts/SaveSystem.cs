@@ -67,7 +67,6 @@ namespace ChardMove
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 LastLevelIndex = (int)formatter.Deserialize(fs);
-                //CompletedLevels = (bool[])formatter.Deserialize(fs);
             }
             catch (SerializationException e)
             {
@@ -82,15 +81,8 @@ namespace ChardMove
         }
         public void ClearSaveData()
         {
-            //var saveFile = File.Exists(Application.persistentDataPath + "/SaveFile.info");
-            //if (saveFile == true)
-            //{
-                File.Delete(Application.persistentDataPath + "/SaveFile.info");
-            //}
-            //else
-            //{
-            //    return;
-            //}
+            File.Delete(Application.persistentDataPath + "/SaveFile.info");
+            
             onProgressCleared();
             Serialize();
             Deserialize();

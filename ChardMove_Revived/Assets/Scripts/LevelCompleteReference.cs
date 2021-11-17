@@ -30,10 +30,6 @@ namespace ChardMove
 
         public void OpenWinScreen()
         {
-            //if(_winParticleSystem != null)
-            //{
-            //GameObject particles = Instantiate(_winParticleSystem, transform.position, Quaternion.identity);
-            //}
             StartCoroutine(nameof(Countdown));
             _winScreenUI.SetActive(true);
             _resetButton.SetActive(false);
@@ -49,14 +45,12 @@ namespace ChardMove
         {
              if (LevelLoader.LevelIndex>= _levelLoader.Levels.Count-1)
              {
-                //AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-                Debug.Log($"The current level index is {LevelLoader.LevelIndex} and should be going to main menu");
                 _sceneLoader.GoToMainMenu();
              }
             _winScreenUI.SetActive(false);
             _resetButton.SetActive(true);
             _pauseButton.SetActive(true);
-            //Set here the check for the lvel index fuck it who cares about architecture at this point, spaghetti code gang
+
             Time.timeScale = 1;
             nextLevel();
         }

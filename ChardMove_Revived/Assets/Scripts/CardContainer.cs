@@ -53,7 +53,6 @@ namespace ChardMove
                 GameManager.Instance._tempPlayerCards.Add(item.GetComponent<Draggable>());
             }
 
-            //CardStacker.Instance.LoadCards();
 
             if(!GameManager.Instance.LevelLoaded){
                 GameManager.Instance.LoadLevel(this.gameObject);   

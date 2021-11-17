@@ -10,18 +10,5 @@ namespace ChardMove
         private Animation _fadeToBlack;
         private Animation _fadeFromBlack;
         private SceneLoader _sceneLoader;
-        //private void Awake()
-        //{
-        //    _sceneLoader = SceneLoader.Instance;
-        //    _fadeFromBlack.Play();
-        //}
-        //public void FadeToBlack()
-        //{
-        //    _fadeToBlack.Play();
-        //}
-        //public void FadeFromBlack()
-        //{
-        //    _fadeFromBlack.Play();
-        //}
     }
 }
