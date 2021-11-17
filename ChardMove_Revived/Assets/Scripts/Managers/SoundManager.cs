@@ -26,8 +26,8 @@ namespace ChardMove
         [SerializeField] [EventRef] private string _botLandedEvent = null;
         [SerializeField] [EventRef] private string _loadLevel = null;
 
-        private float _musicVolume = 0.5f;
-        private float _sfxVolume = 0.5f;
+        private float _musicVolume = 1f;
+        private float _sfxVolume = 1f;
         private float _masterVolume = 1f;
 
         public static SoundManager Instance;

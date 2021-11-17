@@ -8,6 +8,8 @@ namespace ChardMove
     {
         [SerializeField] private GameObject _winScreenUI;
         [SerializeField] private float _winScreenTimer;
+        [SerializeField] private GameObject _resetButton;
+        [SerializeField] private GameObject _pauseButton;
         private LevelLoader _levelLoader;
 
         public delegate void NextLevel();
@@ -34,7 +36,9 @@ namespace ChardMove
             //}
             StartCoroutine(nameof(Countdown));
             _winScreenUI.SetActive(true);
-            Time.timeScale = 0 ;
+            _resetButton.SetActive(false);
+            _pauseButton.SetActive(false);
+           Time.timeScale = 0 ;
         }
         public void MainMenuButtonPressed()
         {
@@ -43,7 +47,16 @@ namespace ChardMove
         }
         public void NextLevelButtonPressed()
         {
+             if (LevelLoader.LevelIndex>= _levelLoader.Levels.Count-1)
+             {
+                //AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+                Debug.Log($"The current level index is {LevelLoader.LevelIndex} and should be going to main menu");
+                _sceneLoader.GoToMainMenu();
+             }
             _winScreenUI.SetActive(false);
+            _resetButton.SetActive(true);
+            _pauseButton.SetActive(true);
+            //Set here the check for the lvel index fuck it who cares about architecture at this point, spaghetti code gang
             Time.timeScale = 1;
             nextLevel();
         }

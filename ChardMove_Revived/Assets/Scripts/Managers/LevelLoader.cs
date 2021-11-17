@@ -17,9 +17,11 @@ namespace ChardMove
 
         private SaveSystem _saveSystem = new SaveSystem();
         private LevelCompleteReference _levelCompleteReference;
+        private SceneLoader _sceneLoader;
         
         private void Awake()
         {
+            _sceneLoader = GetComponent<SceneLoader>();
             DontDestroyOnLoad(gameObject);
             if(Instance == null)
             {
@@ -58,7 +60,15 @@ namespace ChardMove
         }
         private void OnPlayerWin()
         {
-            LevelIndex++;
+            if(LevelIndex < Levels.Count - 1)
+            {
+                LevelIndex++;
+            }
+            else if (LevelIndex >= Levels.Count)
+            {
+              
+                _sceneLoader.GoToMainMenu();
+            }
             _saveSystem.Serialize();
             _saveSystem.Deserialize();
             _levelCompleteReference.OpenWinScreen();

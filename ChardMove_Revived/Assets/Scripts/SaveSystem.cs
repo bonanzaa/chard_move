@@ -92,8 +92,8 @@ namespace ChardMove
             //    return;
             //}
             LastLevelIndex = 0;
-            //Serialize();
-            //Deserialize();
+            Serialize();
+            Deserialize();
             //onProgressCleared();
         }
         public int RefreshLvlIndex()

@@ -243,6 +243,18 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1040272235}
+    - target: {fileID: 475631400, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: _pauseButton
+      value: 
+      objectReference: {fileID: 475631398}
+    - target: {fileID: 475631400, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: _resetButton
+      value: 
+      objectReference: {fileID: 475631399}
+    - target: {fileID: 475631400, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: _winScreenTimer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 475631401, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -351,13 +363,107 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameplayCanvasStacking
       objectReference: {fileID: 0}
+    - target: {fileID: 446790261311683552, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790261311683552, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790261311683552, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790261311683552, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790261352410919, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790261352410919, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790261352410919, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790261352410919, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790261634153445, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790261634153445, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790261634153445, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790261634153445, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 446790261677875541, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.013977
       objectReference: {fileID: 0}
+    - target: {fileID: 446790262388109400, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790262388109400, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790262388109400, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 446790262388109400, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319690127140448790, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1040272235}
+    - target: {fileID: 1319690127140448790, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1040272235}
+    - target: {fileID: 1319690127140448790, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnButtonPressed
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319690127140448790, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnButtonHovered
+      objectReference: {fileID: 0}
+    - target: {fileID: 6250251449654306398, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5079989434814038270, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+--- !u!1 &475631398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3797360764316896598, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+  m_PrefabInstance: {fileID: 475631397}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &475631399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 446790261724935057, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+  m_PrefabInstance: {fileID: 475631397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1040272233
 PrefabInstance:
   m_ObjectHideFlags: 0
