@@ -42,11 +42,14 @@ namespace ChardMove
 
         private void OnProgressCleared()
         {
-            LevelIndex = _saveSystem.RefreshLvlIndex();
+            Debug.Log($"Level index is{LevelIndex}");
+            LevelIndex = 0;
+            Debug.Log($"Level index is{LevelIndex} after refreshing");
         }
 
         private void OnDestroy() {
             WinTile.playerWin -= OnPlayerWin;
+            SaveSystem.onProgressCleared -= OnProgressCleared;
         }
         public void CacheLevelCompleteReference(LevelCompleteReference levelCompleteReference)
         {

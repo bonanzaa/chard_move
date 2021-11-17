@@ -91,10 +91,9 @@ namespace ChardMove
             //{
             //    return;
             //}
-            LastLevelIndex = 0;
+            onProgressCleared();
             Serialize();
             Deserialize();
-            //onProgressCleared();
         }
         public int RefreshLvlIndex()
         {
