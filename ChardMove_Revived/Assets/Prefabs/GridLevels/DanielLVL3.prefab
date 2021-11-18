@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Bridge Builder
-  LevelPic: {fileID: 21300000, guid: 5828014513a69a64491ea3c7a665499b, type: 3}
+  LevelPic: {fileID: 21300000, guid: 8ba4530ee7cb87e4abc6dfd906755e6b, type: 3}
   OneTileCardCount: 4
   TwoTileCardCount: 4
   ThreeTileCardCount: 2

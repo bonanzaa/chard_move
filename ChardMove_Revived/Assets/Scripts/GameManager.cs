@@ -86,7 +86,7 @@ namespace ChardMove.gameManager
         private void Awake() {
             //Time.timeScale = 1;
             _levelLoader = LevelLoader.Instance;
-            LevelCompleteReference.nextLevel += OnNextLevelLoad;
+            //LevelCompleteReference.nextLevel += OnNextLevelLoad;
             BotGridMovement.botMovedPos += OnBotMoved;
             BotGridMovement.botStartedMovingPos += OnBotStartedMoving;
             BotGridMovement.botUndoPressed += OnBotUndoMoved;
@@ -98,10 +98,10 @@ namespace ChardMove.gameManager
             {
                 Level = _levelLoader.Levels[LevelLoader.LevelIndex];
             }
-            if(Level != null){
-                LevelLoaded = true;
-                LoadLevel(Level);
-            }
+            //if(Level != null){
+            //    LevelLoaded = true;
+            //    LoadLevel(Level);
+            //}
         }
 
         private void OnBotMoved(Vector2 pos){
@@ -192,10 +192,10 @@ namespace ChardMove.gameManager
         }
 
 
-        private void OnNextLevelLoad()
-        {
-            LoadLevel(_levelLoader.Levels[LevelLoader.LevelIndex]);
-        }
+        //private void OnNextLevelLoad()
+        //{
+        //    LoadLevel(_levelLoader.Levels[LevelLoader.LevelIndex]);
+        //}
 
         private void Start() {
             _originalPlayerCards = PlayerCards;
@@ -208,33 +208,33 @@ namespace ChardMove.gameManager
         private void OnDestroy() {
             BotGridMovement.botMovedPos -= OnBotMoved;
             BotGridMovement.botStartedMovingPos -= OnBotStartedMoving;
-            LevelCompleteReference.nextLevel -= OnNextLevelLoad;
+            //LevelCompleteReference.nextLevel -= OnNextLevelLoad;
         }
 
-        public void LoadLevel(GameObject level) {
-            AnimationInProgress = true;
-            PlayerWon = false;
-            Camera.main.transparencySortAxis = new Vector3(0,0,-1);
+        //public void LoadLevel(GameObject level) {
+        //    AnimationInProgress = true;
+        //    PlayerWon = false;
+        //    Camera.main.transparencySortAxis = new Vector3(0,0,-1);
 
-            // that's being called when you have the level in the scene already
-            // (level design)
+        //    // that's being called when you have the level in the scene already
+        //    // (level design)
 
-            if(Level == null && !LevelLoaded){
-                LevelLoaded = true;
-                LoadNewLevelNoInstantiate(level);
-                return;
-            }
+        //    if(Level == null && !LevelLoaded){
+        //        LevelLoaded = true;
+        //        LoadNewLevelNoInstantiate(level);
+        //        return;
+        //    }
 
-            if(_lastLevel != null){
-                StartCoroutine(TweenPlayerCards());
-                StartCoroutine(UnloadLevelWithAnimation(level));
-            }else{
-                ResetPlayerCards();
-                StartCoroutine(TweenPlayerCards());
-                //CardStacker.Instance.LoadCards();
-                LoadNewLevelDebug(level);
-            }
-        }
+        //    if(_lastLevel != null){
+        //        StartCoroutine(TweenPlayerCards());
+        //        StartCoroutine(UnloadLevelWithAnimation(level));
+        //    }else{
+        //        ResetPlayerCards();
+        //        StartCoroutine(TweenPlayerCards());
+        //        //CardStacker.Instance.LoadCards();
+        //        LoadNewLevelDebug(level);
+        //    }
+        //}
 
         private void LoadNewLevelDebug(GameObject level){
             StartCoroutine(LevelInstantiatingTimer(level));

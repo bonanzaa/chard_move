@@ -10,5 +10,9 @@ namespace ChardMove
         {
             SceneLoader.Instance.LoadScene(1);
         }
+        public void OnSelectButtonPressed(int index)
+        {
+            LevelSwitchAnimator.Instance.LoadLevel(index);
+        }
     }
 }

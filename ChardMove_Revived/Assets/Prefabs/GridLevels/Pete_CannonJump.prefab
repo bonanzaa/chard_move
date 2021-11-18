@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Cannon Jump
-  LevelPic: {fileID: 21300000, guid: 4fc59e5dee591a443b1c71f929eda526, type: 3}
+  LevelPic: {fileID: 21300000, guid: cd195582d596cce4689e9a6251ee61ac, type: 3}
   OneTileCardCount: 1
   TwoTileCardCount: 2
   ThreeTileCardCount: 3

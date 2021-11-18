@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: EZPZ
-  LevelPic: {fileID: 21300000, guid: 274465bc6b4a271419365d508be6d471, type: 3}
+  LevelPic: {fileID: 21300000, guid: 6965d992ec1e01e44a6f675e0a00d834, type: 3}
   OneTileCardCount: 4
   TwoTileCardCount: 2
   ThreeTileCardCount: 0

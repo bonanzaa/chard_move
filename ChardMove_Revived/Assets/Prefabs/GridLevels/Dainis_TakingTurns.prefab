@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Taking Turns
-  LevelPic: {fileID: 21300000, guid: e0b24981cd8ea7248b2719639d2799ab, type: 3}
+  LevelPic: {fileID: 21300000, guid: e7acb5dac82f3d848acf6179528488b6, type: 3}
   OneTileCardCount: 3
   TwoTileCardCount: 0
   ThreeTileCardCount: 2

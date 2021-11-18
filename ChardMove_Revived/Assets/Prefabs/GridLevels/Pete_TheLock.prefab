@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: The Lock
-  LevelPic: {fileID: 21300000, guid: a6fbf233c7e2bc2478caada7f359ffdd, type: 3}
+  LevelPic: {fileID: 21300000, guid: 82a3bb0dc32a3ef4f81f88fb8d3833d3, type: 3}
   OneTileCardCount: 2
   TwoTileCardCount: 2
   ThreeTileCardCount: 1

@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Nautilus
-  LevelPic: {fileID: 21300000, guid: 16019d41a1e9ee844834e81de0cbf479, type: 3}
+  LevelPic: {fileID: 21300000, guid: c61f6ef7c7a15e241934ee0b4078bdba, type: 3}
   OneTileCardCount: 1
   TwoTileCardCount: 0
   ThreeTileCardCount: 1

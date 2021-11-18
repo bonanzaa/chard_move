@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Wait For It
-  LevelPic: {fileID: 21300000, guid: d3d2f87d58bda3c4b9db7065b6c78127, type: 3}
+  LevelPic: {fileID: 21300000, guid: d72429466d3f32f48937b8b2a7210d8d, type: 3}
   OneTileCardCount: 1
   TwoTileCardCount: 2
   ThreeTileCardCount: 0

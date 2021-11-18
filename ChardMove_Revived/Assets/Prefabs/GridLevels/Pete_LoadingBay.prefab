@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Loading Bay
-  LevelPic: {fileID: 21300000, guid: e82504c6eea16564cbe0589363f3aed5, type: 3}
+  LevelPic: {fileID: 21300000, guid: 9553517c910353445932d1e199735bc6, type: 3}
   OneTileCardCount: 1
   TwoTileCardCount: 3
   ThreeTileCardCount: 0

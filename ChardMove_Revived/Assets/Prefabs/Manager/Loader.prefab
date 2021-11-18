@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7256042746239743742}
   - component: {fileID: 7256042746239743743}
   - component: {fileID: 3983941880120265018}
+  - component: {fileID: -7416741241756771336}
   m_Layer: 0
   m_Name: Loader
   m_TagString: Untagged
@@ -44,26 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3351bbc56ee2444d9b4da5dc65df2c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levels:
-  - {fileID: 4299647653888687275, guid: 42c87651efb58af46a9f06b47ef2456c, type: 3}
-  - {fileID: 2732176282758029588, guid: 935fefdac008459498c155cdde7f802d, type: 3}
-  - {fileID: 5782624129449852051, guid: 1c3a1b474731f0c4689512f5fdd3a90a, type: 3}
-  - {fileID: 3303337304061434726, guid: fa2e3a330f0688a4aa0f455a394d6c1c, type: 3}
-  - {fileID: 1572215832760688595, guid: f10e96b929667594ebe92495d878a100, type: 3}
-  - {fileID: 1502936964204070950, guid: 6581e2aa9a99ea6469d3ed757b9690bb, type: 3}
-  - {fileID: 1502936964204070950, guid: 057dd2b3bcdaf024ebbdc9701860c17c, type: 3}
-  - {fileID: 1373196622807518203, guid: b29198f35aeb99442abf100d5c04eb67, type: 3}
-  - {fileID: 3456654859000374053, guid: d43a151c3f3741f46bd717c47944e537, type: 3}
-  - {fileID: 1701077596766336599, guid: 644303adc1ee2eb48bf787f369004a5d, type: 3}
-  - {fileID: 9199969657094049707, guid: 78fbbf78d43be81488b1fbe70fe5994d, type: 3}
-  - {fileID: 7196152789170351149, guid: b67963df8ea012740b1229feea566d19, type: 3}
-  - {fileID: 6824512017237423248, guid: 6e8c6002f89576f44b80519a5ef0bdb8, type: 3}
-  - {fileID: 4557727541328749430, guid: fd1d47bf980434144902d0244cf6ab7e, type: 3}
-  - {fileID: 7576989228744052216, guid: b245dce1fcbbc4744b40a5aaa02504d5, type: 3}
-  - {fileID: 888963259909186903, guid: caa33b4d2bfb0dd4d8d1a3484d0dab2c, type: 3}
-  - {fileID: 4167917628868225566, guid: b21fa00fa5875f64a8bebdb178242661, type: 3}
-  _winScreenUI: {fileID: 0}
   CanLoadLevel: 0
+  Levels: []
 --- !u!114 &3983941880120265018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,3 +59,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368e023cdd91e714d9cb4557cb6e1f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7416741241756771336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7256042746239743736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93fa252f2180afe40806d354df6305d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentLevel: {fileID: 0}
+  CurrentLevelIndex: 0
+  _allEntitiesInLevel: []
+  _k: 0
+  _j: 0

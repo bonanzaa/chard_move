@@ -11,6 +11,7 @@ namespace ChardMove
         [SerializeField] private GameObject _resetButton;
         [SerializeField] private GameObject _pauseButton;
         private LevelLoader _levelLoader;
+        private LevelSwitchAnimator _levelSwitchAnimator;
 
         public delegate void NextLevel();
         public static event NextLevel nextLevel;
@@ -25,6 +26,10 @@ namespace ChardMove
             if(LevelLoader.Instance != null){
                 _levelLoader = LevelLoader.Instance;
                 _levelLoader.CacheLevelCompleteReference(this);
+            }
+            if(LevelSwitchAnimator.Instance != null)
+            {
+                _levelSwitchAnimator = LevelSwitchAnimator.Instance;
             }
         }
 
@@ -43,14 +48,18 @@ namespace ChardMove
         }
         public void NextLevelButtonPressed()
         {
-             if (LevelLoader.LevelIndex>= _levelLoader.Levels.Count-1)
-             {
+             //if (LevelLoader.LevelIndex>= _levelLoader.Levels.Count-1)
+             //{
+             //   _sceneLoader.GoToMainMenu();
+             //}
+             if(_sceneLoader.GetCurrentSceneIndex() == 30)
+            {
                 _sceneLoader.GoToMainMenu();
-             }
+            }
             _winScreenUI.SetActive(false);
             _resetButton.SetActive(true);
             _pauseButton.SetActive(true);
-
+            _levelSwitchAnimator.LoadLevel(_sceneLoader.GetCurrentSceneIndex() + 1);
             Time.timeScale = 1;
             nextLevel();
         }

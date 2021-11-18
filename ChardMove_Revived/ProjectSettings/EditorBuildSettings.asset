@@ -5,28 +5,97 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 0
-    path: Assets/Scenes/LvlSelectTry.unity
-    guid: c135842189830074482fb32e6885f425
-  - enabled: 0
-    path: Assets/Scenes/LoadLevelSceneTest.unity
-    guid: 5a9482f713e8f164c92f3ad7e1ef1578
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/AlphaScenes/MainMenu&LVLSelect.unity
     guid: 8b6878828c8a2274b950b4f0259bd41d
-  - enabled: 0
-    path: Assets/Scenes/AlphaScenes/GameplayScene.unity
-    guid: a5bef0c35b42723439f465f0ffba5ef0
   - enabled: 1
-    path: Assets/Scenes/LevelScenes/Test_Scene_1.unity
-    guid: 99ab566267059034da7bc538330f25cb
-  - enabled: 1
-    path: Assets/Scenes/LevelScenes/Test_Scene_2.unity
+    path: Assets/Scenes/LevelScenes/FirstSteps.unity
     guid: a307ab0748063404bb2c2c82c3fc311c
   - enabled: 1
-    path: Assets/Scenes/LevelScenes/Test_scene_3.unity
-    guid: aadd93b179ab4ce46bc5b2c60d8b4a6f
+    path: Assets/Scenes/LevelScenes/SecondSequence.unity
+    guid: 177277008ffdac540937f0bf19c81aef
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/LockSmith.unity
+    guid: 908cbd7e12cc0244d9c24a1b6102d736
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/DoubleDiamond.unity
+    guid: 8b6e27dc460398244afbdad2dab98e6c
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/EZPZ.unity
+    guid: 1fddfd260e78e7644b6e1f73d861673b
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Movement.unity
+    guid: be10523bbf4118a48a026973d50ae5ee
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Substraction.unity
+    guid: 46513ec3815a25448acfb9d4cea46557
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/CannonJump.unity
+    guid: 1b92249f77210cb49b2f9d45fd89d3a6
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/GettingAcross.unity
+    guid: 7090aa45f8b241149a1d6e8ca487c8f8
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/ItTakesTwo.unity
+    guid: 3cc6778c01f39714fae1de2e1641ac48
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Nautilus.unity
+    guid: b717b8369b68e594db11ea3e7fa985b5
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Deuces.unity
+    guid: 6330d888fd788b949a70b5436c08dd5c
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/CanAlmostTouchIt.unity
+    guid: de4f12d1f2f33e04facef3ec5864c8ad
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/MeetInTheMiddle.unity
+    guid: dce21fa648797ea458744236403970b2
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/LoadingBay.unity
+    guid: 86a7ec483d61d7146aa51cf18ef90e8d
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/DoorDash.unity
+    guid: 1d3b8517d89a59c48add5cd61bede7a3
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/SoClose.unity
+    guid: eb5ba7d29e46d1b48a580d4ee8e63b1e
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/CloseEnough.unity
+    guid: 49b6d215d64c24d459bf36d73a486372
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/PollPosition.unity
+    guid: 309ef19ada64e024fb9c2ef15afe492f
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Packages.unity
+    guid: 549d9f763ec722242b4070dfd7e241f7
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Warehouse.unity
+    guid: ca108f7b1830e7f4689d71b08178dd4e
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/BridgeBuilder.unity
+    guid: 4fede3bd2d24401469df8ed958844358
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/TheBlock.unity
+    guid: 3aa0305e552c56b4ca313efdf55d984d
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Trapped.unity
+    guid: a255778e8b442754bbf8c250b1206225
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/TheShuffle.unity
+    guid: 4a89d9384583c49439b7e76b8ba8d1f4
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/TakingTurns.unity
+    guid: d80caff89ee16ee40878e3b2c8a2e1ec
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Questionmark.unity
+    guid: 70c2f807ab7dce944a7d335bb0599438
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Overlord.unity
+    guid: 89853e1b681972540a703870b3d34eed
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Tradeoff.unity
+    guid: 9c8ce3aad67634e48b458a45bf2c325d
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Teamwork.unity
+    guid: 40d900246fdd6534ea0141262cc06b3d
   m_configObjects: {}
