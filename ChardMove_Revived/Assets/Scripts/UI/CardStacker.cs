@@ -9,6 +9,7 @@ namespace ChardMove
     {
         public static CardStacker Instance;
         public List<GameObject> Slots;
+        public List<GameObject> CardCounters;
 
 
         private void Awake() {

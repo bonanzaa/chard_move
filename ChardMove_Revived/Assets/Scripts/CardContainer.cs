@@ -31,6 +31,13 @@ namespace ChardMove
             PassCardList();
         }
 
+        private void Start() {
+            if(LevelSwitchAnimator.Instance != null){
+                LevelSwitchAnimator.Instance.SetCurrentLevel(this.gameObject);
+            }
+            
+        }
+
         private void PassCardList(){
             for (int i = 0; i < OneTileCardCount; i++)
             {
@@ -54,9 +61,9 @@ namespace ChardMove
             }
 
 
-            if(!GameManager.Instance.LevelLoaded){
-                GameManager.Instance.LoadLevel(this.gameObject);   
-            }
+            // if(!GameManager.Instance.LevelLoaded){
+            //     GameManager.Instance.LoadLevel(this.gameObject);   
+            // }
         }
     }
 }

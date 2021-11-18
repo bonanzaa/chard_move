@@ -78,9 +78,8 @@ namespace ChardMove.gameManager
        public float BotSpeedMax;
 
         // for loading animation
-        public GameObject NextLevelDebug;
         private int _i = 0;
-        public int _k = 0;
+        private int _k = 0;
         private int _j = 0;
         private GameObject _oldLevel;
 
@@ -696,18 +695,18 @@ namespace ChardMove.gameManager
 
         public void Reset(){
             if(_botMoving || AnimationInProgress) return;
-            AnimationInProgress = true;
-            _allEntitiesToUnload.Clear();
-            _allEntitiesToLoad.Clear();
-            //DeletePlayerCards();
-            resetButtonPressed();
-            StartCoroutine(TweenPlayerCards());
-            CacheTilesInTheScene();
-            StartCoroutine(ResetDictClearTimer());
+            // _allEntitiesToUnload.Clear();
+            // _allEntitiesToLoad.Clear();
+            // //DeletePlayerCards();
+            // resetButtonPressed();
+            // StartCoroutine(TweenPlayerCards());
+            // CacheTilesInTheScene();
+            // StartCoroutine(ResetDictClearTimer());
+            LevelSwitchAnimator.Instance.LoadLevel(LevelSwitchAnimator.Instance.CurrentLevelIndex);
             //ResetPlayerCards();
         }
 
-        private void OnBotLanded(){
+        public void OnBotLanded(){
             if(onBotLanded != null)
                 onBotLanded();
         }

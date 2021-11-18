@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1236108222779632437}
   - component: {fileID: 6377929421733552516}
+  - component: {fileID: 5896124677878784576}
   m_Layer: 0
   m_Name: MovingPlatformGhost
   m_TagString: Untagged
@@ -165,3 +166,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5896124677878784576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8341739803549559721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6afd7c137a2b89942a613b579f517ceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

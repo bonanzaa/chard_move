@@ -14,10 +14,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/LoadLevelSceneTest.unity
     guid: 5a9482f713e8f164c92f3ad7e1ef1578
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AlphaScenes/MainMenu&LVLSelect.unity
     guid: 8b6878828c8a2274b950b4f0259bd41d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AlphaScenes/GameplayScene.unity
     guid: a5bef0c35b42723439f465f0ffba5ef0
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Test_Scene_1.unity
+    guid: 99ab566267059034da7bc538330f25cb
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Test_Scene_2.unity
+    guid: a307ab0748063404bb2c2c82c3fc311c
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Test_scene_3.unity
+    guid: aadd93b179ab4ce46bc5b2c60d8b4a6f
   m_configObjects: {}

@@ -604,7 +604,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.19607845, g: 0.19607845, b: 0.19607845, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1680,7 +1680,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _winScreenUI: {fileID: 7127056908548352397}
-  _winScreenTimer: 0
+  _winScreenTimer: 3
+  _resetButton: {fileID: 446790261724935057}
+  _pauseButton: {fileID: 3797360764316896598}
 --- !u!1 &446790261311683553
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,6 +2080,11 @@ MonoBehaviour:
   - {fileID: 446790261352410916}
   - {fileID: 446790262388109401}
   - {fileID: 446790261634153450}
+  CardCounters:
+  - {fileID: 802184767}
+  - {fileID: 2020172944}
+  - {fileID: 264315534}
+  - {fileID: 1906884779}
 --- !u!1 &446790261724935057
 GameObject:
   m_ObjectHideFlags: 0
@@ -3043,7 +3050,6 @@ GameObject:
   - component: {fileID: 8023483937239442273}
   - component: {fileID: 6250251449654306398}
   - component: {fileID: 2548389654246859586}
-  - component: {fileID: 5079989434814038270}
   - component: {fileID: 1319690127140448790}
   m_Layer: 5
   m_Name: PauseButton
@@ -3178,18 +3184,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &5079989434814038270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3797360764316896598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14be83251cff6374e9ef60a1efcc30c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1319690127140448790
 MonoBehaviour:
   m_ObjectHideFlags: 0
