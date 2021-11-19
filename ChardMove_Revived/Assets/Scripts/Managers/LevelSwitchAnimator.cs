@@ -31,22 +31,22 @@ namespace ChardMove
 
         private void Update() {
             if(Input.GetKeyDown(KeyCode.Alpha1)){
-                LoadLevel(1);
+                LoadLevel(25);
             }
-            if(Input.GetKeyDown(KeyCode.Alpha2)){
-                LoadLevel(2);
-            }
+            // if(Input.GetKeyDown(KeyCode.Alpha2)){
+            //     LoadLevel(2);
+            // }
         }
 
         public void LoadLevel(int levelSceneIndex){
             if(CurrentLevel == null){
-                CurrentLevelIndex = levelSceneIndex;
                 SceneManager.LoadScene(levelSceneIndex);
             }else{
                 _nextLvlIndex = levelSceneIndex;
                 // animate OutTween for current level
                 StartCoroutine(UnloadingAnimation());
             }
+            CurrentLevelIndex = levelSceneIndex;
         }
 
         public void SetCurrentLevel(GameObject newCurrentLevel){
@@ -78,7 +78,7 @@ namespace ChardMove
 
             foreach (var item in GameManager.Instance.PushableDB.Values)
             {
-                if(item.Item2 != null){
+                if(item.Item2 != null && !item.Item2.TryGetComponent(out BotGridMovement botMovement)){
                     _allEntitiesInLevel.Add(item.Item2);
                 }
             }
@@ -92,7 +92,6 @@ namespace ChardMove
 
             OrderListByFinalY();
 
-            print($"Starting tweens");
             foreach (var item in _allEntitiesInLevel)
             {
                 if(item.TryGetComponent(out Tile tile)){

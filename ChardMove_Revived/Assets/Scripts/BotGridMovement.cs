@@ -24,6 +24,8 @@ namespace ChardMove.BotMovement
         public delegate void BotStartedMoving(MovementDirection direction1, int steps);
         public static event BotStartedMoving botStartedMoving;
         public delegate void BotMovedATile();
+        public delegate void PushableBotMoved(Vector2 pos);
+        public static event PushableBotMoved onPushableBotMoved;
         public static event BotMovedATile onBotMovedATile;
         public delegate void BotStartedMovingPos(Vector2 pos);
         public static event BotStartedMovingPos botStartedMovingPos;
@@ -120,13 +122,6 @@ namespace ChardMove.BotMovement
             botMovedPos(transform.position);
         }
 
-        private void Update() {
-            if(Input.GetKeyDown(KeyCode.A)){
-                print($"BotMoving: {GameManager.Instance._botMoving}");
-                print($"Animation in progress: {GameManager.Instance.AnimationInProgress}");
-            }
-        }
-
         private void ChangeSprite(MovementDirection direction){
             switch(direction){
                 case(MovementDirection.Forward):
@@ -202,6 +197,8 @@ namespace ChardMove.BotMovement
                     if((Vector2)transform.position == target){
                         if(i+1 == steps){
                             yield return new WaitForSeconds(0.1f);
+                            if(onBotMovedATile != null)
+                                onBotMovedATile();
                             break;
                         }
                         yield return new WaitForSeconds(speedBetweenSteps);
@@ -351,6 +348,7 @@ namespace ChardMove.BotMovement
                 }
                 GameManager.Instance.AddBotToDB(transform.position,this,_lastPosition);
                 GameManager.Instance.AddToPushableDB(transform.position,this,this.gameObject,_lastPosition);
+                onPushableBotMoved(transform.position);
             }
 
         public Vector2 TargetTilePosition(MovementDirection direction){

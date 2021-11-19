@@ -90,6 +90,7 @@ namespace ChardMove.gameManager
             BotGridMovement.botMovedPos += OnBotMoved;
             BotGridMovement.botStartedMovingPos += OnBotStartedMoving;
             BotGridMovement.botUndoPressed += OnBotUndoMoved;
+            BotGridMovement.onPushableBotMoved += OnPushableBotMoved;
             PlayerWon = false;
             _botMoving = false;
             LevelLoaded = false;
@@ -109,6 +110,20 @@ namespace ChardMove.gameManager
             //FindWinTile(pos);
             FindMovingPlatform(pos);
 
+        }
+
+        private void OnPushableBotMoved(Vector2 pos){
+            FindSwitch(pos);
+            FindWinTile(pos);
+            FindMovingPlatform(pos);
+        }
+        public void OnBotStartedMoving(){
+            _botMoving = true;
+        }
+
+        public void OnBotFinishedMoving(Vector3 pos){
+            _botMoving = false;
+            FindWinTile(pos);
         }
 
         private void OnBotUndoMoved(Vector2 pos, Vector2 lastpos){
@@ -192,11 +207,6 @@ namespace ChardMove.gameManager
         }
 
 
-        //private void OnNextLevelLoad()
-        //{
-        //    LoadLevel(_levelLoader.Levels[LevelLoader.LevelIndex]);
-        //}
-
         private void Start() {
             _originalPlayerCards = PlayerCards;
             // if(Level != null){
@@ -208,531 +218,18 @@ namespace ChardMove.gameManager
         private void OnDestroy() {
             BotGridMovement.botMovedPos -= OnBotMoved;
             BotGridMovement.botStartedMovingPos -= OnBotStartedMoving;
+            BotGridMovement.onPushableBotMoved -= OnPushableBotMoved;
             //LevelCompleteReference.nextLevel -= OnNextLevelLoad;
         }
 
-        //public void LoadLevel(GameObject level) {
-        //    AnimationInProgress = true;
-        //    PlayerWon = false;
-        //    Camera.main.transparencySortAxis = new Vector3(0,0,-1);
-
-        //    // that's being called when you have the level in the scene already
-        //    // (level design)
-
-        //    if(Level == null && !LevelLoaded){
-        //        LevelLoaded = true;
-        //        LoadNewLevelNoInstantiate(level);
-        //        return;
-        //    }
-
-        //    if(_lastLevel != null){
-        //        StartCoroutine(TweenPlayerCards());
-        //        StartCoroutine(UnloadLevelWithAnimation(level));
-        //    }else{
-        //        ResetPlayerCards();
-        //        StartCoroutine(TweenPlayerCards());
-        //        //CardStacker.Instance.LoadCards();
-        //        LoadNewLevelDebug(level);
-        //    }
-        //}
-
-        private void LoadNewLevelDebug(GameObject level){
-            StartCoroutine(LevelInstantiatingTimer(level));
-            //StartCoroutine(LoadLevelWithAnimation(level));
-        }
-
-        private void LoadNewLevelNoInstantiate(GameObject level){
-            StartCoroutine(LoadLevelWithAnimationNoInstantiate(level));
-        }
-
-        public IEnumerator LoadLevelWithAnimation(GameObject level){
-            LevelLoaded = true;
-            _allEntitiesToLoad.Clear();
-            //instantiate level here
-
-            _currentLevel = Instantiate(level, new Vector3(0,0,0),Quaternion.identity);
-            Level = _currentLevel;
-            _lastLevel = _currentLevel;
-            //CardStacker.Instance.LoadCards();
-
-            
-            
-            foreach (var item in TileDB.Values)
-            {
-                if(item != null){
-                    if(!item.enabled){
-                        item.enabled = true;
-                    }
-                    _allEntitiesToLoad.Add(item.gameObject);
-                    if(item.gameObject.GetComponent<WinTile>()){
-                        continue;
-                    }else{
-                        //StartCoroutine(InTileTween(item));
-                    }
-
-                }
-            }
-
-            //StartCoroutine(InRedButtonTween(RedButton));
-
-            foreach (var item in PushableDB.Values)
-            {
-                if(item.Item2 != null){
-                    if(item.Item2.GetComponent<BotGridMovement>()){
-                        continue;
-                    }else{
-                        _allEntitiesToLoad.Add(item.Item2);
-                        //StartCoroutine(InBlockTween(item.Item2));
-                    }
-
-                }
-            }
-            foreach (var item in BotDB.Values)
-            {
-                if(item != null){
-                    _allEntitiesToLoad.Add(item.gameObject);
-                    //StartCoroutine(InBotTween(item));
-
-                }
-            }
-
-            OrderListByFinalY();
-
-            foreach (var item in TileDB.Values)
-            {
-                if(item == null) continue;
-                if(item.gameObject.GetComponent<WinTile>()){
-                    continue;
-                }else{
-                    StartCoroutine(InTileTween(item));
-                }
-            }
-
-            StartCoroutine(InRedButtonTween(RedButton));
-
-            foreach (var item in PushableDB.Values)
-            {
-                if(item.Item2 == null) continue;
-                if(item.Item2.GetComponent<BotGridMovement>()){
-                    continue;
-                }else{
-                    StartCoroutine(InBlockTween(item.Item2));
-                }
-            }
-            foreach (var item in BotDB.Values)
-            {
-                if(item == null) continue;
-                StartCoroutine(InBotTween(item));
-            }
-            yield return null;
-
-        }
-
-        private IEnumerator LoadLevelWithAnimationNoInstantiate(GameObject level){
-            LevelLoaded = true;
-            //instantiate level here
-
-            _currentLevel = level;
-            Level = _currentLevel;
-            CardStacker.Instance.LoadCards();
-
-            
-            
-            foreach (var item in TileDB.Values)
-            {
-                _allEntitiesToLoad.Add(item.gameObject);
-                if(item.gameObject.GetComponent<WinTile>()){
-                    continue;
-                }else{
-                    //StartCoroutine(InTileTween(item));
-                }
-            }
-
-            //StartCoroutine(InRedButtonTween(RedButton));
-
-            foreach (var item in PushableDB.Values)
-            {
-                if(item.Item2.GetComponent<BotGridMovement>()){
-                    continue;
-                }else{
-                    _allEntitiesToLoad.Add(item.Item2);
-                    //StartCoroutine(InBlockTween(item.Item2));
-                }
-            }
-            foreach (var item in BotDB.Values)
-            {
-                _allEntitiesToLoad.Add(item.gameObject);
-                //StartCoroutine(InBotTween(item));
-            }
-            yield return null;
-            OrderListByFinalY();
-
-            // iterate through the shit again, but now we are actually tweening the shit
-            // this is retarded way to do it, but cba
-
-            foreach (var item in TileDB.Values)
-            {
-                if(item.gameObject.GetComponent<WinTile>()){
-                    continue;
-                }else{
-                    StartCoroutine(InTileTween(item));
-                }
-            }
-            StartCoroutine(InRedButtonTween(RedButton));
-
-            foreach (var item in PushableDB.Values)
-            {
-                if(item.Item2.GetComponent<BotGridMovement>()){
-                    continue;
-                }else{
-                    StartCoroutine(InBlockTween(item.Item2));
-                }
-            }
-            foreach (var item in BotDB.Values)
-            {
-                StartCoroutine(InBotTween(item));
-            }
-            yield return null;
-        }
-
-
-        public IEnumerator UnloadLevelWithAnimation(GameObject level){
-            _allEntitiesToUnload.Clear();
-            if(_lastLevel == null){
-                LoadNewLevelDebug(level);
-                yield break;
-            }
-            LevelLoaded = true;
-            _lastLevel.transform.SetParent(Camera.main.transform);
-            yield return null;
-            foreach (var item in TileDB.Values)
-            {
-                if(item != null){
-                    _allEntitiesToUnload.Add(item.gameObject);
-                }
-            }
-            foreach (var item in PushableDB.Values)
-            {
-                if(item.Item2 != null){
-                    _allEntitiesToUnload.Add(item.Item2.gameObject);
-                }
-            }
-            foreach (var item in BotDB.Values)
-            {
-                if(item != null){
-                    _allEntitiesToUnload.Add(item.gameObject);
-                }
-            }
-            yield return null;
-
-            _allEntitiesToUnload = _allEntitiesToUnload.OrderBy(entity => entity.transform.position.x).ToList();
-            ClearDictionaries();
-            if(onLevelUnload != null)
-                onLevelUnload();
-            foreach (var item in _allEntitiesToUnload)
-            {
-                if(item == null) continue;
-                StartCoroutine(OutTween(item));
-                yield return new WaitForSeconds(0.01f);
-            }
-            LoadNewLevelDebug(level);
-        }
-
-        private IEnumerator InTileTween(Tile tile){
-            Vector3 endPosition = tile.transform.position;
-            tile.transform.position = new Vector3(tile.transform.position.x,5,tile.transform.position.z);
-            float randSpeed = Random.Range(TileSpeedMin,TileSpeedMax);
-            yield return new WaitForSeconds(DelayBeforeTiles);       
-            tile.transform.DOMoveY(endPosition.y,randSpeed,false).SetEase(Ease.OutBack,0.75f).OnComplete(OnLevelFullyLoaded);
-        }
-
-        private IEnumerator InGhostTween(GameObject ghost){
-            if(ghost == null) yield break;
-            Vector3 endPosition = ghost.transform.position;
-            ghost.transform.position = new Vector3(ghost.transform.position.x,5,ghost.transform.position.z);
-            float randSpeed = Random.Range(TileSpeedMin,TileSpeedMax);
-            yield return new WaitForSeconds(DelayBeforeTiles);       
-            ghost.transform.DOMoveY(endPosition.y,randSpeed,false).SetEase(Ease.OutBack,0.75f).OnComplete(OnLevelFullyLoaded);
-        }
-
-        private IEnumerator InBotTween(BotGridMovement bot){
-            Vector3 endPosition = bot.transform.position;
-            bot.transform.position = new Vector3(bot.transform.position.x,5,bot.transform.position.z);
-            float randSpeed = Random.Range(BotSpeedMin,BotSpeedMax);
-            yield return new WaitForSeconds(DelayBeforeBots);       
-            bot.transform.DOMoveY(endPosition.y,randSpeed,false).SetEase(Ease.InQuart).OnComplete(OnLevelFullyLoaded);
-            bot.transform.DOMoveX(bot.transform.position.x,randSpeed,false).OnComplete(OnBotLanded);
-        }
-
-        private IEnumerator InBlockTween(GameObject pushable){
-            Vector3 endPosition = pushable.transform.position;
-            pushable.transform.position = new Vector3(pushable.transform.position.x,5,pushable.transform.position.z);
-            float randSpeed = Random.Range(BlockSpeedMin,BlockSpeedMax);
-            yield return new WaitForSeconds(DelayBeforeBlocks);       
-            pushable.transform.DOMoveY(endPosition.y,randSpeed,false).SetEase(Ease.OutQuart).OnComplete(OnLevelFullyLoaded);
-        }
-
-        private IEnumerator InRedButtonTween(WinTile wintile){
-            Vector3 endPosition = wintile.transform.position;
-            wintile.transform.position = new Vector3(wintile.transform.position.x,5,wintile.transform.position.z);
-            yield return new WaitForSeconds(DelayBeforeRedButton);       
-            wintile.transform.DOMoveY(endPosition.y,RedButtonSpeed,false).SetEase(Ease.OutBack,0.4f).OnComplete(OnLevelFullyLoaded);
-        }
-
-        private IEnumerator OutTween(GameObject entity){
-            Vector3 endPosition = new Vector3(entity.transform.position.x,-15,entity.transform.position.z);
-            entity.transform.DOMove(endPosition,0.6f,false).SetEase(Ease.InBack,0.1f).OnComplete(TweenCompletionCounter);
-            yield return null;
-        }
-
-        private IEnumerator LevelInstantiatingTimer(GameObject level){
-             yield return new WaitForSeconds(0.7f); // 0.5f
-
-
-            if(level.TryGetComponent(out CameraOffsetRegister _cameraOffset)){
-                Camera.main.gameObject.transform.position = _cameraOffset.CameraPosition;
-                GameObject.FindGameObjectWithTag("Canvas").gameObject.transform.position = new Vector3(_cameraOffset.CameraPosition.x,_cameraOffset.CameraPosition.y,0);
-            }
-            yield return new WaitForSeconds(0.1f);
-            StartCoroutine(LoadLevelWithAnimation(level));
-            yield return new WaitForEndOfFrame();
-            if(onNewLevelLoaded != null)
-                onNewLevelLoaded();
-        }
-
-        private IEnumerator ResetUnloadLevel(GameObject level){
-            level.name = "OLD LEVEL";
-            foreach (var item in _allEntitiesToUnload)
-            {
-               StartCoroutine(OutTweenReset(item));
-               yield return new WaitForSeconds(0.01f); 
-            }
-            _oldLevel = level;
-        }
-
-        private IEnumerator OutTweenReset(GameObject entity){
-            Vector3 endPosition = new Vector3(entity.transform.position.x,-15,entity.transform.position.z);
-            entity.transform.DOMove(endPosition,0.6f,false).SetEase(Ease.InBack,0.1f).OnComplete(OnUnloaded);
-            yield return null;
-        }
-
-        private void OnUnloaded(){
-            _j++;
-            if(_j == _allEntitiesToUnload.Count){
-                _j = 0;
-                foreach (var item in _allEntitiesToUnload)
-                {
-                    Destroy(item);
-                }
-                //Destroy(_oldLevel);
-                //_allEntitiesToUnload.Clear();
-            }
-        }
-
-        private IEnumerator ResetLoadLevel(GameObject level){
-            level.SetActive(true);
-            LevelLoaded = true;
-            //instantiate level here
-            _currentLevel = level;
-            Level = _currentLevel;
-            //CardStacker.Instance.LoadCards();
-
-            
-            foreach (var item in TileDB.Values)
-            {
-                _allEntitiesToLoad.Add(item.gameObject);
-                if(item.gameObject.GetComponent<WinTile>()){
-                    continue;
-                }else{
-                    //StartCoroutine(InTileTween(item));
-                }
-            }
-
-            foreach (var item in PushableDB.Values)
-            {
-                if(item.Item2.GetComponent<BotGridMovement>()){
-                    continue;
-                }else{
-                    _allEntitiesToLoad.Add(item.Item2);
-                    //StartCoroutine(InBlockTween(item.Item2));
-                }
-            }
-            foreach (var item in BotDB.Values)
-            {
-                _allEntitiesToLoad.Add(item.gameObject);
-                //StartCoroutine(InBotTween(item));
-            }
-
-            OrderListByFinalY();
-
-            // iterate through the shit again, but now we are actually tweening the shit
-            // this is retarded way to do it, but cba
-
-            foreach (var item in TileDB.Values)
-            {
-                if(item.gameObject.GetComponent<WinTile>()){
-                    continue;
-                }else{
-                    StartCoroutine(InTileTween(item));
-                }
-            }
-
-            StartCoroutine(InRedButtonTween(RedButton));
-
-            foreach (var item in PushableDB.Values)
-            {
-                if(item.Item2.GetComponent<BotGridMovement>()){
-                    continue;
-                }else{
-                    StartCoroutine(InBlockTween(item.Item2));
-                }
-            }
-            foreach (var item in BotDB.Values)
-            {
-                StartCoroutine(InBotTween(item));
-            }
-            yield return null;
-            _currentLevel = level;
-        }
-
-        private void TweenCompletionCounter(){
-            _i++;
-            if(_i == _allEntitiesToUnload.Count){
-                //Destroy(_lastLevel);
-                //_lastLevel = null;
-                _i = 0;
-                _allEntitiesToUnload.Clear();
-                Destroy(_oldLevel);
-                Destroy(_lastLevel);
-            }
-            // if(PlayerCards.Count != 0){
-            //     //CardStacker.Instance.LoadCards();
-            //     StartCoroutine(TweenPlayerCards());
-            // }
-        }
-
-        private void Update() {
-            if(Input.GetKeyDown(KeyCode.A)){
-                print($"Bot moving: {_botMoving}. Animation in progress: {AnimationInProgress}");
-            }
-        }
-
-        private void OnLevelFullyLoaded(){
-            _k++;
-            if(_k == _allEntitiesToLoad.Count){
-                // event
-                AnimationInProgress = false;
-                foreach (var item in _allEntitiesToLoad)
-                {
-                    item.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,0.5f);
-                }
-                _allEntitiesToLoad.Clear();
-                _k = 0;
-                Camera.main.transparencySortAxis = new Vector3(0,1,0);
-                if(_lastLevel != null){
-                    //Destroy(_lastLevel);
-                }
-                _allEntitiesToUnload.Clear();
-                onLevelFullyLoaded();
-
-
-                GameObject oldLevel = Camera.main.transform.GetChild(0).gameObject;
-                if(oldLevel.TryGetComponent(out Canvas canvas)){
-
-                }else{
-                    Destroy(oldLevel);
-                }
-                AnimationInProgress = false;
-
-            }
-        }
-
-        private void OrderListByFinalY(){
-            for(var i = _allEntitiesToLoad.Count - 1; i > -1; i--)
-            {
-                if (_allEntitiesToLoad[i] == null)
-                _allEntitiesToLoad.RemoveAt(i);
-            }
-            _allEntitiesToLoad = _allEntitiesToLoad.OrderBy(entity => entity.transform.position.y).ToList();
-            float currentZ = 300;
-            foreach (var item in _allEntitiesToLoad)
-            {
-                item.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,currentZ);
-                currentZ --;
-            }
-        }
-
-
-        private void CacheTilesInTheScene(){
-            _allEntitiesToUnload.Clear();
-            _lastLevel = _currentLevel;
-            _lastLevel.transform.SetParent(Camera.main.transform);
-            foreach (var item in TileDB.Values)
-            {
-                if(item != null){
-                    _allEntitiesToUnload.Add(item.gameObject);
-                }
-            }
-
-            foreach (var item in PushableDB.Values)
-            {
-                if(item.Item2 != null){
-                    _allEntitiesToUnload.Add(item.Item2.gameObject);
-                }
-            }
-
-            foreach (var item in BotDB.Values)
-            {
-                if(item != null){
-                    _allEntitiesToUnload.Add(item.gameObject);
-                }
-            }
-
-
-            _allEntitiesToUnload = _allEntitiesToUnload.OrderBy(entity => entity.transform.position.x).ToList();
-        }
-
-
         public void Reset(){
             if(_botMoving || AnimationInProgress) return;
-            // _allEntitiesToUnload.Clear();
-            // _allEntitiesToLoad.Clear();
-            // //DeletePlayerCards();
-            // resetButtonPressed();
-            // StartCoroutine(TweenPlayerCards());
-            // CacheTilesInTheScene();
-            // StartCoroutine(ResetDictClearTimer());
             LevelSwitchAnimator.Instance.LoadLevel(LevelSwitchAnimator.Instance.CurrentLevelIndex);
-            //ResetPlayerCards();
         }
 
         public void OnBotLanded(){
             if(onBotLanded != null)
                 onBotLanded();
-        }
-
-        private IEnumerator TweenPlayerCards(){
-            foreach (var item in PlayerCards)
-            {
-                if(item == null) continue;
-                item.transform.DOMoveX(-15,1,false);
-                yield return null;
-            }
-            _tempPlayerCards.Clear();
-            yield return new WaitForSeconds(1.1f);
-
-            for (int i = 0; i < PlayerCards.Count; i++)
-            {
-                if(PlayerCards[i] == null) continue;
-                Destroy(PlayerCards[i].gameObject);
-                //i--;
-                yield return null;
-            }
-
-
-            PlayerCards.Clear();
-            yield return new WaitForSeconds(1f);
-            CardStacker.Instance.LoadCards();
         }
 
         public void LoadCardsWithTween(GameObject card){
@@ -748,45 +245,6 @@ namespace ChardMove.gameManager
             icon.SetActive(true);
             card.transform.DOMove(endPos,1,false);
             yield return null;
-        }
-
-
-        private IEnumerator ResetDictClearTimer(){
-            yield return new WaitForSeconds(0.05f);
-            BotDB.Clear();
-            PushableDB.Clear();
-            TileDB.Clear();
-            // spawn in a new one
-            GameObject newLevel = Instantiate(_currentLevel,new Vector3(0,0,0),Quaternion.identity);
-            newLevel.name = "NEW LEVEL";
-            newLevel.SetActive(false);
-            //load in a copy of the level
-            StartCoroutine(ResetLoadLevel(newLevel));
-
-            // unload current level
-            StartCoroutine(ResetUnloadLevel(_currentLevel));
-            _currentLevel = null;
-        }
-
-        public void OnBotStartedMoving(){
-            _botMoving = true;
-        }
-
-        public void OnBotFinishedMoving(Vector3 pos){
-            _botMoving = false;
-            FindWinTile(pos);
-        }
-
-        public void DeletePlayerCards(){
-            PlayerCards.Clear();
-        }
-        private void ResetPlayerCards(){
-            for (int i = 0; i < PlayerCards.Count; i++)
-            {
-                Destroy(PlayerCards[i].gameObject);
-            }
-            _tempPlayerCards.Clear();
-            PlayerCards.Clear();
         }
 
         public void Undo(){

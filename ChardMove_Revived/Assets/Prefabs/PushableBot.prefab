@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 1669698909834610217}
   - component: {fileID: 8890807407390634912}
   - component: {fileID: 5516548005226590479}
+  - component: {fileID: 221926655203890936}
   m_Layer: 0
   m_Name: PushableBot
   m_TagString: Bot
@@ -419,7 +420,6 @@ MonoBehaviour:
   _facingLeft: {fileID: 8761043811414136903, guid: 36fc9a6470cc47f44b73ba18be174c07, type: 3}
   _facingRight: {fileID: 5150255276235434617, guid: 1997f6c15e513b041adbd1986218dddb, type: 3}
   _facingBackward: {fileID: 3342675500317968996, guid: 9bcf8393c0dd15b449a22c286aa6ae85, type: 3}
-  _actualY: 0
 --- !u!68 &1669698909834610217
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -478,6 +478,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d810c3bdd73a94d8fa848eab8b556f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &221926655203890936
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461372744452508117}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4461372744485484974
 GameObject:
   m_ObjectHideFlags: 0

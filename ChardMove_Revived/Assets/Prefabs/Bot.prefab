@@ -570,6 +570,7 @@ GameObject:
   - component: {fileID: 1669698909834610217}
   - component: {fileID: 8890807407390634912}
   - component: {fileID: 5516548005226590479}
+  - component: {fileID: 6267699798923298098}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Bot
@@ -723,6 +724,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d810c3bdd73a94d8fa848eab8b556f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &6267699798923298098
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461372744452508117}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4461372744485484974
 GameObject:
   m_ObjectHideFlags: 0

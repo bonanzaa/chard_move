@@ -178,11 +178,13 @@ namespace ChardMove
         private void OnDirectionChoiceActive(){
             CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
             canvasGroup.blocksRaycasts = false;
+            Bot.GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
 
         private void OnDirectionChoiceInactive(){
             CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
             canvasGroup.blocksRaycasts = true;
+            Bot.GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
 
         public void OnPointerExit(PointerEventData data){
@@ -206,6 +208,11 @@ namespace ChardMove
             if(directionChoiceActive != null){
                 directionChoiceActive();
             }
+
+            CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+            canvasGroup.blocksRaycasts = true;
+            Bot.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            
             while(_direction == MovementDirection.None){
                 yield return null;
             }
@@ -219,6 +226,9 @@ namespace ChardMove
             Bot.GetComponent<BotGridMovement>().Move(_direction,_distance);
             _distance = 0;
             _direction = MovementDirection.None;
+
+            DropZone.directionChoiceInactive += OnDirectionChoiceInactive;
+            DropZone.directionChoiceActive += OnDirectionChoiceActive;
             yield break;
         }
 
