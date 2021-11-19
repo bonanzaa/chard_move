@@ -21,7 +21,7 @@ namespace ChardMove
             GameManager.Instance.RedButton = this;
             _levelLoader = LevelLoader.Instance;
             GameManager.Instance.TileDB.Add(new Vector2(transform.position.x,transform.position.y),this);
-            playerWin += SpawnConfetti;
+            //playerWin += SpawnConfetti;
         }
 
         public void SetTarget()
@@ -40,7 +40,7 @@ namespace ChardMove
         }
         private void OnDestroy()
         {
-            playerWin -= SpawnConfetti;
+            //playerWin -= SpawnConfetti;
         }
         public  void SpawnConfetti()
         {
