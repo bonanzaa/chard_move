@@ -22,7 +22,7 @@ namespace ChardMove
 
         private void OnLevelLoad()
         {
-            CardContainer cardContainer = _levelLoader.Levels[LevelLoader.LevelIndex].GetComponent<CardContainer>();
+            CardContainer cardContainer = _levelLoader.Levels[LevelLoader.SceneIndex].GetComponent<CardContainer>();
             if (cardContainer != null)
             {
                 DisplayLevelName(cardContainer.LevelName);

@@ -48,14 +48,10 @@ namespace ChardMove
         }
         public void NextLevelButtonPressed()
         {
-             //if (LevelLoader.LevelIndex>= _levelLoader.Levels.Count-1)
-             //{
-             //   _sceneLoader.GoToMainMenu();
-             //}
              if(_sceneLoader.GetCurrentSceneIndex() == 30)
-            {
+             {
                 _sceneLoader.GoToMainMenu();
-            }
+             }
             _winScreenUI.SetActive(false);
             _resetButton.SetActive(true);
             _pauseButton.SetActive(true);

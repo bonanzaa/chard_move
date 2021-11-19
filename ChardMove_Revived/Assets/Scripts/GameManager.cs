@@ -97,7 +97,7 @@ namespace ChardMove.gameManager
             Instance = this;
             if(Level == null && LevelLoader.Instance != null)
             {
-                Level = _levelLoader.Levels[LevelLoader.LevelIndex];
+                Level = _levelLoader.Levels[LevelLoader.SceneIndex];
             }
             //if(Level != null){
             //    LevelLoaded = true;

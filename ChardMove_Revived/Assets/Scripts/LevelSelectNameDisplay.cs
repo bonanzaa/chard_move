@@ -68,7 +68,7 @@ namespace ChardMove
         }
         private void AssignPlayableLevels()
         {
-            int index = LevelLoader.LevelIndex;
+            int index = LevelLoader.SceneIndex;
             for (int i = index; i > index; i++)
             {
                 Button activeButton =_levelButtons[i].GetComponent<Button>();

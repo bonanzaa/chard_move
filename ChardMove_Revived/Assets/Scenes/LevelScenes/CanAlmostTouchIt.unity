@@ -360,6 +360,14 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnButtonHovered
       objectReference: {fileID: 0}
+    - target: {fileID: 568072066, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_text
+      value: Can Almost Touch It
+      objectReference: {fileID: 0}
+    - target: {fileID: 568072066, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4281479730
+      objectReference: {fileID: 0}
     - target: {fileID: 446790260918936900, guid: 55528bf9af1b40d42bce126b727ce0b8, type: 3}
       propertyPath: m_Pivot.x
       value: 0

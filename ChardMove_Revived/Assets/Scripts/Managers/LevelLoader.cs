@@ -10,7 +10,7 @@ namespace ChardMove
     {
         public static GameObject CurrentLevel;
         public static LevelLoader Instance;
-        public static int LevelIndex;
+        public static int SceneIndex;
         public int GetLevelCount { get => Levels.Count;}
         public bool CanLoadLevel = true;
         public List<GameObject> Levels;
@@ -31,18 +31,16 @@ namespace ChardMove
             {
                 Destroy(gameObject);
             }
-            _saveSystem.Deserialize();
-            LevelIndex = _saveSystem.RefreshLvlIndex();
+            SceneIndex = _saveSystem.LastSceneIndex;
             WinTile.playerWin += OnPlayerWin;
             SaveSystem.onProgressCleared += OnProgressCleared;
 
         }
-
         private void OnProgressCleared()
         {
-            Debug.Log($"Level index is{LevelIndex}");
-            LevelIndex = 0;
-            Debug.Log($"Level index is{LevelIndex} after refreshing");
+            Debug.Log($"Level index is{SceneIndex}");
+            SceneIndex = 1;
+            Debug.Log($"Level index is{SceneIndex} after refreshing");
         }
 
         private void OnDestroy() {
@@ -56,18 +54,18 @@ namespace ChardMove
 
         public void OnSelectedLevelLoad(int index)
         {
-            LevelIndex = index;
+            SceneIndex = index;
+            Debug.Log(SceneIndex);
             _saveSystem.Serialize();
         }
         private void OnPlayerWin()
         {
-            if(LevelIndex < Levels.Count - 1)
+            if(SceneIndex < Levels.Count - 1)
             {
-                LevelIndex++;
+                SceneIndex++;
             }
-            else if (LevelIndex >= Levels.Count)
-            {
-              
+            else if (SceneIndex >= Levels.Count)
+            {             
                 _sceneLoader.GoToMainMenu();
             }
             _saveSystem.Serialize();

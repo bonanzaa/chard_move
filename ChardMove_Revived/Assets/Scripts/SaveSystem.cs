@@ -12,13 +12,13 @@ namespace ChardMove
         public delegate void ProgressCleared();
         public static event ProgressCleared onProgressCleared;
         public bool[] CompletedLevels;
-        public int LastLevelIndex;
+        public int LastSceneIndex;
         private void InitializeArray()
         {
             CompletedLevels = new bool[LevelLoader.Instance.GetLevelCount];
             for (int i = 0; i < CompletedLevels.Length; i++)
             {
-                if(i < LastLevelIndex)
+                if(i < LastSceneIndex)
                 {
                     CompletedLevels[i] = true;
                 }
@@ -30,18 +30,20 @@ namespace ChardMove
         }
         private void AssignLastLevelIndex()
         {
-                LastLevelIndex = LevelLoader.LevelIndex;
+                LastSceneIndex = LevelLoader.SceneIndex;
         }
         public void Serialize()
         {
             //CompletedLevels[index] = true;
-            LastLevelIndex = LevelLoader.LevelIndex;
+            Debug.Log(RefreshLvlIndex());
+            LastSceneIndex = RefreshLvlIndex();
+            Debug.Log(RefreshLvlIndex());
 
             FileStream fs = new FileStream(Application.persistentDataPath + "/SaveFile.info", FileMode.Create);
             BinaryFormatter formatter = new BinaryFormatter();
             try
             {
-                formatter.Serialize(fs, LastLevelIndex);
+                formatter.Serialize(fs, LastSceneIndex);
                 //formatter.Serialize(fs, CompletedLevels);
             }
             catch(SerializationException e)
@@ -66,7 +68,7 @@ namespace ChardMove
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                LastLevelIndex = (int)formatter.Deserialize(fs);
+                LastSceneIndex = (int)formatter.Deserialize(fs);
             }
             catch (SerializationException e)
             {
@@ -89,7 +91,7 @@ namespace ChardMove
         }
         public int RefreshLvlIndex()
         {
-            return LastLevelIndex;
+            return LastSceneIndex;
         }
     }
 }
