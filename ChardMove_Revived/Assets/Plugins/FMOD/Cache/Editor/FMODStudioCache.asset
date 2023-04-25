@@ -153,7 +153,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/BGM.bank
   Name: BGM
   StudioPath: bank:/BGM
-  lastModified: 637725707578978746
+  lastModified: 638179269459449307
   FileSizes: []
   Exists: 1
 --- !u!114 &-4808235379618514165
@@ -259,7 +259,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637725707579008662
+  lastModified: 638179269459454120
   FileSizes: []
   Exists: 1
 --- !u!114 &-3562467263187140855
@@ -521,7 +521,7 @@ MonoBehaviour:
   - {fileID: -4543331284525566714}
   StringsBanks:
   - {fileID: 5666393310577656470}
-  stringsBankWriteTime: 637725707579048555
+  stringsBankWriteTime: 638179269459457044
   cacheVersion: 8
 --- !u!114 &52436705059533566
 MonoBehaviour:
@@ -805,7 +805,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637725707579048555
+  lastModified: 638179269459457044
   FileSizes:
   - Name: 
     Value: 1534
@@ -893,7 +893,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 637725707580738532
+  lastModified: 638179269459464320
   FileSizes: []
   Exists: 1
 --- !u!114 &6948596840308826258

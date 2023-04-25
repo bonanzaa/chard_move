@@ -147,7 +147,7 @@ TextureImporter:
       213: -3937030939122347924
     second: isometric-sandbox-sheet_47
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -168,6 +168,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -177,8 +178,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -206,6 +207,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -233,6 +235,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1264,6 +1290,55 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      isometric-sandbox-sheet_13: 784767542358287471
+      isometric-sandbox-sheet_34: 8132028047737714363
+      isometric-sandbox-sheet_9: 4852371717203241939
+      isometric-sandbox-sheet_20: -4387242004135629611
+      isometric-sandbox-sheet_40: -899132276013293220
+      isometric-sandbox-sheet_38: 6328888798690473336
+      isometric-sandbox-sheet_41: -8699920802524130232
+      isometric-sandbox-sheet_31: -2303613885661302336
+      isometric-sandbox-sheet_17: 5534681296388698498
+      isometric-sandbox-sheet_0: -8481478280820386278
+      isometric-sandbox-sheet_42: -8985391083318258871
+      isometric-sandbox-sheet_36: 4451379804484431703
+      isometric-sandbox-sheet_39: 5555067302127474507
+      isometric-sandbox-sheet_32: -5137505262064535012
+      isometric-sandbox-sheet_3: -4883559193947404430
+      isometric-sandbox-sheet_46: 3359966938341595273
+      isometric-sandbox-sheet_2: 6473105699162339919
+      isometric-sandbox-sheet_22: 1061797665874830684
+      isometric-sandbox-sheet_1: -1790496041286448372
+      isometric-sandbox-sheet_24: -8434918555552693597
+      isometric-sandbox-sheet_15: -5729907130241020367
+      isometric-sandbox-sheet_45: -8653689655477812521
+      isometric-sandbox-sheet_30: 5520458427862139682
+      isometric-sandbox-sheet_8: -32259223243999420
+      isometric-sandbox-sheet_44: 7404252929373577187
+      isometric-sandbox-sheet_28: -7962160311866519678
+      isometric-sandbox-sheet_29: 3880769265254159746
+      isometric-sandbox-sheet_37: -2172622567018227624
+      isometric-sandbox-sheet_43: -2138464223554764839
+      isometric-sandbox-sheet_25: 5934967756967661825
+      isometric-sandbox-sheet_14: -6057599561553331162
+      isometric-sandbox-sheet_21: -6396220585416759441
+      isometric-sandbox-sheet_16: 6894821472820148820
+      isometric-sandbox-sheet_47: -3937030939122347924
+      isometric-sandbox-sheet_12: -294623404499593757
+      isometric-sandbox-sheet_19: -3172018490288821287
+      isometric-sandbox-sheet_23: 6958618980291211874
+      isometric-sandbox-sheet_7: -4651743224811137498
+      isometric-sandbox-sheet_26: 3794822353423843309
+      isometric-sandbox-sheet_4: 8171703395083487096
+      isometric-sandbox-sheet_10: -2503174712574607662
+      isometric-sandbox-sheet_27: -2584930587165476914
+      isometric-sandbox-sheet_35: 1993680869665351562
+      isometric-sandbox-sheet_5: 1491317778495171342
+      isometric-sandbox-sheet_18: -2496026009614351048
+      isometric-sandbox-sheet_11: -5858830526876700435
+      isometric-sandbox-sheet_6: 7406942866699060643
+      isometric-sandbox-sheet_33: -4739093304971887954
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
